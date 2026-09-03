@@ -36,7 +36,7 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--body);
   font:16px/1.68 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   font-feature-settings:"kern","liga";-webkit-font-smoothing:antialiased}
-.wrap{max-width:1320px;margin:0 auto;padding:0 var(--gutter) 96px}
+.wrap{max-width:min(94vw,1600px);margin:0 auto;padding:0 var(--gutter) 96px}
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 h1,h2,h3{color:var(--ink);letter-spacing:-.022em;line-height:1.22}
@@ -49,7 +49,7 @@ p{margin:14px 0}
 .bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
   backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
   border-bottom:1px solid var(--line)}
-.bar-in{max-width:1320px;margin:0 auto;padding:11px var(--gutter);display:flex;
+.bar-in{max-width:min(94vw,1600px);margin:0 auto;padding:11px var(--gutter);display:flex;
   align-items:center;gap:13px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-weight:650;
   font-size:15.5px;letter-spacing:-.017em}
@@ -86,11 +86,22 @@ p{margin:14px 0}
 
 /* ── hero ────────────────────────────────────────────────── */
 .hero{background:linear-gradient(155deg,#0C1F36 0%,#123246 48%,#0E4A44 100%);
-  border-radius:22px;padding:26px 34px 24px;margin:22px 0 8px;position:relative;
+  border-radius:22px;padding:24px 32px;margin:20px 0 8px;position:relative;
   overflow:hidden;box-shadow:var(--shadow-lg)}
 .hero::after{content:"";position:absolute;inset:auto -60px -110px auto;width:300px;
   height:300px;border-radius:50%;background:radial-gradient(circle,rgba(25,216,166,.34),transparent 68%)}
 .hero-top{display:flex;align-items:center;gap:15px;margin-bottom:12px;position:relative}
+.hero-copy{min-width:0;position:relative}
+.hero-aside{min-width:0;position:relative}
+@media(min-width:880px){
+  .hero:has(.hero-aside),.hero.lead:has(.hero-aside){display:grid;
+    grid-template-columns:1fr auto;column-gap:48px;align-items:center}
+  .hero-aside{justify-self:end}
+  .hero-aside .stats{flex-direction:column;align-items:flex-start;gap:9px;margin-top:0}
+  .hero .hero-top,.hero.lead .hero-top{margin-bottom:10px}
+  .hero.lead .hero-copy .tag{margin-bottom:0}
+  .hero-aside .cta-note{margin-top:14px}
+}
 .hero-top img{width:58px;height:58px;border-radius:14px;
   box-shadow:0 8px 24px -6px rgba(0,0,0,.55)}
 .hero h1{color:#fff;font-size:33px;margin:0}
@@ -185,9 +196,19 @@ details[open] .caret{transform:rotate(90deg);color:var(--accent)}
   border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
 /* Make horizontal scroll obvious: a persistent accent scrollbar + a right-edge
    fade that hints there's more to the right. */
-.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent;
-  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent);
-  mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent)}
+.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent}
+/* clickable scroll arrows added by JS when a strip overflows */
+.strip-wrap{position:relative}
+.scroll-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
+  background:var(--card);color:var(--accent);box-shadow:var(--shadow-lg);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:opacity .15s,transform .15s;opacity:.95}
+.scroll-btn:hover{transform:translateY(-50%) scale(1.08);opacity:1}
+.scroll-btn.left{left:6px}.scroll-btn.right{right:6px}
+.scroll-btn[hidden]{display:none}
+.scroll-btn svg{width:22px;height:22px}
+@media(hover:none){.scroll-btn{display:none}}
 .shots::-webkit-scrollbar,.showcase::-webkit-scrollbar,.posters::-webkit-scrollbar{height:9px}
 .shots::-webkit-scrollbar-thumb,.showcase::-webkit-scrollbar-thumb,.posters::-webkit-scrollbar-thumb{
   background:color-mix(in srgb,var(--accent) 55%,transparent);border-radius:99px}
@@ -227,7 +248,7 @@ footer a:hover{color:var(--accent)}
 footer .fl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
 footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10px}
 /* ── landing page ────────────────────────────────────────── */
-.hero.lead{padding:32px 40px 30px}
+.hero.lead{padding:26px 40px}
 .hero.lead h1{font-size:40px;letter-spacing:-.03em;margin:0}
 .hero.lead .tag{color:#BFE3D8;font-size:19px;line-height:1.55;max-width:34ch;margin:0}
 .hero.lead .hero-top{flex-direction:row;align-items:center;gap:18px;margin-bottom:4px}
@@ -458,6 +479,38 @@ and we will work from that.</p>
   document.addEventListener('click',function(e){
     var b=e.target.closest('.seg button');if(b)set(b.dataset.p,true);});
 
+  // Horizontal-scroll arrows: wrap every overflowing strip and add < > buttons.
+  var CH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+  function mkBtn(dir,strip){
+    var b=document.createElement('button');
+    b.className='scroll-btn '+dir; b.type='button';
+    b.setAttribute('aria-label',dir==='left'?'Scroll left':'Scroll right');
+    b.innerHTML=CH; if(dir==='left') b.style.transform='translateY(-50%) rotate(180deg)';
+    b.addEventListener('click',function(){
+      strip.scrollBy({left:(dir==='left'?-1:1)*strip.clientWidth*0.85,behavior:'smooth'});});
+    return b;
+  }
+  function arm(strip){
+    if(strip.dataset.armed) return; 
+    if(strip.scrollWidth-strip.clientWidth<8) return; // fits, no arrows
+    strip.dataset.armed='1';
+    var wrap=document.createElement('div'); wrap.className='strip-wrap';
+    strip.parentNode.insertBefore(wrap,strip); wrap.appendChild(strip);
+    var L=mkBtn('left',strip), R=mkBtn('right',strip);
+    wrap.appendChild(L); wrap.appendChild(R);
+    function upd(){
+      L.hidden = strip.scrollLeft<8;
+      R.hidden = strip.scrollLeft >= strip.scrollWidth-strip.clientWidth-8;
+    }
+    strip.addEventListener('scroll',upd,{passive:true});
+    window.addEventListener('resize',upd); upd();
+  }
+  function armAll(){document.querySelectorAll('.shots,.showcase,.posters').forEach(arm);}
+  window.addEventListener('load',armAll);
+  // re-check after the platform toggle changes which strips are visible
+  document.addEventListener('click',function(e){ if(e.target.closest('.seg button')) setTimeout(armAll,60); });
+  setTimeout(armAll,300);
+
   var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
   if(!box)return;
   function load(){return idx?Promise.resolve(idx):
@@ -484,6 +537,7 @@ and we will work from that.</p>
            '<span class="in">A person reads every message</span></a></li>';
       });},110);
   });
+
 })();
 </script>
 </body></html>
