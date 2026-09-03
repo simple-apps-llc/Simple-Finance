@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en" data-p="mac"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0C1F36">
+<title>Troubleshooting — Simple Finance Help</title>
+<meta name="description" content="Fixes for sync problems, missing figures, import errors, notifications and the other things that go wrong in Simple Finance.">
+<link rel="canonical" href="https://simple-apps-llc.github.io/Simple-Finance/help/troubleshooting.html">
+<link rel="icon" type="image/png" href="../help/img/favicon.png">
+<link rel="apple-touch-icon" href="../help/img/logo-180.png">
+<meta property="og:title" content="Troubleshooting — Simple Finance Help">
+<meta property="og:description" content="Fixes for sync problems, missing figures, import errors, notifications and the other things that go wrong in Simple Finance.">
+<meta property="og:image" content="https://simple-apps-llc.github.io/Simple-Finance/help/img/logo-512.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simple-apps-llc.github.io/Simple-Finance/help/troubleshooting.html">
+<meta name="twitter:card" content="summary">
+<style>
+:root{
+  --ink:#0C1F36; --body:#41525F; --muted:#788994;
+  --bg:#F4F8F8; --card:#fff; --card2:#FAFCFC; --line:#E2EBEA;
+  --accent:#0A7D62; --accent-ink:#07604B; --soft:#E8F7F1; --bright:#19D8A6;
+  --navy:#0C1F36; --shadow:0 1px 2px rgba(12,31,54,.05),0 6px 18px -6px rgba(12,31,54,.09);
+  --shadow-lg:0 2px 4px rgba(12,31,54,.05),0 18px 40px -12px rgba(12,31,54,.18);
+  --r:14px; --gutter:22px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#EDF4F2; --body:#BDCBCE; --muted:#88999E;
+  --bg:#0A141C; --card:#111F2A; --card2:#16242F; --line:#1F3340;
+  --accent:#43E2B0; --accent-ink:#6FEDC6; --soft:#102C27; --bright:#19D8A6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px -6px rgba(0,0,0,.45);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 18px 40px -12px rgba(0,0,0,.6);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--body);
+  font:16px/1.68 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-feature-settings:"kern","liga";-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 var(--gutter) 96px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{color:var(--ink);letter-spacing:-.022em;line-height:1.22}
+h1{font-size:34px;margin:0 0 10px;font-weight:700}
+h2{font-size:21px;margin:44px 0 14px;font-weight:650}
+h3{font-size:16px;margin:0;font-weight:650}
+p{margin:14px 0}
+
+/* ── top bar ─────────────────────────────────────────────── */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line)}
+.bar-in{max-width:900px;margin:0 auto;padding:11px var(--gutter);display:flex;
+  align-items:center;gap:13px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-weight:650;
+  font-size:15.5px;letter-spacing:-.017em}
+.brand:hover{text-decoration:none;opacity:.82}
+.brand img{width:31px;height:31px;border-radius:8px;box-shadow:var(--shadow)}
+.navlink{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:-.01em;
+  white-space:nowrap}
+.navlink:hover{color:var(--accent);text-decoration:none}
+/* Four links plus the platform toggle will not fit a phone. Privacy is the one
+   that drops: it is in the footer of every page and it is where people look
+   for it anyway. Everything else stays reachable at every width. */
+/* The bar is STICKY, so a wrapped one eats the screen on every scroll. At 590px
+   it was measured at four rows and 104px tall. Below 700 the toggle loses its
+   long label and Privacy drops (it is in every footer); below 560 the brand
+   wordmark goes too, leaving the logo. Measured, not guessed. */
+@media(max-width:700px){
+  .navlink.dim{display:none}
+  .bar-in{gap:12px}
+  .seg button{padding:6px 11px;font-size:12px}
+  .seg button[data-p=ios] .full{display:none}}
+@media(max-width:560px){
+  .brand span.word{display:none}
+  .navlink{font-size:13.5px}
+  .bar-in{gap:10px;padding:9px 16px}}
+.spacer{flex:1 1 auto}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:3px;gap:2px;box-shadow:var(--shadow)}
+.seg button{appearance:none;background:none;border:0;color:var(--muted);
+  font:640 12.5px/1 inherit;padding:7px 14px;border-radius:999px;cursor:pointer;
+  letter-spacing:-.005em;transition:.16s}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+@media (prefers-color-scheme:dark){.seg button[aria-pressed=true]{color:#062119}}
+
+/* ── hero ────────────────────────────────────────────────── */
+.hero{background:linear-gradient(155deg,#0C1F36 0%,#123246 48%,#0E4A44 100%);
+  border-radius:22px;padding:38px 34px 34px;margin:26px 0 8px;position:relative;
+  overflow:hidden;box-shadow:var(--shadow-lg)}
+.hero::after{content:"";position:absolute;inset:auto -60px -110px auto;width:300px;
+  height:300px;border-radius:50%;background:radial-gradient(circle,rgba(25,216,166,.34),transparent 68%)}
+.hero-top{display:flex;align-items:center;gap:15px;margin-bottom:18px;position:relative}
+.hero-top img{width:58px;height:58px;border-radius:14px;
+  box-shadow:0 8px 24px -6px rgba(0,0,0,.55)}
+.hero h1{color:#fff;font-size:33px;margin:0}
+.hero .sub{color:#9FD9C8;font-size:14px;font-weight:600;letter-spacing:.02em;
+  text-transform:uppercase;margin:0 0 3px}
+.hero p{color:#C8DCD9;margin:0;max-width:52ch;position:relative;font-size:16.5px}
+.stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;position:relative}
+.stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;padding:6px 14px;color:#DCEDE9;font-size:13px;font-weight:600}
+.stat b{color:#3FE9B8}
+
+/* ── search ──────────────────────────────────────────────── */
+.searchbox{position:relative;margin:22px 0 0}
+.searchbox svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  width:19px;height:19px;color:var(--muted);pointer-events:none}
+input[type=search]{width:100%;padding:15px 16px 15px 45px;border-radius:13px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  font:16px/1.4 inherit;box-shadow:var(--shadow);appearance:none}
+input[type=search]::placeholder{color:var(--muted)}
+input[type=search]:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3.5px var(--soft)}
+#results{margin:12px 0 0;padding:0;list-style:none}
+#results li{border-bottom:1px solid var(--line)}
+#results li:last-child{border:0}
+#results a{display:block;padding:12px 2px;color:var(--ink);font-weight:550}
+#results a:hover{color:var(--accent);text-decoration:none}
+#results .in{display:block;color:var(--muted);font-size:12.5px;font-weight:500;margin-top:1px}
+
+/* ── cards & tiles ───────────────────────────────────────── */
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));margin-top:16px}
+.tile{display:flex;gap:13px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:16px;color:var(--ink);
+  box-shadow:var(--shadow);transition:transform .17s,box-shadow .17s,border-color .17s}
+.tile:hover{text-decoration:none;transform:translateY(-2px);
+  box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--accent) 42%,var(--line))}
+.tile .txt{min-width:0;display:block}
+.tile b{display:block;font-size:15px;font-weight:640;letter-spacing:-.012em;color:var(--ink)}
+/* 🔴 `.tile .txt>span`, NOT `.tile span`. The chip is a <span> too, and a bare
+   `.tile span` beats `.chip` on specificity (0,1,1 vs 0,1,0) — so every chip
+   INSIDE a tile lost display:flex, silently, and its glyph pinned to the
+   top-left corner while chips elsewhere on the page stayed centered. */
+.tile .txt>span{color:var(--muted);font-size:12.5px;display:block;margin-top:2px}
+.chip{width:38px;height:38px;border-radius:11px;flex:0 0 auto;display:flex;
+  align-items:center;justify-content:center;background:var(--soft);color:var(--accent)}
+.chip svg{width:21px;height:21px}
+/* 🔴 The raw app color is a FILL color, not an ink color. #FF9F0A and
+   #34C759 are ~2:1 on white — legible as a 40px pie slice in the app, muddy as
+   a 21px glyph on a card. Mix toward black on light and toward white on dark so
+   every chip lands in the same contrast band whatever hue it carries. */
+.chip.tint{background:color-mix(in srgb,var(--c) 13%,#fff);
+  color:color-mix(in srgb,var(--c) 74%,#0C1F36)}
+@media (prefers-color-scheme:dark){.chip.tint{
+  background:color-mix(in srgb,var(--c) 20%,#0A141C);
+  color:color-mix(in srgb,var(--c) 82%,#fff)}}
+
+/* ── disclosure rows ─────────────────────────────────────── */
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  margin:10px 0;box-shadow:var(--shadow);overflow:hidden}
+details[open]{border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+summary{cursor:pointer;padding:16px 18px;font-weight:600;font-size:15.5px;
+  color:var(--ink);letter-spacing:-.012em;list-style:none;display:flex;gap:12px;
+  align-items:center}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:var(--accent)}
+.caret{margin-left:auto;flex:0 0 auto;width:17px;height:17px;color:var(--muted);
+  transition:transform .2s}
+details[open] .caret{transform:rotate(90deg);color:var(--accent)}
+.ans{padding:2px 18px 18px;border-top:1px solid var(--line);margin-top:-1px}
+.ans p:first-child{margin-top:14px}
+.ans ul{margin:13px 0;padding-left:21px}
+.ans li{margin:6px 0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:15px 0}
+.steps li{counter-increment:s;position:relative;padding:0 0 0 34px;margin:11px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:23px;
+  height:23px;border-radius:50%;background:var(--soft);color:var(--accent);
+  font:640 11.5px/23px inherit;text-align:center}
+
+/* ── screenshots ─────────────────────────────────────────── */
+.shots{display:flex;gap:14px;overflow-x:auto;padding:6px 0 12px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.shot{flex:0 0 auto;scroll-snap-align:start;margin:0}
+/* 🔴 height:auto is load-bearing. The <img> carries width/height ATTRIBUTES so
+   the browser can reserve space before the file arrives (no layout shift);
+   without this rule that height applies as a presentational height and a
+   620x1348 phone capture renders 232px wide by 1348px TALL. */
+.shot img{display:block;height:auto;max-width:100%;border-radius:10px;
+  border:1px solid var(--line);box-shadow:var(--shadow-lg);background:var(--card2)}
+.shot.wide img{width:min(620px,78vw)}
+.shot.tall img{width:min(232px,46vw);border-radius:20px}
+.shot.watch img{width:min(180px,40vw);border-radius:34px;background:#000;
+  border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
+.shots::-webkit-scrollbar{height:7px}
+.shots::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
+/* ── misc ────────────────────────────────────────────────── */
+.crumb{font-size:13px;color:var(--muted);margin:24px 0 12px}
+.crumb a{color:var(--muted)}
+.crumb a:hover{color:var(--accent)}
+.lede{color:var(--muted);font-size:17px;margin:0 0 6px;max-width:60ch}
+/* The accent goes all the way round, not down one edge. A single colored
+   left bar on a white card is the browser's default blockquote look; a soft
+   tinted field with a matching border reads as a deliberate callout and sits
+   with the tinted icon chips instead of fighting them. */
+.note{background:var(--soft);
+  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+  border-radius:var(--r);padding:18px 20px;margin:22px 0}
+.note b{color:var(--accent-ink)}
+.note p:first-child{margin-top:0}.note p:last-child{margin-bottom:0}
+table{width:100%;border-collapse:collapse;margin:14px 0}
+td{padding:11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.k{width:158px;white-space:nowrap}
+kbd{display:inline-block;min-width:25px;text-align:center;background:var(--card);
+  border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;
+  padding:3px 7px;color:var(--ink);box-shadow:var(--shadow);
+  font:640 12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.pill{display:inline-block;background:var(--soft);color:var(--accent);
+  font-size:11px;font-weight:650;padding:3px 9px;border-radius:999px;
+  letter-spacing:.01em;flex:0 0 auto}
+.sect{display:flex;align-items:center;gap:11px;margin:42px 0 4px}
+.sect h2{margin:0}
+footer{margin-top:64px;padding-top:26px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:13.5px;text-align:center}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--accent)}
+footer .fl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10px}
+/* ── landing page ────────────────────────────────────────── */
+.hero.lead{padding:52px 40px 46px}
+.hero.lead h1{font-size:44px;letter-spacing:-.03em;margin:0 0 12px}
+.hero.lead .tag{color:#BFE3D8;font-size:19px;line-height:1.55;max-width:34ch;margin:0}
+.hero.lead .hero-top{flex-direction:column;align-items:flex-start;gap:18px;margin-bottom:6px}
+.hero.lead .hero-top img{width:84px;height:84px;border-radius:19px}
+/* Apple's badge is the artwork; we only give it a hit area and clear space.
+   No background, no border, no shadow — modifying the badge is not allowed. */
+.cta{display:inline-block;line-height:0;transition:opacity .16s,transform .16s}
+.cta:hover{opacity:.85;transform:translateY(-1px);text-decoration:none}
+.cta img{display:block;width:180px;height:auto}
+.cta-row{display:block;margin-top:28px;position:relative}
+.cta-note{color:#8FBDB2;font-size:13.5px;line-height:1.55;margin:16px 0 0;
+  max-width:40ch;position:relative}
+.feat{display:grid;gap:13px;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));
+  margin-top:18px}
+.feat .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;box-shadow:var(--shadow)}
+.feat h3{margin:13px 0 5px;font-size:16.5px}
+.feat p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.band{background:linear-gradient(150deg,#0C1F36,#0E4A44);border-radius:20px;
+  padding:34px 32px;margin:44px 0 0;color:#C8DCD9;box-shadow:var(--shadow-lg)}
+.band h2{color:#fff;margin:0 0 10px;font-size:23px}
+.band p{margin:10px 0;max-width:62ch}
+.band b{color:#4BE7B6}
+/* 🔴 The bleed MUST equal the gutter. Hard-coded -22px against a gutter that
+   drops to 16px on phones made this 387px wide inside a 375px viewport, and the
+   whole page scrolled sideways — 6px of overhang each side, invisible unless
+   you measure it. Both now read the same variable. */
+.posters{display:flex;gap:14px;overflow-x:auto;margin:26px calc(-1*var(--gutter)) 0;
+  padding:8px var(--gutter) 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.posters::-webkit-scrollbar{height:7px}
+.posters::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+.poster{flex:0 0 auto;margin:0;scroll-snap-align:center}
+.poster img{display:block;width:min(258px,62vw);height:auto;border-radius:22px;
+  box-shadow:var(--shadow-lg)}
+.showcase{margin:20px calc(-1 * var(--gutter)) 0;
+  padding:6px var(--gutter) 18px;overflow-x:auto;display:flex;
+  gap:18px;scroll-snap-type:x mandatory}
+.showcase figure{margin:0;flex:0 0 auto;scroll-snap-align:center}
+.showcase img{display:block;height:auto;border-radius:14px;border:1px solid var(--line);
+  box-shadow:var(--shadow-lg);background:var(--card2)}
+.showcase .wide img{width:min(680px,84vw)}
+.showcase .tall img{width:min(250px,52vw);border-radius:22px}
+.showcase::-webkit-scrollbar{height:7px}
+.showcase::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+/* The comparison table. Columns get real breathing room and a hairline
+   between them; our column is a single highlighted band with rounded ends
+   rather than four separately-tinted cells, so it reads as one thing. */
+.cmp-wrap{overflow-x:auto;margin:20px 0 10px;padding-bottom:4px}
+.cmp{border-collapse:separate;border-spacing:0;font-size:14.5px;
+  min-width:640px;width:100%}
+.cmp th,.cmp td{padding:14px 20px;text-align:left;vertical-align:middle;
+  white-space:nowrap;border-bottom:1px solid var(--line)}
+.cmp thead th{font-size:12.5px;font-weight:650;color:var(--muted);
+  letter-spacing:.04em;text-transform:uppercase;padding-bottom:12px;
+  border-bottom:1px solid var(--line)}
+.cmp tbody tr:last-child td{border-bottom:0}
+.cmp td:first-child,.cmp th:first-child{padding-left:0;white-space:normal;
+  min-width:210px;color:var(--ink);font-weight:600}
+.cmp th:first-child{color:var(--muted);font-weight:650}
+/* hairline between the rival columns */
+.cmp td:not(:first-child):not(.us),.cmp th:not(:first-child):not(.us){
+  border-left:1px solid var(--line);text-align:center}
+.cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
+/* our column: one continuous band */
+.cmp .us{background:color-mix(in srgb,var(--accent) 9%,transparent);
+  color:var(--accent-ink);font-weight:650;white-space:normal;min-width:150px;
+  border-left:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
+  border-right:1px solid color-mix(in srgb,var(--accent) 34%,transparent)}
+.cmp thead .us{color:var(--accent);border-top:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);
+  border-radius:11px 11px 0 0;padding-top:12px}
+.cmp tbody tr:last-child .us{border-bottom:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);border-radius:0 0 11px 11px}
+.cmp .no{color:var(--muted);font-weight:500}
+/* Where WE are the weaker option, say so in the same band rather than hiding
+   it. A comparison table that wins every row is not read as a comparison. */
+.cmp .us.miss{color:var(--muted);font-weight:500}
+/* the home-page teaser that sends people to the comparison */
+.banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
+  border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
+  color:var(--ink);transition:transform .17s,box-shadow .17s}
+.banner:hover{text-decoration:none;transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.banner b{display:block;font-size:16px;font-weight:650;letter-spacing:-.014em;
+  margin-bottom:3px}
+.banner .txt>span{color:var(--muted);font-size:14px;line-height:1.55;display:block}
+.banner .go{margin-left:auto;color:var(--accent);font-size:22px;font-weight:600;
+  flex:0 0 auto}
+/* one rival, on the comparison page */
+.rival{border-top:1px solid var(--line);padding:22px 0 4px}
+.rival h3{font-size:19px;margin:0 0 8px;display:flex;align-items:baseline;gap:12px;
+  flex-wrap:wrap}
+.rival h3 span{font-size:13.5px;font-weight:600;color:var(--accent);
+  background:var(--soft);padding:3px 10px;border-radius:999px;letter-spacing:0}
+.rival p{margin:9px 0}
+.rival .vs{color:var(--muted)}
+.src{color:var(--muted);font-size:12.5px;line-height:1.6;margin:6px 0 0}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:12px;margin:26px 0 4px}
+.ti{display:flex;gap:12px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;
+  box-shadow:var(--shadow)}
+.ti b{display:block;font-size:14.5px;font-weight:650;color:var(--ink);letter-spacing:-.01em}
+.ti>div span{color:var(--muted);font-size:12.5px;line-height:1.5;display:block;margin-top:2px}
+.feats{list-style:none;padding:0;margin:8px 0 4px;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.feats li{position:relative;padding:0 0 0 26px;color:var(--body);font-size:14.5px;
+  line-height:1.5}
+.feats li::before{content:"";position:absolute;left:2px;top:7px;width:8px;height:8px;
+  border-radius:50%;background:var(--accent);opacity:.55}
+.feats a{font-weight:600}
+.policy-meta{color:var(--muted);font-size:14px;margin:0 0 4px}
+@media(max-width:560px){
+  .hero.lead{padding:32px 22px}.hero.lead h1{font-size:32px}
+  .hero.lead .tag{font-size:17px}.hero.lead .hero-top img{width:66px;height:66px}
+}
+.tk{white-space:nowrap}
+/* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
+html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
+html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
+html[data-p=ipad] [data-plat=mac],html[data-p=ipad] [data-plat=ios]{display:none}
+/* help-page text splits use data-only=mac|ios; iPad follows iOS wording */
+html[data-p=ios] [data-only=mac],html[data-p=ipad] [data-only=mac],
+html[data-p=mac] [data-only=ios]{display:none}
+/* poster sizes per device shape */
+.poster.mac img{width:min(560px,86vw)}
+.poster.ios img{width:min(258px,62vw)}
+.poster.ipad img{width:min(420px,74vw)}
+.shot.ipadw img,.shot.wide img{border-radius:12px}
+@media(max-width:560px){
+  h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
+  .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
+  :root{--gutter:16px}.bar-in{padding:10px var(--gutter)}
+  .ans,summary{padding-left:15px;padding-right:15px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+
+</head><body>
+<div class="bar"><div class="bar-in">
+  <a class="brand" href="../index.html">
+    <img src="../help/img/logo-96.png" alt="" width="31" height="31">
+    <span class="word">Simple&nbsp;Finance</span></a>
+  <a class="navlink" href="../gallery.html">Screenshots</a>
+  <a class="navlink" href="../compare.html">Compare</a>
+  <a class="navlink" href="../support.html">Help</a>
+  <a class="navlink" href="../help/contact.html">Contact</a>
+  <a class="navlink dim" href="../privacy-policy.html">Privacy</a>
+  <span class="spacer"></span>
+  <div class="seg" role="group" aria-label="Choose your platform">
+    <button data-p="mac" aria-pressed="true">Mac</button>
+    <button data-p="ios" aria-pressed="false">iPhone</button>
+    <button data-p="ipad" aria-pressed="false">iPad</button>
+  </div>
+</div></div>
+<div class="wrap">
+<p class="crumb"><a href="../support.html">Help Center</a> › Troubleshooting</p>
+<div class="sect"><span class="chip tint" style="--c:#FF9500"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.636" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.637 -0.305) scale(1.0393)"><path d="M15.6 3.3a5.5 5.5 0 0 0-6.4 7L3.5 16v4.5H8l5.7-5.7a5.5 5.5 0 0 0 7-6.4l-3 3-2.8-.8-.8-2.8z"/></g></svg></span><h1>Troubleshooting</h1></div><p class="lede">Something not behaving? 36 fixes.</p><details id="the-app-crashed-or-closed-by-itself"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.648" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.246 -1.575) scale(1.0313)"><path d="M17.5 17.5H7a4 4 0 0 1 .3-8A5.5 5.5 0 0 1 18 9.6a3.9 3.9 0 0 1 2.6 3"/><path d="M20 15.5v2.8M20 20.9v.1"/></g></svg></span>The app crashed or closed by itself<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Reopen it. Nothing is lost — every change is written as you make it, not when you leave the screen, so you come back to exactly what you had.</p><p>If it happens more than once, the useful thing is not a log, it is a sentence: WHICH screen you were on and WHAT you had just <span class="tk" data-m="clicked" data-i="tapped">clicked</span>. That one line is usually enough to find it.</p><p>Send it with Report a Problem and leave “Attach device info” on. That sends versions, settings and how many records you have — never transactions, names or amounts.</p><p>Two things that are NOT a fault:<br>• Turning Demo Mode on or off writes or clears hundreds of rows. It can sit still for a few seconds; <span class="tk" data-m="clicking" data-i="tapping">clicking</span> again during that starts it over.<br>• iOS closes apps in the background all the time to free memory. Reopening after a few hours and finding it back at the start is normal, not a crash.</p></div></details><details id="the-app-is-slow-or-a-screen-won-t-respond"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M7 3h10M7 21h10"/><path d="M7 3c0 5 5 6.2 5 9s-5 4-5 9M17 3c0 5-5 6.2-5 9s5 4 5 9"/></g></svg></span>The app is slow, or a screen won&#x27;t respond<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Force-quit and reopen first. It clears a stuck screen and touches none of your data.</p><p>Where slowness is real and expected:<br>• A tab that shows balances recomputes them from your transactions when it opens. With years of history that is a beat, not a hang.<br>• The Transactions CALENDAR does more work than the list for a heavy month — the list is the faster way to scan.<br>• The first iCloud sync after switching it on is the slow one; later changes land in seconds.<br>• Prices refresh when you open Investments, so that screen has a moment of work on arrival.</p><p>If ONE screen is always slow and the rest are fine, that is worth reporting — name the screen and roughly how many transactions you have. “The app is slow” is very hard to act on; “Budget takes 4 seconds with 12,000 transactions” is a bug report.</p></div></details><details id="a-screen-is-blank-or-a-number-looks-wrong"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3.5" y="7.5" width="11" height="11" rx="2"/><path d="M8.5 7.5v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"/><path d="M3 3l18 18"/></g></svg></span>A screen is blank, or a number looks wrong<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Check the scope first. The pill at the top of Home and Transactions switches between Personal, Business and Everything, and it is remembered across tabs — a business with no activity this month renders honest zeroes that look exactly like data loss.</p><p>Then check the period. Most figures name theirs (“this month”, “2026 year to date”); if a number surprises you, read the label under it before assuming it is wrong.</p><p>Still wrong? Send us the screen name, the figure you see and the figure you expected. Two numbers and a screen name is the fastest bug report there is.</p></div></details><details id="my-account-balance-didn-t-move-after-importing"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 -0.250) scale(1.0000)"><path d="M3.5 9.5L12 4l8.5 5.5"/><path d="M5.5 9.5v9M10 9.5v9M14 9.5v9M18.5 9.5v9"/><path d="M3 20.5h18"/></g></svg></span>My account balance didn&#x27;t move after importing<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Two switches, and the app looks reasonable without either.</p><p>1. On the import screen, “Import into” must name the account. It starts on your default account now; on “No account” the transactions import but belong to nothing, so no balance can follow them.<br>2. On the account, “Track balance from transactions” must be on. New checking, savings and cash accounts set this for you; older accounts kept the balance you typed.</p><p>Already imported without an account? Select the rows in Transactions and set the account — the balance recomputes from your starting figure, so nothing double-counts.</p><p>Not a fault: an opening balance never shows in Year in Review. It is a starting position, not income.</p></div></details><details id="my-iphone-and-mac-aren-t-in-sync"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.726) scale(1.0588)"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 4v5h-5"/></g></svg></span>My iPhone and Mac aren&#x27;t in sync<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Work through these in order.</p><p>1. Both devices signed into the SAME Apple ID, and iCloud Sync switched on in Settings on each one — it is off until you turn it on, and turning it on takes effect after the app restarts.<br>2. Both online. Sync is not a background magic trick; the app has to be open at least once on each side.<br>3. Give it a minute. The first mirror after turning sync on is the slow one — later changes usually land within seconds.<br>4. Still nothing? Settings → iCloud Sync shows the sync status and the last error, if there was one. That message is the fastest thing to send us.</p><p>One thing that is NOT a fault: a device you haven&#x27;t opened in a while shows old numbers until you open it. Nothing syncs to an app that isn&#x27;t running.</p></div></details><details id="investment-prices-look-out-of-date"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 -0.500) scale(1.0000)"><path d="M3 7l5.5 5.5 3.5-3.5L21 18"/><path d="M15 18h6v-6"/></g></svg></span>Investment prices look out of date<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Prices refresh when you open Net Worth → Investments, and you can force it with Refresh Prices there.</p><p>Some things that look wrong are not:<br>• A mutual fund has NO intraday price. It is valued once after the close, so it legitimately sits still while stocks move.<br>• Before the market opens, a day change refers to the previous session — not the one that hasn&#x27;t started.<br>• Weekends and holidays hold Friday&#x27;s close.</p><p>If a real stock is genuinely stale, check your connection and refresh the screen. Manual accounts never auto-update; they hold whatever balance you typed.</p></div></details><details id="an-imported-transaction-is-wrong"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.747" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.324 0.568) scale(0.9730)"><path d="M9 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/><rect x="9" y="2.5" width="6" height="3.5" rx="1"/><path d="M9 12h6M9 16h4"/></g></svg></span>An imported transaction is wrong<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Imports are review-first — <span class="tk" data-m="double-click" data-i="tap">double-click</span> any transaction to edit the amount, category, or type. Set up a Rule (Transactions → Rules) to auto-fix similar ones going forward.</p></div></details><details id="the-app-keeps-asking-for-touch-id-or-your-apple-watch-or-a-p"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8.5V6.5A2.5 2.5 0 0 1 6.5 4h2M15.5 4h2A2.5 2.5 0 0 1 20 6.5v2M20 15.5v2a2.5 2.5 0 0 1-2.5 2.5h-2M8.5 20h-2A2.5 2.5 0 0 1 4 17.5v-2"/><path d="M9 10v1.5M15 10v1.5"/><path d="M12 10.5v3.2h-1"/><path d="M9.5 16a4 4 0 0 0 5 0"/></g></svg></span>The app keeps asking for <span class="tk" data-m="Touch ID or your Apple Watch" data-i="Face ID or Touch ID">Touch ID or your Apple Watch</span> or a password<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>App Lock is on — Settings → Privacy &amp; Security. You can turn it off there, or change when it asks.</p><p>If it asks EVERY time you switch apps for a second, that is the lock doing its job on returning from the background. If it fails repeatedly, the system falls back to <span class="tk" data-m="your Mac login password" data-i="your device passcode">your Mac login password</span>; the app never sees either one, it only gets a yes or no from the system.</p></div></details><details id="my-balances-show-as-dots-or-are-hidden"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M10.6 6.2A9.6 9.6 0 0 1 12 6c5 0 9 6 9 6a15 15 0 0 1-3 3.5M6.4 8.4A15.5 15.5 0 0 0 3 12s4 6 9 6a9.4 9.4 0 0 0 3.4-.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></g></svg></span>My balances show as dots or are hidden<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Hide Amounts is on. It blurs every figure in the app in one <span class="tk" data-m="click" data-i="tap">click</span>, for when somebody is looking over your shoulder.</p><p>Turn it off from <span class="tk" data-m="the sidebar" data-i="the ☰ panel">the sidebar</span> (Hide Amounts) or in Settings → Privacy &amp; Security. It is per-device and never syncs, so hiding on your phone does not hide on your Mac.</p><p>Nothing is deleted or changed while it is on — it is a blur over the display, not a setting that touches your data.</p></div></details><details id="icloud-sync-won-t-turn-on"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M18.5 17.5H7a4 4 0 0 1-.9-7.9"/><path d="M8.5 6.6A5.5 5.5 0 0 1 17.5 10a4 4 0 0 1 2.4 6.6"/><path d="M3 3l18 18"/></g></svg></span>iCloud Sync won&#x27;t turn on<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The switch needs an iCloud account signed in on the device and iCloud Drive enabled for the app in <span class="tk" data-m="System Settings" data-i="iOS Settings">System Settings</span>. If it turns itself back off, the app couldn&#x27;t start the sync engine — Settings → iCloud Sync shows the reason underneath, and that sentence is the useful thing to send us.</p><p>Your data is never at risk while this is happening: the app falls back to a local database and keeps working.</p></div></details><details id="my-partner-can-t-see-what-i-share"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M3 3l18 18"/></g></svg></span>My partner can&#x27;t see what I share<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Check, in this order:</p><p>1. They accepted the invitation — an unaccepted invite looks identical to a broken share from your side.<br>2. Both of you have iCloud Sync on. Household sharing rides on it.<br>3. The thing itself isn&#x27;t kept private. Anything marked private is removed from their device by design.<br>4. They&#x27;ve opened the app since you made the change. Nothing arrives on a device that hasn&#x27;t been opened.</p><p>Business money is never shared, no matter the setting.</p></div></details><details id="we-both-have-the-same-category-twice"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.643" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.414 -0.414) scale(1.0345)"><circle cx="7" cy="5.5" r="2.2"/><circle cx="7" cy="18.5" r="2.2"/><circle cx="17" cy="10" r="2.2"/><path d="M7 7.7v8.6"/><path d="M17 12.2a6.3 6.3 0 0 1-6.3 6.3H9.2"/></g></svg></span>We both have the same category twice<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>That happens when you each created a category with the same name before you started sharing — they are two different categories that happen to read alike. Open <span class="tk" data-m="the sidebar → Family &amp; Sharing" data-i="☰ → People you share with">the sidebar → Family &amp; Sharing</span> → Review what you share, and choose which budget to keep for each duplicated name. Merging keeps the transactions from both.</p></div></details><details id="a-recurring-bill-didn-t-post"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.653" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.343 -0.086) scale(1.0286)"><path d="M20.5 11.5V7.5A2.5 2.5 0 0 0 18 5H6a2.5 2.5 0 0 0-2.5 2.5V18A2.5 2.5 0 0 0 6 20.5h6"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M18 14.5v3M18 20.4v.1"/></g></svg></span>A recurring bill didn&#x27;t post<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Recurring items post when the app is opened on or after the due day, and only when Auto-Post Recurring is on (Settings → Transactions). If it is off, nothing posts until you log the bill yourself.</p><p>Also check the bill isn&#x27;t paused, and that its next due date is what you expect — a bill edited mid-month keeps its own schedule.</p></div></details><details id="a-bill-posted-twice"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 12v5M9.5 14.5h5"/></g></svg></span>A bill posted twice<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>This should not happen — postings are matched to the bill and its period specifically to prevent it. If you have two, the usual cause is two copies of the same BILL, which can happen after restoring a backup. Delete the duplicate bill (not the transactions) and the doubling stops.</p><p>If you find a genuine double from a single bill, that is a defect and worth reporting — it&#x27;s the kind we fix quickly.</p></div></details><details id="my-import-didn-t-read-the-file"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg></span>My import didn&#x27;t read the file<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Export the file again as CSV if you can — an Excel file saved as &quot;Unicode Text&quot; or an unusual encoding is the most common cause. The app tries the common encodings in order and should cope with accented characters.</p><p>If the columns landed in the wrong place, the preview is there to catch it before anything saves. And if a file simply won&#x27;t read, send it to us through Report a Problem — a real file is worth more than a description of one.</p></div></details><details id="an-imported-amount-is-wrong-or-zero"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg></span>An imported amount is wrong or zero<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Check the preview before saving — every row is shown first for exactly this reason. Amounts wrapped in parentheses, with currency symbols, or using a comma as the decimal mark are all handled, but an unusual export can still confuse a column.</p><p>A row that shows as zero when it shouldn&#x27;t is worth reporting with the file attached; an amount the app couldn&#x27;t read should never be saved as a number.</p></div></details><details id="my-budget-total-doesn-t-match-the-home-screen"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg></span>My budget total doesn&#x27;t match the Home screen<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The most common cause is the period: Home shows this month, and a budget category may be on a yearly limit.</p><p>After that, check for split transactions — a split counts only its share toward each category, which is correct but can look short if you were expecting the whole amount. If business mode is on, personal totals deliberately exclude business spending.</p></div></details><details id="a-goal-isn-t-updating"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.235) scale(1.0588)"><path d="M5 21V4h9l-1.2 3.2H19l-1.6 4.3H8.5"/><path d="M5 4h3"/></g></svg></span>A goal isn&#x27;t updating<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>A goal moves when money is recorded against it. Link the goal to the account or the recurring transfer that funds it, and contributions count automatically; otherwise it only changes when you add to it by hand.</p><p>If a linked goal still isn&#x27;t moving, check that the funding transactions are dated in the past — future-dated rows are scheduled, not banked.</p></div></details><details id="i-m-not-getting-notifications"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M18 9a6 6 0 0 0-8.3-5.5M6.2 6.6A6 6 0 0 0 6 9c0 5-2 6.5-2 6.5h12"/><path d="M10.3 19a2 2 0 0 0 3.4 0"/><path d="M3 3l18 18"/></g></svg></span>I&#x27;m not getting notifications<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Two switches have to agree: <span class="tk" data-m="System Settings" data-i="iOS Settings">System Settings</span> → Notifications → Simple Finance must be allowed, and the specific reminders have to be on in Settings → Notifications inside the app.</p><p>Everything is scheduled on your device, so nothing about your money is sent anywhere to make a reminder happen — which also means a device that is off or has the app deleted simply won&#x27;t fire them.</p></div></details><details id="my-widget-shows-old-numbers"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 5.5h3"/></g></svg></span>My widget shows old numbers<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Widgets are refreshed by iOS on its own schedule, not on demand, so a short lag is normal. Opening the app updates the data the widget reads from.</p><p>If a widget seems stuck for a long time, remove it and add it back — a placed widget keeps its own configuration, and re-adding is the only way to reset it.</p></div></details><details id="it-says-my-data-is-running-locally"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.648" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.246 -1.575) scale(1.0313)"><path d="M17.5 17.5H7a4 4 0 0 1 .3-8A5.5 5.5 0 0 1 18 9.6a3.9 3.9 0 0 1 2.6 3"/><path d="M20 15.5v2.8M20 20.9v.1"/></g></svg></span>It says my data is running locally<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The app couldn&#x27;t start iCloud sync, so it fell back to a local database to avoid losing anything — everything still works, it just isn&#x27;t mirroring.</p><p>Settings → iCloud Sync shows the exact reason underneath. The most common one is an Apple Account that needs re-verifying in <span class="tk" data-m="System Settings" data-i="iOS Settings">System Settings</span>. Nothing is lost while this is happening, and sync resumes on its own once the account is healthy.</p></div></details><details id="a-number-looks-wrong-somewhere"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.653) scale(1.0588)"><path d="M3.5 13.5h4l1.4 2.6h6.2l1.4-2.6h4"/><path d="M5.6 5.3a1.8 1.8 0 0 1 1.7-1.2h9.4a1.8 1.8 0 0 1 1.7 1.2l2.1 8.2v4.3a2 2 0 0 1-2 2H5.5a2 2 0 0 1-2-2v-4.3z"/></g></svg></span>A number looks wrong somewhere<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Almost every figure is derived from your transactions and balances for the period on screen, so start with the period selector at the top — a month view and a year view of the same category are supposed to differ.</p><p>Then check the usual three:<br>• A SPLIT transaction only counts its share toward each category.<br>• A TRANSFER between your own accounts is deliberately not income or spending.<br>• If business mode is on, personal figures exclude business money, and the other way round.</p><p>If it still doesn&#x27;t add up, send it through Report a Problem with the screen and the number you expected — attach the device info and we can usually see it from here.</p></div></details><details id="the-numbers-someone-shares-with-me-are-hours-old"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.662" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.580 -1.244) scale(1.0227)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 10.3-3.5"/><circle cx="18" cy="17" r="2.4"/><path d="M18 13.4v1M18 19.6v1M14.9 15.2l.9.5M20.2 18.3l.9.5M14.9 18.8l.9-.5M20.2 15.7l.9-.5"/></g></svg></span>The numbers someone shares with me are hours old<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>This is usually not a fault. A summary is published by THEIR device, in the foreground — so the age you are looking at is the time since they last opened the app, not the time since yours checked.</p><p>If they haven&#x27;t opened it since yesterday morning, yesterday morning is the freshest figure that exists. Nothing you do on your side can pull a newer one.</p><p>What IS worth checking: that they still appear in your People list with a live status, and that both of you are online. Refreshing the People screen asks iCloud again.</p></div></details><details id="my-widget-ignores-the-metric-i-picked-in-the-app"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></g></svg></span>My widget ignores the metric I picked in the app<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>A placed widget keeps its OWN configuration. Changing the default inside the app does not reach a widget already sitting <span class="tk" data-m="on your desktop or in Notification Center" data-i="on your home screen">on your desktop or in Notification Center</span>.</p><p><span class="tk" data-m="Right-click the widget → Edit Widget" data-i="Touch and hold the widget → Edit Widget">Right-click the widget → Edit Widget</span>, and set it there. If the option you want isn&#x27;t offered, remove the widget and add it again — a re-added widget picks up the current set of choices.</p></div></details><details id="a-stock-price-won-t-refresh"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 12h4l3-7 4 14 3-7h4"/></g></svg></span>A stock price won&#x27;t refresh<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Prices come from a public market source with rate limits, and a burst of refreshes can get you held off for a few minutes. Waiting is the fix; hammering refresh is not.</p><p>Things that look like a stale price and aren&#x27;t:<br>• A MUTUAL FUND has no intraday price at all — one NAV after the close, and it legitimately sits still all day.<br>• BEFORE THE OPENING BELL there is no session yet, so the day change belongs to the previous one. The row says “at close” when that is what you are looking at.<br>• Weekends and market holidays hold Friday&#x27;s close.</p><p>A manual account never updates on its own; it holds whatever balance you typed.</p></div></details><details id="i-restored-a-backup-and-now-everything-is-doubled"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.636" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.637 -0.305) scale(1.0393)"><path d="M15.6 3.3a5.5 5.5 0 0 0-6.4 7L3.5 16v4.5H8l5.7-5.7a5.5 5.5 0 0 0 7-6.4l-3 3-2.8-.8-.8-2.8z"/></g></svg></span>I restored a backup and now everything is doubled<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>That is what restoring on top of existing data does, and it is fixable in one screen.</p><p>Settings → Data &amp; Backup → Repair Duplicated Records. It looks for the same RECORD present as several rows — which only a re-import or a restore can produce — and shows you what it found before it removes anything. Duplicate accounts, categories, subcategories and businesses are all on that screen too.</p><p>Run it once and rescan; nothing is lost and no money is double-counted afterwards.</p></div></details><details id="demo-mode-won-t-turn-off-or-sample-data-is-still-here"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M4 8.5L12 5l3.4 1.5M20 8.5l-3 1.3"/><path d="M4 12.5l8 3.5 3.4-1.5M20 12.5l-3 1.3"/><path d="M3 3l18 18"/></g></svg></span>Demo Mode won&#x27;t turn off, or sample data is still here<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Demo Mode is a switch: Settings → Privacy &amp; Security → Demo Mode. While it is on your real data is not loaded — it is not gone, it simply isn&#x27;t shown — and it comes straight back when you exit.</p><p>If the demo is OFF and you still see sample figures, that is different: sample data was actually written to your database at some point. Settings → Data &amp; Backup → Remove Sample Data takes it out without touching anything you entered yourself.</p></div></details><details id="my-watch-shows-different-numbers-than-my-phone"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="7" y="6.5" width="10" height="11" rx="3"/><path d="M9 6.5L9.5 3h5l.5 3.5M9 17.5l.5 3.5h5l.5-3.5"/></g></svg></span>My Watch shows different numbers than my phone<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The Watch is a thin client — it shows what the phone last sent it. If the phone hasn&#x27;t been opened since the numbers moved, the Watch is showing the last thing it was told, correctly.</p><p>Open the app on the phone with the Watch nearby and give it a few seconds. If a complication is still behind, the watch face refreshes on its own schedule — opening the Watch app forces it.</p></div></details><details id="i-can-t-send-a-support-message"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M21 3L10.5 13.5"/><path d="M21 3l-6.8 18-3.7-7.5L3 9.8z"/></g></svg></span>I can&#x27;t send a support message<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Two things gate that button, and both say so on screen now:</p><ul><li>A few characters are needed before it turns on — the line under the button counts down how many.</li><li>The Send button sits below the keyboard on a long sheet. There is a Send in the row above the keyboard, so you never have to go looking for it.</li></ul><p>If it says you are not signed into iCloud, the app opens Mail instead and nothing leaves until you hit send there. If sending fails outright, the exact reason is printed under the button — that message is the most useful thing you can pass on.</p></div></details><details id="a-big-import-is-taking-forever-or-seems-stuck"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M7 3h10M7 21h10"/><path d="M7 3c0 5 5 6.2 5 9s-5 4-5 9M17 3c0 5-5 6.2-5 9s5 4 5 9"/></g></svg></span>A big import is taking forever, or seems stuck<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>A file with tens of thousands of rows genuinely takes a while, and the review step is deliberately not skipped — an import that writes first and asks later is how a ledger gets ruined.</p><p>Leave the app in the foreground while it works; iOS suspends background work and a suspended import looks exactly like a stuck one.</p><p>If it truly stops, close and reopen the app: nothing is written until you confirm the review, so you lose the parse and not your data. Then try a smaller date range — most exports let you pick one.</p></div></details><details id="text-in-a-box-is-invisible-or-i-can-t-see-what-i-m-typing"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M10.6 6.2A9.6 9.6 0 0 1 12 6c5 0 9 6 9 6a15 15 0 0 1-3 3.5M6.4 8.4A15.5 15.5 0 0 0 3 12s4 6 9 6a9.4 9.4 0 0 0 3.4-.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></g></svg></span>Text in a box is invisible, or I can&#x27;t see what I&#x27;m typing<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>This was a real bug in dark mode on the Report a Problem and Help search boxes, and it is fixed — update to the current version.</p><p>If you see it anywhere else, that is worth telling us about, with the screen name and whether you are in light or dark mode. It is the kind of fault that is invisible to whoever built the screen and obvious to whoever is using it.</p></div></details><details id="a-transfer-between-my-accounts-shows-as-spending"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h13"/><path d="M14 5l3 3-3 3"/><path d="M20 16H7"/><path d="M10 13l-3 3 3 3"/></g></svg></span>A transfer between my accounts shows as spending<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Record it as a TRANSFER rather than as an expense with a matching income — then it moves the balances and stays out of income and spending, which is what you want. Otherwise the same money is counted twice, once each way.</p><p>An imported file often can&#x27;t tell the difference. Edit the row and set it to a transfer; if the same pair comes in every month, a Rule will handle it from then on.</p></div></details><details id="my-budget-looks-broken-the-month-i-bought-something-big"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.653" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.343 -0.086) scale(1.0286)"><path d="M20.5 11.5V7.5A2.5 2.5 0 0 0 18 5H6a2.5 2.5 0 0 0-2.5 2.5V18A2.5 2.5 0 0 0 6 20.5h6"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M18 14.5v3M18 20.4v.1"/></g></svg></span>My budget looks broken the month I bought something big<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>A wedding, a ring, a car or a new roof is not a monthly category, and forcing it into one makes twelve months look wrong to describe one purchase.</p><p>Add it as a one-time expense instead. It sits in the annual plan and deliberately stays out of every monthly budget, so the month it lands in still reads honestly.</p></div></details><details id="older-shared-transactions-all-say-joint"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.549" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.171 -2.323) scale(1.0976)"><circle cx="10" cy="8.5" r="3.4"/><path d="M3.8 19.8a6.5 6.5 0 0 1 9.4-4.6"/><path d="M16.4 15.6a1.9 1.9 0 1 1 2.6 1.8v1M19 20.9v.1"/></g></svg></span>Older shared transactions all say “Joint”<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>They predate the app recording WHO added a row, so there is genuinely no name attached to them — “Joint” is the old default, not a mistake made about a specific person.</p><p>Everything added since is attributed to whoever entered it, and the feed, the split bar and the Mine / Theirs / Joint filter all read that. The old rows stay as they are rather than being guessed at.</p></div></details><details id="i-clicked-a-row-and-nothing-happened" data-only="mac"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.615" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.684 -0.526) scale(1.0526)"><path d="M11.5 20.3L8.2 7.4l12.4 4.8-4.9 1.6z"/><path d="M4.5 4.5l1.6 1.6M12 3.5v2.2M3.5 12h2.2M4.7 18.8l1.5-1.5"/></g></svg></span>I clicked a row and nothing happened<span class="pill">Mac only</span><svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>On a Mac a single click SELECTS a row and a double-click OPENS it. That is the platform&#x27;s rule rather than this app&#x27;s, and it is the opposite of the phone, where one tap does both.</p><p>So: double-click a transaction to edit it, an account to open it, a merchant to see what is behind its total. Right-click gives you the same actions as a menu — and on the Mac that menu is also where the swipe actions from the iPhone live, because there is nothing to swipe.</p><p>If a double-click still does nothing on a row you expect to open, that is worth telling us about; say which screen.</p></div></details><details id="a-button-on-my-mac-is-black-or-i-can-t-read-a-control" data-only="mac"><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 -1.750) scale(1.0000)"><path d="M13.5 18.4A8.7 8.7 0 0 1 12 18.5c-5 0-9-6-9-6s4-6 9-6 9 6 9 6a17 17 0 0 1-.9 1.3"/><circle cx="12" cy="12.5" r="2.6"/><path d="M19 15v3M19 20.9v.1"/></g></svg></span>A button on my Mac is black, or I can&#x27;t read a control<span class="pill">Mac only</span><svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Update to the current version — this was a real bug and it is fixed.</p><p>Forty-two buttons across the Mac app drew as a black slab with a black label. They still worked; you just had to guess what they said. A switch had the same problem in reverse at night. Both were one wrong color token, and both are gone.</p><p>If you see anything unreadable on the current version, a screenshot is the single most useful thing you can send — Support → Report a problem takes one.</p></div></details>
+<footer>
+  <img src="../help/img/logo-96.png" alt="" width="26" height="26">
+  <div class="fl">
+    <a href="../gallery.html">Screenshots</a>
+    <a href="../compare.html">Why Simple Finance</a>
+    <a href="../support.html">Help Center</a>
+    <a href="../help/guides.html">Guides</a>
+    <a href="../help/troubleshooting.html">Troubleshooting</a>
+    <a href="../help/contact.html">Contact</a>
+    <a href="../privacy-policy.html">Privacy</a>
+  </div>
+  &copy; 2026 Simple Finance &middot; Simple Finance is not a
+  bank and does not give financial advice.
+</footer>
+</div>
+<script>var SEARCH_URL="../help/search.json",LINK_BASE="../";
+
+(function(){
+  var d=document.documentElement;
+  function set(p,save){
+    d.setAttribute('data-p',p);
+    document.querySelectorAll('.tk').forEach(function(s){
+      s.textContent=s.getAttribute(p==='mac'?'data-m':'data-i');});
+    document.querySelectorAll('.seg button').forEach(function(b){
+      b.setAttribute('aria-pressed',b.dataset.p===p);});
+    if(save){try{localStorage.setItem('sf-platform',p)}catch(e){}}
+  }
+  var saved=null;try{saved=localStorage.getItem('sf-platform')}catch(e){}
+  set(saved||(/iPad/.test(navigator.userAgent)?'ipad':(/iPhone|iPod/.test(navigator.userAgent)?'ios':'mac')),false);
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.seg button');if(b)set(b.dataset.p,true);});
+
+  var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
+  if(!box)return;
+  function load(){return idx?Promise.resolve(idx):
+    fetch(SEARCH_URL).then(function(r){return r.json()}).then(function(j){idx=j;return j})}
+  var t;
+  box.addEventListener('input',function(){
+    clearTimeout(t);t=setTimeout(function(){
+      var q=box.value.trim().toLowerCase();
+      if(q.length<2){list.innerHTML='';return}
+      load().then(function(items){
+        var terms=q.split(/\s+/),hits=[],p=d.getAttribute('data-p');
+        items.forEach(function(it){
+          if(it.o&&it.o!==p)return;
+          var hay=(it.t+' '+it.b+' '+it.k).toLowerCase(),sc=0;
+          for(var i=0;i<terms.length;i++){
+            if(hay.indexOf(terms[i])<0){sc=0;break}
+            sc+=it.t.toLowerCase().indexOf(terms[i])>=0?3:1;}
+          if(sc)hits.push([sc,it]);});
+        hits.sort(function(a,b){return b[0]-a[0]});
+        list.innerHTML=hits.length?hits.slice(0,25).map(function(h){
+          return '<li><a href="'+LINK_BASE+h[1].u+'">'+h[1].t+
+                 '<span class="in">'+h[1].k+'</span></a></li>'}).join('')
+          :'<li><a href="'+LINK_BASE+'help/contact.html">No match \u2014 ask us directly'+
+           '<span class="in">A person reads every message</span></a></li>';
+      });},110);
+  });
+})();
+</script>
+</body></html>

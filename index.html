@@ -1,60 +1,491 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!doctype html>
+<html lang="en" data-p="mac"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Simple Finance</title>
-<meta name="description" content="Simple Finance — the private way to manage your money. Budgets, net worth, retirement planning, and a private AI money assistant, all on your device.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0C1F36">
+<title>Simple Finance — private budgeting for Mac, iPhone and iPad</title>
+<meta name="description" content="Budgets, net worth, bills and retirement planning that never ask for your bank password. Your data stays on your device and in your own iCloud.">
+<link rel="canonical" href="https://simple-apps-llc.github.io/Simple-Finance/index.html">
+<link rel="icon" type="image/png" href="help/img/favicon.png">
+<link rel="apple-touch-icon" href="help/img/logo-180.png">
+<meta property="og:title" content="Simple Finance — private budgeting for Mac, iPhone and iPad">
+<meta property="og:description" content="Budgets, net worth, bills and retirement planning that never ask for your bank password. Your data stays on your device and in your own iCloud.">
+<meta property="og:image" content="https://simple-apps-llc.github.io/Simple-Finance/help/img/logo-512.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simple-apps-llc.github.io/Simple-Finance/index.html">
+<meta name="twitter:card" content="summary">
 <style>
-  :root { --accent:#00C896; --accent2:#00A878; --ink:#1c1c1e; --muted:#6b7280; --bg:#f2f2f7; --card:#ffffff; }
-  * { box-sizing:border-box; }
-  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-         color:var(--ink); background:var(--bg); line-height:1.55; }
-  .header { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; padding:56px 24px; }
-  .header .wrap { max-width:760px; margin:0 auto; }
-  .badge { display:inline-flex; align-items:center; justify-content:center; width:60px; height:60px;
-           border-radius:16px; background:rgba(255,255,255,.2); font-size:30px; margin-bottom:16px; }
-  .header h1 { font-size:34px; font-weight:800; margin:2px 0 12px; }
-  .header p { font-size:16px; opacity:.94; margin:0; max-width:60ch; }
-  main { max-width:760px; margin:0 auto; padding:24px 16px 60px; }
-  .links { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  @media (max-width:520px){ .links { grid-template-columns:1fr; } }
-  .tile { display:block; background:var(--card); border-radius:14px; padding:22px; text-decoration:none;
-          color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.06); transition:transform .12s, box-shadow .12s; }
-  .tile:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.10); }
-  .tile .ic { font-size:24px; }
-  .tile h2 { font-size:18px; font-weight:800; margin:10px 0 4px; }
-  .tile p { margin:0; color:var(--muted); font-size:14px; }
-  .contact { text-align:center; color:var(--muted); font-size:14px; margin-top:24px; }
-  .contact a { color:var(--accent2); font-weight:600; }
-  a { color:var(--accent2); }
-  @media (prefers-color-scheme: dark) {
-    :root { --ink:#f2f2f7; --muted:#9aa0aa; --bg:#000; --card:#1c1c1e; }
-  }
+:root{
+  --ink:#0C1F36; --body:#41525F; --muted:#788994;
+  --bg:#F4F8F8; --card:#fff; --card2:#FAFCFC; --line:#E2EBEA;
+  --accent:#0A7D62; --accent-ink:#07604B; --soft:#E8F7F1; --bright:#19D8A6;
+  --navy:#0C1F36; --shadow:0 1px 2px rgba(12,31,54,.05),0 6px 18px -6px rgba(12,31,54,.09);
+  --shadow-lg:0 2px 4px rgba(12,31,54,.05),0 18px 40px -12px rgba(12,31,54,.18);
+  --r:14px; --gutter:22px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#EDF4F2; --body:#BDCBCE; --muted:#88999E;
+  --bg:#0A141C; --card:#111F2A; --card2:#16242F; --line:#1F3340;
+  --accent:#43E2B0; --accent-ink:#6FEDC6; --soft:#102C27; --bright:#19D8A6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px -6px rgba(0,0,0,.45);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 18px 40px -12px rgba(0,0,0,.6);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--body);
+  font:16px/1.68 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-feature-settings:"kern","liga";-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 var(--gutter) 96px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{color:var(--ink);letter-spacing:-.022em;line-height:1.22}
+h1{font-size:34px;margin:0 0 10px;font-weight:700}
+h2{font-size:21px;margin:44px 0 14px;font-weight:650}
+h3{font-size:16px;margin:0;font-weight:650}
+p{margin:14px 0}
+
+/* ── top bar ─────────────────────────────────────────────── */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line)}
+.bar-in{max-width:900px;margin:0 auto;padding:11px var(--gutter);display:flex;
+  align-items:center;gap:13px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-weight:650;
+  font-size:15.5px;letter-spacing:-.017em}
+.brand:hover{text-decoration:none;opacity:.82}
+.brand img{width:31px;height:31px;border-radius:8px;box-shadow:var(--shadow)}
+.navlink{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:-.01em;
+  white-space:nowrap}
+.navlink:hover{color:var(--accent);text-decoration:none}
+/* Four links plus the platform toggle will not fit a phone. Privacy is the one
+   that drops: it is in the footer of every page and it is where people look
+   for it anyway. Everything else stays reachable at every width. */
+/* The bar is STICKY, so a wrapped one eats the screen on every scroll. At 590px
+   it was measured at four rows and 104px tall. Below 700 the toggle loses its
+   long label and Privacy drops (it is in every footer); below 560 the brand
+   wordmark goes too, leaving the logo. Measured, not guessed. */
+@media(max-width:700px){
+  .navlink.dim{display:none}
+  .bar-in{gap:12px}
+  .seg button{padding:6px 11px;font-size:12px}
+  .seg button[data-p=ios] .full{display:none}}
+@media(max-width:560px){
+  .brand span.word{display:none}
+  .navlink{font-size:13.5px}
+  .bar-in{gap:10px;padding:9px 16px}}
+.spacer{flex:1 1 auto}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:3px;gap:2px;box-shadow:var(--shadow)}
+.seg button{appearance:none;background:none;border:0;color:var(--muted);
+  font:640 12.5px/1 inherit;padding:7px 14px;border-radius:999px;cursor:pointer;
+  letter-spacing:-.005em;transition:.16s}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+@media (prefers-color-scheme:dark){.seg button[aria-pressed=true]{color:#062119}}
+
+/* ── hero ────────────────────────────────────────────────── */
+.hero{background:linear-gradient(155deg,#0C1F36 0%,#123246 48%,#0E4A44 100%);
+  border-radius:22px;padding:38px 34px 34px;margin:26px 0 8px;position:relative;
+  overflow:hidden;box-shadow:var(--shadow-lg)}
+.hero::after{content:"";position:absolute;inset:auto -60px -110px auto;width:300px;
+  height:300px;border-radius:50%;background:radial-gradient(circle,rgba(25,216,166,.34),transparent 68%)}
+.hero-top{display:flex;align-items:center;gap:15px;margin-bottom:18px;position:relative}
+.hero-top img{width:58px;height:58px;border-radius:14px;
+  box-shadow:0 8px 24px -6px rgba(0,0,0,.55)}
+.hero h1{color:#fff;font-size:33px;margin:0}
+.hero .sub{color:#9FD9C8;font-size:14px;font-weight:600;letter-spacing:.02em;
+  text-transform:uppercase;margin:0 0 3px}
+.hero p{color:#C8DCD9;margin:0;max-width:52ch;position:relative;font-size:16.5px}
+.stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;position:relative}
+.stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;padding:6px 14px;color:#DCEDE9;font-size:13px;font-weight:600}
+.stat b{color:#3FE9B8}
+
+/* ── search ──────────────────────────────────────────────── */
+.searchbox{position:relative;margin:22px 0 0}
+.searchbox svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  width:19px;height:19px;color:var(--muted);pointer-events:none}
+input[type=search]{width:100%;padding:15px 16px 15px 45px;border-radius:13px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  font:16px/1.4 inherit;box-shadow:var(--shadow);appearance:none}
+input[type=search]::placeholder{color:var(--muted)}
+input[type=search]:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3.5px var(--soft)}
+#results{margin:12px 0 0;padding:0;list-style:none}
+#results li{border-bottom:1px solid var(--line)}
+#results li:last-child{border:0}
+#results a{display:block;padding:12px 2px;color:var(--ink);font-weight:550}
+#results a:hover{color:var(--accent);text-decoration:none}
+#results .in{display:block;color:var(--muted);font-size:12.5px;font-weight:500;margin-top:1px}
+
+/* ── cards & tiles ───────────────────────────────────────── */
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));margin-top:16px}
+.tile{display:flex;gap:13px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:16px;color:var(--ink);
+  box-shadow:var(--shadow);transition:transform .17s,box-shadow .17s,border-color .17s}
+.tile:hover{text-decoration:none;transform:translateY(-2px);
+  box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--accent) 42%,var(--line))}
+.tile .txt{min-width:0;display:block}
+.tile b{display:block;font-size:15px;font-weight:640;letter-spacing:-.012em;color:var(--ink)}
+/* 🔴 `.tile .txt>span`, NOT `.tile span`. The chip is a <span> too, and a bare
+   `.tile span` beats `.chip` on specificity (0,1,1 vs 0,1,0) — so every chip
+   INSIDE a tile lost display:flex, silently, and its glyph pinned to the
+   top-left corner while chips elsewhere on the page stayed centered. */
+.tile .txt>span{color:var(--muted);font-size:12.5px;display:block;margin-top:2px}
+.chip{width:38px;height:38px;border-radius:11px;flex:0 0 auto;display:flex;
+  align-items:center;justify-content:center;background:var(--soft);color:var(--accent)}
+.chip svg{width:21px;height:21px}
+/* 🔴 The raw app color is a FILL color, not an ink color. #FF9F0A and
+   #34C759 are ~2:1 on white — legible as a 40px pie slice in the app, muddy as
+   a 21px glyph on a card. Mix toward black on light and toward white on dark so
+   every chip lands in the same contrast band whatever hue it carries. */
+.chip.tint{background:color-mix(in srgb,var(--c) 13%,#fff);
+  color:color-mix(in srgb,var(--c) 74%,#0C1F36)}
+@media (prefers-color-scheme:dark){.chip.tint{
+  background:color-mix(in srgb,var(--c) 20%,#0A141C);
+  color:color-mix(in srgb,var(--c) 82%,#fff)}}
+
+/* ── disclosure rows ─────────────────────────────────────── */
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  margin:10px 0;box-shadow:var(--shadow);overflow:hidden}
+details[open]{border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+summary{cursor:pointer;padding:16px 18px;font-weight:600;font-size:15.5px;
+  color:var(--ink);letter-spacing:-.012em;list-style:none;display:flex;gap:12px;
+  align-items:center}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:var(--accent)}
+.caret{margin-left:auto;flex:0 0 auto;width:17px;height:17px;color:var(--muted);
+  transition:transform .2s}
+details[open] .caret{transform:rotate(90deg);color:var(--accent)}
+.ans{padding:2px 18px 18px;border-top:1px solid var(--line);margin-top:-1px}
+.ans p:first-child{margin-top:14px}
+.ans ul{margin:13px 0;padding-left:21px}
+.ans li{margin:6px 0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:15px 0}
+.steps li{counter-increment:s;position:relative;padding:0 0 0 34px;margin:11px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:23px;
+  height:23px;border-radius:50%;background:var(--soft);color:var(--accent);
+  font:640 11.5px/23px inherit;text-align:center}
+
+/* ── screenshots ─────────────────────────────────────────── */
+.shots{display:flex;gap:14px;overflow-x:auto;padding:6px 0 12px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.shot{flex:0 0 auto;scroll-snap-align:start;margin:0}
+/* 🔴 height:auto is load-bearing. The <img> carries width/height ATTRIBUTES so
+   the browser can reserve space before the file arrives (no layout shift);
+   without this rule that height applies as a presentational height and a
+   620x1348 phone capture renders 232px wide by 1348px TALL. */
+.shot img{display:block;height:auto;max-width:100%;border-radius:10px;
+  border:1px solid var(--line);box-shadow:var(--shadow-lg);background:var(--card2)}
+.shot.wide img{width:min(620px,78vw)}
+.shot.tall img{width:min(232px,46vw);border-radius:20px}
+.shot.watch img{width:min(180px,40vw);border-radius:34px;background:#000;
+  border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
+.shots::-webkit-scrollbar{height:7px}
+.shots::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
+/* ── misc ────────────────────────────────────────────────── */
+.crumb{font-size:13px;color:var(--muted);margin:24px 0 12px}
+.crumb a{color:var(--muted)}
+.crumb a:hover{color:var(--accent)}
+.lede{color:var(--muted);font-size:17px;margin:0 0 6px;max-width:60ch}
+/* The accent goes all the way round, not down one edge. A single colored
+   left bar on a white card is the browser's default blockquote look; a soft
+   tinted field with a matching border reads as a deliberate callout and sits
+   with the tinted icon chips instead of fighting them. */
+.note{background:var(--soft);
+  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+  border-radius:var(--r);padding:18px 20px;margin:22px 0}
+.note b{color:var(--accent-ink)}
+.note p:first-child{margin-top:0}.note p:last-child{margin-bottom:0}
+table{width:100%;border-collapse:collapse;margin:14px 0}
+td{padding:11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.k{width:158px;white-space:nowrap}
+kbd{display:inline-block;min-width:25px;text-align:center;background:var(--card);
+  border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;
+  padding:3px 7px;color:var(--ink);box-shadow:var(--shadow);
+  font:640 12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.pill{display:inline-block;background:var(--soft);color:var(--accent);
+  font-size:11px;font-weight:650;padding:3px 9px;border-radius:999px;
+  letter-spacing:.01em;flex:0 0 auto}
+.sect{display:flex;align-items:center;gap:11px;margin:42px 0 4px}
+.sect h2{margin:0}
+footer{margin-top:64px;padding-top:26px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:13.5px;text-align:center}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--accent)}
+footer .fl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10px}
+/* ── landing page ────────────────────────────────────────── */
+.hero.lead{padding:52px 40px 46px}
+.hero.lead h1{font-size:44px;letter-spacing:-.03em;margin:0 0 12px}
+.hero.lead .tag{color:#BFE3D8;font-size:19px;line-height:1.55;max-width:34ch;margin:0}
+.hero.lead .hero-top{flex-direction:column;align-items:flex-start;gap:18px;margin-bottom:6px}
+.hero.lead .hero-top img{width:84px;height:84px;border-radius:19px}
+/* Apple's badge is the artwork; we only give it a hit area and clear space.
+   No background, no border, no shadow — modifying the badge is not allowed. */
+.cta{display:inline-block;line-height:0;transition:opacity .16s,transform .16s}
+.cta:hover{opacity:.85;transform:translateY(-1px);text-decoration:none}
+.cta img{display:block;width:180px;height:auto}
+.cta-row{display:block;margin-top:28px;position:relative}
+.cta-note{color:#8FBDB2;font-size:13.5px;line-height:1.55;margin:16px 0 0;
+  max-width:40ch;position:relative}
+.feat{display:grid;gap:13px;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));
+  margin-top:18px}
+.feat .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;box-shadow:var(--shadow)}
+.feat h3{margin:13px 0 5px;font-size:16.5px}
+.feat p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.band{background:linear-gradient(150deg,#0C1F36,#0E4A44);border-radius:20px;
+  padding:34px 32px;margin:44px 0 0;color:#C8DCD9;box-shadow:var(--shadow-lg)}
+.band h2{color:#fff;margin:0 0 10px;font-size:23px}
+.band p{margin:10px 0;max-width:62ch}
+.band b{color:#4BE7B6}
+/* 🔴 The bleed MUST equal the gutter. Hard-coded -22px against a gutter that
+   drops to 16px on phones made this 387px wide inside a 375px viewport, and the
+   whole page scrolled sideways — 6px of overhang each side, invisible unless
+   you measure it. Both now read the same variable. */
+.posters{display:flex;gap:14px;overflow-x:auto;margin:26px calc(-1*var(--gutter)) 0;
+  padding:8px var(--gutter) 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.posters::-webkit-scrollbar{height:7px}
+.posters::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+.poster{flex:0 0 auto;margin:0;scroll-snap-align:center}
+.poster img{display:block;width:min(258px,62vw);height:auto;border-radius:22px;
+  box-shadow:var(--shadow-lg)}
+.showcase{margin:20px calc(-1 * var(--gutter)) 0;
+  padding:6px var(--gutter) 18px;overflow-x:auto;display:flex;
+  gap:18px;scroll-snap-type:x mandatory}
+.showcase figure{margin:0;flex:0 0 auto;scroll-snap-align:center}
+.showcase img{display:block;height:auto;border-radius:14px;border:1px solid var(--line);
+  box-shadow:var(--shadow-lg);background:var(--card2)}
+.showcase .wide img{width:min(680px,84vw)}
+.showcase .tall img{width:min(250px,52vw);border-radius:22px}
+.showcase::-webkit-scrollbar{height:7px}
+.showcase::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+/* The comparison table. Columns get real breathing room and a hairline
+   between them; our column is a single highlighted band with rounded ends
+   rather than four separately-tinted cells, so it reads as one thing. */
+.cmp-wrap{overflow-x:auto;margin:20px 0 10px;padding-bottom:4px}
+.cmp{border-collapse:separate;border-spacing:0;font-size:14.5px;
+  min-width:640px;width:100%}
+.cmp th,.cmp td{padding:14px 20px;text-align:left;vertical-align:middle;
+  white-space:nowrap;border-bottom:1px solid var(--line)}
+.cmp thead th{font-size:12.5px;font-weight:650;color:var(--muted);
+  letter-spacing:.04em;text-transform:uppercase;padding-bottom:12px;
+  border-bottom:1px solid var(--line)}
+.cmp tbody tr:last-child td{border-bottom:0}
+.cmp td:first-child,.cmp th:first-child{padding-left:0;white-space:normal;
+  min-width:210px;color:var(--ink);font-weight:600}
+.cmp th:first-child{color:var(--muted);font-weight:650}
+/* hairline between the rival columns */
+.cmp td:not(:first-child):not(.us),.cmp th:not(:first-child):not(.us){
+  border-left:1px solid var(--line);text-align:center}
+.cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
+/* our column: one continuous band */
+.cmp .us{background:color-mix(in srgb,var(--accent) 9%,transparent);
+  color:var(--accent-ink);font-weight:650;white-space:normal;min-width:150px;
+  border-left:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
+  border-right:1px solid color-mix(in srgb,var(--accent) 34%,transparent)}
+.cmp thead .us{color:var(--accent);border-top:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);
+  border-radius:11px 11px 0 0;padding-top:12px}
+.cmp tbody tr:last-child .us{border-bottom:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);border-radius:0 0 11px 11px}
+.cmp .no{color:var(--muted);font-weight:500}
+/* Where WE are the weaker option, say so in the same band rather than hiding
+   it. A comparison table that wins every row is not read as a comparison. */
+.cmp .us.miss{color:var(--muted);font-weight:500}
+/* the home-page teaser that sends people to the comparison */
+.banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
+  border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
+  color:var(--ink);transition:transform .17s,box-shadow .17s}
+.banner:hover{text-decoration:none;transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.banner b{display:block;font-size:16px;font-weight:650;letter-spacing:-.014em;
+  margin-bottom:3px}
+.banner .txt>span{color:var(--muted);font-size:14px;line-height:1.55;display:block}
+.banner .go{margin-left:auto;color:var(--accent);font-size:22px;font-weight:600;
+  flex:0 0 auto}
+/* one rival, on the comparison page */
+.rival{border-top:1px solid var(--line);padding:22px 0 4px}
+.rival h3{font-size:19px;margin:0 0 8px;display:flex;align-items:baseline;gap:12px;
+  flex-wrap:wrap}
+.rival h3 span{font-size:13.5px;font-weight:600;color:var(--accent);
+  background:var(--soft);padding:3px 10px;border-radius:999px;letter-spacing:0}
+.rival p{margin:9px 0}
+.rival .vs{color:var(--muted)}
+.src{color:var(--muted);font-size:12.5px;line-height:1.6;margin:6px 0 0}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:12px;margin:26px 0 4px}
+.ti{display:flex;gap:12px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;
+  box-shadow:var(--shadow)}
+.ti b{display:block;font-size:14.5px;font-weight:650;color:var(--ink);letter-spacing:-.01em}
+.ti>div span{color:var(--muted);font-size:12.5px;line-height:1.5;display:block;margin-top:2px}
+.feats{list-style:none;padding:0;margin:8px 0 4px;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.feats li{position:relative;padding:0 0 0 26px;color:var(--body);font-size:14.5px;
+  line-height:1.5}
+.feats li::before{content:"";position:absolute;left:2px;top:7px;width:8px;height:8px;
+  border-radius:50%;background:var(--accent);opacity:.55}
+.feats a{font-weight:600}
+.policy-meta{color:var(--muted);font-size:14px;margin:0 0 4px}
+@media(max-width:560px){
+  .hero.lead{padding:32px 22px}.hero.lead h1{font-size:32px}
+  .hero.lead .tag{font-size:17px}.hero.lead .hero-top img{width:66px;height:66px}
+}
+.tk{white-space:nowrap}
+/* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
+html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
+html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
+html[data-p=ipad] [data-plat=mac],html[data-p=ipad] [data-plat=ios]{display:none}
+/* help-page text splits use data-only=mac|ios; iPad follows iOS wording */
+html[data-p=ios] [data-only=mac],html[data-p=ipad] [data-only=mac],
+html[data-p=mac] [data-only=ios]{display:none}
+/* poster sizes per device shape */
+.poster.mac img{width:min(560px,86vw)}
+.poster.ios img{width:min(258px,62vw)}
+.poster.ipad img{width:min(420px,74vw)}
+.shot.ipadw img,.shot.wide img{border-radius:12px}
+@media(max-width:560px){
+  h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
+  .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
+  :root{--gutter:16px}.bar-in{padding:10px var(--gutter)}
+  .ans,summary{padding-left:15px;padding-right:15px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
-</head>
-<body>
-  <div class="header">
-    <div class="wrap">
-      <div class="badge">💰</div>
-      <h1>Simple Finance</h1>
-      <p>The private way to manage your money — budgets, net worth, retirement planning, and a private AI money assistant, all on your device.</p>
-    </div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Simple Finance", "applicationCategory": "FinanceApplication", "operatingSystem": "macOS, iOS, iPadOS, watchOS", "url": "https://apps.apple.com/app/id6777039726", "description": "Private personal finance for Mac, iPhone and iPad. No bank login; data stays on device and in iCloud.", "publisher": {"@type": "Organization", "name": "Simple Finance"}}</script>
+</head><body>
+<div class="bar"><div class="bar-in">
+  <a class="brand" href="index.html">
+    <img src="help/img/logo-96.png" alt="" width="31" height="31">
+    <span class="word">Simple&nbsp;Finance</span></a>
+  <a class="navlink" href="gallery.html">Screenshots</a>
+  <a class="navlink" href="compare.html">Compare</a>
+  <a class="navlink" href="support.html">Help</a>
+  <a class="navlink" href="help/contact.html">Contact</a>
+  <a class="navlink dim" href="privacy-policy.html">Privacy</a>
+  <span class="spacer"></span>
+  <div class="seg" role="group" aria-label="Choose your platform">
+    <button data-p="mac" aria-pressed="true">Mac</button>
+    <button data-p="ios" aria-pressed="false">iPhone</button>
+    <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-  <main>
-    <div class="links">
-      <a class="tile" href="./support.html">
-        <div class="ic">💬</div>
-        <h2>Support &amp; Help</h2>
-        <p>Step-by-step guides for every feature, an FAQ, and how to reach us.</p>
-      </a>
-      <a class="tile" href="./privacy-policy.html">
-        <div class="ic">🖐️</div>
-        <h2>Privacy Policy</h2>
-        <p>What we do and don't collect. Built local-first — your data stays on your device.</p>
-      </a>
-    </div>
-    <p class="contact">Questions? Email <a href="mailto:simpleapphelp@outlook.com">simpleapphelp@outlook.com</a></p>
-  </main>
-</body>
-</html>
+</div></div>
+<div class="wrap">
+<div class="hero lead">
+<div class="hero-top">
+  <img src="help/img/logo-180.png" alt="Simple Finance" width="84" height="84">
+  <div><h1>Simple Finance</h1>
+  <p class="tag">Your whole financial life in one app &mdash; and on nobody's
+  server but Apple's.</p></div>
+</div>
+<div class="cta-row"><a class="cta" href="https://apps.apple.com/app/id6777039726"
+  aria-label="Download Simple Finance on the App Store">
+  <img src="help/img/appstore-badge-white.svg" alt="Download on the App Store"
+       width="180" height="60"></a></div>
+<p class="cta-note">Mac &middot; iPhone &middot; iPad &middot; Apple Watch.<br>
+No bank login. No account to create.</p>
+</div>
+<div class="posters" data-plat="mac"><figure class="poster mac"><picture><source srcset="help/img/poster_mac_0.webp" type="image/webp"><img src="help/img/poster_mac_0.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="1600" height="1000"></picture></figure><figure class="poster mac"><picture><source srcset="help/img/poster_mac_1.webp" type="image/webp"><img src="help/img/poster_mac_1.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="1600" height="1000"></picture></figure><figure class="poster mac"><picture><source srcset="help/img/poster_mac_2.webp" type="image/webp"><img src="help/img/poster_mac_2.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="1600" height="1000"></picture></figure><figure class="poster mac"><picture><source srcset="help/img/poster_mac_3.webp" type="image/webp"><img src="help/img/poster_mac_3.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="1600" height="1000"></picture></figure><figure class="poster mac"><picture><source srcset="help/img/poster_mac_4.webp" type="image/webp"><img src="help/img/poster_mac_4.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="1600" height="1000"></picture></figure></div><div class="posters" data-plat="ios"><figure class="poster ios"><picture><source srcset="help/img/poster_ios_0.webp" type="image/webp"><img src="help/img/poster_ios_0.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="1521"></picture></figure><figure class="poster ios"><picture><source srcset="help/img/poster_ios_1.webp" type="image/webp"><img src="help/img/poster_ios_1.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="1521"></picture></figure><figure class="poster ios"><picture><source srcset="help/img/poster_ios_2.webp" type="image/webp"><img src="help/img/poster_ios_2.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="1521"></picture></figure><figure class="poster ios"><picture><source srcset="help/img/poster_ios_3.webp" type="image/webp"><img src="help/img/poster_ios_3.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="1521"></picture></figure><figure class="poster ios"><picture><source srcset="help/img/poster_ios_4.webp" type="image/webp"><img src="help/img/poster_ios_4.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="1521"></picture></figure></div><div class="posters" data-plat="ipad"><figure class="poster ipad"><picture><source srcset="help/img/poster_ipad_0.webp" type="image/webp"><img src="help/img/poster_ipad_0.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="933"></picture></figure><figure class="poster ipad"><picture><source srcset="help/img/poster_ipad_1.webp" type="image/webp"><img src="help/img/poster_ipad_1.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="933"></picture></figure><figure class="poster ipad"><picture><source srcset="help/img/poster_ipad_2.webp" type="image/webp"><img src="help/img/poster_ipad_2.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="933"></picture></figure><figure class="poster ipad"><picture><source srcset="help/img/poster_ipad_3.webp" type="image/webp"><img src="help/img/poster_ipad_3.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="933"></picture></figure><figure class="poster ipad"><picture><source srcset="help/img/poster_ipad_4.webp" type="image/webp"><img src="help/img/poster_ipad_4.jpg" alt="Simple Finance App Store screenshot" loading="lazy" decoding="async" width="700" height="933"></picture></figure></div>
+<div class="trust"><div class="ti"><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.624" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.977 -1.029) scale(1.0465)"><circle cx="10" cy="8.5" r="3.4"/><path d="M3.8 19.8a6.5 6.5 0 0 1 10.4-4"/><path d="M15.5 17.8l2 2 3.5-4"/></g></svg></span><div><b>No account</b><span>Nothing to create. Open the app and start.</span></div></div><div class="ti"><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg></span><div><b>No bank login</b><span>We never ask for, or hold, your bank password.</span></div></div><div class="ti"><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M10.6 6.2A9.6 9.6 0 0 1 12 6c5 0 9 6 9 6a15 15 0 0 1-3 3.5M6.4 8.4A15.5 15.5 0 0 0 3 12s4 6 9 6a9.4 9.4 0 0 0 3.4-.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></g></svg></span><div><b>Nothing collected</b><span>No analytics SDK, no ad tracker, no data sale.</span></div></div><div class="ti"><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg></span><div><b>Free</b><span>The whole app. No trial that expires, no locked tier.</span></div></div></div>
+<a class="banner" href="compare.html">
+  <span class="txt"><b>Why Simple&nbsp;Finance instead of YNAB, Monarch or Copilot?</b>
+  <span>Free against $48&ndash;$109 a year, and nothing of yours on anybody&rsquo;s
+  server. The full comparison, including where we lose.</span></span>
+  <span class="go">&rarr;</span></a>
+
+<h2>What it does</h2>
+<div class="feat"><div class="card"><span class="chip tint" style="--c:#34C759"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg></span><h3>Budgets that actually close</h3><p>Categories, monthly limits and rings that fill as you spend. Annual budgets and rollover for the bills that do not arrive every month.</p></div><div class="card"><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg></span><h3>Net worth, all of it</h3><p>Cash, cards, loans, property, stocks and crypto in one number, with the history behind it. Reconcile against your bank in one pass.</p></div><div class="card"><span class="chip tint" style="--c:#FF9F0A"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h11a4 4 0 0 1 4 4"/><path d="M7 5L4 8l3 3"/><path d="M20 16H9a4 4 0 0 1-4-4"/><path d="M17 19l3-3-3-3"/></g></svg></span><h3>Bills that tell you first</h3><p>Every cadence including biweekly, reminders before they land, and a cash-flow forecast that shows the lowest point your balance will hit.</p></div><div class="card"><span class="chip tint" style="--c:#5E5CE6"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></g></svg></span><h3>A retirement plan you can stress-test</h3><p>Monte Carlo and real market history against your own numbers, with an investor-grade PDF at the end.</p></div><div class="card"><span class="chip tint" style="--c:#FF375F"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.182) scale(1.0588)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M16.5 6a3.2 3.2 0 0 1 0 6.4"/><path d="M17.5 14.6a6.2 6.2 0 0 1 3 4.9"/></g></svg></span><h3>Share exactly as much as you mean to</h3><p>A partner sees everything both ways. Family sees a summary you choose. Friends see one scorecard. All through your own iCloud.</p></div><div class="card"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.750 0.000) scale(1.0000)"><path d="M12 3l1.7 4.6L18 9.3l-4.3 1.7L12 15.6l-1.7-4.6L6 9.3l4.3-1.7z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></g></svg></span><h3>Fin, on device</h3><p>Ask about your own money in plain language. It runs on Apple&#x27;s on-device model, so the questions never leave your phone.</p></div><div class="card"><span class="chip tint" style="--c:#AF52DE"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="7.5" width="18" height="12.5" rx="2.2"/><path d="M8.5 7.5V5.8A1.8 1.8 0 0 1 10.3 4h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"/><path d="M3 12.5h18"/></g></svg></span><h3>Business money kept separate</h3><p>Invoices, clients, estimates and mileage in their own books, never mixed into your personal totals.</p></div><div class="card"><span class="chip tint" style="--c:#FF9500"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg></span><h3>Bring your history with you</h3><p>CSV, OFX, QFX, Excel, or a photo of a statement read by OCR. Columns are matched by content, not headings. Nothing saves until you approve it.</p></div></div>
+<h2>Every day</h2><p class="lede">Log it, find it, and see where the month is going.</p><div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_transactions_mac.webp" type="image/webp"><img src="help/img/tour_transactions_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_mac.webp" type="image/webp"><img src="help/img/tour_recurring_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_merchants_mac.webp" type="image/webp"><img src="help/img/tour_merchants_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_trends_mac.webp" type="image/webp"><img src="help/img/tour_trends_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_transactions.webp" type="image/webp"><img src="help/img/tour_transactions.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_recurring.webp" type="image/webp"><img src="help/img/tour_recurring.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_moneyflow_3.webp" type="image/webp"><img src="help/img/tour_moneyflow_3.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_trends.webp" type="image/webp"><img src="help/img/tour_trends.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div><div class="showcase" data-plat="ipad"><figure class="wide"><picture><source srcset="help/img/tour_transactions_ipad.webp" type="image/webp"><img src="help/img/tour_transactions_ipad.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1400" height="1050"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_ipad.webp" type="image/webp"><img src="help/img/tour_recurring_ipad.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1400" height="1050"></picture></figure></div>
+<div class="band">
+  <h2>It never asks for your bank password</h2>
+  <p>Most budgeting apps work by holding your bank credentials with an
+  aggregator and syncing your transactions through their servers. Simple Finance
+  does not do that, because it has <b>no servers of its own</b> to sync
+  them to.</p>
+  <p>Your data sits on your device and, if you turn sync on, in
+  <b>your own private iCloud</b> &mdash; the same place your photos and messages
+  live. We cannot read it. There is no advertising SDK and no analytics broker in
+  the app. That is why support can never look up your account: there is nothing
+  on our side to look up.</p>
+  <p>It is built independently &mdash; by a small team that uses it every day,
+  not a company whose business is your data. Write to support and a real person
+  answers.</p>
+  <p style="margin-bottom:0"><a href="privacy-policy.html"
+  style="color:#4BE7B6;font-weight:600">Read the full privacy policy &rarr;</a></p>
+</div>
+<h2>Looking further out</h2><p class="lede">Plans, forecasts and a retirement stress-test built from the same figures.</p><div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_planner_mac.webp" type="image/webp"><img src="help/img/tour_planner_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retcashflow_mac.webp" type="image/webp"><img src="help/img/tour_retcashflow_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_forecast_mac.webp" type="image/webp"><img src="help/img/tour_forecast_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_projection_mac.webp" type="image/webp"><img src="help/img/tour_projection_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="743"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_retire.webp" type="image/webp"><img src="help/img/tour_retire.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_retanalysis.webp" type="image/webp"><img src="help/img/tour_retanalysis.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_goals.webp" type="image/webp"><img src="help/img/tour_goals.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div><div class="showcase" data-plat="ipad"><figure class="wide"><picture><source srcset="help/img/tour_goals_ipad.webp" type="image/webp"><img src="help/img/tour_goals_ipad.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1400" height="1050"></picture></figure></div>
+<h2>Getting started</h2>
+<div class="grid">
+<a class="tile" href="support.html"><span class="chip tint" style="--c:#AF52DE"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.848" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.960 0.956) scale(0.9200)"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v16H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v4H6.5A2.5 2.5 0 0 1 4 20.5z"/></g></svg></span><span class="txt">
+  <b>Help Center</b><span>136 answers and illustrated guides</span></span></a>
+<a class="tile" href="help/contact.html"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M21 3L10.5 13.5"/><path d="M21 3l-6.8 18-3.7-7.5L3 9.8z"/></g></svg></span><span class="txt">
+  <b>Contact us</b><span>A person, not a robot</span></span></a>
+<a class="tile" href="privacy-policy.html"><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg></span>
+  <span class="txt"><b>Privacy Policy</b><span>Plain language, 15
+  sections</span></span></a>
+</div>
+<footer>
+  <img src="help/img/logo-96.png" alt="" width="26" height="26">
+  <div class="fl">
+    <a href="gallery.html">Screenshots</a>
+    <a href="compare.html">Why Simple Finance</a>
+    <a href="support.html">Help Center</a>
+    <a href="help/guides.html">Guides</a>
+    <a href="help/troubleshooting.html">Troubleshooting</a>
+    <a href="help/contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy</a>
+  </div>
+  &copy; 2026 Simple Finance &middot; Simple Finance is not a
+  bank and does not give financial advice.
+</footer>
+</div>
+<script>var SEARCH_URL="help/search.json",LINK_BASE="";
+
+(function(){
+  var d=document.documentElement;
+  function set(p,save){
+    d.setAttribute('data-p',p);
+    document.querySelectorAll('.tk').forEach(function(s){
+      s.textContent=s.getAttribute(p==='mac'?'data-m':'data-i');});
+    document.querySelectorAll('.seg button').forEach(function(b){
+      b.setAttribute('aria-pressed',b.dataset.p===p);});
+    if(save){try{localStorage.setItem('sf-platform',p)}catch(e){}}
+  }
+  var saved=null;try{saved=localStorage.getItem('sf-platform')}catch(e){}
+  set(saved||(/iPad/.test(navigator.userAgent)?'ipad':(/iPhone|iPod/.test(navigator.userAgent)?'ios':'mac')),false);
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.seg button');if(b)set(b.dataset.p,true);});
+
+  var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
+  if(!box)return;
+  function load(){return idx?Promise.resolve(idx):
+    fetch(SEARCH_URL).then(function(r){return r.json()}).then(function(j){idx=j;return j})}
+  var t;
+  box.addEventListener('input',function(){
+    clearTimeout(t);t=setTimeout(function(){
+      var q=box.value.trim().toLowerCase();
+      if(q.length<2){list.innerHTML='';return}
+      load().then(function(items){
+        var terms=q.split(/\s+/),hits=[],p=d.getAttribute('data-p');
+        items.forEach(function(it){
+          if(it.o&&it.o!==p)return;
+          var hay=(it.t+' '+it.b+' '+it.k).toLowerCase(),sc=0;
+          for(var i=0;i<terms.length;i++){
+            if(hay.indexOf(terms[i])<0){sc=0;break}
+            sc+=it.t.toLowerCase().indexOf(terms[i])>=0?3:1;}
+          if(sc)hits.push([sc,it]);});
+        hits.sort(function(a,b){return b[0]-a[0]});
+        list.innerHTML=hits.length?hits.slice(0,25).map(function(h){
+          return '<li><a href="'+LINK_BASE+h[1].u+'">'+h[1].t+
+                 '<span class="in">'+h[1].k+'</span></a></li>'}).join('')
+          :'<li><a href="'+LINK_BASE+'help/contact.html">No match \u2014 ask us directly'+
+           '<span class="in">A person reads every message</span></a></li>';
+      });},110);
+  });
+})();
+</script>
+</body></html>

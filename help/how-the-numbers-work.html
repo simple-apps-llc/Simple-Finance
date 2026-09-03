@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en" data-p="mac"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0C1F36">
+<title>How the numbers work — Simple Finance Help</title>
+<meta name="description" content="What each figure counts, and why two screens can differ.">
+<link rel="canonical" href="https://simple-apps-llc.github.io/Simple-Finance/help/how-the-numbers-work.html">
+<link rel="icon" type="image/png" href="../help/img/favicon.png">
+<link rel="apple-touch-icon" href="../help/img/logo-180.png">
+<meta property="og:title" content="How the numbers work — Simple Finance Help">
+<meta property="og:description" content="What each figure counts, and why two screens can differ.">
+<meta property="og:image" content="https://simple-apps-llc.github.io/Simple-Finance/help/img/logo-512.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simple-apps-llc.github.io/Simple-Finance/help/how-the-numbers-work.html">
+<meta name="twitter:card" content="summary">
+<style>
+:root{
+  --ink:#0C1F36; --body:#41525F; --muted:#788994;
+  --bg:#F4F8F8; --card:#fff; --card2:#FAFCFC; --line:#E2EBEA;
+  --accent:#0A7D62; --accent-ink:#07604B; --soft:#E8F7F1; --bright:#19D8A6;
+  --navy:#0C1F36; --shadow:0 1px 2px rgba(12,31,54,.05),0 6px 18px -6px rgba(12,31,54,.09);
+  --shadow-lg:0 2px 4px rgba(12,31,54,.05),0 18px 40px -12px rgba(12,31,54,.18);
+  --r:14px; --gutter:22px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#EDF4F2; --body:#BDCBCE; --muted:#88999E;
+  --bg:#0A141C; --card:#111F2A; --card2:#16242F; --line:#1F3340;
+  --accent:#43E2B0; --accent-ink:#6FEDC6; --soft:#102C27; --bright:#19D8A6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px -6px rgba(0,0,0,.45);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 18px 40px -12px rgba(0,0,0,.6);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--body);
+  font:16px/1.68 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-feature-settings:"kern","liga";-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 var(--gutter) 96px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{color:var(--ink);letter-spacing:-.022em;line-height:1.22}
+h1{font-size:34px;margin:0 0 10px;font-weight:700}
+h2{font-size:21px;margin:44px 0 14px;font-weight:650}
+h3{font-size:16px;margin:0;font-weight:650}
+p{margin:14px 0}
+
+/* ── top bar ─────────────────────────────────────────────── */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line)}
+.bar-in{max-width:900px;margin:0 auto;padding:11px var(--gutter);display:flex;
+  align-items:center;gap:13px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-weight:650;
+  font-size:15.5px;letter-spacing:-.017em}
+.brand:hover{text-decoration:none;opacity:.82}
+.brand img{width:31px;height:31px;border-radius:8px;box-shadow:var(--shadow)}
+.navlink{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:-.01em;
+  white-space:nowrap}
+.navlink:hover{color:var(--accent);text-decoration:none}
+/* Four links plus the platform toggle will not fit a phone. Privacy is the one
+   that drops: it is in the footer of every page and it is where people look
+   for it anyway. Everything else stays reachable at every width. */
+/* The bar is STICKY, so a wrapped one eats the screen on every scroll. At 590px
+   it was measured at four rows and 104px tall. Below 700 the toggle loses its
+   long label and Privacy drops (it is in every footer); below 560 the brand
+   wordmark goes too, leaving the logo. Measured, not guessed. */
+@media(max-width:700px){
+  .navlink.dim{display:none}
+  .bar-in{gap:12px}
+  .seg button{padding:6px 11px;font-size:12px}
+  .seg button[data-p=ios] .full{display:none}}
+@media(max-width:560px){
+  .brand span.word{display:none}
+  .navlink{font-size:13.5px}
+  .bar-in{gap:10px;padding:9px 16px}}
+.spacer{flex:1 1 auto}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:3px;gap:2px;box-shadow:var(--shadow)}
+.seg button{appearance:none;background:none;border:0;color:var(--muted);
+  font:640 12.5px/1 inherit;padding:7px 14px;border-radius:999px;cursor:pointer;
+  letter-spacing:-.005em;transition:.16s}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+@media (prefers-color-scheme:dark){.seg button[aria-pressed=true]{color:#062119}}
+
+/* ── hero ────────────────────────────────────────────────── */
+.hero{background:linear-gradient(155deg,#0C1F36 0%,#123246 48%,#0E4A44 100%);
+  border-radius:22px;padding:38px 34px 34px;margin:26px 0 8px;position:relative;
+  overflow:hidden;box-shadow:var(--shadow-lg)}
+.hero::after{content:"";position:absolute;inset:auto -60px -110px auto;width:300px;
+  height:300px;border-radius:50%;background:radial-gradient(circle,rgba(25,216,166,.34),transparent 68%)}
+.hero-top{display:flex;align-items:center;gap:15px;margin-bottom:18px;position:relative}
+.hero-top img{width:58px;height:58px;border-radius:14px;
+  box-shadow:0 8px 24px -6px rgba(0,0,0,.55)}
+.hero h1{color:#fff;font-size:33px;margin:0}
+.hero .sub{color:#9FD9C8;font-size:14px;font-weight:600;letter-spacing:.02em;
+  text-transform:uppercase;margin:0 0 3px}
+.hero p{color:#C8DCD9;margin:0;max-width:52ch;position:relative;font-size:16.5px}
+.stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;position:relative}
+.stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;padding:6px 14px;color:#DCEDE9;font-size:13px;font-weight:600}
+.stat b{color:#3FE9B8}
+
+/* ── search ──────────────────────────────────────────────── */
+.searchbox{position:relative;margin:22px 0 0}
+.searchbox svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  width:19px;height:19px;color:var(--muted);pointer-events:none}
+input[type=search]{width:100%;padding:15px 16px 15px 45px;border-radius:13px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  font:16px/1.4 inherit;box-shadow:var(--shadow);appearance:none}
+input[type=search]::placeholder{color:var(--muted)}
+input[type=search]:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3.5px var(--soft)}
+#results{margin:12px 0 0;padding:0;list-style:none}
+#results li{border-bottom:1px solid var(--line)}
+#results li:last-child{border:0}
+#results a{display:block;padding:12px 2px;color:var(--ink);font-weight:550}
+#results a:hover{color:var(--accent);text-decoration:none}
+#results .in{display:block;color:var(--muted);font-size:12.5px;font-weight:500;margin-top:1px}
+
+/* ── cards & tiles ───────────────────────────────────────── */
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));margin-top:16px}
+.tile{display:flex;gap:13px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:16px;color:var(--ink);
+  box-shadow:var(--shadow);transition:transform .17s,box-shadow .17s,border-color .17s}
+.tile:hover{text-decoration:none;transform:translateY(-2px);
+  box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--accent) 42%,var(--line))}
+.tile .txt{min-width:0;display:block}
+.tile b{display:block;font-size:15px;font-weight:640;letter-spacing:-.012em;color:var(--ink)}
+/* 🔴 `.tile .txt>span`, NOT `.tile span`. The chip is a <span> too, and a bare
+   `.tile span` beats `.chip` on specificity (0,1,1 vs 0,1,0) — so every chip
+   INSIDE a tile lost display:flex, silently, and its glyph pinned to the
+   top-left corner while chips elsewhere on the page stayed centered. */
+.tile .txt>span{color:var(--muted);font-size:12.5px;display:block;margin-top:2px}
+.chip{width:38px;height:38px;border-radius:11px;flex:0 0 auto;display:flex;
+  align-items:center;justify-content:center;background:var(--soft);color:var(--accent)}
+.chip svg{width:21px;height:21px}
+/* 🔴 The raw app color is a FILL color, not an ink color. #FF9F0A and
+   #34C759 are ~2:1 on white — legible as a 40px pie slice in the app, muddy as
+   a 21px glyph on a card. Mix toward black on light and toward white on dark so
+   every chip lands in the same contrast band whatever hue it carries. */
+.chip.tint{background:color-mix(in srgb,var(--c) 13%,#fff);
+  color:color-mix(in srgb,var(--c) 74%,#0C1F36)}
+@media (prefers-color-scheme:dark){.chip.tint{
+  background:color-mix(in srgb,var(--c) 20%,#0A141C);
+  color:color-mix(in srgb,var(--c) 82%,#fff)}}
+
+/* ── disclosure rows ─────────────────────────────────────── */
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  margin:10px 0;box-shadow:var(--shadow);overflow:hidden}
+details[open]{border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+summary{cursor:pointer;padding:16px 18px;font-weight:600;font-size:15.5px;
+  color:var(--ink);letter-spacing:-.012em;list-style:none;display:flex;gap:12px;
+  align-items:center}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:var(--accent)}
+.caret{margin-left:auto;flex:0 0 auto;width:17px;height:17px;color:var(--muted);
+  transition:transform .2s}
+details[open] .caret{transform:rotate(90deg);color:var(--accent)}
+.ans{padding:2px 18px 18px;border-top:1px solid var(--line);margin-top:-1px}
+.ans p:first-child{margin-top:14px}
+.ans ul{margin:13px 0;padding-left:21px}
+.ans li{margin:6px 0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:15px 0}
+.steps li{counter-increment:s;position:relative;padding:0 0 0 34px;margin:11px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:23px;
+  height:23px;border-radius:50%;background:var(--soft);color:var(--accent);
+  font:640 11.5px/23px inherit;text-align:center}
+
+/* ── screenshots ─────────────────────────────────────────── */
+.shots{display:flex;gap:14px;overflow-x:auto;padding:6px 0 12px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.shot{flex:0 0 auto;scroll-snap-align:start;margin:0}
+/* 🔴 height:auto is load-bearing. The <img> carries width/height ATTRIBUTES so
+   the browser can reserve space before the file arrives (no layout shift);
+   without this rule that height applies as a presentational height and a
+   620x1348 phone capture renders 232px wide by 1348px TALL. */
+.shot img{display:block;height:auto;max-width:100%;border-radius:10px;
+  border:1px solid var(--line);box-shadow:var(--shadow-lg);background:var(--card2)}
+.shot.wide img{width:min(620px,78vw)}
+.shot.tall img{width:min(232px,46vw);border-radius:20px}
+.shot.watch img{width:min(180px,40vw);border-radius:34px;background:#000;
+  border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
+.shots::-webkit-scrollbar{height:7px}
+.shots::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
+/* ── misc ────────────────────────────────────────────────── */
+.crumb{font-size:13px;color:var(--muted);margin:24px 0 12px}
+.crumb a{color:var(--muted)}
+.crumb a:hover{color:var(--accent)}
+.lede{color:var(--muted);font-size:17px;margin:0 0 6px;max-width:60ch}
+/* The accent goes all the way round, not down one edge. A single colored
+   left bar on a white card is the browser's default blockquote look; a soft
+   tinted field with a matching border reads as a deliberate callout and sits
+   with the tinted icon chips instead of fighting them. */
+.note{background:var(--soft);
+  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+  border-radius:var(--r);padding:18px 20px;margin:22px 0}
+.note b{color:var(--accent-ink)}
+.note p:first-child{margin-top:0}.note p:last-child{margin-bottom:0}
+table{width:100%;border-collapse:collapse;margin:14px 0}
+td{padding:11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.k{width:158px;white-space:nowrap}
+kbd{display:inline-block;min-width:25px;text-align:center;background:var(--card);
+  border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;
+  padding:3px 7px;color:var(--ink);box-shadow:var(--shadow);
+  font:640 12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.pill{display:inline-block;background:var(--soft);color:var(--accent);
+  font-size:11px;font-weight:650;padding:3px 9px;border-radius:999px;
+  letter-spacing:.01em;flex:0 0 auto}
+.sect{display:flex;align-items:center;gap:11px;margin:42px 0 4px}
+.sect h2{margin:0}
+footer{margin-top:64px;padding-top:26px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:13.5px;text-align:center}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--accent)}
+footer .fl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10px}
+/* ── landing page ────────────────────────────────────────── */
+.hero.lead{padding:52px 40px 46px}
+.hero.lead h1{font-size:44px;letter-spacing:-.03em;margin:0 0 12px}
+.hero.lead .tag{color:#BFE3D8;font-size:19px;line-height:1.55;max-width:34ch;margin:0}
+.hero.lead .hero-top{flex-direction:column;align-items:flex-start;gap:18px;margin-bottom:6px}
+.hero.lead .hero-top img{width:84px;height:84px;border-radius:19px}
+/* Apple's badge is the artwork; we only give it a hit area and clear space.
+   No background, no border, no shadow — modifying the badge is not allowed. */
+.cta{display:inline-block;line-height:0;transition:opacity .16s,transform .16s}
+.cta:hover{opacity:.85;transform:translateY(-1px);text-decoration:none}
+.cta img{display:block;width:180px;height:auto}
+.cta-row{display:block;margin-top:28px;position:relative}
+.cta-note{color:#8FBDB2;font-size:13.5px;line-height:1.55;margin:16px 0 0;
+  max-width:40ch;position:relative}
+.feat{display:grid;gap:13px;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));
+  margin-top:18px}
+.feat .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;box-shadow:var(--shadow)}
+.feat h3{margin:13px 0 5px;font-size:16.5px}
+.feat p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.band{background:linear-gradient(150deg,#0C1F36,#0E4A44);border-radius:20px;
+  padding:34px 32px;margin:44px 0 0;color:#C8DCD9;box-shadow:var(--shadow-lg)}
+.band h2{color:#fff;margin:0 0 10px;font-size:23px}
+.band p{margin:10px 0;max-width:62ch}
+.band b{color:#4BE7B6}
+/* 🔴 The bleed MUST equal the gutter. Hard-coded -22px against a gutter that
+   drops to 16px on phones made this 387px wide inside a 375px viewport, and the
+   whole page scrolled sideways — 6px of overhang each side, invisible unless
+   you measure it. Both now read the same variable. */
+.posters{display:flex;gap:14px;overflow-x:auto;margin:26px calc(-1*var(--gutter)) 0;
+  padding:8px var(--gutter) 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.posters::-webkit-scrollbar{height:7px}
+.posters::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+.poster{flex:0 0 auto;margin:0;scroll-snap-align:center}
+.poster img{display:block;width:min(258px,62vw);height:auto;border-radius:22px;
+  box-shadow:var(--shadow-lg)}
+.showcase{margin:20px calc(-1 * var(--gutter)) 0;
+  padding:6px var(--gutter) 18px;overflow-x:auto;display:flex;
+  gap:18px;scroll-snap-type:x mandatory}
+.showcase figure{margin:0;flex:0 0 auto;scroll-snap-align:center}
+.showcase img{display:block;height:auto;border-radius:14px;border:1px solid var(--line);
+  box-shadow:var(--shadow-lg);background:var(--card2)}
+.showcase .wide img{width:min(680px,84vw)}
+.showcase .tall img{width:min(250px,52vw);border-radius:22px}
+.showcase::-webkit-scrollbar{height:7px}
+.showcase::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+/* The comparison table. Columns get real breathing room and a hairline
+   between them; our column is a single highlighted band with rounded ends
+   rather than four separately-tinted cells, so it reads as one thing. */
+.cmp-wrap{overflow-x:auto;margin:20px 0 10px;padding-bottom:4px}
+.cmp{border-collapse:separate;border-spacing:0;font-size:14.5px;
+  min-width:640px;width:100%}
+.cmp th,.cmp td{padding:14px 20px;text-align:left;vertical-align:middle;
+  white-space:nowrap;border-bottom:1px solid var(--line)}
+.cmp thead th{font-size:12.5px;font-weight:650;color:var(--muted);
+  letter-spacing:.04em;text-transform:uppercase;padding-bottom:12px;
+  border-bottom:1px solid var(--line)}
+.cmp tbody tr:last-child td{border-bottom:0}
+.cmp td:first-child,.cmp th:first-child{padding-left:0;white-space:normal;
+  min-width:210px;color:var(--ink);font-weight:600}
+.cmp th:first-child{color:var(--muted);font-weight:650}
+/* hairline between the rival columns */
+.cmp td:not(:first-child):not(.us),.cmp th:not(:first-child):not(.us){
+  border-left:1px solid var(--line);text-align:center}
+.cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
+/* our column: one continuous band */
+.cmp .us{background:color-mix(in srgb,var(--accent) 9%,transparent);
+  color:var(--accent-ink);font-weight:650;white-space:normal;min-width:150px;
+  border-left:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
+  border-right:1px solid color-mix(in srgb,var(--accent) 34%,transparent)}
+.cmp thead .us{color:var(--accent);border-top:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);
+  border-radius:11px 11px 0 0;padding-top:12px}
+.cmp tbody tr:last-child .us{border-bottom:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);border-radius:0 0 11px 11px}
+.cmp .no{color:var(--muted);font-weight:500}
+/* Where WE are the weaker option, say so in the same band rather than hiding
+   it. A comparison table that wins every row is not read as a comparison. */
+.cmp .us.miss{color:var(--muted);font-weight:500}
+/* the home-page teaser that sends people to the comparison */
+.banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
+  border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
+  color:var(--ink);transition:transform .17s,box-shadow .17s}
+.banner:hover{text-decoration:none;transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.banner b{display:block;font-size:16px;font-weight:650;letter-spacing:-.014em;
+  margin-bottom:3px}
+.banner .txt>span{color:var(--muted);font-size:14px;line-height:1.55;display:block}
+.banner .go{margin-left:auto;color:var(--accent);font-size:22px;font-weight:600;
+  flex:0 0 auto}
+/* one rival, on the comparison page */
+.rival{border-top:1px solid var(--line);padding:22px 0 4px}
+.rival h3{font-size:19px;margin:0 0 8px;display:flex;align-items:baseline;gap:12px;
+  flex-wrap:wrap}
+.rival h3 span{font-size:13.5px;font-weight:600;color:var(--accent);
+  background:var(--soft);padding:3px 10px;border-radius:999px;letter-spacing:0}
+.rival p{margin:9px 0}
+.rival .vs{color:var(--muted)}
+.src{color:var(--muted);font-size:12.5px;line-height:1.6;margin:6px 0 0}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:12px;margin:26px 0 4px}
+.ti{display:flex;gap:12px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;
+  box-shadow:var(--shadow)}
+.ti b{display:block;font-size:14.5px;font-weight:650;color:var(--ink);letter-spacing:-.01em}
+.ti>div span{color:var(--muted);font-size:12.5px;line-height:1.5;display:block;margin-top:2px}
+.feats{list-style:none;padding:0;margin:8px 0 4px;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.feats li{position:relative;padding:0 0 0 26px;color:var(--body);font-size:14.5px;
+  line-height:1.5}
+.feats li::before{content:"";position:absolute;left:2px;top:7px;width:8px;height:8px;
+  border-radius:50%;background:var(--accent);opacity:.55}
+.feats a{font-weight:600}
+.policy-meta{color:var(--muted);font-size:14px;margin:0 0 4px}
+@media(max-width:560px){
+  .hero.lead{padding:32px 22px}.hero.lead h1{font-size:32px}
+  .hero.lead .tag{font-size:17px}.hero.lead .hero-top img{width:66px;height:66px}
+}
+.tk{white-space:nowrap}
+/* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
+html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
+html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
+html[data-p=ipad] [data-plat=mac],html[data-p=ipad] [data-plat=ios]{display:none}
+/* help-page text splits use data-only=mac|ios; iPad follows iOS wording */
+html[data-p=ios] [data-only=mac],html[data-p=ipad] [data-only=mac],
+html[data-p=mac] [data-only=ios]{display:none}
+/* poster sizes per device shape */
+.poster.mac img{width:min(560px,86vw)}
+.poster.ios img{width:min(258px,62vw)}
+.poster.ipad img{width:min(420px,74vw)}
+.shot.ipadw img,.shot.wide img{border-radius:12px}
+@media(max-width:560px){
+  h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
+  .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
+  :root{--gutter:16px}.bar-in{padding:10px var(--gutter)}
+  .ans,summary{padding-left:15px;padding-right:15px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Two screens show different totals for the same thing. Why?", "acceptedAnswer": {"@type": "Answer", "text": "Four rules decide what a figure includes, and almost every mismatch is one of them rather than an error.\n\n1. THE PERIOD. A month view and a year view of the same category are supposed to differ. Check the selector at the top of each screen before anything else.\n2. THE SCOPE. With business mode on, personal figures exclude business money entirely, and business figures exclude personal. The same category can hold both.\n3. SPLITS. A transaction split across categories contributes only its SHARE to each one — a $400 receipt at 25% business moves the business figure by $100, not $400.\n4. TRANSFERS. Money moved between your own accounts is neither income nor spending, so paying off a card doesn't appear as a purchase.\n\nIf all four match and the figures still disagree, that is worth reporting — include both screens and both numbers."}}, {"@type": "Question", "name": "Which date decides the month a transaction lands in?", "acceptedAnswer": {"@type": "Answer", "text": "The date on the transaction — the one you can see and edit — not the date you entered it and not the date it cleared your bank.\n\nThis is why an imported charge can appear in last month after you import today, and it is the correct behavior: a dinner on the 31st belongs to that month's dining budget whatever day the bank got around to posting it.\n\nIf something is in the wrong month, edit its date. Everything downstream — budgets, reports, rollover, the trend chart — follows."}}, {"@type": "Question", "name": "What counts as income, and what doesn't?", "acceptedAnswer": {"@type": "Answer", "text": "Income is money arriving from outside your own accounts. A paycheque, a refund, a gift, rent from a tenant.\n\nDeliberately NOT income:\n• a TRANSFER between two of your own accounts — moving savings to checking does not make you richer;\n• a credit card PAYMENT — that is a transfer to a debt;\n• the business side, when business mode is on and you are looking at personal figures.\n\nGetting this right matters more than it looks: your savings rate, your health score and the cash-flow forecast are all built on it, so one transfer miscoded as income quietly flatters all three."}}, {"@type": "Question", "name": "Why does a category say I'm over pace on the 2nd of the month?", "acceptedAnswer": {"@type": "Answer", "text": "It shouldn't — pace is bill-aware.\n\nA naive pace draws a straight line from the 1st to the 31st, which means rent leaving on the 1st reads as “600% of pace” every single month, and the reader learns to ignore the number. Instead, pace knows WHEN the money in a category is actually expected: a category whose recurring bill falls on the 1st is supposed to be near its limit on the 2nd.\n\nSo “over pace” means over what this category normally looks like at this point in the month — not over a straight line. One rule feeds the number, the tick mark on the bar and the curve, so they cannot disagree."}}, {"@type": "Question", "name": "How is net worth put together, and when is it recorded?", "acceptedAnswer": {"@type": "Answer", "text": "Assets minus liabilities, right now: account balances, real-estate equity (value minus what is owed on it), vehicles, other assets, and investment holdings at their latest price — less credit cards, loans and mortgages.\n\nThe trend chart is built from SNAPSHOTS — a stored figure with a date, so the past does not silently rewrite itself when today's prices move. That is why a chart point from March still says what March said.\n\nOne consequence worth knowing: a holding whose price hasn't refreshed carries its last known price into today's figure. It is stale rather than wrong, and refreshing prices is what settles it."}}, {"@type": "Question", "name": "What's the difference between today's change and total return?", "acceptedAnswer": {"@type": "Answer", "text": "They answer different questions and are computed from different starting points.\n\n• TODAY'S CHANGE measures from the PREVIOUS CLOSE. Before the market opens there is no session yet, so what you see belongs to the last completed one — the row says “at close” when that is what it is showing.\n• TOTAL RETURN measures from what you PAID. It needs a cost basis; without one the row says “No cost basis” rather than showing zero.\n\nAnd there are two units in play. Beside the price, a figure is PER SHARE. In the POSITION figure, it is the whole holding. “+$1.29” and “+$372” can be the same fact about 286 shares."}}, {"@type": "Question", "name": "How does the forecast decide my lowest point?", "acceptedAnswer": {"@type": "Answer", "text": "It walks forward day by day from your liquid balance — checking and cash, not investments — subtracting each active recurring bill on the day it is due and adding recurring income on the day it arrives. The lowest point that walk reaches is the number.\n\nSo it is only as good as your recurring items. A forecast that looks suspiciously healthy usually means a bill isn't in the app; one that looks alarming usually means income isn't.\n\nIt deliberately does NOT model your variable spending as a straight line. Guessing what you will spend on dining would make the figure look precise without making it true."}}, {"@type": "Question", "name": "How is “who spent what” worked out in a household?", "acceptedAnswer": {"@type": "Answer", "text": "By WHO ADDED the transaction, not by whose money it was. Those are different questions and the app used to run one through the other.\n\nEvery row added since the app started recording authorship carries its author, and the feed, the split bar and the Mine / Theirs / Joint filter all read that.\n\nRows entered BEFORE that have no author at all, and they say “Joint”. That is honest rather than a guess — the information does not exist for those rows and inventing it would put words in somebody's mouth."}}, {"@type": "Question", "name": "Why doesn't my partner's copy show the same total as mine?", "acceptedAnswer": {"@type": "Answer", "text": "Three legitimate reasons before it is a fault:\n\n1. KEPT PRIVATE. Anything either of you held back is not in the other's figures — it was never sent, so it cannot be counted.\n2. FRESHNESS. A summary is published by the sender's device while the app is open. If they haven't opened it since yesterday, yesterday is the newest figure that exists anywhere.\n3. WHEN YOU JOINED. Years tracked before you shared are yours unless you chose to bring the history across, and that choice is deliberately opt-in.\n\nIn a full-access household with nothing kept private and both apps recently open, the totals should match. If they don't, that one is worth sending in."}}, {"@type": "Question", "name": "Why does spending on my credit card make the balance go UP?", "acceptedAnswer": {"@type": "Answer", "text": "Because a credit-card balance is what you OWE, not what you have.\n\nA $150 charge increases what you owe, so the balance rises and your net worth falls by $150. Paying the card is a transfer: money leaves checking, the card balance falls, and your net worth doesn't move at all — you swapped cash for a smaller debt.\n\nThat last part is why a card payment is not spending. The spending already happened on the day of the charge, and counting the payment too would count it twice."}}, {"@type": "Question", "name": "How should I record paying my credit card?", "acceptedAnswer": {"@type": "Answer", "text": "As a transfer between the two accounts, not as an expense.\n\nThe purchases on the card are already in your budget, dated when you made them. If the payment were an expense as well, a $600 card payment would show up as $600 of spending on top of the $600 of purchases it settles.\n\nThis is the single most common way a budget total ends up looking twice as bad as the month really was."}}]}</script>
+</head><body>
+<div class="bar"><div class="bar-in">
+  <a class="brand" href="../index.html">
+    <img src="../help/img/logo-96.png" alt="" width="31" height="31">
+    <span class="word">Simple&nbsp;Finance</span></a>
+  <a class="navlink" href="../gallery.html">Screenshots</a>
+  <a class="navlink" href="../compare.html">Compare</a>
+  <a class="navlink" href="../support.html">Help</a>
+  <a class="navlink" href="../help/contact.html">Contact</a>
+  <a class="navlink dim" href="../privacy-policy.html">Privacy</a>
+  <span class="spacer"></span>
+  <div class="seg" role="group" aria-label="Choose your platform">
+    <button data-p="mac" aria-pressed="true">Mac</button>
+    <button data-p="ios" aria-pressed="false">iPhone</button>
+    <button data-p="ipad" aria-pressed="false">iPad</button>
+  </div>
+</div></div>
+<div class="wrap">
+<p class="crumb"><a href="../support.html">Help Center</a> › How the numbers work</p>
+<div class="sect"><span class="chip tint" style="--c:#5E5CE6"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.567" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.557 -1.232) scale(1.0845)"><path d="M8 20.5c0-8 0-13 2.6-15.6a3.4 3.4 0 0 1 4-.6"/><path d="M6 10.5h7.5"/><path d="M13 12.5l6 7M19 12.5l-6 7"/></g></svg></span><h1>How the numbers work</h1></div><p class="lede">What each figure counts, and why two screens can differ. 11 answers.</p><details id="two-screens-show-different-totals-for-the-same-thing-why"><summary>Two screens show different totals for the same thing. Why?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Four rules decide what a figure includes, and almost every mismatch is one of them rather than an error.</p><p>1. THE PERIOD. A month view and a year view of the same category are supposed to differ. Check the selector at the top of each screen before anything else.<br>2. THE SCOPE. With business mode on, personal figures exclude business money entirely, and business figures exclude personal. The same category can hold both.<br>3. SPLITS. A transaction split across categories contributes only its SHARE to each one — a $400 receipt at 25% business moves the business figure by $100, not $400.<br>4. TRANSFERS. Money moved between your own accounts is neither income nor spending, so paying off a card doesn&#x27;t appear as a purchase.</p><p>If all four match and the figures still disagree, that is worth reporting — include both screens and both numbers.</p></div></details><details id="which-date-decides-the-month-a-transaction-lands-in"><summary>Which date decides the month a transaction lands in?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The date on the transaction — the one you can see and edit — not the date you entered it and not the date it cleared your bank.</p><p>This is why an imported charge can appear in last month after you import today, and it is the correct behavior: a dinner on the 31st belongs to that month&#x27;s dining budget whatever day the bank got around to posting it.</p><p>If something is in the wrong month, edit its date. Everything downstream — budgets, reports, rollover, the trend chart — follows.</p></div></details><details id="what-counts-as-income-and-what-doesn-t"><summary>What counts as income, and what doesn&#x27;t?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Income is money arriving from outside your own accounts. A paycheque, a refund, a gift, rent from a tenant.</p><p>Deliberately NOT income:<br>• a TRANSFER between two of your own accounts — moving savings to checking does not make you richer;<br>• a credit card PAYMENT — that is a transfer to a debt;<br>• the business side, when business mode is on and you are looking at personal figures.</p><p>Getting this right matters more than it looks: your savings rate, your health score and the cash-flow forecast are all built on it, so one transfer miscoded as income quietly flatters all three.</p></div></details><details id="why-does-a-category-say-i-m-over-pace-on-the-2nd-of-the-mont"><summary>Why does a category say I&#x27;m over pace on the 2nd of the month?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>It shouldn&#x27;t — pace is bill-aware.</p><p>A naive pace draws a straight line from the 1st to the 31st, which means rent leaving on the 1st reads as “600% of pace” every single month, and the reader learns to ignore the number. Instead, pace knows WHEN the money in a category is actually expected: a category whose recurring bill falls on the 1st is supposed to be near its limit on the 2nd.</p><p>So “over pace” means over what this category normally looks like at this point in the month — not over a straight line. One rule feeds the number, the tick mark on the bar and the curve, so they cannot disagree.</p></div></details><details id="how-is-net-worth-put-together-and-when-is-it-recorded"><summary>How is net worth put together, and when is it recorded?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Assets minus liabilities, right now: account balances, real-estate equity (value minus what is owed on it), vehicles, other assets, and investment holdings at their latest price — less credit cards, loans and mortgages.</p><p>The trend chart is built from SNAPSHOTS — a stored figure with a date, so the past does not silently rewrite itself when today&#x27;s prices move. That is why a chart point from March still says what March said.</p><p>One consequence worth knowing: a holding whose price hasn&#x27;t refreshed carries its last known price into today&#x27;s figure. It is stale rather than wrong, and refreshing prices is what settles it.</p></div></details><details id="what-s-the-difference-between-today-s-change-and-total-retur"><summary>What&#x27;s the difference between today&#x27;s change and total return?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>They answer different questions and are computed from different starting points.</p><ul><li>TODAY&#x27;S CHANGE measures from the PREVIOUS CLOSE. Before the market opens there is no session yet, so what you see belongs to the last completed one — the row says “at close” when that is what it is showing.</li><li>TOTAL RETURN measures from what you PAID. It needs a cost basis; without one the row says “No cost basis” rather than showing zero.</li></ul><p>And there are two units in play. Beside the price, a figure is PER SHARE. In the POSITION figure, it is the whole holding. “+$1.29” and “+$372” can be the same fact about 286 shares.</p></div></details><details id="how-does-the-forecast-decide-my-lowest-point"><summary>How does the forecast decide my lowest point?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>It walks forward day by day from your liquid balance — checking and cash, not investments — subtracting each active recurring bill on the day it is due and adding recurring income on the day it arrives. The lowest point that walk reaches is the number.</p><p>So it is only as good as your recurring items. A forecast that looks suspiciously healthy usually means a bill isn&#x27;t in the app; one that looks alarming usually means income isn&#x27;t.</p><p>It deliberately does NOT model your variable spending as a straight line. Guessing what you will spend on dining would make the figure look precise without making it true.</p></div></details><details id="how-is-who-spent-what-worked-out-in-a-household"><summary>How is “who spent what” worked out in a household?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>By WHO ADDED the transaction, not by whose money it was. Those are different questions and the app used to run one through the other.</p><p>Every row added since the app started recording authorship carries its author, and the feed, the split bar and the Mine / Theirs / Joint filter all read that.</p><p>Rows entered BEFORE that have no author at all, and they say “Joint”. That is honest rather than a guess — the information does not exist for those rows and inventing it would put words in somebody&#x27;s mouth.</p></div></details><details id="why-doesn-t-my-partner-s-copy-show-the-same-total-as-mine"><summary>Why doesn&#x27;t my partner&#x27;s copy show the same total as mine?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Three legitimate reasons before it is a fault:</p><p>1. KEPT PRIVATE. Anything either of you held back is not in the other&#x27;s figures — it was never sent, so it cannot be counted.<br>2. FRESHNESS. A summary is published by the sender&#x27;s device while the app is open. If they haven&#x27;t opened it since yesterday, yesterday is the newest figure that exists anywhere.<br>3. WHEN YOU JOINED. Years tracked before you shared are yours unless you chose to bring the history across, and that choice is deliberately opt-in.</p><p>In a full-access household with nothing kept private and both apps recently open, the totals should match. If they don&#x27;t, that one is worth sending in.</p></div></details><details id="why-does-spending-on-my-credit-card-make-the-balance-go-up"><summary>Why does spending on my credit card make the balance go UP?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Because a credit-card balance is what you OWE, not what you have.</p><p>A $150 charge increases what you owe, so the balance rises and your net worth falls by $150. Paying the card is a transfer: money leaves checking, the card balance falls, and your net worth doesn&#x27;t move at all — you swapped cash for a smaller debt.</p><p>That last part is why a card payment is not spending. The spending already happened on the day of the charge, and counting the payment too would count it twice.</p></div></details><details id="how-should-i-record-paying-my-credit-card"><summary>How should I record paying my credit card?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>As a transfer between the two accounts, not as an expense.</p><p>The purchases on the card are already in your budget, dated when you made them. If the payment were an expense as well, a $600 card payment would show up as $600 of spending on top of the $600 of purchases it settles.</p><p>This is the single most common way a budget total ends up looking twice as bad as the month really was.</p></div></details>
+<footer>
+  <img src="../help/img/logo-96.png" alt="" width="26" height="26">
+  <div class="fl">
+    <a href="../gallery.html">Screenshots</a>
+    <a href="../compare.html">Why Simple Finance</a>
+    <a href="../support.html">Help Center</a>
+    <a href="../help/guides.html">Guides</a>
+    <a href="../help/troubleshooting.html">Troubleshooting</a>
+    <a href="../help/contact.html">Contact</a>
+    <a href="../privacy-policy.html">Privacy</a>
+  </div>
+  &copy; 2026 Simple Finance &middot; Simple Finance is not a
+  bank and does not give financial advice.
+</footer>
+</div>
+<script>var SEARCH_URL="../help/search.json",LINK_BASE="../";
+
+(function(){
+  var d=document.documentElement;
+  function set(p,save){
+    d.setAttribute('data-p',p);
+    document.querySelectorAll('.tk').forEach(function(s){
+      s.textContent=s.getAttribute(p==='mac'?'data-m':'data-i');});
+    document.querySelectorAll('.seg button').forEach(function(b){
+      b.setAttribute('aria-pressed',b.dataset.p===p);});
+    if(save){try{localStorage.setItem('sf-platform',p)}catch(e){}}
+  }
+  var saved=null;try{saved=localStorage.getItem('sf-platform')}catch(e){}
+  set(saved||(/iPad/.test(navigator.userAgent)?'ipad':(/iPhone|iPod/.test(navigator.userAgent)?'ios':'mac')),false);
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.seg button');if(b)set(b.dataset.p,true);});
+
+  var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
+  if(!box)return;
+  function load(){return idx?Promise.resolve(idx):
+    fetch(SEARCH_URL).then(function(r){return r.json()}).then(function(j){idx=j;return j})}
+  var t;
+  box.addEventListener('input',function(){
+    clearTimeout(t);t=setTimeout(function(){
+      var q=box.value.trim().toLowerCase();
+      if(q.length<2){list.innerHTML='';return}
+      load().then(function(items){
+        var terms=q.split(/\s+/),hits=[],p=d.getAttribute('data-p');
+        items.forEach(function(it){
+          if(it.o&&it.o!==p)return;
+          var hay=(it.t+' '+it.b+' '+it.k).toLowerCase(),sc=0;
+          for(var i=0;i<terms.length;i++){
+            if(hay.indexOf(terms[i])<0){sc=0;break}
+            sc+=it.t.toLowerCase().indexOf(terms[i])>=0?3:1;}
+          if(sc)hits.push([sc,it]);});
+        hits.sort(function(a,b){return b[0]-a[0]});
+        list.innerHTML=hits.length?hits.slice(0,25).map(function(h){
+          return '<li><a href="'+LINK_BASE+h[1].u+'">'+h[1].t+
+                 '<span class="in">'+h[1].k+'</span></a></li>'}).join('')
+          :'<li><a href="'+LINK_BASE+'help/contact.html">No match \u2014 ask us directly'+
+           '<span class="in">A person reads every message</span></a></li>';
+      });},110);
+  });
+})();
+</script>
+</body></html>

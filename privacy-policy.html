@@ -1,143 +1,440 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!doctype html>
+<html lang="en" data-p="mac"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Simple Finance — Privacy Policy</title>
-<meta name="description" content="Simple Finance is built local-first: your financial data stays on your device and, if you choose, in your own iCloud. Read our full privacy policy.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0C1F36">
+<title>Privacy Policy — Simple Finance</title>
+<meta name="description" content="Simple Finance keeps your data on your device and in your own iCloud. No servers of ours hold your finances, no advertising SDKs, no tracking. The full policy, in plain language.">
+<link rel="canonical" href="https://simple-apps-llc.github.io/Simple-Finance/privacy-policy.html">
+<link rel="icon" type="image/png" href="help/img/favicon.png">
+<link rel="apple-touch-icon" href="help/img/logo-180.png">
+<meta property="og:title" content="Privacy Policy — Simple Finance">
+<meta property="og:description" content="Simple Finance keeps your data on your device and in your own iCloud. No servers of ours hold your finances, no advertising SDKs, no tracking. The full policy, in plain language.">
+<meta property="og:image" content="https://simple-apps-llc.github.io/Simple-Finance/help/img/logo-512.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simple-apps-llc.github.io/Simple-Finance/privacy-policy.html">
+<meta name="twitter:card" content="summary">
 <style>
-  :root { --accent:#00C896; --accent2:#00A878; --ink:#1c1c1e; --muted:#6b7280; --bg:#f2f2f7; --card:#ffffff; }
-  * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-         color:var(--ink); background:var(--bg); line-height:1.55; }
-  .header { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; padding:48px 24px; }
-  .header .wrap { max-width:820px; margin:0 auto; }
-  .badge { display:inline-flex; align-items:center; justify-content:center; width:56px; height:56px;
-           border-radius:50%; background:rgba(255,255,255,.2); font-size:26px; margin-bottom:14px; }
-  .header .kicker { font-size:13px; font-weight:600; opacity:.85; margin:0; letter-spacing:.02em; }
-  .header h1 { font-size:32px; font-weight:800; margin:2px 0 12px; }
-  .header p { font-size:15px; opacity:.94; margin:0; max-width:62ch; }
-  main { max-width:820px; margin:0 auto; padding:24px 16px 60px; }
-  .eff { color:var(--muted); font-size:14px; margin:4px 4px 16px; }
-  .card { background:var(--card); border-radius:14px; padding:20px 22px; margin:0 0 16px;
-          box-shadow:0 1px 3px rgba(0,0,0,.06); }
-  .card h2 { font-size:19px; font-weight:800; margin:0 0 10px; }
-  .card p { margin:0 0 10px; }
-  .card ul { margin:0 0 10px; padding-left:22px; }
-  .card li { margin:5px 0; }
-  .card :last-child { margin-bottom:0; }
-  .footer { text-align:center; color:var(--muted); font-size:13px; padding:10px 0 0; }
-  a { color:var(--accent2); }
-  @media (prefers-color-scheme: dark) {
-    :root { --ink:#f2f2f7; --muted:#9aa0aa; --bg:#000; --card:#1c1c1e; }
-  }
+:root{
+  --ink:#0C1F36; --body:#41525F; --muted:#788994;
+  --bg:#F4F8F8; --card:#fff; --card2:#FAFCFC; --line:#E2EBEA;
+  --accent:#0A7D62; --accent-ink:#07604B; --soft:#E8F7F1; --bright:#19D8A6;
+  --navy:#0C1F36; --shadow:0 1px 2px rgba(12,31,54,.05),0 6px 18px -6px rgba(12,31,54,.09);
+  --shadow-lg:0 2px 4px rgba(12,31,54,.05),0 18px 40px -12px rgba(12,31,54,.18);
+  --r:14px; --gutter:22px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#EDF4F2; --body:#BDCBCE; --muted:#88999E;
+  --bg:#0A141C; --card:#111F2A; --card2:#16242F; --line:#1F3340;
+  --accent:#43E2B0; --accent-ink:#6FEDC6; --soft:#102C27; --bright:#19D8A6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px -6px rgba(0,0,0,.45);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 18px 40px -12px rgba(0,0,0,.6);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--body);
+  font:16px/1.68 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-feature-settings:"kern","liga";-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 var(--gutter) 96px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{color:var(--ink);letter-spacing:-.022em;line-height:1.22}
+h1{font-size:34px;margin:0 0 10px;font-weight:700}
+h2{font-size:21px;margin:44px 0 14px;font-weight:650}
+h3{font-size:16px;margin:0;font-weight:650}
+p{margin:14px 0}
+
+/* ── top bar ─────────────────────────────────────────────── */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line)}
+.bar-in{max-width:900px;margin:0 auto;padding:11px var(--gutter);display:flex;
+  align-items:center;gap:13px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-weight:650;
+  font-size:15.5px;letter-spacing:-.017em}
+.brand:hover{text-decoration:none;opacity:.82}
+.brand img{width:31px;height:31px;border-radius:8px;box-shadow:var(--shadow)}
+.navlink{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:-.01em;
+  white-space:nowrap}
+.navlink:hover{color:var(--accent);text-decoration:none}
+/* Four links plus the platform toggle will not fit a phone. Privacy is the one
+   that drops: it is in the footer of every page and it is where people look
+   for it anyway. Everything else stays reachable at every width. */
+/* The bar is STICKY, so a wrapped one eats the screen on every scroll. At 590px
+   it was measured at four rows and 104px tall. Below 700 the toggle loses its
+   long label and Privacy drops (it is in every footer); below 560 the brand
+   wordmark goes too, leaving the logo. Measured, not guessed. */
+@media(max-width:700px){
+  .navlink.dim{display:none}
+  .bar-in{gap:12px}
+  .seg button{padding:6px 11px;font-size:12px}
+  .seg button[data-p=ios] .full{display:none}}
+@media(max-width:560px){
+  .brand span.word{display:none}
+  .navlink{font-size:13.5px}
+  .bar-in{gap:10px;padding:9px 16px}}
+.spacer{flex:1 1 auto}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:3px;gap:2px;box-shadow:var(--shadow)}
+.seg button{appearance:none;background:none;border:0;color:var(--muted);
+  font:640 12.5px/1 inherit;padding:7px 14px;border-radius:999px;cursor:pointer;
+  letter-spacing:-.005em;transition:.16s}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+@media (prefers-color-scheme:dark){.seg button[aria-pressed=true]{color:#062119}}
+
+/* ── hero ────────────────────────────────────────────────── */
+.hero{background:linear-gradient(155deg,#0C1F36 0%,#123246 48%,#0E4A44 100%);
+  border-radius:22px;padding:38px 34px 34px;margin:26px 0 8px;position:relative;
+  overflow:hidden;box-shadow:var(--shadow-lg)}
+.hero::after{content:"";position:absolute;inset:auto -60px -110px auto;width:300px;
+  height:300px;border-radius:50%;background:radial-gradient(circle,rgba(25,216,166,.34),transparent 68%)}
+.hero-top{display:flex;align-items:center;gap:15px;margin-bottom:18px;position:relative}
+.hero-top img{width:58px;height:58px;border-radius:14px;
+  box-shadow:0 8px 24px -6px rgba(0,0,0,.55)}
+.hero h1{color:#fff;font-size:33px;margin:0}
+.hero .sub{color:#9FD9C8;font-size:14px;font-weight:600;letter-spacing:.02em;
+  text-transform:uppercase;margin:0 0 3px}
+.hero p{color:#C8DCD9;margin:0;max-width:52ch;position:relative;font-size:16.5px}
+.stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;position:relative}
+.stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;padding:6px 14px;color:#DCEDE9;font-size:13px;font-weight:600}
+.stat b{color:#3FE9B8}
+
+/* ── search ──────────────────────────────────────────────── */
+.searchbox{position:relative;margin:22px 0 0}
+.searchbox svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  width:19px;height:19px;color:var(--muted);pointer-events:none}
+input[type=search]{width:100%;padding:15px 16px 15px 45px;border-radius:13px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  font:16px/1.4 inherit;box-shadow:var(--shadow);appearance:none}
+input[type=search]::placeholder{color:var(--muted)}
+input[type=search]:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3.5px var(--soft)}
+#results{margin:12px 0 0;padding:0;list-style:none}
+#results li{border-bottom:1px solid var(--line)}
+#results li:last-child{border:0}
+#results a{display:block;padding:12px 2px;color:var(--ink);font-weight:550}
+#results a:hover{color:var(--accent);text-decoration:none}
+#results .in{display:block;color:var(--muted);font-size:12.5px;font-weight:500;margin-top:1px}
+
+/* ── cards & tiles ───────────────────────────────────────── */
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));margin-top:16px}
+.tile{display:flex;gap:13px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:16px;color:var(--ink);
+  box-shadow:var(--shadow);transition:transform .17s,box-shadow .17s,border-color .17s}
+.tile:hover{text-decoration:none;transform:translateY(-2px);
+  box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--accent) 42%,var(--line))}
+.tile .txt{min-width:0;display:block}
+.tile b{display:block;font-size:15px;font-weight:640;letter-spacing:-.012em;color:var(--ink)}
+/* 🔴 `.tile .txt>span`, NOT `.tile span`. The chip is a <span> too, and a bare
+   `.tile span` beats `.chip` on specificity (0,1,1 vs 0,1,0) — so every chip
+   INSIDE a tile lost display:flex, silently, and its glyph pinned to the
+   top-left corner while chips elsewhere on the page stayed centered. */
+.tile .txt>span{color:var(--muted);font-size:12.5px;display:block;margin-top:2px}
+.chip{width:38px;height:38px;border-radius:11px;flex:0 0 auto;display:flex;
+  align-items:center;justify-content:center;background:var(--soft);color:var(--accent)}
+.chip svg{width:21px;height:21px}
+/* 🔴 The raw app color is a FILL color, not an ink color. #FF9F0A and
+   #34C759 are ~2:1 on white — legible as a 40px pie slice in the app, muddy as
+   a 21px glyph on a card. Mix toward black on light and toward white on dark so
+   every chip lands in the same contrast band whatever hue it carries. */
+.chip.tint{background:color-mix(in srgb,var(--c) 13%,#fff);
+  color:color-mix(in srgb,var(--c) 74%,#0C1F36)}
+@media (prefers-color-scheme:dark){.chip.tint{
+  background:color-mix(in srgb,var(--c) 20%,#0A141C);
+  color:color-mix(in srgb,var(--c) 82%,#fff)}}
+
+/* ── disclosure rows ─────────────────────────────────────── */
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  margin:10px 0;box-shadow:var(--shadow);overflow:hidden}
+details[open]{border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+summary{cursor:pointer;padding:16px 18px;font-weight:600;font-size:15.5px;
+  color:var(--ink);letter-spacing:-.012em;list-style:none;display:flex;gap:12px;
+  align-items:center}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:var(--accent)}
+.caret{margin-left:auto;flex:0 0 auto;width:17px;height:17px;color:var(--muted);
+  transition:transform .2s}
+details[open] .caret{transform:rotate(90deg);color:var(--accent)}
+.ans{padding:2px 18px 18px;border-top:1px solid var(--line);margin-top:-1px}
+.ans p:first-child{margin-top:14px}
+.ans ul{margin:13px 0;padding-left:21px}
+.ans li{margin:6px 0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:15px 0}
+.steps li{counter-increment:s;position:relative;padding:0 0 0 34px;margin:11px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:23px;
+  height:23px;border-radius:50%;background:var(--soft);color:var(--accent);
+  font:640 11.5px/23px inherit;text-align:center}
+
+/* ── screenshots ─────────────────────────────────────────── */
+.shots{display:flex;gap:14px;overflow-x:auto;padding:6px 0 12px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.shot{flex:0 0 auto;scroll-snap-align:start;margin:0}
+/* 🔴 height:auto is load-bearing. The <img> carries width/height ATTRIBUTES so
+   the browser can reserve space before the file arrives (no layout shift);
+   without this rule that height applies as a presentational height and a
+   620x1348 phone capture renders 232px wide by 1348px TALL. */
+.shot img{display:block;height:auto;max-width:100%;border-radius:10px;
+  border:1px solid var(--line);box-shadow:var(--shadow-lg);background:var(--card2)}
+.shot.wide img{width:min(620px,78vw)}
+.shot.tall img{width:min(232px,46vw);border-radius:20px}
+.shot.watch img{width:min(180px,40vw);border-radius:34px;background:#000;
+  border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
+.shots::-webkit-scrollbar{height:7px}
+.shots::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
+/* ── misc ────────────────────────────────────────────────── */
+.crumb{font-size:13px;color:var(--muted);margin:24px 0 12px}
+.crumb a{color:var(--muted)}
+.crumb a:hover{color:var(--accent)}
+.lede{color:var(--muted);font-size:17px;margin:0 0 6px;max-width:60ch}
+/* The accent goes all the way round, not down one edge. A single colored
+   left bar on a white card is the browser's default blockquote look; a soft
+   tinted field with a matching border reads as a deliberate callout and sits
+   with the tinted icon chips instead of fighting them. */
+.note{background:var(--soft);
+  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+  border-radius:var(--r);padding:18px 20px;margin:22px 0}
+.note b{color:var(--accent-ink)}
+.note p:first-child{margin-top:0}.note p:last-child{margin-bottom:0}
+table{width:100%;border-collapse:collapse;margin:14px 0}
+td{padding:11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.k{width:158px;white-space:nowrap}
+kbd{display:inline-block;min-width:25px;text-align:center;background:var(--card);
+  border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;
+  padding:3px 7px;color:var(--ink);box-shadow:var(--shadow);
+  font:640 12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.pill{display:inline-block;background:var(--soft);color:var(--accent);
+  font-size:11px;font-weight:650;padding:3px 9px;border-radius:999px;
+  letter-spacing:.01em;flex:0 0 auto}
+.sect{display:flex;align-items:center;gap:11px;margin:42px 0 4px}
+.sect h2{margin:0}
+footer{margin-top:64px;padding-top:26px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:13.5px;text-align:center}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--accent)}
+footer .fl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10px}
+/* ── landing page ────────────────────────────────────────── */
+.hero.lead{padding:52px 40px 46px}
+.hero.lead h1{font-size:44px;letter-spacing:-.03em;margin:0 0 12px}
+.hero.lead .tag{color:#BFE3D8;font-size:19px;line-height:1.55;max-width:34ch;margin:0}
+.hero.lead .hero-top{flex-direction:column;align-items:flex-start;gap:18px;margin-bottom:6px}
+.hero.lead .hero-top img{width:84px;height:84px;border-radius:19px}
+/* Apple's badge is the artwork; we only give it a hit area and clear space.
+   No background, no border, no shadow — modifying the badge is not allowed. */
+.cta{display:inline-block;line-height:0;transition:opacity .16s,transform .16s}
+.cta:hover{opacity:.85;transform:translateY(-1px);text-decoration:none}
+.cta img{display:block;width:180px;height:auto}
+.cta-row{display:block;margin-top:28px;position:relative}
+.cta-note{color:#8FBDB2;font-size:13.5px;line-height:1.55;margin:16px 0 0;
+  max-width:40ch;position:relative}
+.feat{display:grid;gap:13px;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));
+  margin-top:18px}
+.feat .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;box-shadow:var(--shadow)}
+.feat h3{margin:13px 0 5px;font-size:16.5px}
+.feat p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.band{background:linear-gradient(150deg,#0C1F36,#0E4A44);border-radius:20px;
+  padding:34px 32px;margin:44px 0 0;color:#C8DCD9;box-shadow:var(--shadow-lg)}
+.band h2{color:#fff;margin:0 0 10px;font-size:23px}
+.band p{margin:10px 0;max-width:62ch}
+.band b{color:#4BE7B6}
+/* 🔴 The bleed MUST equal the gutter. Hard-coded -22px against a gutter that
+   drops to 16px on phones made this 387px wide inside a 375px viewport, and the
+   whole page scrolled sideways — 6px of overhang each side, invisible unless
+   you measure it. Both now read the same variable. */
+.posters{display:flex;gap:14px;overflow-x:auto;margin:26px calc(-1*var(--gutter)) 0;
+  padding:8px var(--gutter) 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.posters::-webkit-scrollbar{height:7px}
+.posters::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+.poster{flex:0 0 auto;margin:0;scroll-snap-align:center}
+.poster img{display:block;width:min(258px,62vw);height:auto;border-radius:22px;
+  box-shadow:var(--shadow-lg)}
+.showcase{margin:20px calc(-1 * var(--gutter)) 0;
+  padding:6px var(--gutter) 18px;overflow-x:auto;display:flex;
+  gap:18px;scroll-snap-type:x mandatory}
+.showcase figure{margin:0;flex:0 0 auto;scroll-snap-align:center}
+.showcase img{display:block;height:auto;border-radius:14px;border:1px solid var(--line);
+  box-shadow:var(--shadow-lg);background:var(--card2)}
+.showcase .wide img{width:min(680px,84vw)}
+.showcase .tall img{width:min(250px,52vw);border-radius:22px}
+.showcase::-webkit-scrollbar{height:7px}
+.showcase::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+/* The comparison table. Columns get real breathing room and a hairline
+   between them; our column is a single highlighted band with rounded ends
+   rather than four separately-tinted cells, so it reads as one thing. */
+.cmp-wrap{overflow-x:auto;margin:20px 0 10px;padding-bottom:4px}
+.cmp{border-collapse:separate;border-spacing:0;font-size:14.5px;
+  min-width:640px;width:100%}
+.cmp th,.cmp td{padding:14px 20px;text-align:left;vertical-align:middle;
+  white-space:nowrap;border-bottom:1px solid var(--line)}
+.cmp thead th{font-size:12.5px;font-weight:650;color:var(--muted);
+  letter-spacing:.04em;text-transform:uppercase;padding-bottom:12px;
+  border-bottom:1px solid var(--line)}
+.cmp tbody tr:last-child td{border-bottom:0}
+.cmp td:first-child,.cmp th:first-child{padding-left:0;white-space:normal;
+  min-width:210px;color:var(--ink);font-weight:600}
+.cmp th:first-child{color:var(--muted);font-weight:650}
+/* hairline between the rival columns */
+.cmp td:not(:first-child):not(.us),.cmp th:not(:first-child):not(.us){
+  border-left:1px solid var(--line);text-align:center}
+.cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
+/* our column: one continuous band */
+.cmp .us{background:color-mix(in srgb,var(--accent) 9%,transparent);
+  color:var(--accent-ink);font-weight:650;white-space:normal;min-width:150px;
+  border-left:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
+  border-right:1px solid color-mix(in srgb,var(--accent) 34%,transparent)}
+.cmp thead .us{color:var(--accent);border-top:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);
+  border-radius:11px 11px 0 0;padding-top:12px}
+.cmp tbody tr:last-child .us{border-bottom:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);border-radius:0 0 11px 11px}
+.cmp .no{color:var(--muted);font-weight:500}
+/* Where WE are the weaker option, say so in the same band rather than hiding
+   it. A comparison table that wins every row is not read as a comparison. */
+.cmp .us.miss{color:var(--muted);font-weight:500}
+/* the home-page teaser that sends people to the comparison */
+.banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
+  border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
+  color:var(--ink);transition:transform .17s,box-shadow .17s}
+.banner:hover{text-decoration:none;transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.banner b{display:block;font-size:16px;font-weight:650;letter-spacing:-.014em;
+  margin-bottom:3px}
+.banner .txt>span{color:var(--muted);font-size:14px;line-height:1.55;display:block}
+.banner .go{margin-left:auto;color:var(--accent);font-size:22px;font-weight:600;
+  flex:0 0 auto}
+/* one rival, on the comparison page */
+.rival{border-top:1px solid var(--line);padding:22px 0 4px}
+.rival h3{font-size:19px;margin:0 0 8px;display:flex;align-items:baseline;gap:12px;
+  flex-wrap:wrap}
+.rival h3 span{font-size:13.5px;font-weight:600;color:var(--accent);
+  background:var(--soft);padding:3px 10px;border-radius:999px;letter-spacing:0}
+.rival p{margin:9px 0}
+.rival .vs{color:var(--muted)}
+.src{color:var(--muted);font-size:12.5px;line-height:1.6;margin:6px 0 0}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:12px;margin:26px 0 4px}
+.ti{display:flex;gap:12px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;
+  box-shadow:var(--shadow)}
+.ti b{display:block;font-size:14.5px;font-weight:650;color:var(--ink);letter-spacing:-.01em}
+.ti>div span{color:var(--muted);font-size:12.5px;line-height:1.5;display:block;margin-top:2px}
+.feats{list-style:none;padding:0;margin:8px 0 4px;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.feats li{position:relative;padding:0 0 0 26px;color:var(--body);font-size:14.5px;
+  line-height:1.5}
+.feats li::before{content:"";position:absolute;left:2px;top:7px;width:8px;height:8px;
+  border-radius:50%;background:var(--accent);opacity:.55}
+.feats a{font-weight:600}
+.policy-meta{color:var(--muted);font-size:14px;margin:0 0 4px}
+@media(max-width:560px){
+  .hero.lead{padding:32px 22px}.hero.lead h1{font-size:32px}
+  .hero.lead .tag{font-size:17px}.hero.lead .hero-top img{width:66px;height:66px}
+}
+.tk{white-space:nowrap}
+/* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
+html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
+html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
+html[data-p=ipad] [data-plat=mac],html[data-p=ipad] [data-plat=ios]{display:none}
+/* help-page text splits use data-only=mac|ios; iPad follows iOS wording */
+html[data-p=ios] [data-only=mac],html[data-p=ipad] [data-only=mac],
+html[data-p=mac] [data-only=ios]{display:none}
+/* poster sizes per device shape */
+.poster.mac img{width:min(560px,86vw)}
+.poster.ios img{width:min(258px,62vw)}
+.poster.ipad img{width:min(420px,74vw)}
+.shot.ipadw img,.shot.wide img{border-radius:12px}
+@media(max-width:560px){
+  h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
+  .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
+  :root{--gutter:16px}.bar-in{padding:10px var(--gutter)}
+  .ans,summary{padding-left:15px;padding-right:15px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
-</head>
-<body>
-  <div class="header">
-    <div class="wrap">
-      <div class="badge">🤚</div>
-      <p class="kicker">SIMPLE FINANCE</p>
-      <h1>Privacy Policy</h1>
-      <p>Your financial data is yours. Simple Finance is built local-first — most data never leaves your device.</p>
-    </div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Simple Finance Privacy Policy", "publisher": {"@type": "Organization", "name": "Simple Finance"}}</script>
+</head><body>
+<div class="bar"><div class="bar-in">
+  <a class="brand" href="index.html">
+    <img src="help/img/logo-96.png" alt="" width="31" height="31">
+    <span class="word">Simple&nbsp;Finance</span></a>
+  <a class="navlink" href="gallery.html">Screenshots</a>
+  <a class="navlink" href="compare.html">Compare</a>
+  <a class="navlink" href="support.html">Help</a>
+  <a class="navlink" href="help/contact.html">Contact</a>
+  <a class="navlink dim" href="privacy-policy.html">Privacy</a>
+  <span class="spacer"></span>
+  <div class="seg" role="group" aria-label="Choose your platform">
+    <button data-p="mac" aria-pressed="true">Mac</button>
+    <button data-p="ios" aria-pressed="false">iPhone</button>
+    <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-  <main>
-    <p class="eff">Effective Date: August 24, 2026</p>
-    <div class="card">
-      <h2>Overview</h2>
-        <p>Simple Finance ("we," "our," or "the app") is a personal finance app designed to help you track spending, manage budgets, monitor net worth, and reach financial goals. We take your privacy seriously — especially because you're trusting us with sensitive financial information.</p>
-        <p>This policy explains exactly what data we collect, where it lives, and how it is (and is not) used. Simple Finance is built on a local-first principle: by default, your financial data never leaves your device.</p>
-    </div>
-    <div class="card">
-      <h2>Data Stored Locally on Your Device</h2>
-        <p>All financial data you enter is stored on your device and is not transmitted to Simple Finance servers. This includes:</p>
-        <ul><li>Transactions (date, merchant, amount, category, notes)</li><li>Budget categories and spending limits</li><li>Net worth accounts, balances, and historical snapshots</li><li>Savings and debt payoff goals</li><li>Stock and crypto holdings (ticker symbols, share counts, cached prices)</li><li>Mortgage and loan details</li><li>Recurring bill and income templates</li><li>App preferences (accent color, notification settings, display name)</li></ul>
-        <p>This data is stored using Apple's SwiftData framework in an encrypted on-device database protected by your device passcode and the iOS data-protection APIs.</p>
-    </div>
-    <div class="card">
-      <h2>iCloud Sync (Your Devices, Your Account)</h2>
-        <p>If you are signed into iCloud and have enabled iCloud sync in Simple Finance, your data syncs automatically between your own Apple devices using Apple's CloudKit private database. This sync:</p>
-        <ul><li>Occurs only between devices signed into the same Apple ID</li><li>Is encrypted in transit and at rest by Apple</li><li>Is managed entirely by Apple — Simple Finance never sees your data in transit or at rest in iCloud</li><li>Can be disabled at any time in Simple Finance → Settings → iCloud Sync, or in iOS Settings → [Your Name] → iCloud → Simple Finance</li></ul>
-        <p>No Simple Finance employee or server can access your iCloud data.</p>
-    </div>
-    <div class="card">
-      <h2>Household Sharing (Optional, CloudKit-Based)</h2>
-        <p>Simple Finance offers an optional feature that lets two people in the same household view shared financial snapshots using Apple's CloudKit sharing APIs. This feature is entirely opt-in.</p>
-        <p>How it works:</p>
-        <ul><li>Sharing is powered by Apple CloudKit — Simple Finance does not operate its own sharing server</li><li>You send a CloudKit share invitation to your household member via the iOS share sheet (iMessage, Mail, etc.)</li><li>The recipient must have Simple Finance installed and accept the invitation on their device</li><li>Only the data you explicitly share (read-only snapshots) is visible to the other person</li></ul>
-        <p>What Simple Finance does NOT collect for household sharing:</p>
-        <ul><li>No email address or account is required on Simple Finance's end</li><li>No financial data passes through Simple Finance servers at any point</li><li>Apple handles all encryption, authentication, and delivery of the CloudKit share</li></ul>
-        <p>You may use Simple Finance entirely without enabling household sharing. The feature can be disabled at any time in Settings → Family &amp; Partner.</p>
-    </div>
-    <div class="card">
-      <h2>Face ID, Touch ID, and Passcode</h2>
-        <p>Simple Finance can optionally require Face ID, Touch ID, or your device passcode before displaying your financial data. This authentication is handled entirely by Apple's LocalAuthentication framework on your device.</p>
-        <ul><li>Simple Finance never receives, stores, or transmits your biometric data</li><li>Your Face ID or fingerprint data never leaves your device's Secure Enclave</li><li>If biometric authentication is unavailable, your device passcode is used as a fallback</li></ul>
-        <p>Biometric data is not collected by Simple Finance under any circumstances.</p>
-    </div>
-    <div class="card">
-      <h2>Fin AI Assistant (On-Device Only)</h2>
-        <p>Simple Finance includes Fin, an AI-powered money assistant. Fin uses Apple's on-device Foundation Models framework, which runs entirely on your device.</p>
-        <ul><li>No conversation data, financial context, or queries sent to Fin are transmitted to Apple, Simple Finance, or any third party</li><li>Fin's AI processing occurs locally on your device using Apple Intelligence</li><li>Fin is only available on supported Apple devices running iOS 26 or later with Apple Intelligence enabled</li><li>No data from Fin conversations is retained after you close the conversation or clear chat history</li></ul>
-        <p>Because Fin runs on-device, your financial questions and answers stay completely private.</p>
-    </div>
-    <div class="card">
-      <h2>Market Data (Stocks &amp; Crypto Prices)</h2>
-        <p>If you add stock or cryptocurrency holdings to your portfolio, Simple Finance fetches current market prices from third-party public market-data services — Yahoo Finance (stock quotes) and CoinGecko (cryptocurrency prices). These requests:</p>
-        <ul><li>Are made by your device directly to those services over an encrypted connection (HTTPS)</li><li>Include only publicly traded ticker symbols (e.g., "AAPL", "BTC") — never your balances, share counts, name, or any personal details</li><li>Carry no tracking identifiers, and are subject to those services' own privacy policies</li></ul>
-        <p>Simple Finance does not operate its own price feed server. If no holdings are added, no market data requests are made at all.</p>
-    </div>
-    <div class="card">
-      <h2>Notifications</h2>
-        <p>Simple Finance may send local push notifications for:</p>
-        <ul><li>Budget alerts (when a category approaches or exceeds its limit)</li><li>Bill reminders (before a scheduled recurring expense)</li><li>Goal milestone celebrations</li><li>Smart money alerts (unusual spending, low balance, month-end summaries)</li><li>A weekly "Fin Check-In" tip (optional, based on your top insight)</li></ul>
-        <p>All notifications are generated and scheduled locally on your device. No notification content is routed through Simple Finance servers. You can enable or disable individual notification types in Settings → Notifications, or revoke notification permission entirely in iOS Settings → Simple Finance → Notifications.</p>
-    </div>
-    <div class="card">
-      <h2>Analytics and Crash Reporting</h2>
-        <p>Simple Finance does not use any third-party analytics SDKs (such as Firebase Analytics, Mixpanel, or Amplitude). No behavioral telemetry, screen-view tracking, or usage statistics are collected or sent to Simple Finance or any analytics provider.</p>
-        <p>Crash reports are the one exception, and they come from Apple rather than from anything inside this app. If you have turned on iOS Settings → Privacy &amp; Security → Analytics &amp; Improvements → Share With App Developers, Apple may send us a report when Simple Finance crashes. Beta builds installed through TestFlight share crash reports under TestFlight's own agreement. These reports are produced and delivered entirely by Apple — Simple Finance contains no crash-reporting code of its own.</p>
-        <p>A crash report describes what the code was doing when it stopped: the sequence of functions that were running, the device model, and the iOS and app versions. It is not a copy of your data. Your accounts, transactions, balances, budgets and goals are not included, and Apple does not tell us your name or Apple Account.</p>
-        <p>You can stop this at any time by turning off Share With App Developers in iOS Settings. Nothing else about how you use the app is reported. If Simple Finance ever adds a crash reporter of its own, this policy will be updated and you will be notified via an in-app prompt on next launch; any such reporter will be configured to exclude all financial data.</p>
-    </div>
-    <div class="card">
-      <h2>Financial Data — Sensitivity Notice</h2>
-        <p>Financial information is among the most sensitive categories of personal data. Simple Finance treats it accordingly:</p>
-        <ul><li>Financial data is never sold, rented, or licensed to any third party — ever</li><li>Financial data is never used for advertising targeting or profiling</li><li>Data shared via household sync is visible only to members of that household through Apple's CloudKit infrastructure; Simple Finance employees do not access individual user financial records</li><li>We will notify you promptly if we become aware of a security incident that affects your financial information</li><li>We participate in Apple's App Privacy framework and maintain accurate privacy nutrition labels in the App Store</li></ul>
-    </div>
-    <div class="card">
-      <h2>Data You Export</h2>
-        <p>Simple Finance lets you export your data as CSV files, PDF reports, or image summaries via the iOS share sheet. Once you share a file using the iOS share sheet, that data is governed by the privacy policy of the destination app or service (e.g., Mail, AirDrop, Google Drive). Simple Finance is not responsible for data once it leaves the app via your explicit export action.</p>
-    </div>
-    <div class="card">
-      <h2>Your Rights and Controls</h2>
-        <p>You have full control over your data at all times:</p>
-        <p>Delete all local data — Settings → Data Management → Clear All Data. This permanently removes all transactions, accounts, budgets, goals, snapshots, and preferences from your device.</p>
-        <p>Export your data — Settings → Data Management → Export (CSV or report). You can take your data with you at any time.</p>
-        <p>Opt out of iCloud sync — Simple Finance → Settings → iCloud Sync → toggle off, or iOS Settings → [Your Name] → iCloud → toggle off Simple Finance.</p>
-        <p>Disable household sharing — Settings → Family &amp; Partner → stop sharing.</p>
-        <p>Revoke notifications — iOS Settings → Simple Finance → Notifications → toggle off.</p>
-        <p>If you are located in the European Economic Area (EEA), United Kingdom, or California, you have additional rights under GDPR, UK GDPR, or the CCPA respectively, including the right to access, correct, and delete your personal data. To exercise these rights, contact us using the information below.</p>
-    </div>
-    <div class="card">
-      <h2>Children's Privacy</h2>
-        <p>Simple Finance is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided personal information through the app, please contact us at the address below and we will promptly delete it.</p>
-    </div>
-    <div class="card">
-      <h2>Changes to This Policy</h2>
-        <p>We may update this Privacy Policy from time to time. When we do:</p>
-        <ul><li>The "Effective Date" at the top of this policy will be updated</li><li>If changes are material (for example, if we begin collecting a new category of data), we will notify you via an in-app prompt on next launch</li><li>Continued use of Simple Finance after the effective date constitutes acceptance of the revised policy</li></ul>
-        <p>We encourage you to review this policy periodically.</p>
-    </div>
-    <div class="card">
-      <h2>Contact Us</h2>
-        <p>If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us:</p>
-        <p>Simple Finance Support Email: simpleapphelp@outlook.com</p>
-        <p>We aim to respond to all privacy inquiries within 5 business days.</p>
-    </div>
-    <p class="footer">Simple Finance · <a href="./support.html">Support</a> · <a href="mailto:simpleapphelp@outlook.com">simpleapphelp@outlook.com</a></p>
-  </main>
-</body>
-</html>
+</div></div>
+<div class="wrap">
+<p class="crumb"><a href="support.html">Help Center</a> › Privacy Policy</p>
+<div class="sect"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg></span><h1>Privacy Policy</h1></div><p class="policy-meta">Effective August 24, 2026 &middot; 15 sections</p><p class="lede">This is the same policy shown inside the app, generated from it, so the two can never disagree.</p><details id="overview" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M12 11.2v5"/><path d="M12 7.9v.1"/></g></svg></span>Overview<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Simple Finance (&quot;we,&quot; &quot;our,&quot; or &quot;the app&quot;) is a personal finance app designed to help you track spending, manage budgets, monitor net worth, and reach financial goals. We take your privacy seriously — especially because you&#x27;re trusting us with sensitive financial information.</p><p>This policy explains exactly what data we collect, where it lives, and how it is (and is not) used. Simple Finance is built on a local-first principle: by default, your financial data never leaves your device.</p></div></details><details id="data-stored-locally-on-your-device" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="6" width="18" height="12" rx="2.6"/><path d="M7 12h6"/><circle cx="17" cy="12" r="1.2" fill="currentColor" stroke="none"/><path d="M6.5 15.6h11"/></g></svg></span>Data Stored Locally on Your Device<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>All financial data you enter is stored on your device and is not transmitted to Simple Finance servers. This includes:</p><ul><li>Transactions (date, merchant, amount, category, notes)</li><li>Budget categories and spending limits</li><li>Net worth accounts, balances, and historical snapshots</li><li>Savings and debt payoff goals</li><li>Stock and crypto holdings (ticker symbols, share counts, cached prices)</li><li>Mortgage and loan details</li><li>Recurring bill and income templates</li><li>App preferences (accent color, notification settings, display name)</li></ul><p>This data is stored using Apple&#x27;s SwiftData framework in an encrypted on-device database protected by your device passcode and the iOS data-protection APIs.</p></div></details><details id="icloud-sync-your-devices-your-account" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.648" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.091 -1.013) scale(1.0316)"><path d="M17.5 18.5H7a4.2 4.2 0 0 1 .4-8.4A5.6 5.6 0 0 1 18 11.1a3.9 3.9 0 0 1-.5 7.4z"/></g></svg></span>iCloud Sync (Your Devices, Your Account)<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>If you are signed into iCloud and have enabled iCloud sync in Simple Finance, your data syncs automatically between your own Apple devices using Apple&#x27;s CloudKit private database. This sync:</p><ul><li>Occurs only between devices signed into the same Apple ID</li><li>Is encrypted in transit and at rest by Apple</li><li>Is managed entirely by Apple — Simple Finance never sees your data in transit or at rest in iCloud</li><li>Can be disabled at any time in Simple Finance → Settings → iCloud Sync, or in iOS Settings → [Your Name] → iCloud → Simple Finance</li></ul><p>No Simple Finance employee or server can access your iCloud data.</p></div></details><details id="household-sharing-optional-cloudkit-based" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.182) scale(1.0588)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M16.5 6a3.2 3.2 0 0 1 0 6.4"/><path d="M17.5 14.6a6.2 6.2 0 0 1 3 4.9"/></g></svg></span>Household Sharing (Optional, CloudKit-Based)<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Simple Finance offers an optional feature that lets two people in the same household view shared financial snapshots using Apple&#x27;s CloudKit sharing APIs. This feature is entirely opt-in.</p><p>How it works:<br>• Sharing is powered by Apple CloudKit — Simple Finance does not operate its own sharing server<br>• You send a CloudKit share invitation to your household member via the iOS share sheet (iMessage, Mail, etc.)<br>• The recipient must have Simple Finance installed and accept the invitation on their device<br>• Only the data you explicitly share (read-only snapshots) is visible to the other person</p><p>What Simple Finance does NOT collect for household sharing:<br>• No email address or account is required on Simple Finance&#x27;s end<br>• No financial data passes through Simple Finance servers at any point<br>• Apple handles all encryption, authentication, and delivery of the CloudKit share</p><p>You may use Simple Finance entirely without enabling household sharing. The feature can be disabled at any time in Settings → Family &amp; Partner.</p></div></details><details id="face-id-touch-id-and-passcode" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8.5V6.5A2.5 2.5 0 0 1 6.5 4h2M15.5 4h2A2.5 2.5 0 0 1 20 6.5v2M20 15.5v2a2.5 2.5 0 0 1-2.5 2.5h-2M8.5 20h-2A2.5 2.5 0 0 1 4 17.5v-2"/><path d="M9 10v1.5M15 10v1.5"/><path d="M12 10.5v3.2h-1"/><path d="M9.5 16a4 4 0 0 0 5 0"/></g></svg></span>Face ID, Touch ID, and Passcode<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Simple Finance can optionally require Face ID, Touch ID, or your device passcode before displaying your financial data. This authentication is handled entirely by Apple&#x27;s LocalAuthentication framework on your device.</p><ul><li>Simple Finance never receives, stores, or transmits your biometric data</li><li>Your Face ID or fingerprint data never leaves your device&#x27;s Secure Enclave</li><li>If biometric authentication is unavailable, your device passcode is used as a fallback</li></ul><p>Biometric data is not collected by Simple Finance under any circumstances.</p></div></details><details id="fin-ai-assistant-on-device-only" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><rect x="7" y="7" width="10" height="10" rx="2.2"/><path d="M10.5 10.5h3v3h-3z"/><path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/></g></svg></span>Fin AI Assistant (On-Device Only)<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Simple Finance includes Fin, an AI-powered money assistant. Fin uses Apple&#x27;s on-device Foundation Models framework, which runs entirely on your device.</p><ul><li>No conversation data, financial context, or queries sent to Fin are transmitted to Apple, Simple Finance, or any third party</li><li>Fin&#x27;s AI processing occurs locally on your device using Apple Intelligence</li><li>Fin is only available on supported Apple devices running iOS 26 or later with Apple Intelligence enabled</li><li>No data from Fin conversations is retained after you close the conversation or clear chat history</li></ul><p>Because Fin runs on-device, your financial questions and answers stay completely private.</p></div></details><details id="market-data-stocks-crypto-prices" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg></span>Market Data (Stocks &amp; Crypto Prices)<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>If you add stock or cryptocurrency holdings to your portfolio, Simple Finance fetches current market prices from third-party public market-data services — Yahoo Finance (stock quotes) and CoinGecko (cryptocurrency prices). These requests:</p><ul><li>Are made by your device directly to those services over an encrypted connection (HTTPS)</li><li>Include only publicly traded ticker symbols (e.g., &quot;AAPL&quot;, &quot;BTC&quot;) — never your balances, share counts, name, or any personal details</li><li>Carry no tracking identifiers, and are subject to those services&#x27; own privacy policies</li></ul><p>Simple Finance does not operate its own price feed server. If no holdings are added, no market data requests are made at all.</p></div></details><details id="notifications" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.746 -0.187) scale(1.0622)"><path d="M18 9a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16S18 14 18 9z"/><path d="M10.3 19a2 2 0 0 0 3.4 0"/></g></svg></span>Notifications<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Simple Finance may send local push notifications for:</p><ul><li>Budget alerts (when a category approaches or exceeds its limit)</li><li>Bill reminders (before a scheduled recurring expense)</li><li>Goal milestone celebrations</li><li>Smart money alerts (unusual spending, low balance, month-end summaries)</li><li>A weekly &quot;Fin Check-In&quot; tip (optional, based on your top insight)</li></ul><p>All notifications are generated and scheduled locally on your device. No notification content is routed through Simple Finance servers. You can enable or disable individual notification types in Settings → Notifications, or revoke notification permission entirely in iOS Settings → Simple Finance → Notifications.</p></div></details><details id="analytics-and-crash-reporting" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 17v-3M12 17v-5M15 17v-2"/></g></svg></span>Analytics and Crash Reporting<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Simple Finance does not use any third-party analytics SDKs (such as Firebase Analytics, Mixpanel, or Amplitude). No behavioral telemetry, screen-view tracking, or usage statistics are collected or sent to Simple Finance or any analytics provider.</p><p>Crash reports are the one exception, and they come from Apple rather than from anything inside this app. If you have turned on iOS Settings → Privacy &amp; Security → Analytics &amp; Improvements → Share With App Developers, Apple may send us a report when Simple Finance crashes. Beta builds installed through TestFlight share crash reports under TestFlight&#x27;s own agreement. These reports are produced and delivered entirely by Apple — Simple Finance contains no crash-reporting code of its own.</p><p>A crash report describes what the code was doing when it stopped: the sequence of functions that were running, the device model, and the iOS and app versions. It is not a copy of your data. Your accounts, transactions, balances, budgets and goals are not included, and Apple does not tell us your name or Apple Account.</p><p>You can stop this at any time by turning off Share With App Developers in iOS Settings. Nothing else about how you use the app is reported. If Simple Finance ever adds a crash reporter of its own, this policy will be updated and you will be notified via an in-app prompt on next launch; any such reporter will be configured to exclude all financial data.</p></div></details><details id="financial-data-sensitivity-notice" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg></span>Financial Data — Sensitivity Notice<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Financial information is among the most sensitive categories of personal data. Simple Finance treats it accordingly:</p><ul><li>Financial data is never sold, rented, or licensed to any third party — ever</li><li>Financial data is never used for advertising targeting or profiling</li><li>Data shared via household sync is visible only to members of that household through Apple&#x27;s CloudKit infrastructure; Simple Finance employees do not access individual user financial records</li><li>We will notify you promptly if we become aware of a security incident that affects your financial information</li><li>We participate in Apple&#x27;s App Privacy framework and maintain accurate privacy nutrition labels in the App Store</li></ul></div></details><details id="data-you-export" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -2.300) scale(1.1000)"><path d="M12 16V5"/><path d="M8 9l4-4 4 4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg></span>Data You Export<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Simple Finance lets you export your data as CSV files, PDF reports, or image summaries via the iOS share sheet. Once you share a file using the iOS share sheet, that data is governed by the privacy policy of the destination app or service (e.g., Mail, AirDrop, Google Drive). Simple Finance is not responsible for data once it leaves the app via your explicit export action.</p></div></details><details id="your-rights-and-controls" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.643" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.724 -1.448) scale(1.0345)"><circle cx="10" cy="8" r="3.4"/><path d="M3.6 19.6a6.5 6.5 0 0 1 8.6-4.2"/><path d="M17.5 12.6l3.5 1.4v2.8c0 2.2-1.5 3.9-3.5 4.6-2-.7-3.5-2.4-3.5-4.6V14z"/></g></svg></span>Your Rights and Controls<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>You have full control over your data at all times:</p><p>Delete all local data — Settings → Data Management → Clear All Data. This permanently removes all transactions, accounts, budgets, goals, snapshots, and preferences from your device.</p><p>Export your data — Settings → Data Management → Export (CSV or report). You can take your data with you at any time.</p><p>Opt out of iCloud sync — Simple Finance → Settings → iCloud Sync → toggle off, or iOS Settings → [Your Name] → iCloud → toggle off Simple Finance.</p><p>Disable household sharing — Settings → Family &amp; Partner → stop sharing.</p><p>Revoke notifications — iOS Settings → Simple Finance → Notifications → toggle off.</p><p>If you are located in the European Economic Area (EEA), United Kingdom, or California, you have additional rights under GDPR, UK GDPR, or the CCPA respectively, including the right to access, correct, and delete your personal data. To exercise these rights, contact us using the information below.</p></div></details><details id="children-s-privacy" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.530) scale(1.1000)"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></g></svg></span>Children&#x27;s Privacy<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Simple Finance is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided personal information through the app, please contact us at the address below and we will promptly delete it.</p></div></details><details id="changes-to-this-policy" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.726) scale(1.0588)"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 4v5h-5"/></g></svg></span>Changes to This Policy<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>We may update this Privacy Policy from time to time. When we do:</p><ul><li>The &quot;Effective Date&quot; at the top of this policy will be updated</li><li>If changes are material (for example, if we begin collecting a new category of data), we will notify you via an in-app prompt on next launch</li><li>Continued use of Simple Finance after the effective date constitutes acceptance of the revised policy</li></ul><p>We encourage you to review this policy periodically.</p></div></details><details id="contact-us" open><summary><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="5.5" width="18" height="13" rx="2.4"/><path d="M3.6 7l7.3 5.2a2 2 0 0 0 2.2 0L20.4 7"/></g></svg></span>Contact Us<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us:</p><p>Simple Finance Support<br>Email: simpleapphelp@outlook.com</p><p>We aim to respond to all privacy inquiries within 5 business days.</p></div></details><div class="note"><p><b>The short version.</b> Your finances live on your device and, if you turn sync on, in your own private iCloud. We do not run a server that holds them, we cannot read them, and there is no advertising or analytics SDK in the app. That is architecture, not a promise.</p></div>
+<footer>
+  <img src="help/img/logo-96.png" alt="" width="26" height="26">
+  <div class="fl">
+    <a href="gallery.html">Screenshots</a>
+    <a href="compare.html">Why Simple Finance</a>
+    <a href="support.html">Help Center</a>
+    <a href="help/guides.html">Guides</a>
+    <a href="help/troubleshooting.html">Troubleshooting</a>
+    <a href="help/contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy</a>
+  </div>
+  &copy; 2026 Simple Finance &middot; Simple Finance is not a
+  bank and does not give financial advice.
+</footer>
+</div>
+<script>var SEARCH_URL="help/search.json",LINK_BASE="";
+
+(function(){
+  var d=document.documentElement;
+  function set(p,save){
+    d.setAttribute('data-p',p);
+    document.querySelectorAll('.tk').forEach(function(s){
+      s.textContent=s.getAttribute(p==='mac'?'data-m':'data-i');});
+    document.querySelectorAll('.seg button').forEach(function(b){
+      b.setAttribute('aria-pressed',b.dataset.p===p);});
+    if(save){try{localStorage.setItem('sf-platform',p)}catch(e){}}
+  }
+  var saved=null;try{saved=localStorage.getItem('sf-platform')}catch(e){}
+  set(saved||(/iPad/.test(navigator.userAgent)?'ipad':(/iPhone|iPod/.test(navigator.userAgent)?'ios':'mac')),false);
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.seg button');if(b)set(b.dataset.p,true);});
+
+  var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
+  if(!box)return;
+  function load(){return idx?Promise.resolve(idx):
+    fetch(SEARCH_URL).then(function(r){return r.json()}).then(function(j){idx=j;return j})}
+  var t;
+  box.addEventListener('input',function(){
+    clearTimeout(t);t=setTimeout(function(){
+      var q=box.value.trim().toLowerCase();
+      if(q.length<2){list.innerHTML='';return}
+      load().then(function(items){
+        var terms=q.split(/\s+/),hits=[],p=d.getAttribute('data-p');
+        items.forEach(function(it){
+          if(it.o&&it.o!==p)return;
+          var hay=(it.t+' '+it.b+' '+it.k).toLowerCase(),sc=0;
+          for(var i=0;i<terms.length;i++){
+            if(hay.indexOf(terms[i])<0){sc=0;break}
+            sc+=it.t.toLowerCase().indexOf(terms[i])>=0?3:1;}
+          if(sc)hits.push([sc,it]);});
+        hits.sort(function(a,b){return b[0]-a[0]});
+        list.innerHTML=hits.length?hits.slice(0,25).map(function(h){
+          return '<li><a href="'+LINK_BASE+h[1].u+'">'+h[1].t+
+                 '<span class="in">'+h[1].k+'</span></a></li>'}).join('')
+          :'<li><a href="'+LINK_BASE+'help/contact.html">No match \u2014 ask us directly'+
+           '<span class="in">A person reads every message</span></a></li>';
+      });},110);
+  });
+})();
+</script>
+</body></html>

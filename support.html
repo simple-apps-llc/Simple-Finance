@@ -1,403 +1,476 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!doctype html>
+<html lang="en" data-p="mac"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Simple Finance — Support &amp; Help</title>
-<meta name="description" content="Help, tutorials, and answers for Simple Finance — the private budgeting, net worth, and retirement app. Contact support and learn how every feature works.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0C1F36">
+<title>Simple Finance Help Center &amp; Support</title>
+<meta name="description" content="136 answers, illustrated guides and 36 fixes for Simple Finance on Mac, iPhone and iPad — budgets, net worth, bills, sync, privacy and importing.">
+<link rel="canonical" href="https://simple-apps-llc.github.io/Simple-Finance/support.html">
+<link rel="icon" type="image/png" href="help/img/favicon.png">
+<link rel="apple-touch-icon" href="help/img/logo-180.png">
+<meta property="og:title" content="Simple Finance Help Center &amp; Support">
+<meta property="og:description" content="136 answers, illustrated guides and 36 fixes for Simple Finance on Mac, iPhone and iPad — budgets, net worth, bills, sync, privacy and importing.">
+<meta property="og:image" content="https://simple-apps-llc.github.io/Simple-Finance/help/img/logo-512.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simple-apps-llc.github.io/Simple-Finance/support.html">
+<meta name="twitter:card" content="summary">
 <style>
-  :root { --accent:#00C896; --accent2:#00A878; --ink:#1c1c1e; --muted:#6b7280; --bg:#f2f2f7; --card:#ffffff; --line:#e6e6ea; }
-  * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-         color:var(--ink); background:var(--bg); line-height:1.55; }
-  .header { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; padding:48px 24px; }
-  .header .wrap { max-width:820px; margin:0 auto; }
-  .badge { display:inline-flex; align-items:center; justify-content:center; width:56px; height:56px;
-           border-radius:50%; background:rgba(255,255,255,.2); font-size:26px; margin-bottom:14px; }
-  .header .kicker { font-size:13px; font-weight:600; opacity:.85; margin:0; letter-spacing:.02em; }
-  .header h1 { font-size:32px; font-weight:800; margin:2px 0 12px; }
-  .header p { font-size:15px; opacity:.94; margin:0; max-width:62ch; }
-  main { max-width:820px; margin:0 auto; padding:24px 16px 60px; }
-  .card { background:var(--card); border-radius:14px; padding:20px 22px; margin:0 0 16px;
-          box-shadow:0 1px 3px rgba(0,0,0,.06); }
-  .card h2 { font-size:20px; font-weight:800; margin:0 0 12px; }
-  .card h3 { font-size:16px; font-weight:700; margin:16px 0 6px; }
-  .card p { margin:0 0 10px; }
-  .card ul, .card ol { margin:0 0 10px; padding-left:22px; }
-  .card li { margin:5px 0; }
-  .card :last-child { margin-bottom:0; }
-  .toc { display:flex; flex-wrap:wrap; gap:8px; }
-  .toc a { display:inline-block; background:rgba(0,200,150,.10); color:var(--accent2); font-weight:600;
-           font-size:13px; padding:7px 13px; border-radius:999px; text-decoration:none; }
-  .toc a:hover { background:rgba(0,200,150,.18); }
-  .sect-title { font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
-                color:var(--muted); margin:26px 4px 10px; }
-  details { border-top:1px solid var(--line); }
-  details:first-of-type { border-top:none; }
-  summary { cursor:pointer; list-style:none; padding:13px 2px; font-weight:600; font-size:15px;
-            display:flex; align-items:center; gap:10px; }
-  summary::-webkit-details-marker { display:none; }
-  summary .chev { margin-left:auto; color:var(--muted); transition:transform .2s; font-size:13px; }
-  details[open] summary .chev { transform:rotate(90deg); }
-  summary .ic { width:26px; height:26px; border-radius:7px; background:rgba(0,200,150,.14);
-                display:inline-flex; align-items:center; justify-content:center; font-size:14px; flex:0 0 auto; }
-  .body { padding:0 2px 14px 38px; }
-  .body ol, .body ul { margin:0; padding-left:20px; }
-  .body li { margin:6px 0; }
-  .btn { display:inline-block; background:var(--accent2); color:#fff; font-weight:600;
-         padding:11px 20px; border-radius:999px; text-decoration:none; }
-  .footer { text-align:center; color:var(--muted); font-size:13px; padding:10px 0 0; }
-  .faq p { margin:0 0 14px; }
-  .note { color:var(--muted); font-size:14px; }
-  a { color:var(--accent2); }
-  @media (prefers-color-scheme: dark) {
-    :root { --ink:#f2f2f7; --muted:#9aa0aa; --bg:#000; --card:#1c1c1e; --line:#2c2c2e; }
-  }
+:root{
+  --ink:#0C1F36; --body:#41525F; --muted:#788994;
+  --bg:#F4F8F8; --card:#fff; --card2:#FAFCFC; --line:#E2EBEA;
+  --accent:#0A7D62; --accent-ink:#07604B; --soft:#E8F7F1; --bright:#19D8A6;
+  --navy:#0C1F36; --shadow:0 1px 2px rgba(12,31,54,.05),0 6px 18px -6px rgba(12,31,54,.09);
+  --shadow-lg:0 2px 4px rgba(12,31,54,.05),0 18px 40px -12px rgba(12,31,54,.18);
+  --r:14px; --gutter:22px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#EDF4F2; --body:#BDCBCE; --muted:#88999E;
+  --bg:#0A141C; --card:#111F2A; --card2:#16242F; --line:#1F3340;
+  --accent:#43E2B0; --accent-ink:#6FEDC6; --soft:#102C27; --bright:#19D8A6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px -6px rgba(0,0,0,.45);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 18px 40px -12px rgba(0,0,0,.6);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--body);
+  font:16px/1.68 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-feature-settings:"kern","liga";-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 var(--gutter) 96px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{color:var(--ink);letter-spacing:-.022em;line-height:1.22}
+h1{font-size:34px;margin:0 0 10px;font-weight:700}
+h2{font-size:21px;margin:44px 0 14px;font-weight:650}
+h3{font-size:16px;margin:0;font-weight:650}
+p{margin:14px 0}
+
+/* ── top bar ─────────────────────────────────────────────── */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line)}
+.bar-in{max-width:900px;margin:0 auto;padding:11px var(--gutter);display:flex;
+  align-items:center;gap:13px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-weight:650;
+  font-size:15.5px;letter-spacing:-.017em}
+.brand:hover{text-decoration:none;opacity:.82}
+.brand img{width:31px;height:31px;border-radius:8px;box-shadow:var(--shadow)}
+.navlink{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:-.01em;
+  white-space:nowrap}
+.navlink:hover{color:var(--accent);text-decoration:none}
+/* Four links plus the platform toggle will not fit a phone. Privacy is the one
+   that drops: it is in the footer of every page and it is where people look
+   for it anyway. Everything else stays reachable at every width. */
+/* The bar is STICKY, so a wrapped one eats the screen on every scroll. At 590px
+   it was measured at four rows and 104px tall. Below 700 the toggle loses its
+   long label and Privacy drops (it is in every footer); below 560 the brand
+   wordmark goes too, leaving the logo. Measured, not guessed. */
+@media(max-width:700px){
+  .navlink.dim{display:none}
+  .bar-in{gap:12px}
+  .seg button{padding:6px 11px;font-size:12px}
+  .seg button[data-p=ios] .full{display:none}}
+@media(max-width:560px){
+  .brand span.word{display:none}
+  .navlink{font-size:13.5px}
+  .bar-in{gap:10px;padding:9px 16px}}
+.spacer{flex:1 1 auto}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:3px;gap:2px;box-shadow:var(--shadow)}
+.seg button{appearance:none;background:none;border:0;color:var(--muted);
+  font:640 12.5px/1 inherit;padding:7px 14px;border-radius:999px;cursor:pointer;
+  letter-spacing:-.005em;transition:.16s}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+@media (prefers-color-scheme:dark){.seg button[aria-pressed=true]{color:#062119}}
+
+/* ── hero ────────────────────────────────────────────────── */
+.hero{background:linear-gradient(155deg,#0C1F36 0%,#123246 48%,#0E4A44 100%);
+  border-radius:22px;padding:38px 34px 34px;margin:26px 0 8px;position:relative;
+  overflow:hidden;box-shadow:var(--shadow-lg)}
+.hero::after{content:"";position:absolute;inset:auto -60px -110px auto;width:300px;
+  height:300px;border-radius:50%;background:radial-gradient(circle,rgba(25,216,166,.34),transparent 68%)}
+.hero-top{display:flex;align-items:center;gap:15px;margin-bottom:18px;position:relative}
+.hero-top img{width:58px;height:58px;border-radius:14px;
+  box-shadow:0 8px 24px -6px rgba(0,0,0,.55)}
+.hero h1{color:#fff;font-size:33px;margin:0}
+.hero .sub{color:#9FD9C8;font-size:14px;font-weight:600;letter-spacing:.02em;
+  text-transform:uppercase;margin:0 0 3px}
+.hero p{color:#C8DCD9;margin:0;max-width:52ch;position:relative;font-size:16.5px}
+.stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;position:relative}
+.stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;padding:6px 14px;color:#DCEDE9;font-size:13px;font-weight:600}
+.stat b{color:#3FE9B8}
+
+/* ── search ──────────────────────────────────────────────── */
+.searchbox{position:relative;margin:22px 0 0}
+.searchbox svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  width:19px;height:19px;color:var(--muted);pointer-events:none}
+input[type=search]{width:100%;padding:15px 16px 15px 45px;border-radius:13px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  font:16px/1.4 inherit;box-shadow:var(--shadow);appearance:none}
+input[type=search]::placeholder{color:var(--muted)}
+input[type=search]:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3.5px var(--soft)}
+#results{margin:12px 0 0;padding:0;list-style:none}
+#results li{border-bottom:1px solid var(--line)}
+#results li:last-child{border:0}
+#results a{display:block;padding:12px 2px;color:var(--ink);font-weight:550}
+#results a:hover{color:var(--accent);text-decoration:none}
+#results .in{display:block;color:var(--muted);font-size:12.5px;font-weight:500;margin-top:1px}
+
+/* ── cards & tiles ───────────────────────────────────────── */
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));margin-top:16px}
+.tile{display:flex;gap:13px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:16px;color:var(--ink);
+  box-shadow:var(--shadow);transition:transform .17s,box-shadow .17s,border-color .17s}
+.tile:hover{text-decoration:none;transform:translateY(-2px);
+  box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--accent) 42%,var(--line))}
+.tile .txt{min-width:0;display:block}
+.tile b{display:block;font-size:15px;font-weight:640;letter-spacing:-.012em;color:var(--ink)}
+/* 🔴 `.tile .txt>span`, NOT `.tile span`. The chip is a <span> too, and a bare
+   `.tile span` beats `.chip` on specificity (0,1,1 vs 0,1,0) — so every chip
+   INSIDE a tile lost display:flex, silently, and its glyph pinned to the
+   top-left corner while chips elsewhere on the page stayed centered. */
+.tile .txt>span{color:var(--muted);font-size:12.5px;display:block;margin-top:2px}
+.chip{width:38px;height:38px;border-radius:11px;flex:0 0 auto;display:flex;
+  align-items:center;justify-content:center;background:var(--soft);color:var(--accent)}
+.chip svg{width:21px;height:21px}
+/* 🔴 The raw app color is a FILL color, not an ink color. #FF9F0A and
+   #34C759 are ~2:1 on white — legible as a 40px pie slice in the app, muddy as
+   a 21px glyph on a card. Mix toward black on light and toward white on dark so
+   every chip lands in the same contrast band whatever hue it carries. */
+.chip.tint{background:color-mix(in srgb,var(--c) 13%,#fff);
+  color:color-mix(in srgb,var(--c) 74%,#0C1F36)}
+@media (prefers-color-scheme:dark){.chip.tint{
+  background:color-mix(in srgb,var(--c) 20%,#0A141C);
+  color:color-mix(in srgb,var(--c) 82%,#fff)}}
+
+/* ── disclosure rows ─────────────────────────────────────── */
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  margin:10px 0;box-shadow:var(--shadow);overflow:hidden}
+details[open]{border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+summary{cursor:pointer;padding:16px 18px;font-weight:600;font-size:15.5px;
+  color:var(--ink);letter-spacing:-.012em;list-style:none;display:flex;gap:12px;
+  align-items:center}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:var(--accent)}
+.caret{margin-left:auto;flex:0 0 auto;width:17px;height:17px;color:var(--muted);
+  transition:transform .2s}
+details[open] .caret{transform:rotate(90deg);color:var(--accent)}
+.ans{padding:2px 18px 18px;border-top:1px solid var(--line);margin-top:-1px}
+.ans p:first-child{margin-top:14px}
+.ans ul{margin:13px 0;padding-left:21px}
+.ans li{margin:6px 0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:15px 0}
+.steps li{counter-increment:s;position:relative;padding:0 0 0 34px;margin:11px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:23px;
+  height:23px;border-radius:50%;background:var(--soft);color:var(--accent);
+  font:640 11.5px/23px inherit;text-align:center}
+
+/* ── screenshots ─────────────────────────────────────────── */
+.shots{display:flex;gap:14px;overflow-x:auto;padding:6px 0 12px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.shot{flex:0 0 auto;scroll-snap-align:start;margin:0}
+/* 🔴 height:auto is load-bearing. The <img> carries width/height ATTRIBUTES so
+   the browser can reserve space before the file arrives (no layout shift);
+   without this rule that height applies as a presentational height and a
+   620x1348 phone capture renders 232px wide by 1348px TALL. */
+.shot img{display:block;height:auto;max-width:100%;border-radius:10px;
+  border:1px solid var(--line);box-shadow:var(--shadow-lg);background:var(--card2)}
+.shot.wide img{width:min(620px,78vw)}
+.shot.tall img{width:min(232px,46vw);border-radius:20px}
+.shot.watch img{width:min(180px,40vw);border-radius:34px;background:#000;
+  border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
+.shots::-webkit-scrollbar{height:7px}
+.shots::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
+/* ── misc ────────────────────────────────────────────────── */
+.crumb{font-size:13px;color:var(--muted);margin:24px 0 12px}
+.crumb a{color:var(--muted)}
+.crumb a:hover{color:var(--accent)}
+.lede{color:var(--muted);font-size:17px;margin:0 0 6px;max-width:60ch}
+/* The accent goes all the way round, not down one edge. A single colored
+   left bar on a white card is the browser's default blockquote look; a soft
+   tinted field with a matching border reads as a deliberate callout and sits
+   with the tinted icon chips instead of fighting them. */
+.note{background:var(--soft);
+  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+  border-radius:var(--r);padding:18px 20px;margin:22px 0}
+.note b{color:var(--accent-ink)}
+.note p:first-child{margin-top:0}.note p:last-child{margin-bottom:0}
+table{width:100%;border-collapse:collapse;margin:14px 0}
+td{padding:11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.k{width:158px;white-space:nowrap}
+kbd{display:inline-block;min-width:25px;text-align:center;background:var(--card);
+  border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;
+  padding:3px 7px;color:var(--ink);box-shadow:var(--shadow);
+  font:640 12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.pill{display:inline-block;background:var(--soft);color:var(--accent);
+  font-size:11px;font-weight:650;padding:3px 9px;border-radius:999px;
+  letter-spacing:.01em;flex:0 0 auto}
+.sect{display:flex;align-items:center;gap:11px;margin:42px 0 4px}
+.sect h2{margin:0}
+footer{margin-top:64px;padding-top:26px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:13.5px;text-align:center}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--accent)}
+footer .fl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10px}
+/* ── landing page ────────────────────────────────────────── */
+.hero.lead{padding:52px 40px 46px}
+.hero.lead h1{font-size:44px;letter-spacing:-.03em;margin:0 0 12px}
+.hero.lead .tag{color:#BFE3D8;font-size:19px;line-height:1.55;max-width:34ch;margin:0}
+.hero.lead .hero-top{flex-direction:column;align-items:flex-start;gap:18px;margin-bottom:6px}
+.hero.lead .hero-top img{width:84px;height:84px;border-radius:19px}
+/* Apple's badge is the artwork; we only give it a hit area and clear space.
+   No background, no border, no shadow — modifying the badge is not allowed. */
+.cta{display:inline-block;line-height:0;transition:opacity .16s,transform .16s}
+.cta:hover{opacity:.85;transform:translateY(-1px);text-decoration:none}
+.cta img{display:block;width:180px;height:auto}
+.cta-row{display:block;margin-top:28px;position:relative}
+.cta-note{color:#8FBDB2;font-size:13.5px;line-height:1.55;margin:16px 0 0;
+  max-width:40ch;position:relative}
+.feat{display:grid;gap:13px;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));
+  margin-top:18px}
+.feat .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;box-shadow:var(--shadow)}
+.feat h3{margin:13px 0 5px;font-size:16.5px}
+.feat p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.band{background:linear-gradient(150deg,#0C1F36,#0E4A44);border-radius:20px;
+  padding:34px 32px;margin:44px 0 0;color:#C8DCD9;box-shadow:var(--shadow-lg)}
+.band h2{color:#fff;margin:0 0 10px;font-size:23px}
+.band p{margin:10px 0;max-width:62ch}
+.band b{color:#4BE7B6}
+/* 🔴 The bleed MUST equal the gutter. Hard-coded -22px against a gutter that
+   drops to 16px on phones made this 387px wide inside a 375px viewport, and the
+   whole page scrolled sideways — 6px of overhang each side, invisible unless
+   you measure it. Both now read the same variable. */
+.posters{display:flex;gap:14px;overflow-x:auto;margin:26px calc(-1*var(--gutter)) 0;
+  padding:8px var(--gutter) 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.posters::-webkit-scrollbar{height:7px}
+.posters::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+.poster{flex:0 0 auto;margin:0;scroll-snap-align:center}
+.poster img{display:block;width:min(258px,62vw);height:auto;border-radius:22px;
+  box-shadow:var(--shadow-lg)}
+.showcase{margin:20px calc(-1 * var(--gutter)) 0;
+  padding:6px var(--gutter) 18px;overflow-x:auto;display:flex;
+  gap:18px;scroll-snap-type:x mandatory}
+.showcase figure{margin:0;flex:0 0 auto;scroll-snap-align:center}
+.showcase img{display:block;height:auto;border-radius:14px;border:1px solid var(--line);
+  box-shadow:var(--shadow-lg);background:var(--card2)}
+.showcase .wide img{width:min(680px,84vw)}
+.showcase .tall img{width:min(250px,52vw);border-radius:22px}
+.showcase::-webkit-scrollbar{height:7px}
+.showcase::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+/* The comparison table. Columns get real breathing room and a hairline
+   between them; our column is a single highlighted band with rounded ends
+   rather than four separately-tinted cells, so it reads as one thing. */
+.cmp-wrap{overflow-x:auto;margin:20px 0 10px;padding-bottom:4px}
+.cmp{border-collapse:separate;border-spacing:0;font-size:14.5px;
+  min-width:640px;width:100%}
+.cmp th,.cmp td{padding:14px 20px;text-align:left;vertical-align:middle;
+  white-space:nowrap;border-bottom:1px solid var(--line)}
+.cmp thead th{font-size:12.5px;font-weight:650;color:var(--muted);
+  letter-spacing:.04em;text-transform:uppercase;padding-bottom:12px;
+  border-bottom:1px solid var(--line)}
+.cmp tbody tr:last-child td{border-bottom:0}
+.cmp td:first-child,.cmp th:first-child{padding-left:0;white-space:normal;
+  min-width:210px;color:var(--ink);font-weight:600}
+.cmp th:first-child{color:var(--muted);font-weight:650}
+/* hairline between the rival columns */
+.cmp td:not(:first-child):not(.us),.cmp th:not(:first-child):not(.us){
+  border-left:1px solid var(--line);text-align:center}
+.cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
+/* our column: one continuous band */
+.cmp .us{background:color-mix(in srgb,var(--accent) 9%,transparent);
+  color:var(--accent-ink);font-weight:650;white-space:normal;min-width:150px;
+  border-left:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
+  border-right:1px solid color-mix(in srgb,var(--accent) 34%,transparent)}
+.cmp thead .us{color:var(--accent);border-top:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);
+  border-radius:11px 11px 0 0;padding-top:12px}
+.cmp tbody tr:last-child .us{border-bottom:1px solid
+  color-mix(in srgb,var(--accent) 34%,transparent);border-radius:0 0 11px 11px}
+.cmp .no{color:var(--muted);font-weight:500}
+/* Where WE are the weaker option, say so in the same band rather than hiding
+   it. A comparison table that wins every row is not read as a comparison. */
+.cmp .us.miss{color:var(--muted);font-weight:500}
+/* the home-page teaser that sends people to the comparison */
+.banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
+  border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
+  color:var(--ink);transition:transform .17s,box-shadow .17s}
+.banner:hover{text-decoration:none;transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.banner b{display:block;font-size:16px;font-weight:650;letter-spacing:-.014em;
+  margin-bottom:3px}
+.banner .txt>span{color:var(--muted);font-size:14px;line-height:1.55;display:block}
+.banner .go{margin-left:auto;color:var(--accent);font-size:22px;font-weight:600;
+  flex:0 0 auto}
+/* one rival, on the comparison page */
+.rival{border-top:1px solid var(--line);padding:22px 0 4px}
+.rival h3{font-size:19px;margin:0 0 8px;display:flex;align-items:baseline;gap:12px;
+  flex-wrap:wrap}
+.rival h3 span{font-size:13.5px;font-weight:600;color:var(--accent);
+  background:var(--soft);padding:3px 10px;border-radius:999px;letter-spacing:0}
+.rival p{margin:9px 0}
+.rival .vs{color:var(--muted)}
+.src{color:var(--muted);font-size:12.5px;line-height:1.6;margin:6px 0 0}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:12px;margin:26px 0 4px}
+.ti{display:flex;gap:12px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;
+  box-shadow:var(--shadow)}
+.ti b{display:block;font-size:14.5px;font-weight:650;color:var(--ink);letter-spacing:-.01em}
+.ti>div span{color:var(--muted);font-size:12.5px;line-height:1.5;display:block;margin-top:2px}
+.feats{list-style:none;padding:0;margin:8px 0 4px;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.feats li{position:relative;padding:0 0 0 26px;color:var(--body);font-size:14.5px;
+  line-height:1.5}
+.feats li::before{content:"";position:absolute;left:2px;top:7px;width:8px;height:8px;
+  border-radius:50%;background:var(--accent);opacity:.55}
+.feats a{font-weight:600}
+.policy-meta{color:var(--muted);font-size:14px;margin:0 0 4px}
+@media(max-width:560px){
+  .hero.lead{padding:32px 22px}.hero.lead h1{font-size:32px}
+  .hero.lead .tag{font-size:17px}.hero.lead .hero-top img{width:66px;height:66px}
+}
+.tk{white-space:nowrap}
+/* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
+html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
+html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
+html[data-p=ipad] [data-plat=mac],html[data-p=ipad] [data-plat=ios]{display:none}
+/* help-page text splits use data-only=mac|ios; iPad follows iOS wording */
+html[data-p=ios] [data-only=mac],html[data-p=ipad] [data-only=mac],
+html[data-p=mac] [data-only=ios]{display:none}
+/* poster sizes per device shape */
+.poster.mac img{width:min(560px,86vw)}
+.poster.ios img{width:min(258px,62vw)}
+.poster.ipad img{width:min(420px,74vw)}
+.shot.ipadw img,.shot.wide img{border-radius:12px}
+@media(max-width:560px){
+  h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
+  .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
+  :root{--gutter:16px}.bar-in{padding:10px var(--gutter)}
+  .ans,summary{padding-left:15px;padding-right:15px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
-</head>
-<body>
-  <div class="header">
-    <div class="wrap">
-      <div class="badge">💬</div>
-      <p class="kicker">SIMPLE FINANCE</p>
-      <h1>Support &amp; Help</h1>
-      <p>Questions, problems, or ideas? We're happy to help — and below you'll find step-by-step guides for every feature. We read every message and usually reply within 1&ndash;2 business days.</p>
-    </div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Simple Finance", "applicationCategory": "FinanceApplication", "operatingSystem": "macOS, iOS, iPadOS, watchOS", "publisher": {"@type": "Organization", "name": "Simple Finance"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+</head><body>
+<div class="bar"><div class="bar-in">
+  <a class="brand" href="index.html">
+    <img src="help/img/logo-96.png" alt="" width="31" height="31">
+    <span class="word">Simple&nbsp;Finance</span></a>
+  <a class="navlink" href="gallery.html">Screenshots</a>
+  <a class="navlink" href="compare.html">Compare</a>
+  <a class="navlink" href="support.html">Help</a>
+  <a class="navlink" href="help/contact.html">Contact</a>
+  <a class="navlink dim" href="privacy-policy.html">Privacy</a>
+  <span class="spacer"></span>
+  <div class="seg" role="group" aria-label="Choose your platform">
+    <button data-p="mac" aria-pressed="true">Mac</button>
+    <button data-p="ios" aria-pressed="false">iPhone</button>
+    <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-  <main>
+</div></div>
+<div class="wrap">
+<div class="hero">
+<div class="hero-top">
+  <img src="help/img/logo-180.png" alt="Simple Finance" width="58" height="58">
+  <div><p class="sub">Help Center</p><h1>Simple Finance</h1></div>
+</div>
+<p>Everything the app knows how to explain, in one place &mdash; written for the
+device you are actually holding.</p>
+<div class="stats">
+  <span class="stat"><b>136</b> answers</span>
+  <span class="stat"><b class="tk" data-m="35" data-i="29">35</b> illustrated guides</span>
+  <span class="stat"><b>36</b> fixes</span>
+  <span class="stat">Mac &middot; iPhone &middot; iPad</span>
+</div></div>
+<div class="searchbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+<input type="search" id="q" placeholder="Search 136 answers&hellip;"
+  autocomplete="off" aria-label="Search the help center"></div>
+<ul id="results"></ul>
+<div class="grid" style="margin-top:24px">
+<a class="tile" href="help/guides.html"><span class="chip tint" style="--c:#AF52DE"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.848" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.960 0.956) scale(0.9200)"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v16H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v4H6.5A2.5 2.5 0 0 1 4 20.5z"/></g></svg></span><span class="txt">
+  <b>Illustrated guides</b><span class="tk" data-m="35 walkthroughs with screenshots"
+  data-i="29 walkthroughs with screenshots">35 walkthroughs with screenshots</span>
+  </span></a>
+<a class="tile" href="help/troubleshooting.html"><span class="chip tint" style="--c:#FF9500"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.636" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.637 -0.305) scale(1.0393)"><path d="M15.6 3.3a5.5 5.5 0 0 0-6.4 7L3.5 16v4.5H8l5.7-5.7a5.5 5.5 0 0 0 7-6.4l-3 3-2.8-.8-.8-2.8z"/></g></svg></span>
+  <span class="txt"><b>Troubleshooting</b><span>36 fixes</span></span></a>
+<a class="tile" href="help/contact.html"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M21 3L10.5 13.5"/><path d="M21 3l-6.8 18-3.7-7.5L3 9.8z"/></g></svg></span><span class="txt">
+  <b>Contact us</b><span>A person, not a robot</span></span></a>
+<a class="tile" href="help/keyboard-shortcuts.html" data-only="mac">
+  <span class="chip tint" style="--c:#5E5CE6"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="4.5" width="18" height="15" rx="2.2"/><path d="M3 9h18"/><circle cx="6" cy="6.8" r=".8" fill="currentColor" stroke="none"/><circle cx="8.6" cy="6.8" r=".8" fill="currentColor" stroke="none"/></g></svg></span><span class="txt"><b>Keyboard shortcuts</b>
+  <span>17 commands</span></span></a>
+</div>
+<h2>Start here</h2>
+<details id="set-up-your-first-budget"><summary><span class="chip tint" style="--c:#34C759"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg></span>Set up your first budget<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Pick categories and monthly limits in a couple minutes.</p><ol class="steps"><li>Open the Budget tab.</li><li>Add categories for your regular spending (rent, groceries, dining…).</li><li>Set a monthly limit on each — round numbers are fine to start.</li><li>As transactions come in, the rings fill so you see what&#x27;s left.</li></ol></div></details><details id="track-your-net-worth"><summary><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg></span>Track your net worth<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Add accounts and assets to see the full picture.</p><ol class="steps"><li>Open Net Worth → Accounts.</li><li>Add each account (cash, cards, loans, property, investments).</li><li>Enter current balances — the Accounts view flags stale ones later.</li><li>Watch the Overview trend chart build your net-worth history.</li></ol></div></details><details id="import-accounts-transactions"><summary><span class="chip tint" style="--c:#FF9500"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg></span>Import accounts &amp; transactions<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Bring in a statement from a photo or CSV.</p><ol class="steps"><li>Open the Import tab.</li><li>Choose a photo of a statement or a CSV file.</li><li>Review the auto-classified rows — fix any category or type.</li><li>Approve to save. Nothing imports until you say so.</li></ol></div></details><details id="build-a-retirement-plan"><summary><span class="chip tint" style="--c:#5E5CE6"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></g></svg></span>Build a retirement plan<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Model your path to financial independence.</p><ol class="steps"><li>Open the Retirement tab → Setup.</li><li>Enter income, savings, accounts, and a target retirement age.</li><li>Switch to Analysis to stress-test with Monte Carlo &amp; history.</li><li>Use Report to export an investor-grade PDF.</li></ol></div></details><details id="set-a-savings-goal"><summary><span class="chip tint" style="--c:#FF2D55"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></g></svg></span>Set a savings goal<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Give every dollar a job with a target and deadline.</p><ol class="steps"><li>Open the Goals tab.</li><li>Create a goal (emergency fund, house, trip…).</li><li>Set a target amount and optional date.</li><li>Fund it over time and track progress at a glance.</li></ol></div></details><details id="find-your-subscriptions"><summary><span class="chip tint" style="--c:#FF9F0A"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h11a4 4 0 0 1 4 4"/><path d="M7 5L4 8l3 3"/><path d="M20 16H9a4 4 0 0 1-4-4"/><path d="M17 19l3-3-3-3"/></g></svg></span>Find your subscriptions<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Auto-detected from your history — no manual entry.</p><ol class="steps"><li>Open the Subscriptions tab.</li><li>Review recurring charges detected from your transactions.</li><li>Watch for the price-hike badges.</li><li><span class="tk" data-m="Click" data-i="Tap">Click</span> Track to turn any into a bill that feeds your Budget &amp; Forecast.</li></ol></div></details><details id="learn-the-concepts"><summary><span class="chip tint" style="--c:#AF52DE"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.848" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.960 0.956) scale(0.9200)"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v16H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v4H6.5A2.5 2.5 0 0 1 4 20.5z"/></g></svg></span>Learn the concepts<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Guides, playbooks, paths, and a money glossary.</p><ol class="steps"><li>Open the Learn tab.</li><li>Start with a guided Path, or browse Guides &amp; Playbooks.</li><li>Search the glossary for any term you hit.</li><li><span class="tk" data-m="Click" data-i="Tap">Click</span> the in-app links to act on what you just learned.</li></ol></div></details><details id="see-your-cash-flow-ahead"><summary><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></svg></span>See your cash flow ahead<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Know if you&#x27;ll make it to payday — before it&#x27;s a problem.</p><ol class="steps"><li data-only="mac">Add your recurring bills and income (Transactions ▸ Recurring).</li><li data-only="ios">Add your recurring bills and income (More ▸ Recurring).</li><li data-only="mac">Open Forecast.</li><li data-only="ios">Open More ▸ Cash Flow Forecast.</li><li>Read your lowest projected balance and safe-to-spend.</li><li>Switch to the Calendar view to see each day&#x27;s bills and income.</li></ol></div></details><details id="check-your-financial-health"><summary><span class="chip tint" style="--c:#FF375F"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><rect x="3.5" y="3.5" width="17" height="17" rx="3.4"/><path d="M12 17c-3.6-2.3-5-4-5-6a2.6 2.6 0 0 1 5-1 2.6 2.6 0 0 1 5 1c0 2-1.4 3.7-5 6z"/></g></svg></span>Check your financial health<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>One score, five pillars, and what to fix first.</p><ol class="steps"><li>Open Financial Health.</li><li>See your 0–100 score and letter grade.</li><li>Read the &#x27;Do this next&#x27; list of your weakest pillars.</li><li><span class="tk" data-m="Click" data-i="Tap">Click</span> into the linked screen to act on each one.</li></ol></div></details><details id="balance-your-investments"><summary><span class="chip tint" style="--c:#7C9CFF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg></span>Balance your investments<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Set a target mix and see the exact moves to rebalance.</p><ol class="steps"><li>Open Allocation.</li><li>Set your target percentages per asset class.</li><li>Review the drift and the buy/sell amounts to rebalance.</li><li>Override any holding&#x27;s auto-classification if needed.</li></ol></div></details>
+<h2>Browse by topic</h2>
+<div class="grid"><a class="tile" href="help/getting-started.html"><span class="chip tint" style="--c:#34C759"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.235) scale(1.0588)"><path d="M5 21V4h9l-1.2 3.2H19l-1.6 4.3H8.5"/><path d="M5 4h3"/></g></svg></span><span class="txt"><b>Getting started</b><span>10 answers</span></span></a><a class="tile" href="help/how-the-numbers-work.html"><span class="chip tint" style="--c:#5E5CE6"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.567" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.557 -1.232) scale(1.0845)"><path d="M8 20.5c0-8 0-13 2.6-15.6a3.4 3.4 0 0 1 4-.6"/><path d="M6 10.5h7.5"/><path d="M13 12.5l6 7M19 12.5l-6 7"/></g></svg></span><span class="txt"><b>How the numbers work</b><span>11 answers</span></span></a><a class="tile" href="help/privacy-data.html"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg></span><span class="txt"><b>Privacy &amp; Data</b><span>5 answers</span></span></a><a class="tile" href="help/sync-backup.html"><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.726) scale(1.0588)"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 4v5h-5"/></g></svg></span><span class="txt"><b>Sync &amp; Backup</b><span>5 answers</span></span></a><a class="tile" href="help/budgets.html"><span class="chip tint" style="--c:#34C759"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg></span><span class="txt"><b>Budgets</b><span>11 answers</span></span></a><a class="tile" href="help/categories.html"><span class="chip tint" style="--c:#AF52DE"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></g></svg></span><span class="txt"><b>Categories</b><span>5 answers</span></span></a><a class="tile" href="help/bills-recurring.html"><span class="chip tint" style="--c:#FF9F0A"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h11a4 4 0 0 1 4 4"/><path d="M7 5L4 8l3 3"/><path d="M20 16H9a4 4 0 0 1-4-4"/><path d="M17 19l3-3-3-3"/></g></svg></span><span class="txt"><b>Bills &amp; Recurring</b><span>6 answers</span></span></a><a class="tile" href="help/transactions.html"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h13"/><path d="M14 5l3 3-3 3"/><path d="M20 16H7"/><path d="M10 13l-3 3 3 3"/></g></svg></span><span class="txt"><b>Transactions</b><span>10 answers</span></span></a><a class="tile" href="help/net-worth.html"><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg></span><span class="txt"><b>Net Worth</b><span>10 answers</span></span></a><a class="tile" href="help/investing.html"><span class="chip tint" style="--c:#5E5CE6"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.848" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.960 0.960) scale(0.9200)"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></svg></span><span class="txt"><b>Investing</b><span>8 answers</span></span></a><a class="tile" href="help/goals.html"><span class="chip tint" style="--c:#FF2D55"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></g></svg></span><span class="txt"><b>Goals</b><span>4 answers</span></span></a><a class="tile" href="help/planning.html"><span class="chip tint" style="--c:#7C9CFF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></g></svg></span><span class="txt"><b>Planning</b><span>4 answers</span></span></a><a class="tile" href="help/tools-calculators.html"><span class="chip tint" style="--c:#FF9500"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.567" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.557 -1.232) scale(1.0845)"><path d="M8 20.5c0-8 0-13 2.6-15.6a3.4 3.4 0 0 1 4-.6"/><path d="M6 10.5h7.5"/><path d="M13 12.5l6 7M19 12.5l-6 7"/></g></svg></span><span class="txt"><b>Tools &amp; Calculators</b><span>6 answers</span></span></a><a class="tile" href="help/reports-export.html"><span class="chip tint" style="--c:#AF52DE"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></g></svg></span><span class="txt"><b>Reports &amp; Export</b><span>5 answers</span></span></a><a class="tile" href="help/notifications.html"><span class="chip tint" style="--c:#FF9F0A"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.746 -0.187) scale(1.0622)"><path d="M18 9a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16S18 14 18 9z"/><path d="M10.3 19a2 2 0 0 0 3.4 0"/></g></svg></span><span class="txt"><b>Notifications</b><span>3 answers</span></span></a><a class="tile" href="help/sharing.html"><span class="chip tint" style="--c:#FF375F"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.182) scale(1.0588)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M16.5 6a3.2 3.2 0 0 1 0 6.4"/><path d="M17.5 14.6a6.2 6.2 0 0 1 3 4.9"/></g></svg></span><span class="txt"><b>Sharing</b><span>11 answers</span></span></a><a class="tile" href="help/import.html"><span class="chip tint" style="--c:#FF9500"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg></span><span class="txt"><b>Import</b><span>5 answers</span></span></a><a class="tile" href="help/devices-widgets.html"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 5.5h3"/></g></svg></span><span class="txt"><b>Devices &amp; Widgets</b><span>6 answers</span></span></a><a class="tile" href="help/business.html"><span class="chip tint" style="--c:#5E5CE6"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="7.5" width="18" height="12.5" rx="2.2"/><path d="M8.5 7.5V5.8A1.8 1.8 0 0 1 10.3 4h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"/><path d="M3 12.5h18"/></g></svg></span><span class="txt"><b>Business</b><span>7 answers</span></span></a><a class="tile" href="help/fin.html"><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.750 0.000) scale(1.0000)"><path d="M12 3l1.7 4.6L18 9.3l-4.3 1.7L12 15.6l-1.7-4.6L6 9.3l4.3-1.7z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></g></svg></span><span class="txt"><b>Fin</b><span>4 answers</span></span></a></div>
+<div class="note"><p><b>Your data never reaches us.</b> Simple Finance keeps
+everything on your device and in your own private iCloud. There is no server of
+ours holding your finances &mdash; which is also why support cannot look up your
+account. Tell us what you see and we will work from that.</p></div>
+<footer>
+  <img src="help/img/logo-96.png" alt="" width="26" height="26">
+  <div class="fl">
+    <a href="gallery.html">Screenshots</a>
+    <a href="compare.html">Why Simple Finance</a>
+    <a href="support.html">Help Center</a>
+    <a href="help/guides.html">Guides</a>
+    <a href="help/troubleshooting.html">Troubleshooting</a>
+    <a href="help/contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy</a>
+  </div>
+  &copy; 2026 Simple Finance &middot; Simple Finance is not a
+  bank and does not give financial advice.
+</footer>
+</div>
+<script>var SEARCH_URL="help/search.json",LINK_BASE="";
 
-    <div class="card">
-      <h2>Get in touch</h2>
-      <p><strong>The fastest way is from inside the app.</strong> Open
-         <em>Support</em> in the sidebar on a Mac, or <em>&#9776; &rarr; Help &amp; Support</em>
-         on iPhone and iPad, and pick <em>Ask a question</em>, <em>Report a problem</em>
-         or <em>Suggest a feature</em>. Your message keeps its thread, the app
-         attaches the version and sync details we would otherwise have to ask
-         for, and the reply comes back to <em>Your messages</em> on the same
-         screen rather than into an inbox.</p>
-      <p>There is also <em>Ask Fin</em>, which answers questions about the app
-         instantly from the same help you are reading now.</p>
-      <p>Whichever way you write: tell us what you were doing and what you
-         expected to happen — a screenshot helps more than anything else.</p>
-      <p class="note">Not signed in to iCloud, or would rather use email?
-         <a href="mailto:simpleapphelp@outlook.com?subject=Simple%20Finance%20Support">simpleapphelp@outlook.com</a></p>
-    </div>
+(function(){
+  var d=document.documentElement;
+  function set(p,save){
+    d.setAttribute('data-p',p);
+    document.querySelectorAll('.tk').forEach(function(s){
+      s.textContent=s.getAttribute(p==='mac'?'data-m':'data-i');});
+    document.querySelectorAll('.seg button').forEach(function(b){
+      b.setAttribute('aria-pressed',b.dataset.p===p);});
+    if(save){try{localStorage.setItem('sf-platform',p)}catch(e){}}
+  }
+  var saved=null;try{saved=localStorage.getItem('sf-platform')}catch(e){}
+  set(saved||(/iPad/.test(navigator.userAgent)?'ipad':(/iPhone|iPod/.test(navigator.userAgent)?'ios':'mac')),false);
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.seg button');if(b)set(b.dataset.p,true);});
 
-    <div class="card">
-      <h2>Jump to a topic</h2>
-      <div class="toc">
-        <a href="#start">Getting started</a>
-        <a href="#everyday">Everyday money</a>
-        <a href="#networth">Net worth &amp; assets</a>
-        <a href="#reports">Reports &amp; tools</a>
-        <a href="#retirement">Retirement Planner</a>
-        <a href="#sharing">Sharing, sync &amp; alerts</a>
-        <a href="#personalize">Personalize &amp; privacy</a>
-        <a href="#faq">FAQ</a>
-      </div>
-    </div>
-
-    <!-- GETTING STARTED -->
-    <div class="card" id="start">
-      <h2>Getting started</h2>
-      <p>Simple Finance keeps your budgets, transactions, net worth, and retirement plan in one private app. Nothing you enter leaves your device unless you turn on your own iCloud sync.</p>
-      <ol>
-        <li><strong>Add a transaction.</strong> On the Transactions tab, tap + and log an expense or income — that's the heartbeat of the app.</li>
-        <li><strong>Set a budget.</strong> On the Budget tab, give each category a monthly amount and watch spending fill in as bars or rings.</li>
-        <li><strong>Track your net worth.</strong> On the Net Worth tab, add your accounts, investments, property, and loans.</li>
-        <li><strong>Explore the tabs</strong> along the bottom, and tap <strong>Fin</strong> (top-left of Home) to ask questions in plain English.</li>
-      </ol>
-      <p class="note">New to the app? Open <strong>Settings → Help &amp; Support → Replay Welcome Tour</strong> for a guided walkthrough, or turn on <strong>Demo Mode</strong> to explore a fully-loaded example with sample data — your own data stays empty and comes right back when you exit.</p>
-    </div>
-
-    <!-- EVERYDAY MONEY -->
-    <p class="sect-title" id="everyday">Everyday money</p>
-    <div class="card">
-      <details open>
-        <summary><span class="ic">➕</span>Adding transactions<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>On the Transactions tab, tap + (top right) and choose Income, Expense, or Transfer.</li>
-          <li>Enter the merchant and amount. Expenses need a category; pick "No Category" if you'd rather not.</li>
-          <li>Attach a receipt: tap "Attach Receipt", or use the receipt-scan icon on the tab to snap a photo — it reads the merchant, amount, and date for you to apply.</li>
-          <li>Split one expense across categories with "Split across categories", or split a bill between people with "Split this bill" — enter the full total and only your share is recorded.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">🔁</span>Recurring transactions &amp; bills<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>On the Transactions tab, tap Recurring (top left).</li>
-          <li>Add a recurring item: merchant, amount, category, income vs expense, and the day of the month it's due.</li>
-          <li>See all your upcoming bills and paydays with their due dates in one place.</li>
-          <li>Optional: turn on Auto-Post in Settings to log them automatically each month (off by default — you stay in control).</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">📊</span>Budgets — monthly, annual &amp; rings<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>On the Budget tab, switch between Monthly and Annual with the View picker at the top.</li>
-          <li>Set each category's monthly and annual budget when you add or edit it — and give it any color you like.</li>
-          <li>Switch the category list between Bars and Rings for a different view of the month.</li>
-          <li>Move between months with the ‹ › arrows. Tap the calendar icon to set a custom budget for that one month only — it won't change your other months.</li>
-          <li>Annual view tracks your spending year-to-date against each category's annual budget.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">🎯</span>Goals &amp; debt payoff<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>On the Home tab, tap + on Goals.</li>
-          <li>Savings or investing goal: set a target, then link transactions to it (e.g. money you move to savings or investments) to build progress.</li>
-          <li>Debt payoff goal: link a mortgage, auto loan, or other debt account — progress tracks automatically as the balance drops.</li>
-          <li>Pay extra principal: add a Transfer, set its type to "Extra Principal", and link it to the goal.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">🤖</span>Fin — your money assistant<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>Tap the "Fin" button at the top-left of the Home screen to open the assistant.</li>
-          <li>Ask anything about your money in plain English — "How am I doing this month?", "What did I spend on dining last year?", "Can I afford $300 more in savings?"</li>
-          <li>Ask for a chart ("chart income vs spending for 2024 and 2025") and Fin builds it from your real numbers.</li>
-          <li>Get a one-tap month or year report, and let Fin suggest money moves you can apply with a tap.</li>
-          <li>It all runs on your device with Apple Intelligence — your finances never leave your phone. You can also ask Siri.</li>
-        </ol></div>
-      </details>
-    </div>
-
-    <!-- NET WORTH -->
-    <p class="sect-title" id="networth">Net worth &amp; assets</p>
-    <div class="card">
-      <details>
-        <summary><span class="ic">💸</span>Track an account (money flow)<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>In Net Worth, tap an account → Balance Tracking → turn on "Track balance from transactions".</li>
-          <li>Turn on "Default account for new transactions" so new entries auto-pick it.</li>
-          <li>Each transaction's Account picker decides what it draws from — the balance updates automatically.</li>
-          <li>The Transactions tab shows that balance up top; tap it for a bank-style statement with a running balance after every transaction.</li>
-          <li>Move money with a Transfer (From → To). If a balance ever drifts, use Reconcile to set the real amount — your transactions stay intact.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">📈</span>Investments &amp; retirement accounts<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>In Net Worth, tap the Stocks segment at the top.</li>
-          <li>Add an investment account — Brokerage, Roth or Traditional IRA, SEP/SIMPLE IRA, 401(k), 403(b), 457, TSP, HSA, or 529 — with the + on Investment Accounts.</li>
-          <li>Add stocks or funds by ticker (AAPL, VTI, VOO) and share count. Prices are fetched automatically and update daily.</li>
-          <li>Track contributions: on a retirement or HSA account, enter what you've put in this year and see it against the IRS limit.</li>
-          <li>Crypto works the same way in its own section. Tap Refresh anytime for the latest prices.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">🏠</span>Real estate &amp; rentals<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>In Net Worth, tap + → Add Account → Rental Property (residential, multi-family, short-term, commercial, or land).</li>
-          <li>Enter the value, monthly rent, operating expenses, and attach a mortgage — equity is figured for you.</li>
-          <li>Tap the property for full investor analytics: cash flow, cap rate, cash-on-cash, the 1% rule, total ROI, appreciation, and tax depreciation.</li>
-          <li>Optional: turn on auto value updates to appreciate (or depreciate) the value at a rate you set — or update it by hand anytime.</li>
-          <li>Tag transactions to a property to track its actual income and expenses for the year.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">🏦</span>Mortgages &amp; loans<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>In Net Worth, tap + and add a liability — Mortgage, Auto Loan, Credit Card, HELOC, Personal, Medical, Tax, Business, or other loan — and enter the amount owed.</li>
-          <li>For a mortgage, tap it and choose "Set Up Loan" to add the interest rate, term, monthly payment, property tax, home insurance, PMI, and any extra principal.</li>
-          <li>You'll get a full payment breakdown, amortization, and payoff projections.</li>
-          <li>For auto and other loans, the Auto Loan and Loan calculators in Tools model the payments and payoff for you.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">📷</span>Import accounts from a photo or CSV<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>In Net Worth, tap + → Import from Photo or CSV.</li>
-          <li>Snap a photo of an account list, balance sheet, or spreadsheet — we read each line and guess whether it's a home, car, investment, loan, and so on.</li>
-          <li>Or import a CSV (Name, Type, Balance) — copy the built-in template to get started.</li>
-          <li>Review every row, fix any name, type, or amount, then approve — nothing is added until you do.</li>
-        </ol></div>
-      </details>
-    </div>
-
-    <!-- REPORTS & TOOLS -->
-    <p class="sect-title" id="reports">Reports &amp; tools</p>
-    <div class="card">
-      <details>
-        <summary><span class="ic">📆</span>Trends — month &amp; year<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>The Net Worth tab's Period Changes card shows how your net worth moved month over month.</li>
-          <li>On the Budget tab, step through months with the ‹ › arrows to compare spending.</li>
-          <li>Build a report (share icon) and turn on the Year-over-Year section to compare this year against last.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">📄</span>Reports &amp; exporting<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>Tap the share icon on Home, Budget, Transactions, or Net Worth to open the report builder.</li>
-          <li>Pick a time period — This/Last Month, Year to Date, This/Last Year, or Pick a Year — to run a report for any past year.</li>
-          <li>Choose which sections to include: cash flow, spending, Budget Rings, Money Flow, trends, net worth, top merchants, and a year-over-year comparison.</li>
-          <li>Reports include your back-filled historical data, so prior years show real numbers. Preview the whole thing, then share as image, PDF, or CSV.</li>
-          <li>Back up everything: Settings → Data &amp; Backup → Export. Keep the file somewhere safe.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">🧮</span>Tools &amp; calculators<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>The Tools tab has calculators for Mortgage / Loan, Retirement, Student Loan, Credit Card, Auto Loan, and Compound Interest.</li>
-          <li>Spending Insights breaks down where your money actually goes.</li>
-          <li>Save any calculation to revisit or tweak it later.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">🎛️</span>Customize your dashboard<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>On the Home screen, tap "Customize Dashboard" at the bottom.</li>
-          <li>Drag to reorder cards, tap − to hide one, or add new ones from the list.</li>
-          <li>Add Budget Rings (a colorful ring per category), a Money Flow diagram, year-to-date rings, and more.</li>
-          <li>It's all optional — your Home screen, your way.</li>
-        </ol></div>
-      </details>
-    </div>
-
-    <!-- RETIREMENT PLANNER -->
-    <p class="sect-title" id="retirement">Retirement Planner</p>
-    <div class="card">
-      <p>The Retirement Planner (Plan tab) is a full simulation of your financial life, one year at a time, from today to the end of your plan. It starts pre-filled from the accounts, loans, rentals, and income you already track — so your first plan is real, not hypothetical. Everything below is also built into the app under <strong>Plan → the gear/⚙ menu → How the Planner Works</strong> and <strong>Concepts &amp; Terms</strong>.</p>
-      <details open>
-        <summary><span class="ic">🧭</span>Getting started with your plan<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>Open the Plan tab and tap <strong>From My Data</strong> to build a plan from your real accounts (or Blank Plan to start fresh).</li>
-          <li>Work the <strong>Getting Started</strong> card: confirm your income, set your retirement spending, add your big life events, and clear the <strong>Plan Checkup</strong>.</li>
-          <li>The Checkup (top of Analyze) audits your inputs continuously — a phantom dividend, a double-counted budget, partner data with no partner — and tells you exactly where to fix each one. It never changes anything itself.</li>
-          <li>Everything is editable — people, accounts, income, expenses, life events, taxes, strategy — and the projection updates instantly. Amounts are always in today's dollars; the simulator handles inflation.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">💍</span>Life events &amp; planning as a couple<span class="chev">▶</span></summary>
-        <div class="body">
-          <p>The Milestones library covers the big ones, pre-filled and editable:</p>
-          <ul>
-            <li><strong>Get Married</strong> — a partner's assets join, their salary starts, household costs rise, and filing status flips to married-joint at the wedding year.</li>
-            <li><strong>Have a Child</strong> — an 18-year expense stream, not a one-off.</li>
-            <li><strong>Build or buy a house</strong> — down payment, new mortgage, extra principal, and running costs folded in; fund it by selling your current home with the capital-gains exclusion applied.</li>
-            <li>A new car every N years, college, long-term care, career breaks, downsizing, and more.</li>
-          </ul>
-          <p>Planning with a partner before you combine finances? Under <strong>People &amp; Retirement</strong>, add your partner and their assets (retirement, cash, car, and more). These live in the plan only — they won't appear in your Net Worth tab until you combine finances — and the report splits starting net worth into "You" and your partner so it still reconciles with your personal number.</p>
-        </div>
-      </details>
-      <details>
-        <summary><span class="ic">🎲</span>How your odds are tested<span class="chev">▶</span></summary>
-        <div class="body">
-          <p>Three ways to pressure-test the same plan:</p>
-          <ul>
-            <li><strong>Average</strong> — one path using your assumed returns.</li>
-            <li><strong>Monte Carlo</strong> — 500 randomized futures, giving your success rate and the shaded uncertainty cone.</li>
-            <li><strong>History replay</strong> — your plan re-run from every start year since 1928 with real market data (retiring into 1929, 1966, or 2000).</li>
-          </ul>
-          <p>If all three look good, the plan is robust. Your <strong>success rate</strong> is how often every single year of spending was funded without running out — 80%+ is generally strong. A 100% score doesn't mean guaranteed; it means your plan survived every path the simulation threw at it. Educational, not financial advice.</p>
-        </div>
-      </details>
-      <details>
-        <summary><span class="ic">📘</span>Concepts &amp; terms (glossary)<span class="chev">▶</span></summary>
-        <div class="body">
-          <p><strong>Today's $ vs Future $</strong> — "Today's $" strips out inflation so every future year is in current purchasing power (the default, and the honest way to read a long chart). "Future $" shows raw inflated numbers, which is why they look enormous.</p>
-          <p><strong>Financial independence (FI)</strong> — 25× your annual retirement spending (a 4% withdrawal rate). Coast FI is the point where your existing investments, with zero new contributions, would still reach your FI number by retirement.</p>
-          <p><strong>Safe withdrawal rate</strong> — the share of your investable money you pull out each year. Persistently above ~5% is historically hard to sustain; under 4% has survived nearly every period on record.</p>
-          <p><strong>Social Security timing</strong> — claim at 62 and your benefit is permanently ~70%; wait to 70 and it grows to ~124% (about +8%/yr). Waiting is the cheapest longevity insurance and raises the survivor's check for a couple. The in-app optimizer sweeps every claim age against your numbers.</p>
-          <p><strong>Roth conversions</strong> — in the low-income gap years between retiring and RMDs, moving pre-tax money to Roth on purpose fills the low brackets cheaply and shrinks the forced RMDs (and Medicare surcharges) later.</p>
-          <p><strong>RMDs</strong> — from age 73–75 the IRS forces a rising withdrawal from pre-tax accounts, taxed as income, whether you need it or not. Big pre-tax balances can spike your bracket late in life.</p>
-          <p><strong>Guardrails</strong> — instead of spending the same amount while a portfolio crashes, discretionary spending trims when your withdrawal rate drifts too high and recovers when investments run ahead. Essential expenses are never trimmed.</p>
-          <p><strong>Glide path</strong> — heavy in stocks while young, easing toward bonds as retirement nears, then holding — reducing sequence-of-returns risk at its peak.</p>
-          <p class="note">The full glossary — Monte Carlo, gain harvesting, IRMAA, the after-tax estate, ACA premiums, estate tax, the spending smile, and more — lives in the app under Plan → Concepts &amp; Terms. Everything here is educational, not personalized financial advice.</p>
-        </div>
-      </details>
-    </div>
-
-    <!-- SHARING / SYNC / ALERTS -->
-    <p class="sect-title" id="sharing">Sharing, sync &amp; alerts</p>
-    <div class="card">
-      <details>
-        <summary><span class="ic">☁️</span>Sync across your devices<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>Turn on Settings → iCloud Sync on each device signed into the same Apple ID (iPhone, iPad, Mac), then restart the app.</li>
-          <li>Install the app on a new device and your accounts, budgets, and history are already there.</li>
-          <li>Edits on one device appear on the others automatically. Turn it off anytime in Settings → iCloud Sync.</li>
-          <li>It's your private iCloud database — nothing is shared with us or anyone else.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">👪</span>Share with a spouse or family<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>Open Settings → iCloud Sharing.</li>
-          <li>A spouse or partner gets full two-way live syncing — you both see and edit the same accounts, transactions, budgets, and goals.</li>
-          <li>Family members get a read-only summary you control, updated automatically.</li>
-          <li>Send invites through Messages and pick the person directly — don't copy the link. Use Household Notes, a shared board for money notes, on the Family screen or as a Home card.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">🔔</span>Notifications &amp; smart alerts<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>Settings → Notifications: enable budget alerts, bill reminders, goal milestones, and a weekly check-in from Fin.</li>
-          <li>Budget alerts tell you the moment a category crosses your threshold (and again if you go over).</li>
-          <li>Smart Money Alerts add optional nudges: large purchases, unusual spending, cash-flow warnings, bill changes, a month-end summary, and more.</li>
-          <li>Everything is opt-in and each alert is sent only once — tap "Send a Test Notification" to try it.</li>
-        </ol></div>
-      </details>
-    </div>
-
-    <!-- PERSONALIZE / PRIVACY -->
-    <p class="sect-title" id="personalize">Personalize &amp; privacy</p>
-    <div class="card">
-      <details>
-        <summary><span class="ic">🎨</span>Make it yours<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>Settings → Appearance: pick an accent color (or any custom color) to re-theme the whole app — green is the default.</li>
-          <li>Choose Light, Dark, or System, and set your display currency.</li>
-          <li>Give each budget category its own color and icon — it flows through to charts, rings, and widgets.</li>
-          <li>Add a Simple Finance widget: long-press the Home Screen → + → Simple Finance, then pick what it shows. There's an Apple Watch app and complication too.</li>
-        </ol></div>
-      </details>
-      <details>
-        <summary><span class="ic">🔒</span>Privacy, security &amp; demo<span class="chev">▶</span></summary>
-        <div class="body"><ol>
-          <li>Your data lives on your device and in your own private iCloud — never on our servers.</li>
-          <li>Settings → Privacy &amp; Security: require Face ID to open the whole app, or just to view Net Worth.</li>
-          <li>Tap the eye icon on Home to hide all amounts (blur), with Face ID to reveal.</li>
-          <li>Showing the app to someone? Turn on Demo Mode for realistic sample data — your real numbers stay hidden and untouched.</li>
-        </ol></div>
-      </details>
-    </div>
-
-    <!-- FAQ -->
-    <div class="card faq" id="faq">
-      <h2>Frequently asked questions</h2>
-      <p><strong>Where is my data stored?</strong><br>
-      On your device. If you turn on iCloud Sync (Settings → iCloud Sync), your data also syncs through your own personal iCloud — we never see it. See the <a href="./privacy-policy.html">privacy policy</a> for details.</p>
-      <p><strong>How do I sync between my iPhone and iPad?</strong><br>
-      Turn on Settings → iCloud Sync on both devices (signed into the same Apple ID) and restart the app. Changes flow both ways automatically.</p>
-      <p><strong>How does sharing with my spouse or family work?</strong><br>
-      Settings → iCloud Sharing. A spouse/partner gets full two-way live syncing of your shared finances; family members get a read-only summary you control. Send invites through Messages and pick the person directly — don't copy the link.</p>
-      <p><strong>How does the Retirement Planner work?</strong><br>
-      The Plan tab simulates your finances year by year to the end of your plan, starting from the accounts and income you already track. It tests your odds across 500 market scenarios and a century of real history, models Social Security, taxes, RMDs, Roth conversions and more, and produces a shareable report. It's educational, not financial advice.</p>
-      <p><strong>Can I plan with my partner before we're married?</strong><br>
-      Yes. In the planner's People &amp; Retirement section you can add a partner and their assets (retirement, cash, car, etc.). They stay in the plan only — never in your personal Net Worth — until you combine finances, and the report shows a "You / Partner" split.</p>
-      <p><strong>How do I add my investments?</strong><br>
-      Net Worth → Stocks segment → add an investment account (Brokerage, IRA, 401(k), HSA, 529, etc.), then add holdings by ticker and share count. Prices update automatically. You can also import from a brokerage CSV or a photo of a statement.</p>
-      <p><strong>How do I export or share a report?</strong><br>
-      Tap the share icon on Home, Budget, Transactions, or Net Worth, choose a time period and sections, preview, then share as image, PDF, or CSV.</p>
-      <p><strong>How do I back up my data?</strong><br>
-      Settings → Data &amp; Backup → Export creates a complete JSON backup you can store anywhere. You can also turn on weekly automatic backups to iCloud Drive. Restoring a backup adds your data back — it never wipes anything.</p>
-      <p><strong>How do I lock the app?</strong><br>
-      Settings → Privacy &amp; Security → App Lock uses Face ID or Touch ID. You can also blur amounts on screen with the eye icon.</p>
-      <p><strong>What is Fin?</strong><br>
-      Fin is the built-in money assistant. It runs entirely on your device using Apple Intelligence (iOS 26 or later) — your questions and finances never leave your phone.</p>
-      <p><strong>Something looks wrong after an update.</strong><br>
-      Force-quit the app and reopen it. If it persists, tell us from inside the app (<em>Report a problem</em>) &mdash; it attaches your version and sync details automatically, which is exactly what we would otherwise have to ask you for.</p>
-    </div>
-
-    <div class="card">
-      <h2>Feature requests</h2>
-      <p>Simple Finance is actively developed and we genuinely read every suggestion. The best way to send one is <em>Suggest a feature</em> in the app &mdash; <em>Support</em> in the Mac sidebar, or <em>&#9776; &rarr; Help &amp; Support</em> on iPhone &mdash; because the reply comes back to you there. Say what you were trying to do rather than naming a feature; it is more useful, and it often turns out to be possible already.</p>
-    </div>
-
-    <p class="footer">Simple Finance · <a href="./privacy-policy.html">Privacy Policy</a> · <a href="mailto:simpleapphelp@outlook.com">simpleapphelp@outlook.com</a></p>
-  </main>
-</body>
-</html>
+  var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
+  if(!box)return;
+  function load(){return idx?Promise.resolve(idx):
+    fetch(SEARCH_URL).then(function(r){return r.json()}).then(function(j){idx=j;return j})}
+  var t;
+  box.addEventListener('input',function(){
+    clearTimeout(t);t=setTimeout(function(){
+      var q=box.value.trim().toLowerCase();
+      if(q.length<2){list.innerHTML='';return}
+      load().then(function(items){
+        var terms=q.split(/\s+/),hits=[],p=d.getAttribute('data-p');
+        items.forEach(function(it){
+          if(it.o&&it.o!==p)return;
+          var hay=(it.t+' '+it.b+' '+it.k).toLowerCase(),sc=0;
+          for(var i=0;i<terms.length;i++){
+            if(hay.indexOf(terms[i])<0){sc=0;break}
+            sc+=it.t.toLowerCase().indexOf(terms[i])>=0?3:1;}
+          if(sc)hits.push([sc,it]);});
+        hits.sort(function(a,b){return b[0]-a[0]});
+        list.innerHTML=hits.length?hits.slice(0,25).map(function(h){
+          return '<li><a href="'+LINK_BASE+h[1].u+'">'+h[1].t+
+                 '<span class="in">'+h[1].k+'</span></a></li>'}).join('')
+          :'<li><a href="'+LINK_BASE+'help/contact.html">No match \u2014 ask us directly'+
+           '<span class="in">A person reads every message</span></a></li>';
+      });},110);
+  });
+})();
+</script>
+</body></html>
