@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://simple-apps-llc.github.io/Simple-Finance/sitemap.xml
