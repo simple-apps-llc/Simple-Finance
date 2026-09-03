@@ -58,6 +58,8 @@ p{margin:14px 0}
 .navlink{color:var(--muted);font-weight:600;font-size:14px;letter-spacing:-.01em;
   white-space:nowrap}
 .navlink:hover{color:var(--accent);text-decoration:none}
+.navlink.active{color:var(--ink)}
+.navlink.active::after{content:"";display:block;height:2px;border-radius:2px;background:var(--accent);margin-top:3px}
 /* Four links plus the platform toggle will not fit a phone. Privacy is the one
    that drops: it is in the footer of every page and it is where people look
    for it anyway. Everything else stays reachable at every width. */
@@ -272,6 +274,15 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
   padding:34px 32px;margin:44px 0 0;color:#C8DCD9;box-shadow:var(--shadow-lg)}
 .band h2{color:#fff;margin:0 0 10px;font-size:23px}
 .band p{margin:10px 0;max-width:62ch}
+.band2{display:grid;gap:32px}
+@media(min-width:880px){.band2{grid-template-columns:1.35fr 1fr;align-items:center;gap:52px}}
+.band-copy p{max-width:60ch}
+.band-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.band-list li{position:relative;padding-left:30px;color:#DCEDE9;font-size:15px;line-height:1.5}
+.band-list li::before{content:"";position:absolute;left:0;top:3px;width:19px;height:19px;
+  border-radius:50%;background:rgba(75,231,182,.16);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234BE7B6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
+  background-size:12px;background-position:center;background-repeat:no-repeat}
 .band b{color:#4BE7B6}
 /* 🔴 The bleed MUST equal the gutter. Hard-coded -22px against a gutter that
    drops to 16px on phones made this 387px wide inside a 375px viewport, and the
@@ -479,6 +490,13 @@ and we will work from that.</p>
   document.addEventListener('click',function(e){
     var b=e.target.closest('.seg button');if(b)set(b.dataset.p,true);});
 
+  // Highlight the current page in the nav.
+  (function(){var here=(location.pathname.split('/').pop()||'index.html');
+   var inHelp=/\/help\//.test(location.pathname);
+   document.querySelectorAll('.navlink').forEach(function(a){
+     var seg=a.getAttribute('href').split('/').pop();
+     if(seg===here || (inHelp && a.getAttribute('href').indexOf('support.html')>=0)) a.classList.add('active');
+   });})();
   // Horizontal-scroll arrows: wrap every overflowing strip and add < > buttons.
   var CH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
   function mkBtn(dir,strip){
