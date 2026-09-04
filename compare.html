@@ -321,7 +321,10 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
   border-bottom:1px solid var(--line)}
 .cmp tbody tr:last-child td{border-bottom:0}
 .cmp td:first-child,.cmp th:first-child{padding-left:0;white-space:normal;
-  min-width:210px;color:var(--ink);font-weight:600}
+  min-width:210px;color:var(--ink);font-weight:600;
+  position:sticky;left:0;z-index:2;background:var(--bg);
+  box-shadow:8px 0 8px -8px rgba(0,0,0,.16)}
+.cmp thead th:first-child{z-index:3}
 .cmp th:first-child{color:var(--muted);font-weight:650}
 /* hairline between the rival columns */
 .cmp td:not(:first-child):not(.us),.cmp th:not(:first-child):not(.us){
@@ -453,41 +456,42 @@ and the same on iPhone, iPad and Apple&nbsp;Watch.</p></div>
 information, checked September&nbsp;2026.</p>
 <div class="cmp-wrap"><table class="cmp">
 <thead><tr><th></th><th class="us">Simple&nbsp;Finance</th><th>YNAB</th>
-<th>Monarch</th><th>Copilot</th><th>Simplifi</th></tr></thead>
+<th>Monarch</th><th>Copilot</th><th>Simplifi</th><th>EveryDollar</th></tr></thead>
 <tbody>
 <tr><td>Cost per year</td><td class="us">Free</td><td>$109</td>
-  <td>$99.99</td><td>$95</td><td>$47.88</td></tr>
+  <td>$99.99</td><td>$95</td><td>$47.88</td><td>$79.99</td></tr>
 <tr><td>Subscription required</td><td class="us">No</td>
   <td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td>
-  <td class="no">Yes</td></tr>
+  <td class="no">Yes</td><td class="no">Yes</td></tr>
 <tr><td>Transactions sync through the company&rsquo;s servers</td>
   <td class="us">No &mdash; your device and your&nbsp;iCloud</td>
   <td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td>
-  <td class="no">Yes</td></tr>
+  <td class="no">Yes</td><td class="no">Yes</td></tr>
 <tr><td>Account with the vendor required</td><td class="us">No</td>
   <td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td>
-  <td class="no">Yes</td></tr>
+  <td class="no">Yes</td><td class="no">Yes</td></tr>
 <tr><td>Native Mac app, not a web page</td><td class="us">Yes</td>
   <td class="no">No</td><td class="no">No</td><td>Yes</td>
-  <td class="no">No</td></tr>
+  <td class="no">No</td><td class="no">No</td></tr>
 <tr><td>Apple Watch app</td><td class="us">Yes</td><td>Yes</td>
   <td class="no">&mdash;</td><td class="no">&mdash;</td>
-  <td class="no">&mdash;</td></tr>
+  <td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
 <tr><td>Business invoicing &amp; mileage built in</td><td class="us">Yes</td>
   <td class="no">No</td><td class="no">No</td><td class="no">No</td>
-  <td class="no">No</td></tr>
+  <td class="no">No</td><td class="no">No</td></tr>
 <tr><td>Rental property tracking</td><td class="us">Included</td>
   <td class="no">No</td><td>Plus plan, $199/yr</td><td class="no">No</td>
-  <td class="no">No</td></tr>
+  <td class="no">No</td><td class="no">No</td></tr>
 <tr><td>Retirement projection with Monte&nbsp;Carlo</td><td class="us">Yes</td>
   <td class="no">No</td><td class="no">No</td><td class="no">No</td>
-  <td class="no">No</td></tr>
+  <td class="no">No</td><td class="no">No</td></tr>
 <tr><td>AI assistant</td><td class="us">Yes &mdash; runs on your device</td>
   <td class="no">None</td><td>Yes &mdash; on their servers</td>
-  <td>Yes &mdash; on their servers</td><td class="no">&mdash;</td></tr>
+  <td>Yes &mdash; on their servers</td><td class="no">&mdash;</td>
+  <td class="no">None</td></tr>
 <tr><td>Also on Android or in a browser</td>
   <td class="us miss">No &mdash; Apple devices only</td><td>Yes</td><td>Yes</td>
-  <td class="no">No</td><td>Yes</td></tr>
+  <td class="no">No</td><td>Yes</td><td>Yes</td></tr>
 </tbody></table></div>
 <p class="src">Prices are each company&rsquo;s published annual rate for a
 personal plan, checked September&nbsp;2026; Monarch&rsquo;s is its Core tier.
