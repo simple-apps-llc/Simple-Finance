@@ -396,6 +396,8 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 .scrollhint{color:var(--muted);font-size:13px;margin:16px 0 0;display:flex;align-items:center;gap:7px}
 .scrollhint::after{content:"→";color:var(--accent);font-weight:700}
 .tk{white-space:nowrap}
+/* but inside a tile the token is the card's subtitle and must wrap */
+.tile .tk{white-space:normal}
 /* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
 html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
 html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
@@ -567,11 +569,16 @@ cancel.</p>
 
   // Highlight the current page in the nav.
   (function(){var here=(location.pathname.split('/').pop()||'index.html');
-   var inHelp=/\/help\//.test(location.pathname);
-   document.querySelectorAll('.navlink').forEach(function(a){
-     var seg=a.getAttribute('href').split('/').pop();
-     if(seg===here || (inHelp && a.getAttribute('href').indexOf('support.html')>=0)) a.classList.add('active');
-   });})();
+   var links=[].slice.call(document.querySelectorAll('.navlink')), matched=false;
+   links.forEach(function(a){
+     if(a.getAttribute('href').split('/').pop()===here){a.classList.add('active');matched=true;}});
+   // Help sub-pages (guides, troubleshooting, shortcuts) have no nav link of
+   // their own, so light up Help for them — but only when nothing matched
+   // exactly, or Contact (help/contact.html) would light Help up too.
+   if(!matched && /\/help\//.test(location.pathname))
+     links.forEach(function(a){
+       if(a.getAttribute('href').indexOf('support.html')>=0) a.classList.add('active');});
+  })();
   // Horizontal-scroll arrows: wrap every overflowing strip and add < > buttons.
   var CH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
   function mkBtn(dir,strip){
