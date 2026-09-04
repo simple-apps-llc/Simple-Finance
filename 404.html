@@ -331,7 +331,7 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
   border-left:1px solid var(--line);text-align:center}
 .cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
 /* our column: one continuous band */
-.cmp .us{background:color-mix(in srgb,var(--accent) 9%,transparent);
+.cmp .us{background:color-mix(in srgb,var(--accent) 9%,var(--bg));
   color:var(--accent-ink);font-weight:650;white-space:normal;min-width:150px;
   border-left:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
   border-right:1px solid color-mix(in srgb,var(--accent) 34%,transparent)}
@@ -344,6 +344,16 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 /* Where WE are the weaker option, say so in the same band rather than hiding
    it. A comparison table that wins every row is not read as a comparison. */
 .cmp .us.miss{color:var(--muted);font-weight:500}
+/* On wider screens there is room to pin OUR column beside the feature column,
+   so Simple Finance stays on screen while the rivals scroll. Phones skip this —
+   two locked columns would leave no room for a rival. The 210px offset equals
+   the (border-box) width of the pinned first column. */
+@media (min-width:768px){
+  .cmp th:first-child,.cmp td:first-child{width:210px;max-width:210px}
+  .cmp th:nth-child(2),.cmp td:nth-child(2){position:sticky;left:210px;z-index:2;
+    box-shadow:8px 0 8px -8px rgba(0,0,0,.14)}
+  .cmp thead th:nth-child(2){z-index:3}
+}
 /* the home-page teaser that sends people to the comparison */
 .banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
   border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
