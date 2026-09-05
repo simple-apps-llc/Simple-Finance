@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0C1F36">
-<title>Simple Finance vs YNAB, Monarch, Copilot, Simplifi, EveryDollar and more</title>
-<meta name="description" content="A budget app with no bank login and no subscription, compared honestly against YNAB, Monarch Money, Copilot, Quicken Simplifi, EveryDollar, Rocket Money and Empower — including where they beat us.">
+<title>Simple Finance vs YNAB, Monarch, Copilot and Simplifi</title>
+<meta name="description" content="A budget app with no bank login and no subscription, compared honestly against YNAB, Monarch Money, Copilot and Quicken Simplifi — including where they beat us.">
 <link rel="canonical" href="https://simple-apps-llc.github.io/Simple-Finance/compare.html">
 <link rel="icon" type="image/png" href="help/img/favicon.png">
 <link rel="apple-touch-icon" href="help/img/logo-180.png">
-<meta property="og:title" content="Simple Finance vs YNAB, Monarch, Copilot, Simplifi, EveryDollar and more">
-<meta property="og:description" content="A budget app with no bank login and no subscription, compared honestly against YNAB, Monarch Money, Copilot, Quicken Simplifi, EveryDollar, Rocket Money and Empower — including where they beat us.">
+<meta property="og:title" content="Simple Finance vs YNAB, Monarch, Copilot and Simplifi">
+<meta property="og:description" content="A budget app with no bank login and no subscription, compared honestly against YNAB, Monarch Money, Copilot and Quicken Simplifi — including where they beat us.">
 <meta property="og:image" content="https://simple-apps-llc.github.io/Simple-Finance/help/img/og-card.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -71,18 +71,14 @@ p{margin:14px 0}
    long label and Privacy drops (it is in every footer); below 560 the brand
    wordmark goes too, leaving the logo. Measured, not guessed. */
 @media(max-width:700px){
-  .brand span.word{display:none}
+  .navlink.dim{display:none}
   .bar-in{gap:12px}
   .seg button{padding:6px 11px;font-size:12px}
   .seg button[data-p=ios] .full{display:none}}
 @media(max-width:560px){
-  .navlink{font-size:13px}
-  .bar-in{gap:8px;padding:9px 14px}
-  /* narrow the comparison columns so the feature column AND the Simple Finance
-     column both fit on a phone, with the first rival peeking in as a scroll cue */
-  .cmp{min-width:560px}
-  .cmp td:first-child,.cmp th:first-child{min-width:148px}
-  .cmp .us{min-width:120px}}
+  .brand span.word{display:none}
+  .navlink{font-size:13.5px}
+  .bar-in{gap:10px;padding:9px 16px}}
 .spacer{flex:1 1 auto}
 .seg{display:inline-flex;background:var(--card);border:1px solid var(--line);
   border-radius:999px;padding:3px;gap:2px;box-shadow:var(--shadow)}
@@ -205,19 +201,9 @@ details[open] .caret{transform:rotate(90deg);color:var(--accent)}
   border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
 /* Make horizontal scroll obvious: a persistent accent scrollbar + a right-edge
    fade that hints there's more to the right. */
-.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent}
-/* clickable scroll arrows added by JS when a strip overflows */
-.strip-wrap{position:relative}
-.scroll-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
-  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
-  background:var(--card);color:var(--accent);box-shadow:var(--shadow-lg);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  transition:opacity .15s,transform .15s;opacity:.95}
-.scroll-btn:hover{transform:translateY(-50%) scale(1.08);opacity:1}
-.scroll-btn.left{left:6px}.scroll-btn.right{right:6px}
-.scroll-btn[hidden]{display:none}
-.scroll-btn svg{width:22px;height:22px}
-@media(max-width:560px){.scroll-btn{width:38px;height:38px}.scroll-btn svg{width:19px;height:19px}}
+.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent;
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent);
+  mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent)}
 .shots::-webkit-scrollbar,.showcase::-webkit-scrollbar,.posters::-webkit-scrollbar{height:9px}
 .shots::-webkit-scrollbar-thumb,.showcase::-webkit-scrollbar-thumb,.posters::-webkit-scrollbar-thumb{
   background:color-mix(in srgb,var(--accent) 55%,transparent);border-radius:99px}
@@ -325,17 +311,14 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
   border-bottom:1px solid var(--line)}
 .cmp tbody tr:last-child td{border-bottom:0}
 .cmp td:first-child,.cmp th:first-child{padding-left:0;white-space:normal;
-  min-width:210px;color:var(--ink);font-weight:600;
-  position:sticky;left:0;z-index:2;background:var(--bg);
-  box-shadow:8px 0 8px -8px rgba(0,0,0,.16)}
-.cmp thead th:first-child{z-index:3}
+  min-width:210px;color:var(--ink);font-weight:600}
 .cmp th:first-child{color:var(--muted);font-weight:650}
 /* hairline between the rival columns */
 .cmp td:not(:first-child):not(.us),.cmp th:not(:first-child):not(.us){
-  border-left:1px solid var(--line);text-align:center;min-width:132px}
+  border-left:1px solid var(--line);text-align:center}
 .cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
 /* our column: one continuous band */
-.cmp .us{background:color-mix(in srgb,var(--accent) 9%,var(--bg));
+.cmp .us{background:color-mix(in srgb,var(--accent) 9%,transparent);
   color:var(--accent-ink);font-weight:650;white-space:normal;min-width:150px;
   border-left:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
   border-right:1px solid color-mix(in srgb,var(--accent) 34%,transparent)}
@@ -348,16 +331,6 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 /* Where WE are the weaker option, say so in the same band rather than hiding
    it. A comparison table that wins every row is not read as a comparison. */
 .cmp .us.miss{color:var(--muted);font-weight:500}
-/* On wider screens there is room to pin OUR column beside the feature column,
-   so Simple Finance stays on screen while the rivals scroll. Phones skip this —
-   two locked columns would leave no room for a rival. The 210px offset equals
-   the (border-box) width of the pinned first column. */
-@media (min-width:768px){
-  .cmp th:first-child,.cmp td:first-child{width:210px;max-width:210px}
-  .cmp th:nth-child(2),.cmp td:nth-child(2){position:sticky;left:210px;z-index:2;
-    box-shadow:8px 0 8px -8px rgba(0,0,0,.14)}
-  .cmp thead th:nth-child(2){z-index:3}
-}
 /* the home-page teaser that sends people to the comparison */
 .banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
   border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
@@ -400,8 +373,6 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 .scrollhint{color:var(--muted);font-size:13px;margin:16px 0 0;display:flex;align-items:center;gap:7px}
 .scrollhint::after{content:"→";color:var(--accent);font-weight:700}
 .tk{white-space:nowrap}
-/* but inside a tile the token is the card's subtitle and must wrap */
-.tile .tk{white-space:normal}
 /* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
 html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
 html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
@@ -417,16 +388,12 @@ html[data-p=mac] [data-only=ios]{display:none}
 @media(max-width:560px){
   h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
   .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
-  /* Phones: drop the 94vw side margin and trim the gutter so the content
-     (and the comparison table's Simple Finance column) uses the full width. */
-  :root{--gutter:14px}
-  .wrap,.bar-in{max-width:100%}
-  .bar-in{padding:10px var(--gutter)}
-  .ans,summary{padding-left:14px;padding-right:14px}
+  :root{--gutter:16px}.bar-in{padding:10px var(--gutter)}
+  .ans,summary{padding-left:15px;padding-right:15px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Why Simple Finance", "about": "Comparison of Simple Finance with YNAB, Monarch Money, Copilot Money, Quicken Simplifi, EveryDollar, Rocket Money and Empower", "publisher": {"@type": "Organization", "name": "Simple Finance"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Why Simple Finance", "about": "Comparison of Simple Finance with YNAB, Monarch Money, Copilot Money and Quicken Simplifi", "publisher": {"@type": "Organization", "name": "Simple Finance"}}</script>
 </head><body>
 <div class="bar"><div class="bar-in">
   <a class="brand" href="index.html">
@@ -451,14 +418,13 @@ html[data-p=mac] [data-only=ios]{display:none}
   <div><p class="sub">Why Simple Finance</p>
   <h1>The one that never asks for your bank password</h1></div>
 </div>
-<p class="tag">Every other app here routes your money through a company&rsquo;s
-servers &mdash; most behind a subscription. Simple&nbsp;Finance keeps it on your
-own devices and in your iCloud instead. Here&rsquo;s the honest case for that
-trade &mdash; and the places the others still beat us.</p>
+<p class="tag">Every other budgeting app on this page is a subscription built on
+a connection to your bank. This is the argument for not doing it that way
+&mdash; and the places where they beat us.</p>
 </div>
 <h2>The short version</h2>
 <div class="feat">
-<div class="card"><span class="chip tint" style="--c:#34C759"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg></span><h3>Free, not $48&ndash;$168 a year</h3>
+<div class="card"><span class="chip tint" style="--c:#34C759"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg></span><h3>Free, not $48&ndash;$109 a year</h3>
 <p>No subscription, no trial that expires, no tier that hides the feature you
 wanted behind another $100.</p></div>
 <div class="card"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg></span><h3>No bank credentials, anywhere</h3>
@@ -476,19 +442,42 @@ and the same on iPhone, iPad and Apple&nbsp;Watch.</p></div>
 <p class="lede">Every figure below is each company&rsquo;s own published
 information, checked September&nbsp;2026.</p>
 <div class="cmp-wrap"><table class="cmp">
-<thead><tr><th></th><th class="us">Simple&nbsp;Finance</th><th>YNAB</th><th>Monarch</th><th>Copilot</th><th>Simplifi</th><th>EveryDollar</th><th>Rocket&nbsp;Money</th><th>Empower</th></tr></thead>
+<thead><tr><th></th><th class="us">Simple&nbsp;Finance</th><th>YNAB</th>
+<th>Monarch</th><th>Copilot</th><th>Simplifi</th></tr></thead>
 <tbody>
-<tr><td>Cost per year</td><td class="us">Free</td><td>$109</td><td>$99.99</td><td>$95</td><td>$47.88</td><td>$79.99</td><td>$84&ndash;$168</td><td>Free</td></tr>
-<tr><td>Subscription required</td><td class="us">No</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td>No</td></tr>
-<tr><td>Transactions sync through the company&rsquo;s servers</td><td class="us">No &mdash; your device and your&nbsp;iCloud</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td></tr>
-<tr><td>Account with the vendor required</td><td class="us">No</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td></tr>
-<tr><td>Native Mac app, not a web page</td><td class="us">Yes</td><td class="no">No</td><td class="no">No</td><td>Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
-<tr><td>Apple Watch app</td><td class="us">Yes</td><td>Yes</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
-<tr><td>Business invoicing &amp; mileage built in</td><td class="us">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
-<tr><td>Rental property tracking</td><td class="us">Included</td><td class="no">No</td><td>Plus plan, $199/yr</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
-<tr><td>Retirement projection with Monte&nbsp;Carlo</td><td class="us">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td>Yes</td></tr>
-<tr><td>AI assistant</td><td class="us">Yes &mdash; runs on your device</td><td class="no">None</td><td>Yes &mdash; on their servers</td><td>Yes &mdash; on their servers</td><td class="no">&mdash;</td><td class="no">None</td><td class="no">None</td><td class="no">None</td></tr>
-<tr><td>Also on Android or in a browser</td><td class="us miss">No &mdash; Apple devices only</td><td>Yes</td><td>Yes</td><td class="no">No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Cost per year</td><td class="us">Free</td><td>$109</td>
+  <td>$99.99</td><td>$95</td><td>$47.88</td></tr>
+<tr><td>Subscription required</td><td class="us">No</td>
+  <td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td>
+  <td class="no">Yes</td></tr>
+<tr><td>Transactions sync through the company&rsquo;s servers</td>
+  <td class="us">No &mdash; your device and your&nbsp;iCloud</td>
+  <td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td>
+  <td class="no">Yes</td></tr>
+<tr><td>Account with the vendor required</td><td class="us">No</td>
+  <td class="no">Yes</td><td class="no">Yes</td><td class="no">Yes</td>
+  <td class="no">Yes</td></tr>
+<tr><td>Native Mac app, not a web page</td><td class="us">Yes</td>
+  <td class="no">No</td><td class="no">No</td><td>Yes</td>
+  <td class="no">No</td></tr>
+<tr><td>Apple Watch app</td><td class="us">Yes</td><td>Yes</td>
+  <td class="no">&mdash;</td><td class="no">&mdash;</td>
+  <td class="no">&mdash;</td></tr>
+<tr><td>Business invoicing &amp; mileage built in</td><td class="us">Yes</td>
+  <td class="no">No</td><td class="no">No</td><td class="no">No</td>
+  <td class="no">No</td></tr>
+<tr><td>Rental property tracking</td><td class="us">Included</td>
+  <td class="no">No</td><td>Plus plan, $199/yr</td><td class="no">No</td>
+  <td class="no">No</td></tr>
+<tr><td>Retirement projection with Monte&nbsp;Carlo</td><td class="us">Yes</td>
+  <td class="no">No</td><td class="no">No</td><td class="no">No</td>
+  <td class="no">No</td></tr>
+<tr><td>AI assistant</td><td class="us">Yes &mdash; runs on your device</td>
+  <td class="no">None</td><td>Yes &mdash; on their servers</td>
+  <td>Yes &mdash; on their servers</td><td class="no">&mdash;</td></tr>
+<tr><td>Also on Android or in a browser</td>
+  <td class="us miss">No &mdash; Apple devices only</td><td>Yes</td><td>Yes</td>
+  <td class="no">No</td><td>Yes</td></tr>
 </tbody></table></div>
 <p class="src">Prices are each company&rsquo;s published annual rate for a
 personal plan, checked September&nbsp;2026; Monarch&rsquo;s is its Core tier.
@@ -511,9 +500,9 @@ that is the entire reason this one exists.</p>
 <h2>The others, fairly</h2>
 <p class="lede">These are all good apps. They are built on a different bargain,
 and for a lot of people that bargain is the right one.</p>
-<div class="rival"><h3>YNAB <span>$109 a year</span></h3><p>A method as much as an app: zero-based budgeting where every dollar is given a job before the month starts. The teaching material is genuinely good and the following is devoted. It has an Apple Watch app and no AI features at all, which for a lot of people is the point.</p><p class="vs">It runs in a browser on the Mac rather than as a Mac app, it is a subscription, and your transactions sync through YNAB's servers. If the envelope method is what you are buying, buy it — it is the best expression of that method there is.</p></div><div class="rival"><h3>Monarch <span>$99.99 a year, or $199 for Plus</span></h3><p>The most common Mint replacement. Broad account coverage, forward-looking cash flow, dashboards built for two people to share, and an AI assistant you can ask questions in plain language.</p><p class="vs">The rental and business tools are on the $199 Plus tier, not the $99.99 one. It is a web app on the Mac, and the AI runs on Monarch's servers, which means your figures do too. If you want one place a couple can both log into from anything, it is the strongest option here.</p></div><div class="rival"><h3>Copilot <span>$95 a year</span></h3><p>The closest of the four to this app in feel, and the one we would recommend first if you want the automatic feed. Genuinely native on Mac and iPhone, carefully designed, and widely praised for how well it categorizes transactions on its own.</p><p class="vs">Still a subscription, still built on a bank connection, and your history still lives on their servers. Apple-only, like this one. If you want automatic categorization in a beautiful native app and the subscription is fine, Copilot is a good buy.</p></div><div class="rival"><h3>Quicken Simplifi <span>$47.88 a year</span></h3><p>The cheapest of the four and the most conventional. A spending-plan approach from Quicken, who have been doing this longer than anyone, with solid account coverage and a clear monthly view.</p><p class="vs">Web and mobile only — no Mac app — and the same structure as the others underneath: a subscription, an account with the vendor, and your transactions passing through their systems.</p></div><div class="rival"><h3>EveryDollar <span>Free, or $79.99 a year for sync</span></h3><p>Ramsey Solutions' zero-based budget, and the app the “baby steps” crowd reaches for. The free tier does manual budgeting well, the layout is deliberately simple, and there is a large, motivated community around the method.</p><p class="vs">Bank sync and paycheck planning are the $79.99 Premium tier — the free version is manual entry only. Web and mobile with no Mac app, an account is required, and it syncs through Ramsey's servers. No net worth, investments, business or retirement planning.</p></div><div class="rival"><h3>Rocket Money <span>Free, or $7–$14 a month for Premium</span></h3><p>Best known for finding and cancelling the subscriptions you forgot about, and it is genuinely good at it. The free tier links accounts and flags recurring charges; millions of people use it for that alone.</p><p class="vs">The actual budgeting — unlimited categories, net worth, dashboards — is Premium, its bill-negotiation service keeps 35–60% of whatever it saves you, and everything syncs through their servers. Web and mobile only, and built for cutting bills rather than deep planning.</p></div><div class="rival"><h3>Empower (Personal Capital) <span>Free</span></h3><p>The strongest free investment and net-worth tracker here, with a retirement planner that runs real Monte Carlo simulations — the one rival that matches us there. If your focus is portfolios and retirement readiness it is excellent, and it costs nothing to use.</p><p class="vs">It is free because it is the front door to a wealth-management service: link six figures of assets and expect a call. Everything runs on their servers, there is no Mac app, and it is thin on everyday budgeting, business and rental tracking.</p></div>
+<div class="rival"><h3>YNAB <span>$109 a year</span></h3><p>A method as much as an app: zero-based budgeting where every dollar is given a job before the month starts. The teaching material is genuinely good and the following is devoted. It has an Apple Watch app and no AI features at all, which for a lot of people is the point.</p><p class="vs">It runs in a browser on the Mac rather than as a Mac app, it is a subscription, and your transactions sync through YNAB's servers. If the envelope method is what you are buying, buy it — it is the best expression of that method there is.</p></div><div class="rival"><h3>Monarch <span>$99.99 a year, or $199 for Plus</span></h3><p>The most common Mint replacement. Broad account coverage, forward-looking cash flow, dashboards built for two people to share, and an AI assistant you can ask questions in plain language.</p><p class="vs">The rental and business tools are on the $199 Plus tier, not the $99.99 one. It is a web app on the Mac, and the AI runs on Monarch's servers, which means your figures do too. If you want one place a couple can both log into from anything, it is the strongest option here.</p></div><div class="rival"><h3>Copilot <span>$95 a year</span></h3><p>The closest of the four to this app in feel, and the one we would recommend first if you want the automatic feed. Genuinely native on Mac and iPhone, carefully designed, and widely praised for how well it categorizes transactions on its own.</p><p class="vs">Still a subscription, still built on a bank connection, and your history still lives on their servers. Apple-only, like this one. If you want automatic categorization in a beautiful native app and the subscription is fine, Copilot is a good buy.</p></div><div class="rival"><h3>Quicken Simplifi <span>$47.88 a year</span></h3><p>The cheapest of the four and the most conventional. A spending-plan approach from Quicken, who have been doing this longer than anyone, with solid account coverage and a clear monthly view.</p><p class="vs">Web and mobile only — no Mac app — and the same structure as the others underneath: a subscription, an account with the vendor, and your transactions passing through their systems.</p></div>
 
-<h2>Every day</h2><p class="lede">Log it, find it, and see where the month is going.</p><div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_transactions_mac.webp" type="image/webp"><img src="help/img/tour_transactions_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_mac.webp" type="image/webp"><img src="help/img/tour_recurring_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_merchants_mac.webp" type="image/webp"><img src="help/img/tour_merchants_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_trends_mac.webp" type="image/webp"><img src="help/img/tour_trends_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_transactions.webp" type="image/webp"><img src="help/img/tour_transactions.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_recurring.webp" type="image/webp"><img src="help/img/tour_recurring.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_moneyflow_3.webp" type="image/webp"><img src="help/img/tour_moneyflow_3.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_trends.webp" type="image/webp"><img src="help/img/tour_trends.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div><div class="showcase" data-plat="ipad"><figure class="wide"><picture><source srcset="help/img/tour_transactions_ipad.webp" type="image/webp"><img src="help/img/tour_transactions_ipad.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1400" height="1050"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_ipad.webp" type="image/webp"><img src="help/img/tour_recurring_ipad.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1400" height="1050"></picture></figure></div>
+<h2>Every day</h2><p class="lede">Log it, find it, and see where the month is going.</p><div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_transactions_mac.webp" type="image/webp"><img src="help/img/tour_transactions_mac.jpg" alt="Simple Finance on Mac" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_spendcurve_mac.webp" type="image/webp"><img src="help/img/tour_spendcurve_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_mac.webp" type="image/webp"><img src="help/img/tour_recurring_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_merchants_mac.webp" type="image/webp"><img src="help/img/tour_merchants_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_trends_mac.webp" type="image/webp"><img src="help/img/tour_trends_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_transactions.webp" type="image/webp"><img src="help/img/tour_transactions.jpg" alt="Simple Finance on iPhone" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_moneyflow_budget.webp" type="image/webp"><img src="help/img/tour_moneyflow_budget.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1347"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_recurring.webp" type="image/webp"><img src="help/img/tour_recurring.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_moneyflow_3.webp" type="image/webp"><img src="help/img/tour_moneyflow_3.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_trends.webp" type="image/webp"><img src="help/img/tour_trends.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div><div class="showcase" data-plat="ipad"><figure class="wide"><picture><source srcset="help/img/tour_transactions_ipad.webp" type="image/webp"><img src="help/img/tour_transactions_ipad.jpg" alt="Simple Finance on iPad" fetchpriority="high" decoding="async" width="1400" height="1050"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_ipad.webp" type="image/webp"><img src="help/img/tour_recurring_ipad.jpg" alt="Simple Finance on iPad" loading="lazy" decoding="async" width="1400" height="1050"></picture></figure></div>
 
 <div class="band">
   <h2>So who is this for?</h2>
@@ -523,8 +512,8 @@ and for a lot of people that bargain is the right one.</p>
   privilege.</p>
   <p>If you would rather have transactions appear on their own overnight, and
   you are comfortable with what that requires, <b>Copilot or Monarch will make
-  you happier than we will.</b> We would rather you knew that now than after you had moved your
-  whole financial life across.</p>
+  you happier than we will.</b> We would rather you knew that now than found out
+  after paying us.</p>
   <p style="margin-bottom:0"><a href="privacy-policy.html"
   style="color:#4BE7B6;font-weight:600">Read exactly what we do and don't
   collect &rarr;</a></p>
@@ -577,16 +566,11 @@ cancel.</p>
 
   // Highlight the current page in the nav.
   (function(){var here=(location.pathname.split('/').pop()||'index.html');
-   var links=[].slice.call(document.querySelectorAll('.navlink')), matched=false;
-   links.forEach(function(a){
-     if(a.getAttribute('href').split('/').pop()===here){a.classList.add('active');matched=true;}});
-   // Help sub-pages (guides, troubleshooting, shortcuts) have no nav link of
-   // their own, so light up Help for them — but only when nothing matched
-   // exactly, or Contact (help/contact.html) would light Help up too.
-   if(!matched && /\/help\//.test(location.pathname))
-     links.forEach(function(a){
-       if(a.getAttribute('href').indexOf('support.html')>=0) a.classList.add('active');});
-  })();
+   var inHelp=/\/help\//.test(location.pathname);
+   document.querySelectorAll('.navlink').forEach(function(a){
+     var seg=a.getAttribute('href').split('/').pop();
+     if(seg===here || (inHelp && a.getAttribute('href').indexOf('support.html')>=0)) a.classList.add('active');
+   });})();
   // Horizontal-scroll arrows: wrap every overflowing strip and add < > buttons.
   var CH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
   function mkBtn(dir,strip){

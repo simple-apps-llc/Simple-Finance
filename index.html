@@ -71,18 +71,14 @@ p{margin:14px 0}
    long label and Privacy drops (it is in every footer); below 560 the brand
    wordmark goes too, leaving the logo. Measured, not guessed. */
 @media(max-width:700px){
-  .brand span.word{display:none}
+  .navlink.dim{display:none}
   .bar-in{gap:12px}
   .seg button{padding:6px 11px;font-size:12px}
   .seg button[data-p=ios] .full{display:none}}
 @media(max-width:560px){
-  .navlink{font-size:13px}
-  .bar-in{gap:8px;padding:9px 14px}
-  /* narrow the comparison columns so the feature column AND the Simple Finance
-     column both fit on a phone, with the first rival peeking in as a scroll cue */
-  .cmp{min-width:560px}
-  .cmp td:first-child,.cmp th:first-child{min-width:148px}
-  .cmp .us{min-width:120px}}
+  .brand span.word{display:none}
+  .navlink{font-size:13.5px}
+  .bar-in{gap:10px;padding:9px 16px}}
 .spacer{flex:1 1 auto}
 .seg{display:inline-flex;background:var(--card);border:1px solid var(--line);
   border-radius:999px;padding:3px;gap:2px;box-shadow:var(--shadow)}
@@ -205,19 +201,9 @@ details[open] .caret{transform:rotate(90deg);color:var(--accent)}
   border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
 /* Make horizontal scroll obvious: a persistent accent scrollbar + a right-edge
    fade that hints there's more to the right. */
-.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent}
-/* clickable scroll arrows added by JS when a strip overflows */
-.strip-wrap{position:relative}
-.scroll-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
-  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
-  background:var(--card);color:var(--accent);box-shadow:var(--shadow-lg);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  transition:opacity .15s,transform .15s;opacity:.95}
-.scroll-btn:hover{transform:translateY(-50%) scale(1.08);opacity:1}
-.scroll-btn.left{left:6px}.scroll-btn.right{right:6px}
-.scroll-btn[hidden]{display:none}
-.scroll-btn svg{width:22px;height:22px}
-@media(max-width:560px){.scroll-btn{width:38px;height:38px}.scroll-btn svg{width:19px;height:19px}}
+.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent;
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent);
+  mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent)}
 .shots::-webkit-scrollbar,.showcase::-webkit-scrollbar,.posters::-webkit-scrollbar{height:9px}
 .shots::-webkit-scrollbar-thumb,.showcase::-webkit-scrollbar-thumb,.posters::-webkit-scrollbar-thumb{
   background:color-mix(in srgb,var(--accent) 55%,transparent);border-radius:99px}
@@ -325,17 +311,14 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
   border-bottom:1px solid var(--line)}
 .cmp tbody tr:last-child td{border-bottom:0}
 .cmp td:first-child,.cmp th:first-child{padding-left:0;white-space:normal;
-  min-width:210px;color:var(--ink);font-weight:600;
-  position:sticky;left:0;z-index:2;background:var(--bg);
-  box-shadow:8px 0 8px -8px rgba(0,0,0,.16)}
-.cmp thead th:first-child{z-index:3}
+  min-width:210px;color:var(--ink);font-weight:600}
 .cmp th:first-child{color:var(--muted);font-weight:650}
 /* hairline between the rival columns */
 .cmp td:not(:first-child):not(.us),.cmp th:not(:first-child):not(.us){
-  border-left:1px solid var(--line);text-align:center;min-width:132px}
+  border-left:1px solid var(--line);text-align:center}
 .cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
 /* our column: one continuous band */
-.cmp .us{background:color-mix(in srgb,var(--accent) 9%,var(--bg));
+.cmp .us{background:color-mix(in srgb,var(--accent) 9%,transparent);
   color:var(--accent-ink);font-weight:650;white-space:normal;min-width:150px;
   border-left:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
   border-right:1px solid color-mix(in srgb,var(--accent) 34%,transparent)}
@@ -348,16 +331,6 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 /* Where WE are the weaker option, say so in the same band rather than hiding
    it. A comparison table that wins every row is not read as a comparison. */
 .cmp .us.miss{color:var(--muted);font-weight:500}
-/* On wider screens there is room to pin OUR column beside the feature column,
-   so Simple Finance stays on screen while the rivals scroll. Phones skip this —
-   two locked columns would leave no room for a rival. The 210px offset equals
-   the (border-box) width of the pinned first column. */
-@media (min-width:768px){
-  .cmp th:first-child,.cmp td:first-child{width:210px;max-width:210px}
-  .cmp th:nth-child(2),.cmp td:nth-child(2){position:sticky;left:210px;z-index:2;
-    box-shadow:8px 0 8px -8px rgba(0,0,0,.14)}
-  .cmp thead th:nth-child(2){z-index:3}
-}
 /* the home-page teaser that sends people to the comparison */
 .banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
   border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
@@ -400,8 +373,6 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 .scrollhint{color:var(--muted);font-size:13px;margin:16px 0 0;display:flex;align-items:center;gap:7px}
 .scrollhint::after{content:"→";color:var(--accent);font-weight:700}
 .tk{white-space:nowrap}
-/* but inside a tile the token is the card's subtitle and must wrap */
-.tile .tk{white-space:normal}
 /* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
 html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
 html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
@@ -417,12 +388,8 @@ html[data-p=mac] [data-only=ios]{display:none}
 @media(max-width:560px){
   h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
   .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
-  /* Phones: drop the 94vw side margin and trim the gutter so the content
-     (and the comparison table's Simple Finance column) uses the full width. */
-  :root{--gutter:14px}
-  .wrap,.bar-in{max-width:100%}
-  .bar-in{padding:10px var(--gutter)}
-  .ans,summary{padding-left:14px;padding-right:14px}
+  :root{--gutter:16px}.bar-in{padding:10px var(--gutter)}
+  .ans,summary{padding-left:15px;padding-right:15px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
@@ -467,13 +434,13 @@ No bank login. No account to create.</p>
 <div class="trust"><div class="ti"><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.624" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.977 -1.029) scale(1.0465)"><circle cx="10" cy="8.5" r="3.4"/><path d="M3.8 19.8a6.5 6.5 0 0 1 10.4-4"/><path d="M15.5 17.8l2 2 3.5-4"/></g></svg></span><div><b>No account</b><span>Nothing to create. Open the app and start.</span></div></div><div class="ti"><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg></span><div><b>No bank login</b><span>We never ask for, or hold, your bank password.</span></div></div><div class="ti"><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M10.6 6.2A9.6 9.6 0 0 1 12 6c5 0 9 6 9 6a15 15 0 0 1-3 3.5M6.4 8.4A15.5 15.5 0 0 0 3 12s4 6 9 6a9.4 9.4 0 0 0 3.4-.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></g></svg></span><div><b>Nothing collected</b><span>No analytics SDK, no ad tracker, no data sale.</span></div></div><div class="ti"><span class="chip"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg></span><div><b>Free</b><span>The whole app. No trial that expires, no locked tier.</span></div></div></div>
 <a class="banner" href="compare.html">
   <span class="txt"><b>Why Simple&nbsp;Finance instead of YNAB, Monarch or Copilot?</b>
-  <span>Free against $48&ndash;$168 a year, and nothing of yours on anybody&rsquo;s
+  <span>Free against $48&ndash;$109 a year, and nothing of yours on anybody&rsquo;s
   server. The full comparison, including where we lose.</span></span>
   <span class="go">&rarr;</span></a>
 
 <h2>What it does</h2>
 <div class="feat"><div class="card"><span class="chip tint" style="--c:#34C759"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg></span><h3>Budgets that actually close</h3><p>Categories, monthly limits and rings that fill as you spend. Annual budgets and rollover for the bills that do not arrive every month.</p></div><div class="card"><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg></span><h3>Net worth, all of it</h3><p>Cash, cards, loans, property, stocks and crypto in one number, with the history behind it. Reconcile against your bank in one pass.</p></div><div class="card"><span class="chip tint" style="--c:#FF9F0A"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h11a4 4 0 0 1 4 4"/><path d="M7 5L4 8l3 3"/><path d="M20 16H9a4 4 0 0 1-4-4"/><path d="M17 19l3-3-3-3"/></g></svg></span><h3>Bills that tell you first</h3><p>Every cadence including biweekly, reminders before they land, and a cash-flow forecast that shows the lowest point your balance will hit.</p></div><div class="card"><span class="chip tint" style="--c:#5E5CE6"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></g></svg></span><h3>A retirement plan you can stress-test</h3><p>Monte Carlo and real market history against your own numbers, with an investor-grade PDF at the end.</p></div><div class="card"><span class="chip tint" style="--c:#FF375F"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.182) scale(1.0588)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M16.5 6a3.2 3.2 0 0 1 0 6.4"/><path d="M17.5 14.6a6.2 6.2 0 0 1 3 4.9"/></g></svg></span><h3>Share exactly as much as you mean to</h3><p>A partner sees everything both ways. Family sees a summary you choose. Friends see one scorecard. All through your own iCloud.</p></div><div class="card"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.750 0.000) scale(1.0000)"><path d="M12 3l1.7 4.6L18 9.3l-4.3 1.7L12 15.6l-1.7-4.6L6 9.3l4.3-1.7z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></g></svg></span><h3>Fin, on device</h3><p>Ask about your own money in plain language. It runs on Apple&#x27;s on-device model, so the questions never leave your phone.</p></div><div class="card"><span class="chip tint" style="--c:#AF52DE"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="7.5" width="18" height="12.5" rx="2.2"/><path d="M8.5 7.5V5.8A1.8 1.8 0 0 1 10.3 4h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"/><path d="M3 12.5h18"/></g></svg></span><h3>Business money kept separate</h3><p>Invoices, clients, estimates and mileage in their own books, never mixed into your personal totals.</p></div><div class="card"><span class="chip tint" style="--c:#FF9500"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg></span><h3>Bring your history with you</h3><p>CSV, OFX, QFX, Excel, or a photo of a statement read by OCR. Columns are matched by content, not headings. Nothing saves until you approve it.</p></div></div>
-<h2>Every day</h2><p class="lede">Log it, find it, and see where the month is going.</p><div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_transactions_mac.webp" type="image/webp"><img src="help/img/tour_transactions_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_mac.webp" type="image/webp"><img src="help/img/tour_recurring_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_merchants_mac.webp" type="image/webp"><img src="help/img/tour_merchants_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_trends_mac.webp" type="image/webp"><img src="help/img/tour_trends_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_transactions.webp" type="image/webp"><img src="help/img/tour_transactions.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_recurring.webp" type="image/webp"><img src="help/img/tour_recurring.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_moneyflow_3.webp" type="image/webp"><img src="help/img/tour_moneyflow_3.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_trends.webp" type="image/webp"><img src="help/img/tour_trends.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div><div class="showcase" data-plat="ipad"><figure class="wide"><picture><source srcset="help/img/tour_transactions_ipad.webp" type="image/webp"><img src="help/img/tour_transactions_ipad.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1400" height="1050"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_ipad.webp" type="image/webp"><img src="help/img/tour_recurring_ipad.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1400" height="1050"></picture></figure></div>
+<h2>Every day</h2><p class="lede">Log it, find it, and see where the month is going.</p><div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_transactions_mac.webp" type="image/webp"><img src="help/img/tour_transactions_mac.jpg" alt="Simple Finance on Mac" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_spendcurve_mac.webp" type="image/webp"><img src="help/img/tour_spendcurve_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_mac.webp" type="image/webp"><img src="help/img/tour_recurring_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_merchants_mac.webp" type="image/webp"><img src="help/img/tour_merchants_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_trends_mac.webp" type="image/webp"><img src="help/img/tour_trends_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_transactions.webp" type="image/webp"><img src="help/img/tour_transactions.jpg" alt="Simple Finance on iPhone" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_moneyflow_budget.webp" type="image/webp"><img src="help/img/tour_moneyflow_budget.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1347"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_recurring.webp" type="image/webp"><img src="help/img/tour_recurring.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_moneyflow_3.webp" type="image/webp"><img src="help/img/tour_moneyflow_3.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_trends.webp" type="image/webp"><img src="help/img/tour_trends.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div><div class="showcase" data-plat="ipad"><figure class="wide"><picture><source srcset="help/img/tour_transactions_ipad.webp" type="image/webp"><img src="help/img/tour_transactions_ipad.jpg" alt="Simple Finance on iPad" fetchpriority="high" decoding="async" width="1400" height="1050"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_recurring_ipad.webp" type="image/webp"><img src="help/img/tour_recurring_ipad.jpg" alt="Simple Finance on iPad" loading="lazy" decoding="async" width="1400" height="1050"></picture></figure></div>
 <div class="band band2">
   <div class="band-copy">
   <h2>It never asks for your bank password</h2>
@@ -497,7 +464,7 @@ No bank login. No account to create.</p>
     <li>Works fully offline</li>
   </ul>
 </div>
-<h2>Looking further out</h2><p class="lede">Plans, forecasts and a retirement stress-test built from the same figures.</p><div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_planner_mac.webp" type="image/webp"><img src="help/img/tour_planner_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retcashflow_mac.webp" type="image/webp"><img src="help/img/tour_retcashflow_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_forecast_mac.webp" type="image/webp"><img src="help/img/tour_forecast_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_projection_mac.webp" type="image/webp"><img src="help/img/tour_projection_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="743"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_retire.webp" type="image/webp"><img src="help/img/tour_retire.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_retanalysis.webp" type="image/webp"><img src="help/img/tour_retanalysis.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_goals.webp" type="image/webp"><img src="help/img/tour_goals.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div><div class="showcase" data-plat="ipad"><figure class="wide"><picture><source srcset="help/img/tour_goals_ipad.webp" type="image/webp"><img src="help/img/tour_goals_ipad.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1400" height="1050"></picture></figure></div>
+<h2>Looking further out</h2><p class="lede">Plans, forecasts and a retirement stress-test built from the same figures.</p><div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_planner_mac.webp" type="image/webp"><img src="help/img/tour_planner_mac.jpg" alt="Simple Finance on Mac" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retcashflow_mac.webp" type="image/webp"><img src="help/img/tour_retcashflow_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retanalysis_mac.webp" type="image/webp"><img src="help/img/tour_retanalysis_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_forecast_mac.webp" type="image/webp"><img src="help/img/tour_forecast_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_projection_mac.webp" type="image/webp"><img src="help/img/tour_projection_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="743"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_retire.webp" type="image/webp"><img src="help/img/tour_retire.jpg" alt="Simple Finance on iPhone" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_retcashflow.webp" type="image/webp"><img src="help/img/tour_retcashflow.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_retanalysis.webp" type="image/webp"><img src="help/img/tour_retanalysis.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_ret_scenario.webp" type="image/webp"><img src="help/img/tour_ret_scenario.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_ret_paths.webp" type="image/webp"><img src="help/img/tour_ret_paths.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div><div class="showcase" data-plat="ipad"><figure class="wide"><picture><source srcset="help/img/tour_retinsights_ipad.webp" type="image/webp"><img src="help/img/tour_retinsights_ipad.jpg" alt="Simple Finance on iPad" fetchpriority="high" decoding="async" width="1400" height="1050"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retlab_ipad.webp" type="image/webp"><img src="help/img/tour_retlab_ipad.jpg" alt="Simple Finance on iPad" loading="lazy" decoding="async" width="1400" height="1050"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retcash_ipad.webp" type="image/webp"><img src="help/img/tour_retcash_ipad.jpg" alt="Simple Finance on iPad" loading="lazy" decoding="async" width="1400" height="1050"></picture></figure></div>
 <h2>Getting started</h2>
 <div class="grid">
 <a class="tile" href="support.html"><span class="chip tint" style="--c:#AF52DE"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.848" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.960 0.956) scale(0.9200)"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v16H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v4H6.5A2.5 2.5 0 0 1 4 20.5z"/></g></svg></span><span class="txt">
@@ -542,16 +509,11 @@ No bank login. No account to create.</p>
 
   // Highlight the current page in the nav.
   (function(){var here=(location.pathname.split('/').pop()||'index.html');
-   var links=[].slice.call(document.querySelectorAll('.navlink')), matched=false;
-   links.forEach(function(a){
-     if(a.getAttribute('href').split('/').pop()===here){a.classList.add('active');matched=true;}});
-   // Help sub-pages (guides, troubleshooting, shortcuts) have no nav link of
-   // their own, so light up Help for them — but only when nothing matched
-   // exactly, or Contact (help/contact.html) would light Help up too.
-   if(!matched && /\/help\//.test(location.pathname))
-     links.forEach(function(a){
-       if(a.getAttribute('href').indexOf('support.html')>=0) a.classList.add('active');});
-  })();
+   var inHelp=/\/help\//.test(location.pathname);
+   document.querySelectorAll('.navlink').forEach(function(a){
+     var seg=a.getAttribute('href').split('/').pop();
+     if(seg===here || (inHelp && a.getAttribute('href').indexOf('support.html')>=0)) a.classList.add('active');
+   });})();
   // Horizontal-scroll arrows: wrap every overflowing strip and add < > buttons.
   var CH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
   function mkBtn(dir,strip){

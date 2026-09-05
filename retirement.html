@@ -71,18 +71,14 @@ p{margin:14px 0}
    long label and Privacy drops (it is in every footer); below 560 the brand
    wordmark goes too, leaving the logo. Measured, not guessed. */
 @media(max-width:700px){
-  .brand span.word{display:none}
+  .navlink.dim{display:none}
   .bar-in{gap:12px}
   .seg button{padding:6px 11px;font-size:12px}
   .seg button[data-p=ios] .full{display:none}}
 @media(max-width:560px){
-  .navlink{font-size:13px}
-  .bar-in{gap:8px;padding:9px 14px}
-  /* narrow the comparison columns so the feature column AND the Simple Finance
-     column both fit on a phone, with the first rival peeking in as a scroll cue */
-  .cmp{min-width:560px}
-  .cmp td:first-child,.cmp th:first-child{min-width:148px}
-  .cmp .us{min-width:120px}}
+  .brand span.word{display:none}
+  .navlink{font-size:13.5px}
+  .bar-in{gap:10px;padding:9px 16px}}
 .spacer{flex:1 1 auto}
 .seg{display:inline-flex;background:var(--card);border:1px solid var(--line);
   border-radius:999px;padding:3px;gap:2px;box-shadow:var(--shadow)}
@@ -205,19 +201,9 @@ details[open] .caret{transform:rotate(90deg);color:var(--accent)}
   border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
 /* Make horizontal scroll obvious: a persistent accent scrollbar + a right-edge
    fade that hints there's more to the right. */
-.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent}
-/* clickable scroll arrows added by JS when a strip overflows */
-.strip-wrap{position:relative}
-.scroll-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
-  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
-  background:var(--card);color:var(--accent);box-shadow:var(--shadow-lg);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  transition:opacity .15s,transform .15s;opacity:.95}
-.scroll-btn:hover{transform:translateY(-50%) scale(1.08);opacity:1}
-.scroll-btn.left{left:6px}.scroll-btn.right{right:6px}
-.scroll-btn[hidden]{display:none}
-.scroll-btn svg{width:22px;height:22px}
-@media(max-width:560px){.scroll-btn{width:38px;height:38px}.scroll-btn svg{width:19px;height:19px}}
+.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent;
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent);
+  mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent)}
 .shots::-webkit-scrollbar,.showcase::-webkit-scrollbar,.posters::-webkit-scrollbar{height:9px}
 .shots::-webkit-scrollbar-thumb,.showcase::-webkit-scrollbar-thumb,.posters::-webkit-scrollbar-thumb{
   background:color-mix(in srgb,var(--accent) 55%,transparent);border-radius:99px}
@@ -325,17 +311,14 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
   border-bottom:1px solid var(--line)}
 .cmp tbody tr:last-child td{border-bottom:0}
 .cmp td:first-child,.cmp th:first-child{padding-left:0;white-space:normal;
-  min-width:210px;color:var(--ink);font-weight:600;
-  position:sticky;left:0;z-index:2;background:var(--bg);
-  box-shadow:8px 0 8px -8px rgba(0,0,0,.16)}
-.cmp thead th:first-child{z-index:3}
+  min-width:210px;color:var(--ink);font-weight:600}
 .cmp th:first-child{color:var(--muted);font-weight:650}
 /* hairline between the rival columns */
 .cmp td:not(:first-child):not(.us),.cmp th:not(:first-child):not(.us){
-  border-left:1px solid var(--line);text-align:center;min-width:132px}
+  border-left:1px solid var(--line);text-align:center}
 .cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
 /* our column: one continuous band */
-.cmp .us{background:color-mix(in srgb,var(--accent) 9%,var(--bg));
+.cmp .us{background:color-mix(in srgb,var(--accent) 9%,transparent);
   color:var(--accent-ink);font-weight:650;white-space:normal;min-width:150px;
   border-left:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
   border-right:1px solid color-mix(in srgb,var(--accent) 34%,transparent)}
@@ -348,16 +331,6 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 /* Where WE are the weaker option, say so in the same band rather than hiding
    it. A comparison table that wins every row is not read as a comparison. */
 .cmp .us.miss{color:var(--muted);font-weight:500}
-/* On wider screens there is room to pin OUR column beside the feature column,
-   so Simple Finance stays on screen while the rivals scroll. Phones skip this —
-   two locked columns would leave no room for a rival. The 210px offset equals
-   the (border-box) width of the pinned first column. */
-@media (min-width:768px){
-  .cmp th:first-child,.cmp td:first-child{width:210px;max-width:210px}
-  .cmp th:nth-child(2),.cmp td:nth-child(2){position:sticky;left:210px;z-index:2;
-    box-shadow:8px 0 8px -8px rgba(0,0,0,.14)}
-  .cmp thead th:nth-child(2){z-index:3}
-}
 /* the home-page teaser that sends people to the comparison */
 .banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
   border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
@@ -400,8 +373,6 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 .scrollhint{color:var(--muted);font-size:13px;margin:16px 0 0;display:flex;align-items:center;gap:7px}
 .scrollhint::after{content:"→";color:var(--accent);font-weight:700}
 .tk{white-space:nowrap}
-/* but inside a tile the token is the card's subtitle and must wrap */
-.tile .tk{white-space:normal}
 /* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
 html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
 html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
@@ -417,12 +388,8 @@ html[data-p=mac] [data-only=ios]{display:none}
 @media(max-width:560px){
   h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
   .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
-  /* Phones: drop the 94vw side margin and trim the gutter so the content
-     (and the comparison table's Simple Finance column) uses the full width. */
-  :root{--gutter:14px}
-  .wrap,.bar-in{max-width:100%}
-  .bar-in{padding:10px var(--gutter)}
-  .ans,summary{padding-left:14px;padding-right:14px}
+  :root{--gutter:16px}.bar-in{padding:10px var(--gutter)}
+  .ans,summary{padding-left:15px;padding-right:15px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
@@ -463,7 +430,7 @@ spending already in the app, then projects them forward to the age you choose.</
 <li>Retirement accounts priced today &mdash; 401(k), IRA, brokerage, HSA</li>
 <li>Taxes modeled through retirement, not ignored</li>
 </ul>
-<div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_planner_mac.webp" type="image/webp"><img src="help/img/tour_planner_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_projection_mac.webp" type="image/webp"><img src="help/img/tour_projection_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retsetup_mac.webp" type="image/webp"><img src="help/img/tour_retsetup_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_retire.webp" type="image/webp"><img src="help/img/tour_retire.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure></div>
+<div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_planner_mac.webp" type="image/webp"><img src="help/img/tour_planner_mac.jpg" alt="Simple Finance on Mac" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_projection_mac.webp" type="image/webp"><img src="help/img/tour_projection_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="743"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retsetup_mac.webp" type="image/webp"><img src="help/img/tour_retsetup_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_retire.webp" type="image/webp"><img src="help/img/tour_retire.jpg" alt="Simple Finance on iPhone" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure></div>
 
 <h2>Stress-tested, not a straight line</h2>
 <p class="lede">A single average return is a comforting lie. Real markets crash,
@@ -473,7 +440,7 @@ recover and vary &mdash; so the plan runs against hundreds of them.</p>
 <li>Backtested against every real market sequence since 1928</li>
 <li>A safety buffer and the lowest point your balance is likely to hit</li>
 </ul>
-<div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_retanalysis_mac.webp" type="image/webp"><img src="help/img/tour_retanalysis_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retcashflow_mac.webp" type="image/webp"><img src="help/img/tour_retcashflow_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="747"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_insights.webp" type="image/webp"><img src="help/img/tour_insights.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure></div>
+<div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_retanalysis_mac.webp" type="image/webp"><img src="help/img/tour_retanalysis_mac.jpg" alt="Simple Finance on Mac" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_retcashflow_mac.webp" type="image/webp"><img src="help/img/tour_retcashflow_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="747"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_insights.webp" type="image/webp"><img src="help/img/tour_insights.jpg" alt="Simple Finance on iPhone" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure></div>
 
 <h2>What-if, side by side</h2>
 <p class="lede">Retire at 55 instead of 65? Save $200 more a month? Model it and
@@ -483,7 +450,7 @@ compare the scenarios on one chart.</p>
 <li>Adjust age, savings rate, returns and spending and see it move</li>
 <li>An investor-grade PDF report at the end</li>
 </ul>
-<div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_retreport_mac.webp" type="image/webp"><img src="help/img/tour_retreport_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_taxes_mac.webp" type="image/webp"><img src="help/img/tour_taxes_mac.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="1280" height="743"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_goals.webp" type="image/webp"><img src="help/img/tour_goals.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_studio.webp" type="image/webp"><img src="help/img/tour_studio.jpg" alt="Simple Finance on {"mac":"Mac","ios":"iPhone","ipad":"iPad"}[plat]" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div>
+<div class="showcase" data-plat="mac"><figure class="wide"><picture><source srcset="help/img/tour_retreport_mac.webp" type="image/webp"><img src="help/img/tour_retreport_mac.jpg" alt="Simple Finance on Mac" fetchpriority="high" decoding="async" width="1280" height="747"></picture></figure><figure class="wide"><picture><source srcset="help/img/tour_taxes_mac.webp" type="image/webp"><img src="help/img/tour_taxes_mac.jpg" alt="Simple Finance on Mac" loading="lazy" decoding="async" width="1280" height="743"></picture></figure></div><div class="showcase" data-plat="ios"><figure class="tall"><picture><source srcset="help/img/tour_goals.webp" type="image/webp"><img src="help/img/tour_goals.jpg" alt="Simple Finance on iPhone" fetchpriority="high" decoding="async" width="620" height="1348"></picture></figure><figure class="tall"><picture><source srcset="help/img/tour_studio.webp" type="image/webp"><img src="help/img/tour_studio.jpg" alt="Simple Finance on iPhone" loading="lazy" decoding="async" width="620" height="1348"></picture></figure></div>
 
 <div class="band">
   <h2>All of it on your device</h2>
@@ -535,16 +502,11 @@ compare the scenarios on one chart.</p>
 
   // Highlight the current page in the nav.
   (function(){var here=(location.pathname.split('/').pop()||'index.html');
-   var links=[].slice.call(document.querySelectorAll('.navlink')), matched=false;
-   links.forEach(function(a){
-     if(a.getAttribute('href').split('/').pop()===here){a.classList.add('active');matched=true;}});
-   // Help sub-pages (guides, troubleshooting, shortcuts) have no nav link of
-   // their own, so light up Help for them — but only when nothing matched
-   // exactly, or Contact (help/contact.html) would light Help up too.
-   if(!matched && /\/help\//.test(location.pathname))
-     links.forEach(function(a){
-       if(a.getAttribute('href').indexOf('support.html')>=0) a.classList.add('active');});
-  })();
+   var inHelp=/\/help\//.test(location.pathname);
+   document.querySelectorAll('.navlink').forEach(function(a){
+     var seg=a.getAttribute('href').split('/').pop();
+     if(seg===here || (inHelp && a.getAttribute('href').indexOf('support.html')>=0)) a.classList.add('active');
+   });})();
   // Horizontal-scroll arrows: wrap every overflowing strip and add < > buttons.
   var CH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
   function mkBtn(dir,strip){
