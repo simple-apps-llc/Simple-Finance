@@ -575,6 +575,19 @@ and we will work from that.</p>
   }
   function armAll(){document.querySelectorAll('.shots,.showcase,.posters').forEach(arm);}
   window.addEventListener('load',armAll);
+  /* Open at the top on a FRESH visit. Safari restores the scroll position of a
+     page you have been on before, so arriving from the App Store link a second
+     time drops you into the middle of the page.
+     🔴 NOT `history.scrollRestoration='manual'` — that kills restoration for
+     back/forward too, and in the help centre that is the behaviour you want:
+     read an answer, follow a link, come back, land where you were. This resets
+     only on a normal navigation or reload and leaves back/forward alone. */
+  window.addEventListener('pageshow',function(e){
+    if(e.persisted) return;                       // bfcache restore — leave it
+    var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};
+    if(nav.type==='back_forward') return;         // real back/forward — leave it
+    window.scrollTo(0,0);
+  });
   // re-check after the platform toggle changes which strips are visible
   document.addEventListener('click',function(e){ if(e.target.closest('.seg button')) setTimeout(armAll,60); });
   setTimeout(armAll,300);
