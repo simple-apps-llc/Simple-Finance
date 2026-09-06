@@ -2,6 +2,16 @@
 <html lang="en" data-p="mac"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- 🔴 MUST be here, in <head>, and inline. Every page ships data-p="mac", and
+     the platform CSS keys off html[data-p] — so if the saved choice is only
+     applied by the script at the end of <body>, every navigation paints the Mac
+     screenshots first and then swaps. Aaron, 2026-09-05: "when I click the home
+     button it shifts over to mac will quick and then back to iphone... doesn't
+     look super professional". A <head> script blocks rendering, so this lands
+     before first paint. Keep it tiny and dependency-free. -->
+<script>(function(){var p=null;try{p=localStorage.getItem('sf-platform')}catch(e){}
+if(!p){var u=navigator.userAgent;p=/iPad/.test(u)?'ipad':(/iPhone|iPod/.test(u)?'ios':'mac')}
+document.documentElement.setAttribute('data-p',p)})();</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0C1F36">
 <title>Simple Finance Help Center &amp; Support</title>
@@ -90,8 +100,20 @@ p{margin:14px 0}
   font:640 12.5px/1 inherit;padding:7px 14px;border-radius:999px;cursor:pointer;
   letter-spacing:-.005em;transition:.16s}
 .seg button:hover{color:var(--ink)}
-.seg button[aria-pressed=true]{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
-@media (prefers-color-scheme:dark){.seg button[aria-pressed=true]{color:#062119}}
+/* 🔴 Keyed off html[data-p], NOT [aria-pressed]. The served HTML always has Mac
+   pressed, and aria-pressed is only corrected by the script at the END of body
+   — so on a phone the pill painted "Mac" selected and then jumped to "iPhone"
+   on every page load. `data-p` is set by an inline script in <head>, before
+   first paint, so the pill is right the first time. The JS still maintains
+   aria-pressed for assistive tech; it just no longer drives the paint. */
+html[data-p=mac] .seg button[data-p=mac],
+html[data-p=ios] .seg button[data-p=ios],
+html[data-p=ipad] .seg button[data-p=ipad]{
+  background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+@media (prefers-color-scheme:dark){
+  html[data-p=mac] .seg button[data-p=mac],
+  html[data-p=ios] .seg button[data-p=ios],
+  html[data-p=ipad] .seg button[data-p=ipad]{color:#062119}}
 
 /* ── hero ────────────────────────────────────────────────── */
 .hero{background:linear-gradient(155deg,#0C1F36 0%,#123246 48%,#0E4A44 100%);
