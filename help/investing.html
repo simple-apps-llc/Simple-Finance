@@ -203,11 +203,18 @@ details[open] .caret{transform:rotate(90deg);color:var(--accent)}
 .shot.tall img{width:min(232px,46vw);border-radius:20px}
 .shot.watch img{width:min(180px,40vw);border-radius:34px;background:#000;
   border:3px solid #1a1a1a;box-shadow:var(--shadow-lg)}
-/* Make horizontal scroll obvious: a persistent accent scrollbar + a right-edge
-   fade that hints there's more to the right. */
-.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent;
-  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent);
-  mask-image:linear-gradient(90deg,#000 calc(100% - 46px),transparent)}
+/* Make horizontal scroll obvious: a persistent accent scrollbar, plus the ▸
+   buttons the JS adds.
+   🔴 THE RIGHT-EDGE FADE IS GONE. It was a 46px mask that dissolved whatever sat
+   at the right of a strip, written before the scroll arrows existed and doing
+   the same job worse. Aaron, 2026-09-05, looking at the live site: "all the way
+   to the right we have a big blur and then kind of weird everything doesn't go
+   to the same width on the right side". The blur WAS the mask, and it sat on
+   top of a strip that already bleeds 22px past the content box (see the
+   negative margins below, which let images scroll to the gutter edge) — so the
+   two together made the right edge look ragged against the hero and the cards.
+   The arrows say "there's more" without eating a screenshot to say it. */
+.shots,.showcase,.posters{scrollbar-color:var(--accent) transparent}
 /* clickable scroll arrows added by JS when a strip overflows */
 .strip-wrap{position:relative}
 .scroll-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
@@ -310,6 +317,18 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 .showcase figure{margin:0;flex:0 0 auto;scroll-snap-align:center}
 .showcase img{display:block;height:auto;border-radius:14px;border:1px solid var(--line);
   box-shadow:var(--shadow-lg);background:var(--card2)}
+/* The strips bleed 22px past the content box (negative margin + matching
+   padding) so a card can scroll right up to the gutter on a phone, where the
+   page fills the screen and that reads as edge-to-edge. On a WIDE screen the
+   wrap is centred with space either side, and that same bleed just makes every
+   strip 44px wider than the hero and the cards above and below it — which is
+   the second half of what Aaron saw: "everything doesn't go to the same width
+   on the right side". Net content offset is already zero (the padding cancels
+   the margin); it is only the BOX that overhangs. So drop both on wide screens
+   and the edges line up. */
+@media (min-width:900px){
+  .shots,.showcase,.posters{margin-inline:0;padding-inline:0}
+}
 .showcase .wide img{width:min(680px,84vw)}
 .showcase .tall img{width:min(250px,52vw);border-radius:22px}
 .showcase::-webkit-scrollbar{height:7px}
