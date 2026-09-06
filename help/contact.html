@@ -191,7 +191,7 @@ details[open] .caret{transform:rotate(90deg);color:var(--accent)}
 
 /* ── screenshots ─────────────────────────────────────────── */
 .shots{display:flex;gap:14px;overflow-x:auto;padding:6px 0 12px;
-  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  scroll-snap-type:x proximity;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
 .shot{flex:0 0 auto;scroll-snap-align:start;margin:0}
 /* 🔴 height:auto is load-bearing. The <img> carries width/height ATTRIBUTES so
    the browser can reserve space before the file arrives (no layout shift);
@@ -214,6 +214,15 @@ details[open] .caret{transform:rotate(90deg);color:var(--accent)}
    negative margins below, which let images scroll to the gutter edge) — so the
    two together made the right edge look ragged against the hero and the cards.
    The arrows say "there's more" without eating a screenshot to say it. */
+/* 🔴 `proximity`, NOT `mandatory`. Aaron, 2026-09-05: "on the mac the photos
+   are not scrollable unless you click the arrow button". They were — but with
+   `mandatory` the browser MUST come to rest on a snap point, and the items are
+   620px wide and centre-aligned, so a trackpad swipe that did not carry past
+   the midpoint sprang straight back. It read as a dead strip. The arrow worked
+   the whole time because it jumps 85% of the container and clears the next
+   snap point. `proximity` snaps only when you already stopped near one.
+   `overscroll-behavior-x:contain` stops a horizontal swipe that reaches the end
+   of a strip from turning into the browser's back/forward page gesture. */
 .shots,.showcase,.posters{scrollbar-color:var(--accent) transparent}
 /* clickable scroll arrows added by JS when a strip overflows */
 .strip-wrap{position:relative}
@@ -305,7 +314,7 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
    whole page scrolled sideways — 6px of overhang each side, invisible unless
    you measure it. Both now read the same variable. */
 .posters{display:flex;gap:14px;overflow-x:auto;margin:26px calc(-1*var(--gutter)) 0;
-  padding:8px var(--gutter) 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  padding:8px var(--gutter) 20px;scroll-snap-type:x proximity;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
 .posters::-webkit-scrollbar{height:7px}
 .posters::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
 .poster{flex:0 0 auto;margin:0;scroll-snap-align:center}
@@ -313,7 +322,7 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
   box-shadow:var(--shadow-lg)}
 .showcase{margin:20px calc(-1 * var(--gutter)) 0;
   padding:6px var(--gutter) 18px;overflow-x:auto;display:flex;
-  gap:18px;scroll-snap-type:x mandatory}
+  gap:18px;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
 .showcase figure{margin:0;flex:0 0 auto;scroll-snap-align:center}
 .showcase img{display:block;height:auto;border-radius:14px;border:1px solid var(--line);
   box-shadow:var(--shadow-lg);background:var(--card2)}
