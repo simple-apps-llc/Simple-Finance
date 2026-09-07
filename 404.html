@@ -452,6 +452,8 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 .scrollhint{color:var(--muted);font-size:13px;margin:16px 0 0;display:flex;align-items:center;gap:7px}
 .scrollhint::after{content:"→";color:var(--accent);font-weight:700}
 .tk{white-space:nowrap}
+/* but inside a tile the token is the card's subtitle and must wrap */
+.tile .tk{white-space:normal}
 /* showcase & poster strips carry data-plat=mac|ios|ipad; show only the active one */
 html[data-p=mac] [data-plat=ios],html[data-p=mac] [data-plat=ipad],
 html[data-p=ios] [data-plat=mac],html[data-p=ios] [data-plat=ipad],
@@ -467,8 +469,15 @@ html[data-p=mac] [data-only=ios]{display:none}
 @media(max-width:560px){
   h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
   .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
-  :root{--gutter:16px}.bar-in{padding:10px var(--gutter)}
-  .ans,summary{padding-left:15px;padding-right:15px}
+  /* Phones: drop the 94vw side margin and trim the gutter so the content
+     (and the comparison table's Simple Finance column) uses the full width.
+     🔴 `.wrap,.bar-in{max-width:100%}` is the load-bearing line — without it
+     `.wrap`'s min(94vw,1600px) keeps a 3% margin down each side of a 390px
+     screen, which is where the compare table loses its Simple Finance column. */
+  :root{--gutter:14px}
+  .wrap,.bar-in{max-width:100%}
+  .bar-in{padding:10px var(--gutter)}
+  .ans,summary{padding-left:14px;padding-right:14px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
@@ -527,11 +536,16 @@ html[data-p=mac] [data-only=ios]{display:none}
 
   // Highlight the current page in the nav.
   (function(){var here=(location.pathname.split('/').pop()||'index.html');
-   var inHelp=/\/help\//.test(location.pathname);
-   document.querySelectorAll('.navlink').forEach(function(a){
-     var seg=a.getAttribute('href').split('/').pop();
-     if(seg===here || (inHelp && a.getAttribute('href').indexOf('support.html')>=0)) a.classList.add('active');
-   });})();
+   var links=[].slice.call(document.querySelectorAll('.navlink')), matched=false;
+   links.forEach(function(a){
+     if(a.getAttribute('href').split('/').pop()===here){a.classList.add('active');matched=true;}});
+   // Help sub-pages (guides, troubleshooting, shortcuts) have no nav link of
+   // their own, so light up Help for them — but only when nothing matched
+   // exactly, or Contact (help/contact.html) would light Help up too.
+   if(!matched && /\/help\//.test(location.pathname))
+     links.forEach(function(a){
+       if(a.getAttribute('href').indexOf('support.html')>=0) a.classList.add('active');});
+  })();
   // Horizontal-scroll arrows: wrap every overflowing strip and add < > buttons.
   var CH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
   function mkBtn(dir,strip){
