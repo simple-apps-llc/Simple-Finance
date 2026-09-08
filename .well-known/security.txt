@@ -1,0 +1,9 @@
+# Simple Finance LLC — security contact (RFC 9116)
+# Simple Finance keeps its data on the customer's own devices and in their
+# private iCloud; there is no server of ours holding customer records.
+# Reports about the apps, this site or our DNS/email setup are welcome here.
+
+Contact: mailto:simpleapphelp@outlook.com
+Expires: 2027-09-08T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://getsimplefinance.com/.well-known/security.txt
