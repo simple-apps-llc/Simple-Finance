@@ -9,9 +9,9 @@
      button it shifts over to mac will quick and then back to iphone... doesn't
      look super professional". A <head> script blocks rendering, so this lands
      before first paint. Keep it tiny and dependency-free. -->
-<script>(function(){var p=null;try{p=localStorage.getItem('sf-platform')}catch(e){}
+<script>(function(){var p=null,d=document.documentElement;try{p=localStorage.getItem('sf-platform')}catch(e){}
 if(!p){var u=navigator.userAgent;p=/iPad/.test(u)?'ipad':(/iPhone|iPod/.test(u)?'ios':'mac')}
-document.documentElement.setAttribute('data-p',p)})();</script>
+d.setAttribute('data-p',p);d.classList.add('js');})();</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0C1F36">
 <title>Transactions — Simple Finance Help</title>
@@ -479,10 +479,67 @@ html[data-p=mac] [data-only=ios]{display:none}
   .bar-in{padding:10px var(--gutter)}
   .ans,summary{padding-left:14px;padding-right:14px}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+/* ── premium layer, every page ─────────────────────────────── */
+/* Pages cross-fade into each other instead of flashing white; the bar is
+   named so it holds still while the page under it changes. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;
+  animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.bar{view-transition-name:bar}
+.skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--accent);color:#fff;
+  padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}
+.skip:focus{top:12px;text-decoration:none}
+.bar-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,#19D8A6,#5DF0C4 60%,#7DE3FF);transform-origin:left;
+  transform:scaleX(var(--sp,0));opacity:.9}
+/* phone menu */
+.menu-btn{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
+  border-radius:12px;position:relative;cursor:pointer;color:var(--ink);flex:0 0 auto}
+.menu-btn i{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1)}
+.menu-btn i:first-child{top:15px}.menu-btn i:last-child{top:23px}
+html.menu .menu-btn i:first-child{top:19px;transform:rotate(45deg)}
+html.menu .menu-btn i:last-child{top:19px;transform:rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:19;display:flex;align-items:flex-end;padding:100px 28px 48px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+html.menu .sheet{opacity:1;visibility:visible;transition:opacity .35s}
+html.menu{overflow:hidden}
+.sheet-in{display:grid;gap:2px;width:100%}
+.sheet a{font:700 40px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.04em;
+  color:var(--ink);opacity:0;transform:translateY(26px);
+  transition:opacity .3s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.sheet a:hover{text-decoration:none;color:var(--accent)}
+html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45ms + 60ms)}
+.sheet .sheet-badge{margin-top:30px;line-height:0}
+.sheet .sheet-badge img{width:150px;height:auto}
+@media(max-width:700px){
+  .navlink{display:none}
+  .menu-btn{display:block}
+  .bar-in{flex-wrap:nowrap}
+}
+@media(min-width:701px){.sheet{display:none}}
+/* reveals — added by script only to what starts below the fold */
+.rise{opacity:0;transform:translateY(22px)}
+.rise.rise-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
+/* the sub-page hero breathes: two slow lights drifting under the glass */
+.hero::before{content:"";position:absolute;inset:-40%;pointer-events:none;opacity:.55;
+  background:radial-gradient(28% 36% at 30% 40%,rgba(25,216,166,.32),transparent 70%),
+             radial-gradient(24% 30% at 70% 60%,rgba(125,227,255,.18),transparent 70%);
+  animation:heroDrift 18s ease-in-out infinite alternate}
+@keyframes heroDrift{0%{transform:translate(-4%,-2%) rotate(0deg)}100%{transform:translate(6%,4%) rotate(8deg)}}
+.hero h1{background:linear-gradient(100deg,#fff 30%,#BFF7E6 50%,#fff 70%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShine 9s linear 1s infinite}
+@keyframes heroShine{to{background-position:-220% 0}}
+.tile,.feat .card,.ti,.banner{position:relative}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
+  .hero::before,.hero h1{animation:none}
+  .rise{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I split one transaction across categories?", "acceptedAnswer": {"@type": "Answer", "text": "Open the transaction and use Split. A grocery run can be part Groceries and part Household, and each part counts toward its own budget — the totals still add up to what you actually paid."}}, {"@type": "Question", "name": "Can I scan a receipt?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Add a transaction and scan the receipt — the amount and merchant are read on your device, and you confirm before anything is saved. The image can be kept with the transaction."}}, {"@type": "Question", "name": "What are Rules?", "acceptedAnswer": {"@type": "Answer", "text": "Rules categorize transactions for you: match a merchant, and every future transaction from them lands in the category you chose. They run on your device as transactions arrive or import.\n\nA new rule can catch up, too: “Apply to Uncategorized” runs every enabled rule over transactions that have no category yet — which is what you want straight after an import. It deliberately leaves anything you have already filed alone, because a rule should never overwrite a decision you made by hand."}}, {"@type": "Question", "name": "How do I record moving money between my own accounts?", "acceptedAnswer": {"@type": "Answer", "text": "Mark it as a transfer. Transfers move the balance between accounts without counting as income or spending, so paying off a card or moving to savings doesn't distort your budget."}}, {"@type": "Question", "name": "How do I find an old transaction?", "acceptedAnswer": {"@type": "Answer", "text": "The Transactions tab has search and filters — text, category, account, amount range, date range, and in a household whether it was yours, theirs or joint. They stack, so “groceries over $100 last autumn” is three filters rather than a long scroll.\n\nOn the Mac, ⌘F searches everything from anywhere in the app.\n\nIf you cannot remember the merchant, search the AMOUNT instead. People remember what a thing cost far more reliably than what the card statement called the shop."}}, {"@type": "Question", "name": "I deleted something by accident. Can I undo it?", "acceptedAnswer": {"@type": "Answer", "text": "There's no undo, so a delete is final — that's why anything destructive asks first. Keep a JSON backup (Settings → Data & Backup) before a big clear-out, and a restore will bring the rows back."}}, {"@type": "Question", "name": "How do I split a bill with other people?", "acceptedAnswer": {"@type": "Answer", "text": "Turn on “Split this bill” on the transaction and say how many people are in on it.\n\n🔴 Enter the FULL total, not your share. The app records your share and keeps the whole figure for context — which is what you want when the receipt says $120 and your budget should only feel $40."}}, {"@type": "Question", "name": "Can I edit or categorize a lot of transactions at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. On the Transactions tab, select the rows and use “Categorize selected”. This is the fast way to clean up after an import, or after deleting a category.\n\nIf the same fix keeps coming up, make it a Rule instead and it happens on its own from then on."}}, {"@type": "Question", "name": "How do I mark something as reimbursable?", "acceptedAnswer": {"@type": "Answer", "text": "Mark it on the transaction. It stays in your spending — it really did leave your account — but it is flagged so you can see what is owed back, and on the business side it can be billed on to a client as an invoice line.\n\nReimbursable is a claim you make deliberately. Nothing sets it for you."}}, {"@type": "Question", "name": "How do I find and remove duplicate transactions?", "acceptedAnswer": {"@type": "Answer", "text": "Settings → Data & Backup → Repair Duplicated Records. It scans for the same record present as several rows — which is what a re-import or a restore produces — and shows you what it found before removing anything.\n\nIt is deliberately conservative. Two coffees on the same day at the same shop are two coffees; it is looking for the same RECORD twice, not two similar ones."}}]}</script>
 </head><body>
+<a class="skip" href="#content">Skip to content</a>
 <div class="bar"><div class="bar-in">
   <a class="brand" href="../index.html">
     <img src="../help/img/logo-96.png" alt="" width="31" height="31">
@@ -498,8 +555,19 @@ html[data-p=mac] [data-only=ios]{display:none}
     <button data-p="ios" aria-pressed="false">iPhone</button>
     <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-</div></div>
-<div class="wrap">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+</div><i class="bar-prog" aria-hidden="true"></i></div>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sheet-in">
+  <a href="../index.html" style="--k:0">Home</a>
+  <a href="../gallery.html" style="--k:1">Screenshots</a>
+  <a href="../compare.html" style="--k:2">Compare</a>
+  <a href="../support.html" style="--k:3">Help Center</a>
+  <a href="../help/contact.html" style="--k:4">Contact</a>
+  <a href="../privacy-policy.html" style="--k:5">Privacy</a>
+  <a class="sheet-badge" style="--k:6" href="https://apps.apple.com/app/id6777039726" aria-label="Download Simple Finance on the App Store"><img
+    src="../help/img/appstore-badge-black.svg" alt="Download on the App Store" width="150" height="50"></a>
+</div></nav>
+<div class="wrap" id="content">
 <p class="crumb"><a href="../support.html">Help Center</a> › Transactions</p>
 <div class="sect"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h13"/><path d="M14 5l3 3-3 3"/><path d="M20 16H7"/><path d="M10 13l-3 3 3 3"/></g></svg></span><h1>Transactions</h1></div><p class="lede">Adding, editing, splitting and searching rows. 10 answers.</p><details id="how-do-i-split-one-transaction-across-categories"><summary>How do I split one transaction across categories?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Open the transaction and use Split. A grocery run can be part Groceries and part Household, and each part counts toward its own budget — the totals still add up to what you actually paid.</p></div></details><details id="can-i-scan-a-receipt"><summary>Can I scan a receipt?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes. Add a transaction and scan the receipt — the amount and merchant are read on your device, and you confirm before anything is saved. The image can be kept with the transaction.</p></div></details><details id="what-are-rules"><summary>What are Rules?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Rules categorize transactions for you: match a merchant, and every future transaction from them lands in the category you chose. They run on your device as transactions arrive or import.</p><p>A new rule can catch up, too: “Apply to Uncategorized” runs every enabled rule over transactions that have no category yet — which is what you want straight after an import. It deliberately leaves anything you have already filed alone, because a rule should never overwrite a decision you made by hand.</p></div></details><details id="how-do-i-record-moving-money-between-my-own-accounts"><summary>How do I record moving money between my own accounts?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Mark it as a transfer. Transfers move the balance between accounts without counting as income or spending, so paying off a card or moving to savings doesn&#x27;t distort your budget.</p></div></details><details id="how-do-i-find-an-old-transaction"><summary>How do I find an old transaction?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The Transactions tab has search and filters — text, category, account, amount range, date range, and in a household whether it was yours, theirs or joint. They stack, so “groceries over $100 last autumn” is three filters rather than a long scroll.</p><p>On the Mac, ⌘F searches everything from anywhere in the app.</p><p>If you cannot remember the merchant, search the AMOUNT instead. People remember what a thing cost far more reliably than what the card statement called the shop.</p></div></details><details id="i-deleted-something-by-accident-can-i-undo-it"><summary>I deleted something by accident. Can I undo it?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>There&#x27;s no undo, so a delete is final — that&#x27;s why anything destructive asks first. Keep a JSON backup (Settings → Data &amp; Backup) before a big clear-out, and a restore will bring the rows back.</p></div></details><details id="how-do-i-split-a-bill-with-other-people"><summary>How do I split a bill with other people?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Turn on “Split this bill” on the transaction and say how many people are in on it.</p><p>🔴 Enter the FULL total, not your share. The app records your share and keeps the whole figure for context — which is what you want when the receipt says $120 and your budget should only feel $40.</p></div></details><details id="can-i-edit-or-categorize-a-lot-of-transactions-at-once"><summary>Can I edit or categorize a lot of transactions at once?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes. On the Transactions tab, select the rows and use “Categorize selected”. This is the fast way to clean up after an import, or after deleting a category.</p><p>If the same fix keeps coming up, make it a Rule instead and it happens on its own from then on.</p></div></details><details id="how-do-i-mark-something-as-reimbursable"><summary>How do I mark something as reimbursable?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Mark it on the transaction. It stays in your spending — it really did leave your account — but it is flagged so you can see what is owed back, and on the business side it can be billed on to a client as an invoice line.</p><p>Reimbursable is a claim you make deliberately. Nothing sets it for you.</p></div></details><details id="how-do-i-find-and-remove-duplicate-transactions"><summary>How do I find and remove duplicate transactions?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Settings → Data &amp; Backup → Repair Duplicated Records. It scans for the same record present as several rows — which is what a re-import or a restore produces — and shows you what it found before removing anything.</p><p>It is deliberately conservative. Two coffees on the same day at the same shop are two coffees; it is looking for the same RECORD twice, not two similar ones.</p></div></details>
 <footer>
@@ -590,6 +658,32 @@ html[data-p=mac] [data-only=ios]{display:none}
   // re-check after the platform toggle changes which strips are visible
   document.addEventListener('click',function(e){ if(e.target.closest('.seg button')) setTimeout(armAll,60); });
   setTimeout(armAll,300);
+
+  // Phone menu: a full-screen sheet under the bar.
+  var mb=document.querySelector('.menu-btn');
+  function menu(o){d.classList.toggle('menu',o);if(mb)mb.setAttribute('aria-expanded',o);}
+  if(mb){mb.addEventListener('click',function(){menu(!d.classList.contains('menu'));});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false);});
+    document.querySelectorAll('.sheet a').forEach(function(a){a.addEventListener('click',function(){menu(false);});});
+    window.addEventListener('resize',function(){if(innerWidth>700)menu(false);});}
+
+  // Reading progress along the bottom edge of the bar.
+  var tick=false;
+  function prog(){tick=false;var h=document.documentElement.scrollHeight-innerHeight;
+    d.style.setProperty('--sp',h>0?Math.min(1,scrollY/h).toFixed(4):0);}
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});
+  prog();
+
+  // Content below the fold rises in as it arrives. Only what starts OFF
+  // screen is hidden, so nothing already visible ever blinks out and back.
+  if('IntersectionObserver' in window && !document.body.classList.contains('landing') &&
+     !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var rio=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('rise-in');rio.unobserve(e.target);}});},
+      {rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.wrap .tile,.wrap .card,.wrap details,.wrap .showcase figure,.wrap .gsec,.wrap .rival,.wrap .note,.wrap .ti,.wrap h2,.wrap .lede,.wrap .cmp-wrap,.wrap .band,.wrap .feats li').forEach(function(el){
+      if(el.getBoundingClientRect().top>innerHeight){el.classList.add('rise');rio.observe(el);}});
+  }
 
   var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
   if(!box)return;

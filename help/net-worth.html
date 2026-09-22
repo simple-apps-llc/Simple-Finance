@@ -9,9 +9,9 @@
      button it shifts over to mac will quick and then back to iphone... doesn't
      look super professional". A <head> script blocks rendering, so this lands
      before first paint. Keep it tiny and dependency-free. -->
-<script>(function(){var p=null;try{p=localStorage.getItem('sf-platform')}catch(e){}
+<script>(function(){var p=null,d=document.documentElement;try{p=localStorage.getItem('sf-platform')}catch(e){}
 if(!p){var u=navigator.userAgent;p=/iPad/.test(u)?'ipad':(/iPhone|iPod/.test(u)?'ios':'mac')}
-document.documentElement.setAttribute('data-p',p)})();</script>
+d.setAttribute('data-p',p);d.classList.add('js');})();</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0C1F36">
 <title>Net Worth — Simple Finance Help</title>
@@ -479,10 +479,67 @@ html[data-p=mac] [data-only=ios]{display:none}
   .bar-in{padding:10px var(--gutter)}
   .ans,summary{padding-left:14px;padding-right:14px}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+/* ── premium layer, every page ─────────────────────────────── */
+/* Pages cross-fade into each other instead of flashing white; the bar is
+   named so it holds still while the page under it changes. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;
+  animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.bar{view-transition-name:bar}
+.skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--accent);color:#fff;
+  padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}
+.skip:focus{top:12px;text-decoration:none}
+.bar-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,#19D8A6,#5DF0C4 60%,#7DE3FF);transform-origin:left;
+  transform:scaleX(var(--sp,0));opacity:.9}
+/* phone menu */
+.menu-btn{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
+  border-radius:12px;position:relative;cursor:pointer;color:var(--ink);flex:0 0 auto}
+.menu-btn i{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1)}
+.menu-btn i:first-child{top:15px}.menu-btn i:last-child{top:23px}
+html.menu .menu-btn i:first-child{top:19px;transform:rotate(45deg)}
+html.menu .menu-btn i:last-child{top:19px;transform:rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:19;display:flex;align-items:flex-end;padding:100px 28px 48px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+html.menu .sheet{opacity:1;visibility:visible;transition:opacity .35s}
+html.menu{overflow:hidden}
+.sheet-in{display:grid;gap:2px;width:100%}
+.sheet a{font:700 40px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.04em;
+  color:var(--ink);opacity:0;transform:translateY(26px);
+  transition:opacity .3s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.sheet a:hover{text-decoration:none;color:var(--accent)}
+html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45ms + 60ms)}
+.sheet .sheet-badge{margin-top:30px;line-height:0}
+.sheet .sheet-badge img{width:150px;height:auto}
+@media(max-width:700px){
+  .navlink{display:none}
+  .menu-btn{display:block}
+  .bar-in{flex-wrap:nowrap}
+}
+@media(min-width:701px){.sheet{display:none}}
+/* reveals — added by script only to what starts below the fold */
+.rise{opacity:0;transform:translateY(22px)}
+.rise.rise-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
+/* the sub-page hero breathes: two slow lights drifting under the glass */
+.hero::before{content:"";position:absolute;inset:-40%;pointer-events:none;opacity:.55;
+  background:radial-gradient(28% 36% at 30% 40%,rgba(25,216,166,.32),transparent 70%),
+             radial-gradient(24% 30% at 70% 60%,rgba(125,227,255,.18),transparent 70%);
+  animation:heroDrift 18s ease-in-out infinite alternate}
+@keyframes heroDrift{0%{transform:translate(-4%,-2%) rotate(0deg)}100%{transform:translate(6%,4%) rotate(8deg)}}
+.hero h1{background:linear-gradient(100deg,#fff 30%,#BFF7E6 50%,#fff 70%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShine 9s linear 1s infinite}
+@keyframes heroShine{to{background-position:-220% 0}}
+.tile,.feat .card,.ti,.banner{position:relative}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
+  .hero::before,.hero h1{animation:none}
+  .rise{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I add accounts?", "acceptedAnswer": {"@type": "Answer", "text": "Net Worth tab → + → Add Account. Pick the type — checking, savings, credit card, loan, mortgage, brokerage, retirement, cash, vehicle, real estate or a catch-all other asset — and give it a starting balance.\n\nThe type is not cosmetic. It decides whether the balance counts as an asset or a debt, whether the account can hold investments, and how it is treated in reports.\n\nTwo behaviors worth knowing at the start:\n• TRACKED accounts compute their balance from a starting figure plus the transactions since. Enter transactions and the balance keeps itself.\n• MANUAL accounts hold whatever you type. Nothing updates them for you; you set the balance when you check it.\n\nGive an account its own icon and color once you have more than a handful — you stop reading a list of similar names and start recognizing a shape."}}, {"@type": "Question", "name": "Are account balances updated automatically?", "acceptedAnswer": {"@type": "Answer", "text": "Investment holdings revalue from live prices. Manual accounts (checking, cash, property) hold the balance you enter — the Accounts view flags any that have gone stale so they're easy to refresh."}}, {"@type": "Question", "name": "How is net worth calculated?", "acceptedAnswer": {"@type": "Answer", "text": "Total assets minus total liabilities, including real-estate equity and investment holdings. The trend chart snapshots it over time so you can see the direction, not just today's number."}}, {"@type": "Question", "name": "Can I track my house and car?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Real estate, vehicles and other property are account types, and a mortgage or auto loan can be linked so that each payment moves principal off the balance instead of just leaving the debt sitting there."}}, {"@type": "Question", "name": "What are net-worth snapshots?", "acceptedAnswer": {"@type": "Answer", "text": "A record of what you were worth on a date, so the trend line has real history rather than being recalculated from today's balances. They're taken as you use the app and can be shared with a household."}}, {"@type": "Question", "name": "Can I give an account its own icon and color?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — open the account and pick one. It is worth doing once you have more than a handful: on the Net Worth tab and in every picker afterwards, you are looking for a shape and a color rather than reading a list of similar names."}}, {"@type": "Question", "name": "Why did my net worth change when I renamed an investment account?", "acceptedAnswer": {"@type": "Answer", "text": "It shouldn't, and if it did, the holdings lost their link to the account. Open the account and check the holdings are still listed under it.\n\nThis was a real defect and it is fixed — but a database that went through it once may still be carrying the orphans. If the holdings are gone from the account but still in your portfolio, re-link them there."}}, {"@type": "Question", "name": "My balance here doesn't match my bank. How do I fix it?", "acceptedAnswer": {"@type": "Answer", "text": "Open Net Worth and click Reconcile in the toolbar. It puts every account in one sheet so you can sit down with your bank tabs open and make the whole picture true in one pass.\n\nType what each account really says today. Blank rows are left alone, so doing the three that matter and ignoring the rest is a perfectly good way to use it.\n\nThe difference is recorded as a balance adjustment rather than by rewriting anything — every transaction you have already entered stays exactly as it was."}}, {"@type": "Question", "name": "Does reconciling change my transaction history?", "acceptedAnswer": {"@type": "Answer", "text": "No. It adds one dated balance adjustment for the difference and leaves everything else alone.\n\nThat is deliberate: your history is what actually happened, and an app that quietly edited old rows to make a total come out right would be destroying the only record you have. The adjustment is visible, and you can see exactly when and how much."}}, {"@type": "Question", "name": "How often should I reconcile?", "acceptedAnswer": {"@type": "Answer", "text": "Once a month is plenty, and it is essentially the whole maintenance routine for an app that isn't linked to a bank.\n\nReconcile All also records a net-worth snapshot as it applies, which is what puts a point on your trajectory chart — so the habit that keeps your balances honest is the same one that makes the projection worth reading."}}]}</script>
 </head><body>
+<a class="skip" href="#content">Skip to content</a>
 <div class="bar"><div class="bar-in">
   <a class="brand" href="../index.html">
     <img src="../help/img/logo-96.png" alt="" width="31" height="31">
@@ -498,8 +555,19 @@ html[data-p=mac] [data-only=ios]{display:none}
     <button data-p="ios" aria-pressed="false">iPhone</button>
     <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-</div></div>
-<div class="wrap">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+</div><i class="bar-prog" aria-hidden="true"></i></div>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sheet-in">
+  <a href="../index.html" style="--k:0">Home</a>
+  <a href="../gallery.html" style="--k:1">Screenshots</a>
+  <a href="../compare.html" style="--k:2">Compare</a>
+  <a href="../support.html" style="--k:3">Help Center</a>
+  <a href="../help/contact.html" style="--k:4">Contact</a>
+  <a href="../privacy-policy.html" style="--k:5">Privacy</a>
+  <a class="sheet-badge" style="--k:6" href="https://apps.apple.com/app/id6777039726" aria-label="Download Simple Finance on the App Store"><img
+    src="../help/img/appstore-badge-black.svg" alt="Download on the App Store" width="150" height="50"></a>
+</div></nav>
+<div class="wrap" id="content">
 <p class="crumb"><a href="../support.html">Help Center</a> › Net Worth</p>
 <div class="sect"><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg></span><h1>Net Worth</h1></div><p class="lede">Accounts, balances, reconciling, property and debts. 10 answers.</p><details id="how-do-i-add-accounts"><summary>How do I add accounts?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Net Worth tab → + → Add Account. Pick the type — checking, savings, credit card, loan, mortgage, brokerage, retirement, cash, vehicle, real estate or a catch-all other asset — and give it a starting balance.</p><p>The type is not cosmetic. It decides whether the balance counts as an asset or a debt, whether the account can hold investments, and how it is treated in reports.</p><p>Two behaviors worth knowing at the start:<br>• TRACKED accounts compute their balance from a starting figure plus the transactions since. Enter transactions and the balance keeps itself.<br>• MANUAL accounts hold whatever you type. Nothing updates them for you; you set the balance when you check it.</p><p>Give an account its own icon and color once you have more than a handful — you stop reading a list of similar names and start recognizing a shape.</p></div></details><details id="are-account-balances-updated-automatically"><summary>Are account balances updated automatically?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Investment holdings revalue from live prices. Manual accounts (checking, cash, property) hold the balance you enter — the Accounts view flags any that have gone stale so they&#x27;re easy to refresh.</p></div></details><details id="how-is-net-worth-calculated"><summary>How is net worth calculated?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Total assets minus total liabilities, including real-estate equity and investment holdings. The trend chart snapshots it over time so you can see the direction, not just today&#x27;s number.</p></div></details><details id="can-i-track-my-house-and-car"><summary>Can I track my house and car?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes. Real estate, vehicles and other property are account types, and a mortgage or auto loan can be linked so that each payment moves principal off the balance instead of just leaving the debt sitting there.</p></div></details><details id="what-are-net-worth-snapshots"><summary>What are net-worth snapshots?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>A record of what you were worth on a date, so the trend line has real history rather than being recalculated from today&#x27;s balances. They&#x27;re taken as you use the app and can be shared with a household.</p></div></details><details id="can-i-give-an-account-its-own-icon-and-color"><summary>Can I give an account its own icon and color?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes — open the account and pick one. It is worth doing once you have more than a handful: on the Net Worth tab and in every picker afterwards, you are looking for a shape and a color rather than reading a list of similar names.</p></div></details><details id="why-did-my-net-worth-change-when-i-renamed-an-investment-acc"><summary>Why did my net worth change when I renamed an investment account?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>It shouldn&#x27;t, and if it did, the holdings lost their link to the account. Open the account and check the holdings are still listed under it.</p><p>This was a real defect and it is fixed — but a database that went through it once may still be carrying the orphans. If the holdings are gone from the account but still in your portfolio, re-link them there.</p></div></details><details id="my-balance-here-doesn-t-match-my-bank-how-do-i-fix-it"><summary>My balance here doesn&#x27;t match my bank. How do I fix it?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Open Net Worth and <span class="tk" data-m="click" data-i="tap">click</span> Reconcile in the toolbar. It puts every account in one sheet so you can sit down with your bank tabs open and make the whole picture true in one pass.</p><p>Type what each account really says today. Blank rows are left alone, so doing the three that matter and ignoring the rest is a perfectly good way to use it.</p><p>The difference is recorded as a balance adjustment rather than by rewriting anything — every transaction you have already entered stays exactly as it was.</p></div></details><details id="does-reconciling-change-my-transaction-history"><summary>Does reconciling change my transaction history?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>No. It adds one dated balance adjustment for the difference and leaves everything else alone.</p><p>That is deliberate: your history is what actually happened, and an app that quietly edited old rows to make a total come out right would be destroying the only record you have. The adjustment is visible, and you can see exactly when and how much.</p></div></details><details id="how-often-should-i-reconcile"><summary>How often should I reconcile?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Once a month is plenty, and it is essentially the whole maintenance routine for an app that isn&#x27;t linked to a bank.</p><p>Reconcile All also records a net-worth snapshot as it applies, which is what puts a point on your trajectory chart — so the habit that keeps your balances honest is the same one that makes the projection worth reading.</p></div></details>
 <footer>
@@ -590,6 +658,32 @@ html[data-p=mac] [data-only=ios]{display:none}
   // re-check after the platform toggle changes which strips are visible
   document.addEventListener('click',function(e){ if(e.target.closest('.seg button')) setTimeout(armAll,60); });
   setTimeout(armAll,300);
+
+  // Phone menu: a full-screen sheet under the bar.
+  var mb=document.querySelector('.menu-btn');
+  function menu(o){d.classList.toggle('menu',o);if(mb)mb.setAttribute('aria-expanded',o);}
+  if(mb){mb.addEventListener('click',function(){menu(!d.classList.contains('menu'));});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false);});
+    document.querySelectorAll('.sheet a').forEach(function(a){a.addEventListener('click',function(){menu(false);});});
+    window.addEventListener('resize',function(){if(innerWidth>700)menu(false);});}
+
+  // Reading progress along the bottom edge of the bar.
+  var tick=false;
+  function prog(){tick=false;var h=document.documentElement.scrollHeight-innerHeight;
+    d.style.setProperty('--sp',h>0?Math.min(1,scrollY/h).toFixed(4):0);}
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});
+  prog();
+
+  // Content below the fold rises in as it arrives. Only what starts OFF
+  // screen is hidden, so nothing already visible ever blinks out and back.
+  if('IntersectionObserver' in window && !document.body.classList.contains('landing') &&
+     !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var rio=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('rise-in');rio.unobserve(e.target);}});},
+      {rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.wrap .tile,.wrap .card,.wrap details,.wrap .showcase figure,.wrap .gsec,.wrap .rival,.wrap .note,.wrap .ti,.wrap h2,.wrap .lede,.wrap .cmp-wrap,.wrap .band,.wrap .feats li').forEach(function(el){
+      if(el.getBoundingClientRect().top>innerHeight){el.classList.add('rise');rio.observe(el);}});
+  }
 
   var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
   if(!box)return;

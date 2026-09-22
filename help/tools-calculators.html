@@ -9,9 +9,9 @@
      button it shifts over to mac will quick and then back to iphone... doesn't
      look super professional". A <head> script blocks rendering, so this lands
      before first paint. Keep it tiny and dependency-free. -->
-<script>(function(){var p=null;try{p=localStorage.getItem('sf-platform')}catch(e){}
+<script>(function(){var p=null,d=document.documentElement;try{p=localStorage.getItem('sf-platform')}catch(e){}
 if(!p){var u=navigator.userAgent;p=/iPad/.test(u)?'ipad':(/iPhone|iPod/.test(u)?'ios':'mac')}
-document.documentElement.setAttribute('data-p',p)})();</script>
+d.setAttribute('data-p',p);d.classList.add('js');})();</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0C1F36">
 <title>Tools &amp; Calculators — Simple Finance Help</title>
@@ -479,10 +479,67 @@ html[data-p=mac] [data-only=ios]{display:none}
   .bar-in{padding:10px var(--gutter)}
   .ans,summary{padding-left:14px;padding-right:14px}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+/* ── premium layer, every page ─────────────────────────────── */
+/* Pages cross-fade into each other instead of flashing white; the bar is
+   named so it holds still while the page under it changes. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;
+  animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.bar{view-transition-name:bar}
+.skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--accent);color:#fff;
+  padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}
+.skip:focus{top:12px;text-decoration:none}
+.bar-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,#19D8A6,#5DF0C4 60%,#7DE3FF);transform-origin:left;
+  transform:scaleX(var(--sp,0));opacity:.9}
+/* phone menu */
+.menu-btn{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
+  border-radius:12px;position:relative;cursor:pointer;color:var(--ink);flex:0 0 auto}
+.menu-btn i{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1)}
+.menu-btn i:first-child{top:15px}.menu-btn i:last-child{top:23px}
+html.menu .menu-btn i:first-child{top:19px;transform:rotate(45deg)}
+html.menu .menu-btn i:last-child{top:19px;transform:rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:19;display:flex;align-items:flex-end;padding:100px 28px 48px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+html.menu .sheet{opacity:1;visibility:visible;transition:opacity .35s}
+html.menu{overflow:hidden}
+.sheet-in{display:grid;gap:2px;width:100%}
+.sheet a{font:700 40px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.04em;
+  color:var(--ink);opacity:0;transform:translateY(26px);
+  transition:opacity .3s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.sheet a:hover{text-decoration:none;color:var(--accent)}
+html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45ms + 60ms)}
+.sheet .sheet-badge{margin-top:30px;line-height:0}
+.sheet .sheet-badge img{width:150px;height:auto}
+@media(max-width:700px){
+  .navlink{display:none}
+  .menu-btn{display:block}
+  .bar-in{flex-wrap:nowrap}
+}
+@media(min-width:701px){.sheet{display:none}}
+/* reveals — added by script only to what starts below the fold */
+.rise{opacity:0;transform:translateY(22px)}
+.rise.rise-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
+/* the sub-page hero breathes: two slow lights drifting under the glass */
+.hero::before{content:"";position:absolute;inset:-40%;pointer-events:none;opacity:.55;
+  background:radial-gradient(28% 36% at 30% 40%,rgba(25,216,166,.32),transparent 70%),
+             radial-gradient(24% 30% at 70% 60%,rgba(125,227,255,.18),transparent 70%);
+  animation:heroDrift 18s ease-in-out infinite alternate}
+@keyframes heroDrift{0%{transform:translate(-4%,-2%) rotate(0deg)}100%{transform:translate(6%,4%) rotate(8deg)}}
+.hero h1{background:linear-gradient(100deg,#fff 30%,#BFF7E6 50%,#fff 70%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShine 9s linear 1s infinite}
+@keyframes heroShine{to{background-position:-220% 0}}
+.tile,.feat .card,.ti,.banner{position:relative}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
+  .hero::before,.hero h1{animation:none}
+  .rise{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What's on the Tools tab?", "acceptedAnswer": {"@type": "Answer", "text": "Sixteen calculators, your saved calculations, and the Tax Center.\n\nThey are grouped by what you are trying to do rather than by name:\n• KILL DEBT — Debt Payoff, Credit Card, Student Loan, Biweekly Payoff, Refinance.\n• BUY A HOME — Mortgage / Loan, Home Affordability, Rent vs. Buy, Auto Loan.\n• SAVE & INVEST — Compound Interest, Savings Goal, Emergency Fund, FIRE / Retire Early, Retirement, Roth vs. Traditional.\n• INCOME & SPENDING — Take-Home Pay, Subscriptions, Tax Estimator.\n\nNone of them touch your real data. They are scratch paper with good arithmetic."}}, {"@type": "Question", "name": "Which calculator should I use?", "acceptedAnswer": {"@type": "Answer", "text": "The short map:\n\n• “Should I overpay the mortgage or invest it?” — Mortgage / Loan, then Compound Interest.\n• “Which debt first?” — Debt Payoff. It compares avalanche (highest rate) against snowball (smallest balance) on your actual numbers.\n• “Is refinancing worth it?” — Refinance. The answer is a break-even month, not a yes.\n• “What will I actually take home?” — Take-Home Pay.\n• “Can I afford this house?” — Home Affordability, then Rent vs. Buy for the second half of the question.\n• “How big should my emergency fund be?” — Emergency Fund.\n• “Roth or Traditional?” — Roth vs. Traditional, which turns on the tax rate you expect later, not the one you pay now.\n• “When could I stop working?” — FIRE / Retire Early for the quick version, the Retirement Planner for the honest one."}}, {"@type": "Question", "name": "Can I save a calculation and come back to it?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — “Save This Calculation”, give it a name, and it lands in Saved Calculations on the Tools tab. Every input is kept, so you can reopen it months later and change one number instead of rebuilding the whole thing.\n\nThis is what makes the calculators useful for a decision you are sitting on rather than one you make once. Save “Refinance at 5.75%” today and the comparison is still there when the rate moves."}}, {"@type": "Question", "name": "Do the calculators change my real budget or accounts?", "acceptedAnswer": {"@type": "Answer", "text": "No. Nothing on the Tools tab writes to your data. You can put any number in any field without consequence — that is the point of having them separate from the tabs that do."}}, {"@type": "Question", "name": "What does the Tax Estimator do?", "acceptedAnswer": {"@type": "Answer", "text": "It gives you a rough federal picture from income, filing status and the deductions you enter — enough to answer “am I going to owe?” before it is too late to do anything about it.\n\nIt is an estimate and it is not tax advice. It does not know about every credit, state tax, or anything unusual in your situation. If it says you are close to a line that matters, that is the signal to talk to someone who files for a living."}}, {"@type": "Question", "name": "What's in the Tax Center?", "acceptedAnswer": {"@type": "Answer", "text": "The year's tax-relevant figures pulled together: deductible categories, rental Schedule-E export, and — if the business side is switched on — the Schedule C summary, mileage at the rate you set, and reimbursable costs.\n\nIt is a starting pack for whoever prepares your return, not a filing tool."}}]}</script>
 </head><body>
+<a class="skip" href="#content">Skip to content</a>
 <div class="bar"><div class="bar-in">
   <a class="brand" href="../index.html">
     <img src="../help/img/logo-96.png" alt="" width="31" height="31">
@@ -498,8 +555,19 @@ html[data-p=mac] [data-only=ios]{display:none}
     <button data-p="ios" aria-pressed="false">iPhone</button>
     <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-</div></div>
-<div class="wrap">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+</div><i class="bar-prog" aria-hidden="true"></i></div>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sheet-in">
+  <a href="../index.html" style="--k:0">Home</a>
+  <a href="../gallery.html" style="--k:1">Screenshots</a>
+  <a href="../compare.html" style="--k:2">Compare</a>
+  <a href="../support.html" style="--k:3">Help Center</a>
+  <a href="../help/contact.html" style="--k:4">Contact</a>
+  <a href="../privacy-policy.html" style="--k:5">Privacy</a>
+  <a class="sheet-badge" style="--k:6" href="https://apps.apple.com/app/id6777039726" aria-label="Download Simple Finance on the App Store"><img
+    src="../help/img/appstore-badge-black.svg" alt="Download on the App Store" width="150" height="50"></a>
+</div></nav>
+<div class="wrap" id="content">
 <p class="crumb"><a href="../support.html">Help Center</a> › Tools &amp; Calculators</p>
 <div class="sect"><span class="chip tint" style="--c:#FF9500"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.567" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.557 -1.232) scale(1.0845)"><path d="M8 20.5c0-8 0-13 2.6-15.6a3.4 3.4 0 0 1 4-.6"/><path d="M6 10.5h7.5"/><path d="M13 12.5l6 7M19 12.5l-6 7"/></g></svg></span><h1>Tools &amp; Calculators</h1></div><p class="lede">Mortgage, loan, tax and the other calculators. 6 answers.</p><details id="what-s-on-the-tools-tab"><summary>What&#x27;s on the Tools tab?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Sixteen calculators, your saved calculations, and the Tax Center.</p><p>They are grouped by what you are trying to do rather than by name:<br>• KILL DEBT — Debt Payoff, Credit Card, Student Loan, Biweekly Payoff, Refinance.<br>• BUY A HOME — Mortgage / Loan, Home Affordability, Rent vs. Buy, Auto Loan.<br>• SAVE &amp; INVEST — Compound Interest, Savings Goal, Emergency Fund, FIRE / Retire Early, Retirement, Roth vs. Traditional.<br>• INCOME &amp; SPENDING — Take-Home Pay, Subscriptions, Tax Estimator.</p><p>None of them touch your real data. They are scratch paper with good arithmetic.</p></div></details><details id="which-calculator-should-i-use"><summary>Which calculator should I use?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The short map:</p><ul><li>“Should I overpay the mortgage or invest it?” — Mortgage / Loan, then Compound Interest.</li><li>“Which debt first?” — Debt Payoff. It compares avalanche (highest rate) against snowball (smallest balance) on your actual numbers.</li><li>“Is refinancing worth it?” — Refinance. The answer is a break-even month, not a yes.</li><li>“What will I actually take home?” — Take-Home Pay.</li><li>“Can I afford this house?” — Home Affordability, then Rent vs. Buy for the second half of the question.</li><li>“How big should my emergency fund be?” — Emergency Fund.</li><li>“Roth or Traditional?” — Roth vs. Traditional, which turns on the tax rate you expect later, not the one you pay now.</li><li>“When could I stop working?” — FIRE / Retire Early for the quick version, the Retirement Planner for the honest one.</li></ul></div></details><details id="can-i-save-a-calculation-and-come-back-to-it"><summary>Can I save a calculation and come back to it?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes — “Save This Calculation”, give it a name, and it lands in Saved Calculations on the Tools tab. Every input is kept, so you can reopen it months later and change one number instead of rebuilding the whole thing.</p><p>This is what makes the calculators useful for a decision you are sitting on rather than one you make once. Save “Refinance at 5.75%” today and the comparison is still there when the rate moves.</p></div></details><details id="do-the-calculators-change-my-real-budget-or-accounts"><summary>Do the calculators change my real budget or accounts?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>No. Nothing on the Tools tab writes to your data. You can put any number in any field without consequence — that is the point of having them separate from the tabs that do.</p></div></details><details id="what-does-the-tax-estimator-do"><summary>What does the Tax Estimator do?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>It gives you a rough federal picture from income, filing status and the deductions you enter — enough to answer “am I going to owe?” before it is too late to do anything about it.</p><p>It is an estimate and it is not tax advice. It does not know about every credit, state tax, or anything unusual in your situation. If it says you are close to a line that matters, that is the signal to talk to someone who files for a living.</p></div></details><details id="what-s-in-the-tax-center"><summary>What&#x27;s in the Tax Center?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The year&#x27;s tax-relevant figures pulled together: deductible categories, rental Schedule-E export, and — if the business side is switched on — the Schedule C summary, mileage at the rate you set, and reimbursable costs.</p><p>It is a starting pack for whoever prepares your return, not a filing tool.</p></div></details>
 <footer>
@@ -590,6 +658,32 @@ html[data-p=mac] [data-only=ios]{display:none}
   // re-check after the platform toggle changes which strips are visible
   document.addEventListener('click',function(e){ if(e.target.closest('.seg button')) setTimeout(armAll,60); });
   setTimeout(armAll,300);
+
+  // Phone menu: a full-screen sheet under the bar.
+  var mb=document.querySelector('.menu-btn');
+  function menu(o){d.classList.toggle('menu',o);if(mb)mb.setAttribute('aria-expanded',o);}
+  if(mb){mb.addEventListener('click',function(){menu(!d.classList.contains('menu'));});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false);});
+    document.querySelectorAll('.sheet a').forEach(function(a){a.addEventListener('click',function(){menu(false);});});
+    window.addEventListener('resize',function(){if(innerWidth>700)menu(false);});}
+
+  // Reading progress along the bottom edge of the bar.
+  var tick=false;
+  function prog(){tick=false;var h=document.documentElement.scrollHeight-innerHeight;
+    d.style.setProperty('--sp',h>0?Math.min(1,scrollY/h).toFixed(4):0);}
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});
+  prog();
+
+  // Content below the fold rises in as it arrives. Only what starts OFF
+  // screen is hidden, so nothing already visible ever blinks out and back.
+  if('IntersectionObserver' in window && !document.body.classList.contains('landing') &&
+     !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var rio=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('rise-in');rio.unobserve(e.target);}});},
+      {rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.wrap .tile,.wrap .card,.wrap details,.wrap .showcase figure,.wrap .gsec,.wrap .rival,.wrap .note,.wrap .ti,.wrap h2,.wrap .lede,.wrap .cmp-wrap,.wrap .band,.wrap .feats li').forEach(function(el){
+      if(el.getBoundingClientRect().top>innerHeight){el.classList.add('rise');rio.observe(el);}});
+  }
 
   var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
   if(!box)return;

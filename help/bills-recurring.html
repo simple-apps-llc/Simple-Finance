@@ -9,9 +9,9 @@
      button it shifts over to mac will quick and then back to iphone... doesn't
      look super professional". A <head> script blocks rendering, so this lands
      before first paint. Keep it tiny and dependency-free. -->
-<script>(function(){var p=null;try{p=localStorage.getItem('sf-platform')}catch(e){}
+<script>(function(){var p=null,d=document.documentElement;try{p=localStorage.getItem('sf-platform')}catch(e){}
 if(!p){var u=navigator.userAgent;p=/iPad/.test(u)?'ipad':(/iPhone|iPod/.test(u)?'ios':'mac')}
-document.documentElement.setAttribute('data-p',p)})();</script>
+d.setAttribute('data-p',p);d.classList.add('js');})();</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0C1F36">
 <title>Bills &amp; Recurring — Simple Finance Help</title>
@@ -479,10 +479,67 @@ html[data-p=mac] [data-only=ios]{display:none}
   .bar-in{padding:10px var(--gutter)}
   .ans,summary{padding-left:14px;padding-right:14px}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+/* ── premium layer, every page ─────────────────────────────── */
+/* Pages cross-fade into each other instead of flashing white; the bar is
+   named so it holds still while the page under it changes. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;
+  animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.bar{view-transition-name:bar}
+.skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--accent);color:#fff;
+  padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}
+.skip:focus{top:12px;text-decoration:none}
+.bar-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,#19D8A6,#5DF0C4 60%,#7DE3FF);transform-origin:left;
+  transform:scaleX(var(--sp,0));opacity:.9}
+/* phone menu */
+.menu-btn{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
+  border-radius:12px;position:relative;cursor:pointer;color:var(--ink);flex:0 0 auto}
+.menu-btn i{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1)}
+.menu-btn i:first-child{top:15px}.menu-btn i:last-child{top:23px}
+html.menu .menu-btn i:first-child{top:19px;transform:rotate(45deg)}
+html.menu .menu-btn i:last-child{top:19px;transform:rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:19;display:flex;align-items:flex-end;padding:100px 28px 48px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+html.menu .sheet{opacity:1;visibility:visible;transition:opacity .35s}
+html.menu{overflow:hidden}
+.sheet-in{display:grid;gap:2px;width:100%}
+.sheet a{font:700 40px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.04em;
+  color:var(--ink);opacity:0;transform:translateY(26px);
+  transition:opacity .3s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.sheet a:hover{text-decoration:none;color:var(--accent)}
+html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45ms + 60ms)}
+.sheet .sheet-badge{margin-top:30px;line-height:0}
+.sheet .sheet-badge img{width:150px;height:auto}
+@media(max-width:700px){
+  .navlink{display:none}
+  .menu-btn{display:block}
+  .bar-in{flex-wrap:nowrap}
+}
+@media(min-width:701px){.sheet{display:none}}
+/* reveals — added by script only to what starts below the fold */
+.rise{opacity:0;transform:translateY(22px)}
+.rise.rise-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
+/* the sub-page hero breathes: two slow lights drifting under the glass */
+.hero::before{content:"";position:absolute;inset:-40%;pointer-events:none;opacity:.55;
+  background:radial-gradient(28% 36% at 30% 40%,rgba(25,216,166,.32),transparent 70%),
+             radial-gradient(24% 30% at 70% 60%,rgba(125,227,255,.18),transparent 70%);
+  animation:heroDrift 18s ease-in-out infinite alternate}
+@keyframes heroDrift{0%{transform:translate(-4%,-2%) rotate(0deg)}100%{transform:translate(6%,4%) rotate(8deg)}}
+.hero h1{background:linear-gradient(100deg,#fff 30%,#BFF7E6 50%,#fff 70%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShine 9s linear 1s infinite}
+@keyframes heroShine{to{background-position:-220% 0}}
+.tile,.feat .card,.ti,.banner{position:relative}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
+  .hero::before,.hero h1{animation:none}
+  .rise{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does the ring on Bills & Subscriptions mean?", "acceptedAnswer": {"@type": "Answer", "text": "It's this month's bills: what you've logged as paid, and what's still left. The middle shows how many of them are done. It fills as bills are logged, and closes when the month is finished."}}, {"@type": "Question", "name": "Why does the ring say nothing is paid?", "acceptedAnswer": {"@type": "Answer", "text": "The app can only count a bill as paid once there's a transaction for it. If you don't log bills, it has nothing to point at. Turn on Auto-Post Recurring and they post themselves on their due day, or log one yourself: right-click a bill in Recurring and choose Log Now."}}, {"@type": "Question", "name": "What is Auto-Post Recurring?", "acceptedAnswer": {"@type": "Answer", "text": "With it on, each recurring bill or paycheque creates its transaction automatically on its due day, so your ledger stays current without you typing. With it off, nothing posts until you log it yourself — right-click the bill and choose Log Now."}}, {"@type": "Question", "name": "Will a recurring bill ever post twice?", "acceptedAnswer": {"@type": "Answer", "text": "No. Each recurring item records the periods it has already posted, so opening the app twice in a day, on two devices, or after a long gap cannot produce a second copy of the same month.\n\nIf you really are looking at two rows for one bill, it is almost always one of these:\n• the bill exists TWICE as a recurring item — check the list for a near-duplicate;\n• it posted automatically AND was also entered by hand;\n• an import brought in the same charge the app had already posted.\n\nSettings → Data & Backup → Repair Duplicated Records finds the third. The first two are a quick look down the recurring list."}}, {"@type": "Question", "name": "How do I stop a bill without deleting its history?", "acceptedAnswer": {"@type": "Answer", "text": "Set it to inactive rather than deleting it. It stops posting and stops reminding, and every payment it has already made stays exactly where it is — in your spending, in the reports, in the category totals.\n\nDeleting is a different thing: it removes the recurring RULE, and what happens to the payments already recorded depends on what you choose at the time. There is no undo afterwards.\n\nIf a subscription might come back, inactive is almost always the right answer. Reactivating is one click and the history is unbroken."}}, {"@type": "Question", "name": "Can I get reminded before a bill is due?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Settings → Notifications turns bill reminders on and sets how many days ahead they arrive, and an individual bill can carry its own lead time — rent three days out and a streaming charge on the day is a perfectly sensible setup.\n\nA reminder is tied to the bill's due date, so changing the date moves the reminder with it. Marking a bill paid early cancels that month's reminder rather than firing it anyway."}}]}</script>
 </head><body>
+<a class="skip" href="#content">Skip to content</a>
 <div class="bar"><div class="bar-in">
   <a class="brand" href="../index.html">
     <img src="../help/img/logo-96.png" alt="" width="31" height="31">
@@ -498,8 +555,19 @@ html[data-p=mac] [data-only=ios]{display:none}
     <button data-p="ios" aria-pressed="false">iPhone</button>
     <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-</div></div>
-<div class="wrap">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+</div><i class="bar-prog" aria-hidden="true"></i></div>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sheet-in">
+  <a href="../index.html" style="--k:0">Home</a>
+  <a href="../gallery.html" style="--k:1">Screenshots</a>
+  <a href="../compare.html" style="--k:2">Compare</a>
+  <a href="../support.html" style="--k:3">Help Center</a>
+  <a href="../help/contact.html" style="--k:4">Contact</a>
+  <a href="../privacy-policy.html" style="--k:5">Privacy</a>
+  <a class="sheet-badge" style="--k:6" href="https://apps.apple.com/app/id6777039726" aria-label="Download Simple Finance on the App Store"><img
+    src="../help/img/appstore-badge-black.svg" alt="Download on the App Store" width="150" height="50"></a>
+</div></nav>
+<div class="wrap" id="content">
 <p class="crumb"><a href="../support.html">Help Center</a> › Bills &amp; Recurring</p>
 <div class="sect"><span class="chip tint" style="--c:#FF9F0A"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h11a4 4 0 0 1 4 4"/><path d="M7 5L4 8l3 3"/><path d="M20 16H9a4 4 0 0 1-4-4"/><path d="M17 19l3-3-3-3"/></g></svg></span><h1>Bills &amp; Recurring</h1></div><p class="lede">Cadences, reminders, auto-posting and skipped months. 6 answers.</p><details id="what-does-the-ring-on-bills-subscriptions-mean"><summary>What does the ring on Bills &amp; Subscriptions mean?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>It&#x27;s this month&#x27;s bills: what you&#x27;ve logged as paid, and what&#x27;s still left. The middle shows how many of them are done. It fills as bills are logged, and closes when the month is finished.</p></div></details><details id="why-does-the-ring-say-nothing-is-paid"><summary>Why does the ring say nothing is paid?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The app can only count a bill as paid once there&#x27;s a transaction for it. If you don&#x27;t log bills, it has nothing to point at. Turn on Auto-Post Recurring and they post themselves on their due day, or log one yourself: <span class="tk" data-m="right-click" data-i="swipe">right-click</span> a bill in Recurring and choose Log Now.</p></div></details><details id="what-is-auto-post-recurring"><summary>What is Auto-Post Recurring?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>With it on, each recurring bill or paycheque creates its transaction automatically on its due day, so your ledger stays current without you typing. With it off, nothing posts until you log it yourself — <span class="tk" data-m="right-click" data-i="swipe">right-click</span> the bill and choose Log Now.</p></div></details><details id="will-a-recurring-bill-ever-post-twice"><summary>Will a recurring bill ever post twice?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>No. Each recurring item records the periods it has already posted, so opening the app twice in a day, on two devices, or after a long gap cannot produce a second copy of the same month.</p><p>If you really are looking at two rows for one bill, it is almost always one of these:<br>• the bill exists TWICE as a recurring item — check the list for a near-duplicate;<br>• it posted automatically AND was also entered by hand;<br>• an import brought in the same charge the app had already posted.</p><p>Settings → Data &amp; Backup → Repair Duplicated Records finds the third. The first two are a quick look down the recurring list.</p></div></details><details id="how-do-i-stop-a-bill-without-deleting-its-history"><summary>How do I stop a bill without deleting its history?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Set it to inactive rather than deleting it. It stops posting and stops reminding, and every payment it has already made stays exactly where it is — in your spending, in the reports, in the category totals.</p><p>Deleting is a different thing: it removes the recurring RULE, and what happens to the payments already recorded depends on what you choose at the time. There is no undo afterwards.</p><p>If a subscription might come back, inactive is almost always the right answer. Reactivating is one <span class="tk" data-m="click" data-i="tap">click</span> and the history is unbroken.</p></div></details><details id="can-i-get-reminded-before-a-bill-is-due"><summary>Can I get reminded before a bill is due?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes. Settings → Notifications turns bill reminders on and sets how many days ahead they arrive, and an individual bill can carry its own lead time — rent three days out and a streaming charge on the day is a perfectly sensible setup.</p><p>A reminder is tied to the bill&#x27;s due date, so changing the date moves the reminder with it. Marking a bill paid early cancels that month&#x27;s reminder rather than firing it anyway.</p></div></details>
 <footer>
@@ -590,6 +658,32 @@ html[data-p=mac] [data-only=ios]{display:none}
   // re-check after the platform toggle changes which strips are visible
   document.addEventListener('click',function(e){ if(e.target.closest('.seg button')) setTimeout(armAll,60); });
   setTimeout(armAll,300);
+
+  // Phone menu: a full-screen sheet under the bar.
+  var mb=document.querySelector('.menu-btn');
+  function menu(o){d.classList.toggle('menu',o);if(mb)mb.setAttribute('aria-expanded',o);}
+  if(mb){mb.addEventListener('click',function(){menu(!d.classList.contains('menu'));});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false);});
+    document.querySelectorAll('.sheet a').forEach(function(a){a.addEventListener('click',function(){menu(false);});});
+    window.addEventListener('resize',function(){if(innerWidth>700)menu(false);});}
+
+  // Reading progress along the bottom edge of the bar.
+  var tick=false;
+  function prog(){tick=false;var h=document.documentElement.scrollHeight-innerHeight;
+    d.style.setProperty('--sp',h>0?Math.min(1,scrollY/h).toFixed(4):0);}
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});
+  prog();
+
+  // Content below the fold rises in as it arrives. Only what starts OFF
+  // screen is hidden, so nothing already visible ever blinks out and back.
+  if('IntersectionObserver' in window && !document.body.classList.contains('landing') &&
+     !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var rio=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('rise-in');rio.unobserve(e.target);}});},
+      {rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.wrap .tile,.wrap .card,.wrap details,.wrap .showcase figure,.wrap .gsec,.wrap .rival,.wrap .note,.wrap .ti,.wrap h2,.wrap .lede,.wrap .cmp-wrap,.wrap .band,.wrap .feats li').forEach(function(el){
+      if(el.getBoundingClientRect().top>innerHeight){el.classList.add('rise');rio.observe(el);}});
+  }
 
   var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
   if(!box)return;

@@ -9,9 +9,9 @@
      button it shifts over to mac will quick and then back to iphone... doesn't
      look super professional". A <head> script blocks rendering, so this lands
      before first paint. Keep it tiny and dependency-free. -->
-<script>(function(){var p=null;try{p=localStorage.getItem('sf-platform')}catch(e){}
+<script>(function(){var p=null,d=document.documentElement;try{p=localStorage.getItem('sf-platform')}catch(e){}
 if(!p){var u=navigator.userAgent;p=/iPad/.test(u)?'ipad':(/iPhone|iPod/.test(u)?'ios':'mac')}
-document.documentElement.setAttribute('data-p',p)})();</script>
+d.setAttribute('data-p',p);d.classList.add('js');})();</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0C1F36">
 <title>Getting started — Simple Finance Help</title>
@@ -479,10 +479,67 @@ html[data-p=mac] [data-only=ios]{display:none}
   .bar-in{padding:10px var(--gutter)}
   .ans,summary{padding-left:14px;padding-right:14px}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+/* ── premium layer, every page ─────────────────────────────── */
+/* Pages cross-fade into each other instead of flashing white; the bar is
+   named so it holds still while the page under it changes. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;
+  animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.bar{view-transition-name:bar}
+.skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--accent);color:#fff;
+  padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}
+.skip:focus{top:12px;text-decoration:none}
+.bar-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,#19D8A6,#5DF0C4 60%,#7DE3FF);transform-origin:left;
+  transform:scaleX(var(--sp,0));opacity:.9}
+/* phone menu */
+.menu-btn{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
+  border-radius:12px;position:relative;cursor:pointer;color:var(--ink);flex:0 0 auto}
+.menu-btn i{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1)}
+.menu-btn i:first-child{top:15px}.menu-btn i:last-child{top:23px}
+html.menu .menu-btn i:first-child{top:19px;transform:rotate(45deg)}
+html.menu .menu-btn i:last-child{top:19px;transform:rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:19;display:flex;align-items:flex-end;padding:100px 28px 48px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+html.menu .sheet{opacity:1;visibility:visible;transition:opacity .35s}
+html.menu{overflow:hidden}
+.sheet-in{display:grid;gap:2px;width:100%}
+.sheet a{font:700 40px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.04em;
+  color:var(--ink);opacity:0;transform:translateY(26px);
+  transition:opacity .3s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.sheet a:hover{text-decoration:none;color:var(--accent)}
+html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45ms + 60ms)}
+.sheet .sheet-badge{margin-top:30px;line-height:0}
+.sheet .sheet-badge img{width:150px;height:auto}
+@media(max-width:700px){
+  .navlink{display:none}
+  .menu-btn{display:block}
+  .bar-in{flex-wrap:nowrap}
+}
+@media(min-width:701px){.sheet{display:none}}
+/* reveals — added by script only to what starts below the fold */
+.rise{opacity:0;transform:translateY(22px)}
+.rise.rise-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
+/* the sub-page hero breathes: two slow lights drifting under the glass */
+.hero::before{content:"";position:absolute;inset:-40%;pointer-events:none;opacity:.55;
+  background:radial-gradient(28% 36% at 30% 40%,rgba(25,216,166,.32),transparent 70%),
+             radial-gradient(24% 30% at 70% 60%,rgba(125,227,255,.18),transparent 70%);
+  animation:heroDrift 18s ease-in-out infinite alternate}
+@keyframes heroDrift{0%{transform:translate(-4%,-2%) rotate(0deg)}100%{transform:translate(6%,4%) rotate(8deg)}}
+.hero h1{background:linear-gradient(100deg,#fff 30%,#BFF7E6 50%,#fff 70%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShine 9s linear 1s infinite}
+@keyframes heroShine{to{background-position:-220% 0}}
+.tile,.feat .card,.ti,.banner{position:relative}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
+  .hero::before,.hero h1{animation:none}
+  .rise{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "I just installed the app. Where do I start?", "acceptedAnswer": {"@type": "Answer", "text": "Add your accounts first (Net Worth → New Account), then set budgets for the categories you actually watch. Everything else — goals, the planner, sharing — builds on those two. If you already track money elsewhere, use Import instead of typing it in."}}, {"@type": "Question", "name": "Do I need to create an account or sign up?", "acceptedAnswer": {"@type": "Answer", "text": "No. There is no account, no email, no password. The app opens straight into your own data. If you want it on more than one device, turn on iCloud Sync — that uses the Apple ID you already have."}}, {"@type": "Question", "name": "Can I try it without entering my real finances?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — Settings → Privacy & Security → Demo Mode swaps the whole app over to a full set of sample accounts, a year of transactions, budgets, goals and a plan.\n\nYour real data is not copied, edited or moved while it is on. It simply isn't loaded, and it comes straight back when you exit.\n\nIt is useful well beyond trying the app out: it is the safe place to explore a feature you have never used, and the safe way to show somebody what the app does without your own finances on screen. Sharing works in there too — sample people, live switches, and nothing you touch reaches a real share."}}, {"@type": "Question", "name": "What do the main screens do?", "acceptedAnswer": {"@type": "Answer", "text": "Home is today's picture. Budget is what's left to spend. Transactions is the ledger. Net Worth is everything you own and owe. Plan is the retirement planner. Everything else lives in the sidebar."}}, {"@type": "Question", "name": "Where did a feature go? I can't find it.", "acceptedAnswer": {"@type": "Answer", "text": "Three places, in this order:\n\n1. SEARCH THIS HELP — nearly every answer names the exact route to a screen, so searching for the thing usually beats hunting for it.\n2. THE MORE TAB — anything not on one of the main tabs lives there, grouped.\n3. SETTINGS — if it is a preference rather than a screen.\n\nOn the Mac, ⌘F searches the whole app from anywhere, including screens you have never opened.\n\nAnd if something really has moved and you had to hunt, tell us. That is a design problem, not a you problem."}}, {"@type": "Question", "name": "I got a new phone. How do I move everything across?", "acceptedAnswer": {"@type": "Answer", "text": "If iCloud Sync is on, there is nothing to do beyond signing into the same Apple Account and opening the app — your data arrives on its own. Give the first sync a minute; it is the slow one.\n\nIf sync is off, restore from a backup instead: Settings → Data & Backup → Backup on the old phone, then restore that file on the new one.\n\n🔴 Do this BEFORE you wipe the old phone. A local database that was never synced and never backed up does not exist anywhere else — that is the same privacy promise working against you."}}, {"@type": "Question", "name": "How do I start over and delete everything?", "acceptedAnswer": {"@type": "Answer", "text": "Settings → Data & Backup. You can remove sample data on its own (“Remove Sample Data”) if you only want the demo figures gone, or clear the database entirely to begin from nothing.\n\nTake a backup first if there is any chance you want it back. Deleting is immediate and there is no undo — see “I deleted something by accident”."}}, {"@type": "Question", "name": "Can I change the currency?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — Settings → Appearance, alongside the theme and accent color. It changes how every amount is displayed. It does not convert anything: entering 100 after a currency change stores 100, not a converted figure."}}, {"@type": "Question", "name": "Can I choose which tab the app opens on?", "acceptedAnswer": {"@type": "Answer", "text": "Settings → General → opening tab. If you check the same screen every morning, make it that one."}}, {"@type": "Question", "name": "Can I change the accent color or use dark mode?", "acceptedAnswer": {"@type": "Answer", "text": "Settings → Appearance — theme (light, dark or follow the system), accent color and currency all live there.\n\nGreen and red always mean money in and money out, whatever accent you pick. That pair is not decoration and does not change."}}]}</script>
 </head><body>
+<a class="skip" href="#content">Skip to content</a>
 <div class="bar"><div class="bar-in">
   <a class="brand" href="../index.html">
     <img src="../help/img/logo-96.png" alt="" width="31" height="31">
@@ -498,8 +555,19 @@ html[data-p=mac] [data-only=ios]{display:none}
     <button data-p="ios" aria-pressed="false">iPhone</button>
     <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-</div></div>
-<div class="wrap">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+</div><i class="bar-prog" aria-hidden="true"></i></div>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sheet-in">
+  <a href="../index.html" style="--k:0">Home</a>
+  <a href="../gallery.html" style="--k:1">Screenshots</a>
+  <a href="../compare.html" style="--k:2">Compare</a>
+  <a href="../support.html" style="--k:3">Help Center</a>
+  <a href="../help/contact.html" style="--k:4">Contact</a>
+  <a href="../privacy-policy.html" style="--k:5">Privacy</a>
+  <a class="sheet-badge" style="--k:6" href="https://apps.apple.com/app/id6777039726" aria-label="Download Simple Finance on the App Store"><img
+    src="../help/img/appstore-badge-black.svg" alt="Download on the App Store" width="150" height="50"></a>
+</div></nav>
+<div class="wrap" id="content">
 <p class="crumb"><a href="../support.html">Help Center</a> › Getting started</p>
 <div class="sect"><span class="chip tint" style="--c:#34C759"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.235) scale(1.0588)"><path d="M5 21V4h9l-1.2 3.2H19l-1.6 4.3H8.5"/><path d="M5 4h3"/></g></svg></span><h1>Getting started</h1></div><p class="lede">First budget, first accounts, what to do on day one. 10 answers.</p><details id="i-just-installed-the-app-where-do-i-start"><summary>I just installed the app. Where do I start?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Add your accounts first (Net Worth → New Account), then set budgets for the categories you actually watch. Everything else — goals, the planner, sharing — builds on those two. If you already track money elsewhere, use Import instead of typing it in.</p></div></details><details id="do-i-need-to-create-an-account-or-sign-up"><summary>Do I need to create an account or sign up?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>No. There is no account, no email, no password. The app opens straight into your own data. If you want it on more than one device, turn on iCloud Sync — that uses the Apple ID you already have.</p></div></details><details id="can-i-try-it-without-entering-my-real-finances"><summary>Can I try it without entering my real finances?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes — Settings → Privacy &amp; Security → Demo Mode swaps the whole app over to a full set of sample accounts, a year of transactions, budgets, goals and a plan.</p><p>Your real data is not copied, edited or moved while it is on. It simply isn&#x27;t loaded, and it comes straight back when you exit.</p><p>It is useful well beyond trying the app out: it is the safe place to explore a feature you have never used, and the safe way to show somebody what the app does without your own finances on screen. Sharing works in there too — sample people, live switches, and nothing you touch reaches a real share.</p></div></details><details id="what-do-the-main-screens-do"><summary>What do the main screens do?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Home is today&#x27;s picture. Budget is what&#x27;s left to spend. Transactions is the ledger. Net Worth is everything you own and owe. Plan is the retirement planner. Everything else lives in <span class="tk" data-m="the sidebar" data-i="the ☰ panel">the sidebar</span>.</p></div></details><details id="where-did-a-feature-go-i-can-t-find-it"><summary>Where did a feature go? I can&#x27;t find it.<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Three places, in this order:</p><p>1. SEARCH THIS HELP — nearly every answer names the exact route to a screen, so searching for the thing usually beats hunting for it.<br>2. THE MORE TAB — anything not on one of the main tabs lives there, grouped.<br>3. SETTINGS — if it is a preference rather than a screen.</p><p>On the Mac, ⌘F searches the whole app from anywhere, including screens you have never opened.</p><p>And if something really has moved and you had to hunt, tell us. That is a design problem, not a you problem.</p></div></details><details id="i-got-a-new-phone-how-do-i-move-everything-across"><summary>I got a new phone. How do I move everything across?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>If iCloud Sync is on, there is nothing to do beyond signing into the same Apple Account and opening the app — your data arrives on its own. Give the first sync a minute; it is the slow one.</p><p>If sync is off, restore from a backup instead: Settings → Data &amp; Backup → Backup on the old phone, then restore that file on the new one.</p><p>🔴 Do this BEFORE you wipe the old phone. A local database that was never synced and never backed up does not exist anywhere else — that is the same privacy promise working against you.</p></div></details><details id="how-do-i-start-over-and-delete-everything"><summary>How do I start over and delete everything?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Settings → Data &amp; Backup. You can remove sample data on its own (“Remove Sample Data”) if you only want the demo figures gone, or clear the database entirely to begin from nothing.</p><p>Take a backup first if there is any chance you want it back. Deleting is immediate and there is no undo — see “I deleted something by accident”.</p></div></details><details id="can-i-change-the-currency"><summary>Can I change the currency?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes — Settings → Appearance, alongside the theme and accent color. It changes how every amount is displayed. It does not convert anything: entering 100 after a currency change stores 100, not a converted figure.</p></div></details><details id="can-i-choose-which-tab-the-app-opens-on"><summary>Can I choose which tab the app opens on?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Settings → General → opening tab. If you check the same screen every morning, make it that one.</p></div></details><details id="can-i-change-the-accent-color-or-use-dark-mode"><summary>Can I change the accent color or use dark mode?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Settings → Appearance — theme (light, dark or follow the system), accent color and currency all live there.</p><p>Green and red always mean money in and money out, whatever accent you pick. That pair is not decoration and does not change.</p></div></details>
 <footer>
@@ -590,6 +658,32 @@ html[data-p=mac] [data-only=ios]{display:none}
   // re-check after the platform toggle changes which strips are visible
   document.addEventListener('click',function(e){ if(e.target.closest('.seg button')) setTimeout(armAll,60); });
   setTimeout(armAll,300);
+
+  // Phone menu: a full-screen sheet under the bar.
+  var mb=document.querySelector('.menu-btn');
+  function menu(o){d.classList.toggle('menu',o);if(mb)mb.setAttribute('aria-expanded',o);}
+  if(mb){mb.addEventListener('click',function(){menu(!d.classList.contains('menu'));});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false);});
+    document.querySelectorAll('.sheet a').forEach(function(a){a.addEventListener('click',function(){menu(false);});});
+    window.addEventListener('resize',function(){if(innerWidth>700)menu(false);});}
+
+  // Reading progress along the bottom edge of the bar.
+  var tick=false;
+  function prog(){tick=false;var h=document.documentElement.scrollHeight-innerHeight;
+    d.style.setProperty('--sp',h>0?Math.min(1,scrollY/h).toFixed(4):0);}
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});
+  prog();
+
+  // Content below the fold rises in as it arrives. Only what starts OFF
+  // screen is hidden, so nothing already visible ever blinks out and back.
+  if('IntersectionObserver' in window && !document.body.classList.contains('landing') &&
+     !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var rio=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('rise-in');rio.unobserve(e.target);}});},
+      {rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.wrap .tile,.wrap .card,.wrap details,.wrap .showcase figure,.wrap .gsec,.wrap .rival,.wrap .note,.wrap .ti,.wrap h2,.wrap .lede,.wrap .cmp-wrap,.wrap .band,.wrap .feats li').forEach(function(el){
+      if(el.getBoundingClientRect().top>innerHeight){el.classList.add('rise');rio.observe(el);}});
+  }
 
   var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
   if(!box)return;

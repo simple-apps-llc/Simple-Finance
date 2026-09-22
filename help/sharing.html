@@ -9,9 +9,9 @@
      button it shifts over to mac will quick and then back to iphone... doesn't
      look super professional". A <head> script blocks rendering, so this lands
      before first paint. Keep it tiny and dependency-free. -->
-<script>(function(){var p=null;try{p=localStorage.getItem('sf-platform')}catch(e){}
+<script>(function(){var p=null,d=document.documentElement;try{p=localStorage.getItem('sf-platform')}catch(e){}
 if(!p){var u=navigator.userAgent;p=/iPad/.test(u)?'ipad':(/iPhone|iPod/.test(u)?'ios':'mac')}
-document.documentElement.setAttribute('data-p',p)})();</script>
+d.setAttribute('data-p',p);d.classList.add('js');})();</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0C1F36">
 <title>Sharing — Simple Finance Help</title>
@@ -479,10 +479,67 @@ html[data-p=mac] [data-only=ios]{display:none}
   .bar-in{padding:10px var(--gutter)}
   .ans,summary{padding-left:14px;padding-right:14px}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+/* ── premium layer, every page ─────────────────────────────── */
+/* Pages cross-fade into each other instead of flashing white; the bar is
+   named so it holds still while the page under it changes. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;
+  animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.bar{view-transition-name:bar}
+.skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--accent);color:#fff;
+  padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}
+.skip:focus{top:12px;text-decoration:none}
+.bar-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,#19D8A6,#5DF0C4 60%,#7DE3FF);transform-origin:left;
+  transform:scaleX(var(--sp,0));opacity:.9}
+/* phone menu */
+.menu-btn{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
+  border-radius:12px;position:relative;cursor:pointer;color:var(--ink);flex:0 0 auto}
+.menu-btn i{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1)}
+.menu-btn i:first-child{top:15px}.menu-btn i:last-child{top:23px}
+html.menu .menu-btn i:first-child{top:19px;transform:rotate(45deg)}
+html.menu .menu-btn i:last-child{top:19px;transform:rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:19;display:flex;align-items:flex-end;padding:100px 28px 48px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+html.menu .sheet{opacity:1;visibility:visible;transition:opacity .35s}
+html.menu{overflow:hidden}
+.sheet-in{display:grid;gap:2px;width:100%}
+.sheet a{font:700 40px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.04em;
+  color:var(--ink);opacity:0;transform:translateY(26px);
+  transition:opacity .3s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.sheet a:hover{text-decoration:none;color:var(--accent)}
+html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45ms + 60ms)}
+.sheet .sheet-badge{margin-top:30px;line-height:0}
+.sheet .sheet-badge img{width:150px;height:auto}
+@media(max-width:700px){
+  .navlink{display:none}
+  .menu-btn{display:block}
+  .bar-in{flex-wrap:nowrap}
+}
+@media(min-width:701px){.sheet{display:none}}
+/* reveals — added by script only to what starts below the fold */
+.rise{opacity:0;transform:translateY(22px)}
+.rise.rise-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
+/* the sub-page hero breathes: two slow lights drifting under the glass */
+.hero::before{content:"";position:absolute;inset:-40%;pointer-events:none;opacity:.55;
+  background:radial-gradient(28% 36% at 30% 40%,rgba(25,216,166,.32),transparent 70%),
+             radial-gradient(24% 30% at 70% 60%,rgba(125,227,255,.18),transparent 70%);
+  animation:heroDrift 18s ease-in-out infinite alternate}
+@keyframes heroDrift{0%{transform:translate(-4%,-2%) rotate(0deg)}100%{transform:translate(6%,4%) rotate(8deg)}}
+.hero h1{background:linear-gradient(100deg,#fff 30%,#BFF7E6 50%,#fff 70%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShine 9s linear 1s infinite}
+@keyframes heroShine{to{background-position:-220% 0}}
+.tile,.feat .card,.ti,.banner{position:relative}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
+  .hero::before,.hero h1{animation:none}
+  .rise{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I share finances with a partner or family?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, in three different shapes depending on who it is.\n\nA PARTNER shares fully and both ways: you both see and edit the same accounts, transactions, budgets and goals, and every shared transaction records who added it.\n\nFAMILY gets a read-only summary you control — net worth, income, goals, bills, trends, or only the categories you choose.\n\nFRIENDS see only the specific numbers you put in a scorecard, and nothing else.\n\nAll three run through your own iCloud, so nothing passes through us. Open the sidebar → Family & Sharing to start. Anything you keep private is removed from their device on the next sync rather than simply going stale, and business money is never shared at all."}}, {"@type": "Question", "name": "What's the difference between sharing with a partner, family and friends?", "acceptedAnswer": {"@type": "Answer", "text": "A partner gets full two-way access: you both see and edit the same accounts, transactions, budgets and goals. Family gets a read-only summary you control. Friends see only the specific numbers you choose to put in a scorecard. They're separate, and joining one doesn't join you to the others."}}, {"@type": "Question", "name": "How do I start sharing with my partner?", "acceptedAnswer": {"@type": "Answer", "text": "Open the sidebar → Family & Sharing, and send an invitation. They accept on their device and the two of you are joined through your own iCloud — there is no account on our side and nothing passes through our servers."}}, {"@type": "Question", "name": "Can I keep some things private from my partner?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Any category, account, bill, investment account, mortgage, retirement plan, goal or single transaction can be kept private. Making something private also removes the copy already on their device on the next sync — it doesn't merely stop updating it."}}, {"@type": "Question", "name": "Does my partner see the years I tracked before we shared?", "acceptedAnswer": {"@type": "Answer", "text": "Only if you hand it over. Your earlier history stays yours by default, and there's a switch to share it — useful when one of you is new to the app and the other has years of it. A month they already have is never counted twice."}}, {"@type": "Question", "name": "How do we combine two sets of finances?", "acceptedAnswer": {"@type": "Answer", "text": "Combine Finances walks it once: choose which accounts belong to the household, and for any category you both tracked, choose which budget to keep. It's a single pass rather than a merge that guesses."}}, {"@type": "Question", "name": "Can we see who spent what?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every shared transaction shows who added it, and the month's spending splits into a column for each of you plus one for shared household spending — rather than one lump you have to untangle."}}, {"@type": "Question", "name": "Which categories count as household?", "acceptedAnswer": {"@type": "Answer", "text": "Rent, utilities, groceries, insurance and the like start out as shared, because they usually are. Everything else starts personal, and any category or single transaction can be changed at any time."}}, {"@type": "Question", "name": "Can we tell each other apart at a glance?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — each of you gets a color and a picture, and they follow you onto every screen: the split bar, the activity feed and the notes board. Colors and pictures are set on your own device."}}, {"@type": "Question", "name": "What happens if we stop sharing?", "acceptedAnswer": {"@type": "Answer", "text": "The shared copy is removed from their device. Anything you entered stays yours, and anything they entered stays theirs — neither of you is left holding half of the other's ledger."}}, {"@type": "Question", "name": "Is business money shared with my household?", "acceptedAnswer": {"@type": "Answer", "text": "No, and it is enforced rather than assumed. Business transactions, business accounts and business clients are excluded from everything a household partner receives — not sent and then hidden, never sent.\n\nThat holds the other way too: a partner's household view cannot reveal what a client paid you or what a job cost.\n\nIf something is genuinely both — a phone bill that is half work — split it by percentage. Only the personal share reaches the household side, and only the business share reaches the Schedule C figure."}}]}</script>
 </head><body>
+<a class="skip" href="#content">Skip to content</a>
 <div class="bar"><div class="bar-in">
   <a class="brand" href="../index.html">
     <img src="../help/img/logo-96.png" alt="" width="31" height="31">
@@ -498,8 +555,19 @@ html[data-p=mac] [data-only=ios]{display:none}
     <button data-p="ios" aria-pressed="false">iPhone</button>
     <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-</div></div>
-<div class="wrap">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+</div><i class="bar-prog" aria-hidden="true"></i></div>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sheet-in">
+  <a href="../index.html" style="--k:0">Home</a>
+  <a href="../gallery.html" style="--k:1">Screenshots</a>
+  <a href="../compare.html" style="--k:2">Compare</a>
+  <a href="../support.html" style="--k:3">Help Center</a>
+  <a href="../help/contact.html" style="--k:4">Contact</a>
+  <a href="../privacy-policy.html" style="--k:5">Privacy</a>
+  <a class="sheet-badge" style="--k:6" href="https://apps.apple.com/app/id6777039726" aria-label="Download Simple Finance on the App Store"><img
+    src="../help/img/appstore-badge-black.svg" alt="Download on the App Store" width="150" height="50"></a>
+</div></nav>
+<div class="wrap" id="content">
 <p class="crumb"><a href="../support.html">Help Center</a> › Sharing</p>
 <div class="sect"><span class="chip tint" style="--c:#FF375F"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.182) scale(1.0588)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M16.5 6a3.2 3.2 0 0 1 0 6.4"/><path d="M17.5 14.6a6.2 6.2 0 0 1 3 4.9"/></g></svg></span><h1>Sharing</h1></div><p class="lede">Partners, family and friends — what each one can see. 11 answers.</p><details id="can-i-share-finances-with-a-partner-or-family"><summary>Can I share finances with a partner or family?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes, in three different shapes depending on who it is.</p><p>A PARTNER shares fully and both ways: you both see and edit the same accounts, transactions, budgets and goals, and every shared transaction records who added it.</p><p>FAMILY gets a read-only summary you control — net worth, income, goals, bills, trends, or only the categories you choose.</p><p>FRIENDS see only the specific numbers you put in a scorecard, and nothing else.</p><p>All three run through your own iCloud, so nothing passes through us. Open <span class="tk" data-m="the sidebar → Family &amp; Sharing" data-i="☰ → People you share with">the sidebar → Family &amp; Sharing</span> to start. Anything you keep private is removed from their device on the next sync rather than simply going stale, and business money is never shared at all.</p></div></details><details id="what-s-the-difference-between-sharing-with-a-partner-family-"><summary>What&#x27;s the difference between sharing with a partner, family and friends?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>A partner gets full two-way access: you both see and edit the same accounts, transactions, budgets and goals. Family gets a read-only summary you control. Friends see only the specific numbers you choose to put in a scorecard. They&#x27;re separate, and joining one doesn&#x27;t join you to the others.</p></div></details><details id="how-do-i-start-sharing-with-my-partner"><summary>How do I start sharing with my partner?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Open <span class="tk" data-m="the sidebar → Family &amp; Sharing" data-i="☰ → People you share with">the sidebar → Family &amp; Sharing</span>, and send an invitation. They accept on their device and the two of you are joined through your own iCloud — there is no account on our side and nothing passes through our servers.</p></div></details><details id="can-i-keep-some-things-private-from-my-partner"><summary>Can I keep some things private from my partner?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes. Any category, account, bill, investment account, mortgage, retirement plan, goal or single transaction can be kept private. Making something private also removes the copy already on their device on the next sync — it doesn&#x27;t merely stop updating it.</p></div></details><details id="does-my-partner-see-the-years-i-tracked-before-we-shared"><summary>Does my partner see the years I tracked before we shared?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Only if you hand it over. Your earlier history stays yours by default, and there&#x27;s a switch to share it — useful when one of you is new to the app and the other has years of it. A month they already have is never counted twice.</p></div></details><details id="how-do-we-combine-two-sets-of-finances"><summary>How do we combine two sets of finances?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Combine Finances walks it once: choose which accounts belong to the household, and for any category you both tracked, choose which budget to keep. It&#x27;s a single pass rather than a merge that guesses.</p></div></details><details id="can-we-see-who-spent-what"><summary>Can we see who spent what?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes. Every shared transaction shows who added it, and the month&#x27;s spending splits into a column for each of you plus one for shared household spending — rather than one lump you have to untangle.</p></div></details><details id="which-categories-count-as-household"><summary>Which categories count as household?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Rent, utilities, groceries, insurance and the like start out as shared, because they usually are. Everything else starts personal, and any category or single transaction can be changed at any time.</p></div></details><details id="can-we-tell-each-other-apart-at-a-glance"><summary>Can we tell each other apart at a glance?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes — each of you gets a color and a picture, and they follow you onto every screen: the split bar, the activity feed and the notes board. Colors and pictures are set on your own device.</p></div></details><details id="what-happens-if-we-stop-sharing"><summary>What happens if we stop sharing?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The shared copy is removed from their device. Anything you entered stays yours, and anything they entered stays theirs — neither of you is left holding half of the other&#x27;s ledger.</p></div></details><details id="is-business-money-shared-with-my-household"><summary>Is business money shared with my household?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>No, and it is enforced rather than assumed. Business transactions, business accounts and business clients are excluded from everything a household partner receives — not sent and then hidden, never sent.</p><p>That holds the other way too: a partner&#x27;s household view cannot reveal what a client paid you or what a job cost.</p><p>If something is genuinely both — a phone bill that is half work — split it by percentage. Only the personal share reaches the household side, and only the business share reaches the Schedule C figure.</p></div></details>
 <footer>
@@ -590,6 +658,32 @@ html[data-p=mac] [data-only=ios]{display:none}
   // re-check after the platform toggle changes which strips are visible
   document.addEventListener('click',function(e){ if(e.target.closest('.seg button')) setTimeout(armAll,60); });
   setTimeout(armAll,300);
+
+  // Phone menu: a full-screen sheet under the bar.
+  var mb=document.querySelector('.menu-btn');
+  function menu(o){d.classList.toggle('menu',o);if(mb)mb.setAttribute('aria-expanded',o);}
+  if(mb){mb.addEventListener('click',function(){menu(!d.classList.contains('menu'));});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false);});
+    document.querySelectorAll('.sheet a').forEach(function(a){a.addEventListener('click',function(){menu(false);});});
+    window.addEventListener('resize',function(){if(innerWidth>700)menu(false);});}
+
+  // Reading progress along the bottom edge of the bar.
+  var tick=false;
+  function prog(){tick=false;var h=document.documentElement.scrollHeight-innerHeight;
+    d.style.setProperty('--sp',h>0?Math.min(1,scrollY/h).toFixed(4):0);}
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});
+  prog();
+
+  // Content below the fold rises in as it arrives. Only what starts OFF
+  // screen is hidden, so nothing already visible ever blinks out and back.
+  if('IntersectionObserver' in window && !document.body.classList.contains('landing') &&
+     !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var rio=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('rise-in');rio.unobserve(e.target);}});},
+      {rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.wrap .tile,.wrap .card,.wrap details,.wrap .showcase figure,.wrap .gsec,.wrap .rival,.wrap .note,.wrap .ti,.wrap h2,.wrap .lede,.wrap .cmp-wrap,.wrap .band,.wrap .feats li').forEach(function(el){
+      if(el.getBoundingClientRect().top>innerHeight){el.classList.add('rise');rio.observe(el);}});
+  }
 
   var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
   if(!box)return;

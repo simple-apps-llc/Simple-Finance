@@ -9,9 +9,9 @@
      button it shifts over to mac will quick and then back to iphone... doesn't
      look super professional". A <head> script blocks rendering, so this lands
      before first paint. Keep it tiny and dependency-free. -->
-<script>(function(){var p=null;try{p=localStorage.getItem('sf-platform')}catch(e){}
+<script>(function(){var p=null,d=document.documentElement;try{p=localStorage.getItem('sf-platform')}catch(e){}
 if(!p){var u=navigator.userAgent;p=/iPad/.test(u)?'ipad':(/iPhone|iPod/.test(u)?'ios':'mac')}
-document.documentElement.setAttribute('data-p',p)})();</script>
+d.setAttribute('data-p',p);d.classList.add('js');})();</script>
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0C1F36">
 <title>Devices &amp; Widgets — Simple Finance Help</title>
@@ -479,10 +479,67 @@ html[data-p=mac] [data-only=ios]{display:none}
   .bar-in{padding:10px var(--gutter)}
   .ans,summary{padding-left:14px;padding-right:14px}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+/* ── premium layer, every page ─────────────────────────────── */
+/* Pages cross-fade into each other instead of flashing white; the bar is
+   named so it holds still while the page under it changes. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;
+  animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.bar{view-transition-name:bar}
+.skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--accent);color:#fff;
+  padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}
+.skip:focus{top:12px;text-decoration:none}
+.bar-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,#19D8A6,#5DF0C4 60%,#7DE3FF);transform-origin:left;
+  transform:scaleX(var(--sp,0));opacity:.9}
+/* phone menu */
+.menu-btn{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
+  border-radius:12px;position:relative;cursor:pointer;color:var(--ink);flex:0 0 auto}
+.menu-btn i{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:currentColor;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1)}
+.menu-btn i:first-child{top:15px}.menu-btn i:last-child{top:23px}
+html.menu .menu-btn i:first-child{top:19px;transform:rotate(45deg)}
+html.menu .menu-btn i:last-child{top:19px;transform:rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:19;display:flex;align-items:flex-end;padding:100px 28px 48px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+html.menu .sheet{opacity:1;visibility:visible;transition:opacity .35s}
+html.menu{overflow:hidden}
+.sheet-in{display:grid;gap:2px;width:100%}
+.sheet a{font:700 40px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;letter-spacing:-.04em;
+  color:var(--ink);opacity:0;transform:translateY(26px);
+  transition:opacity .3s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.sheet a:hover{text-decoration:none;color:var(--accent)}
+html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45ms + 60ms)}
+.sheet .sheet-badge{margin-top:30px;line-height:0}
+.sheet .sheet-badge img{width:150px;height:auto}
+@media(max-width:700px){
+  .navlink{display:none}
+  .menu-btn{display:block}
+  .bar-in{flex-wrap:nowrap}
+}
+@media(min-width:701px){.sheet{display:none}}
+/* reveals — added by script only to what starts below the fold */
+.rise{opacity:0;transform:translateY(22px)}
+.rise.rise-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
+/* the sub-page hero breathes: two slow lights drifting under the glass */
+.hero::before{content:"";position:absolute;inset:-40%;pointer-events:none;opacity:.55;
+  background:radial-gradient(28% 36% at 30% 40%,rgba(25,216,166,.32),transparent 70%),
+             radial-gradient(24% 30% at 70% 60%,rgba(125,227,255,.18),transparent 70%);
+  animation:heroDrift 18s ease-in-out infinite alternate}
+@keyframes heroDrift{0%{transform:translate(-4%,-2%) rotate(0deg)}100%{transform:translate(6%,4%) rotate(8deg)}}
+.hero h1{background:linear-gradient(100deg,#fff 30%,#BFF7E6 50%,#fff 70%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShine 9s linear 1s infinite}
+@keyframes heroShine{to{background-position:-220% 0}}
+.tile,.feat .card,.ti,.banner{position:relative}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
+  .hero::before,.hero h1{animation:none}
+  .rise{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does it work on iPad, Mac and Apple Watch?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, all three, and they are real apps rather than a phone screen stretched.\n\n• IPAD — opens in a tab layout with a sidebar available, and the wider screens lay out in two columns.\n• MAC — a proper Mac app: sidebar, ⌘F search, ⌘P printing, ⌘N for a new entry, and Budget or the Retirement Planner can each open in their own window beside the main one. It is the same purchase, not a separate one to buy.\n• APPLE WATCH — today's spending against pace, what is left in the budget, net worth, and your holdings merged by ticker with a sparkline and today's move. Complications put one figure on the watch face itself.\n\nWidgets cover the home screen, the lock screen and StandBy, and quick-log writes a purchase straight from a widget without opening the app."}}, {"@type": "Question", "name": "What can the widgets show?", "acceptedAnswer": {"@type": "Answer", "text": "Desktop and Notification Center widgets for what's left to spend, cash flow and net worth, plus a watch complication. There's also a quick-log widget for adding a transaction without opening the app."}}, {"@type": "Question", "name": "Can I lock the app?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — Touch ID or your Apple Watch on open, in Settings → Privacy & Security. There's also Hide Amounts to blur every figure on screen, which is the one to use when someone's looking over your shoulder."}}, {"@type": "Question", "name": "What does the Apple Watch app show?", "acceptedAnswer": {"@type": "Answer", "text": "The short answers, on the wrist: today's spending against pace, what is left in the budget, your net worth, and your holdings — merged by ticker, with a sparkline and today's move rather than yesterday's total.\n\nComplications put the number you care about on the watch face itself, and the rectangular one is designed to be legible on the smallest 40mm watch rather than on an Ultra."}}, {"@type": "Question", "name": "Can I log a purchase from a widget?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — quick-log writes straight from the widget without opening the app, and it can be undone from the widget too if you fat-finger it. The undo touches only that entry."}}, {"@type": "Question", "name": "I placed a widget and now I want it to show something else.", "acceptedAnswer": {"@type": "Answer", "text": "Right-click the widget → Edit Widget, and pick the metric there.\n\n🔴 The choice belongs to that PLACED widget, not to the app. Changing the default in the app does not reach a widget already placed on your desktop or in Notification Center — you either edit that widget or remove and re-add it."}}]}</script>
 </head><body>
+<a class="skip" href="#content">Skip to content</a>
 <div class="bar"><div class="bar-in">
   <a class="brand" href="../index.html">
     <img src="../help/img/logo-96.png" alt="" width="31" height="31">
@@ -498,8 +555,19 @@ html[data-p=mac] [data-only=ios]{display:none}
     <button data-p="ios" aria-pressed="false">iPhone</button>
     <button data-p="ipad" aria-pressed="false">iPad</button>
   </div>
-</div></div>
-<div class="wrap">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+</div><i class="bar-prog" aria-hidden="true"></i></div>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sheet-in">
+  <a href="../index.html" style="--k:0">Home</a>
+  <a href="../gallery.html" style="--k:1">Screenshots</a>
+  <a href="../compare.html" style="--k:2">Compare</a>
+  <a href="../support.html" style="--k:3">Help Center</a>
+  <a href="../help/contact.html" style="--k:4">Contact</a>
+  <a href="../privacy-policy.html" style="--k:5">Privacy</a>
+  <a class="sheet-badge" style="--k:6" href="https://apps.apple.com/app/id6777039726" aria-label="Download Simple Finance on the App Store"><img
+    src="../help/img/appstore-badge-black.svg" alt="Download on the App Store" width="150" height="50"></a>
+</div></nav>
+<div class="wrap" id="content">
 <p class="crumb"><a href="../support.html">Help Center</a> › Devices &amp; Widgets</p>
 <div class="sect"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 5.5h3"/></g></svg></span><h1>Devices &amp; Widgets</h1></div><p class="lede">iPhone, iPad, Mac, Apple Watch and widgets. 6 answers.</p><details id="does-it-work-on-ipad-mac-and-apple-watch"><summary>Does it work on iPad, Mac and Apple Watch?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes, all three, and they are real apps rather than a phone screen stretched.</p><ul><li>IPAD — opens in a tab layout with a sidebar available, and the wider screens lay out in two columns.</li><li>MAC — a proper Mac app: sidebar, ⌘F search, ⌘P printing, ⌘N for a new entry, and Budget or the Retirement Planner can each open in their own window beside the main one. It is the same purchase, not a separate one to buy.</li><li>APPLE WATCH — today&#x27;s spending against pace, what is left in the budget, net worth, and your holdings merged by ticker with a sparkline and today&#x27;s move. Complications put one figure on the watch face itself.</li></ul><p>Widgets cover the home screen, the lock screen and StandBy, and quick-log writes a purchase straight from a widget without opening the app.</p></div></details><details id="what-can-the-widgets-show"><summary>What can the widgets show?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p><span class="tk" data-m="Desktop and Notification Center widgets" data-i="Home Screen and Lock Screen widgets">Desktop and Notification Center widgets</span> for what&#x27;s left to spend, cash flow and net worth, plus a watch complication. There&#x27;s also a quick-log widget for adding a transaction without opening the app.</p></div></details><details id="can-i-lock-the-app"><summary>Can I lock the app?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes — <span class="tk" data-m="Touch ID or your Apple Watch" data-i="Face ID or Touch ID">Touch ID or your Apple Watch</span> on open, in Settings → Privacy &amp; Security. There&#x27;s also Hide Amounts to blur every figure on screen, which is the one to use when someone&#x27;s looking over your shoulder.</p></div></details><details id="what-does-the-apple-watch-app-show"><summary>What does the Apple Watch app show?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>The short answers, on the wrist: today&#x27;s spending against pace, what is left in the budget, your net worth, and your holdings — merged by ticker, with a sparkline and today&#x27;s move rather than yesterday&#x27;s total.</p><p>Complications put the number you care about on the watch face itself, and the rectangular one is designed to be legible on the smallest 40mm watch rather than on an Ultra.</p></div></details><details id="can-i-log-a-purchase-from-a-widget"><summary>Can I log a purchase from a widget?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Yes — quick-log writes straight from the widget without opening the app, and it can be undone from the widget too if you fat-finger it. The undo touches only that entry.</p></div></details><details id="i-placed-a-widget-and-now-i-want-it-to-show-something-else"><summary>I placed a widget and now I want it to show something else.<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p><span class="tk" data-m="Right-click the widget → Edit Widget" data-i="Touch and hold the widget → Edit Widget">Right-click the widget → Edit Widget</span>, and pick the metric there.</p><p>🔴 The choice belongs to that PLACED widget, not to the app. Changing the default in the app does not reach a widget already placed <span class="tk" data-m="on your desktop or in Notification Center" data-i="on your home screen">on your desktop or in Notification Center</span> — you either edit that widget or remove and re-add it.</p></div></details>
 <footer>
@@ -590,6 +658,32 @@ html[data-p=mac] [data-only=ios]{display:none}
   // re-check after the platform toggle changes which strips are visible
   document.addEventListener('click',function(e){ if(e.target.closest('.seg button')) setTimeout(armAll,60); });
   setTimeout(armAll,300);
+
+  // Phone menu: a full-screen sheet under the bar.
+  var mb=document.querySelector('.menu-btn');
+  function menu(o){d.classList.toggle('menu',o);if(mb)mb.setAttribute('aria-expanded',o);}
+  if(mb){mb.addEventListener('click',function(){menu(!d.classList.contains('menu'));});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false);});
+    document.querySelectorAll('.sheet a').forEach(function(a){a.addEventListener('click',function(){menu(false);});});
+    window.addEventListener('resize',function(){if(innerWidth>700)menu(false);});}
+
+  // Reading progress along the bottom edge of the bar.
+  var tick=false;
+  function prog(){tick=false;var h=document.documentElement.scrollHeight-innerHeight;
+    d.style.setProperty('--sp',h>0?Math.min(1,scrollY/h).toFixed(4):0);}
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});
+  prog();
+
+  // Content below the fold rises in as it arrives. Only what starts OFF
+  // screen is hidden, so nothing already visible ever blinks out and back.
+  if('IntersectionObserver' in window && !document.body.classList.contains('landing') &&
+     !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var rio=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('rise-in');rio.unobserve(e.target);}});},
+      {rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.wrap .tile,.wrap .card,.wrap details,.wrap .showcase figure,.wrap .gsec,.wrap .rival,.wrap .note,.wrap .ti,.wrap h2,.wrap .lede,.wrap .cmp-wrap,.wrap .band,.wrap .feats li').forEach(function(el){
+      if(el.getBoundingClientRect().top>innerHeight){el.classList.add('rise');rio.observe(el);}});
+  }
 
   var box=document.getElementById('q'),list=document.getElementById('results'),idx=null;
   if(!box)return;
