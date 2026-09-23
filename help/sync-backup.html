@@ -37,10 +37,13 @@ d.setAttribute('data-p',p);d.classList.add('js');})();</script>
   --shadow-lg:0 2px 4px rgba(12,31,54,.05),0 18px 40px -12px rgba(12,31,54,.18);
   --r:14px; --gutter:22px;
 }
+/* Dark is the brand navy, not near-black: near-black with neon accents read
+   as Halloween on the home page (2026-09-22), and the sub-pages open on the
+   same navy hero, so their sheet is a lighter step of it. */
 @media (prefers-color-scheme:dark){:root{
-  --ink:#EDF4F2; --body:#BDCBCE; --muted:#88999E;
-  --bg:#0A141C; --card:#111F2A; --card2:#16242F; --line:#1F3340;
-  --accent:#43E2B0; --accent-ink:#6FEDC6; --soft:#102C27; --bright:#19D8A6;
+  --ink:#EEF6F3; --body:#C2D0D4; --muted:#8FA2AA;
+  --bg:#10253A; --card:#152C43; --card2:#19324B; --line:#24405A;
+  --accent:#43E2B0; --accent-ink:#6FEDC6; --soft:#133A3E; --bright:#19D8A6;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px -6px rgba(0,0,0,.45);
   --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 18px 40px -12px rgba(0,0,0,.6);
 }}
@@ -115,39 +118,7 @@ html[data-p=ipad] .seg button[data-p=ipad]{
   html[data-p=ios] .seg button[data-p=ios],
   html[data-p=ipad] .seg button[data-p=ipad]{color:#062119}}
 
-/* ── hero ────────────────────────────────────────────────── */
-.hero{background:linear-gradient(155deg,#0C1F36 0%,#123246 48%,#0E4A44 100%);
-  border-radius:22px;padding:24px 32px;margin:20px 0 8px;position:relative;
-  overflow:hidden;box-shadow:var(--shadow-lg)}
-.hero::after{content:"";position:absolute;inset:auto -60px -110px auto;width:300px;
-  height:300px;border-radius:50%;background:radial-gradient(circle,rgba(25,216,166,.34),transparent 68%)}
-.hero-top{display:flex;align-items:center;gap:15px;margin-bottom:12px;position:relative}
-.hero-copy{min-width:0;position:relative}
-.hero-aside{min-width:0;position:relative}
-@media(min-width:880px){
-  .hero:has(.hero-aside),.hero.lead:has(.hero-aside){display:grid;
-    grid-template-columns:1fr auto;column-gap:48px;align-items:center}
-  .hero-aside{justify-self:end}
-  .hero-aside .stats{flex-direction:column;align-items:flex-start;gap:9px;margin-top:0}
-  .hero .hero-top,.hero.lead .hero-top{margin-bottom:10px}
-  .hero.lead .hero-copy .tag{margin-bottom:0}
-  .hero-aside .cta-note{margin-top:14px}
-}
-.hero-top img{width:58px;height:58px;border-radius:14px;
-  box-shadow:0 8px 24px -6px rgba(0,0,0,.55)}
-.hero h1{color:#fff;font-size:33px;margin:0}
-.hero .sub{color:#9FD9C8;font-size:14px;font-weight:600;letter-spacing:.02em;
-  text-transform:uppercase;margin:0 0 3px}
-.hero p{color:#C8DCD9;margin:0;max-width:52ch;position:relative;font-size:16.5px}
-.stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;position:relative}
-.stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);
-  border-radius:999px;padding:6px 14px;color:#DCEDE9;font-size:13px;font-weight:600}
-.stat b{color:#3FE9B8}
-
 /* ── search ──────────────────────────────────────────────── */
-.searchbox{position:relative;margin:22px 0 0}
-.searchbox svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);
-  width:19px;height:19px;color:var(--muted);pointer-events:none}
 input[type=search]{width:100%;padding:15px 16px 15px 45px;border-radius:13px;
   border:1px solid var(--line);background:var(--card);color:var(--ink);
   font:16px/1.4 inherit;box-shadow:var(--shadow);appearance:none}
@@ -185,7 +156,7 @@ input[type=search]:focus{outline:none;border-color:var(--accent);
 .chip.tint{background:color-mix(in srgb,var(--c) 13%,#fff);
   color:color-mix(in srgb,var(--c) 74%,#0C1F36)}
 @media (prefers-color-scheme:dark){.chip.tint{
-  background:color-mix(in srgb,var(--c) 20%,#0A141C);
+  background:color-mix(in srgb,var(--c) 20%,#10253A);
   color:color-mix(in srgb,var(--c) 82%,#fff)}}
 
 /* ── disclosure rows ─────────────────────────────────────── */
@@ -265,9 +236,6 @@ details[open] .caret{transform:rotate(90deg);color:var(--accent)}
   background:var(--line);border-radius:99px}
 
 /* ── misc ────────────────────────────────────────────────── */
-.crumb{font-size:13px;color:var(--muted);margin:24px 0 12px}
-.crumb a{color:var(--muted)}
-.crumb a:hover{color:var(--accent)}
 .lede{color:var(--muted);font-size:17px;margin:0 0 6px;max-width:60ch}
 /* The accent goes all the way round, not down one edge. A single colored
    left bar on a white card is the browser's default blockquote look; a soft
@@ -288,8 +256,6 @@ kbd{display:inline-block;min-width:25px;text-align:center;background:var(--card)
 .pill{display:inline-block;background:var(--soft);color:var(--accent);
   font-size:11px;font-weight:650;padding:3px 9px;border-radius:999px;
   letter-spacing:.01em;flex:0 0 auto}
-.sect{display:flex;align-items:center;gap:11px;margin:42px 0 4px}
-.sect h2{margin:0}
 footer{margin-top:64px;padding-top:26px;border-top:1px solid var(--line);
   color:var(--muted);font-size:13.5px;text-align:center}
 footer a{color:var(--muted)}
@@ -297,20 +263,11 @@ footer a:hover{color:var(--accent)}
 footer .fl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
 footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10px}
 /* ── landing page ────────────────────────────────────────── */
-.hero.lead{padding:26px 40px}
-.hero.lead h1{font-size:40px;letter-spacing:-.03em;margin:0}
-.hero.lead .tag{color:#BFE3D8;font-size:19px;line-height:1.55;max-width:34ch;margin:0}
-.hero.lead .hero-top{flex-direction:row;align-items:center;gap:18px;margin-bottom:4px}
-.hero.lead .hero-top img{width:66px;height:66px}
-.hero.lead .hero-top img{border-radius:16px}
 /* Apple's badge is the artwork; we only give it a hit area and clear space.
    No background, no border, no shadow — modifying the badge is not allowed. */
 .cta{display:inline-block;line-height:0;transition:opacity .16s,transform .16s}
 .cta:hover{opacity:.85;transform:translateY(-1px);text-decoration:none}
 .cta img{display:block;width:180px;height:auto}
-.cta-row{display:block;margin-top:28px;position:relative}
-.cta-note{color:#8FBDB2;font-size:13.5px;line-height:1.55;margin:16px 0 0;
-  max-width:40ch;position:relative}
 .feat{display:grid;gap:13px;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));
   margin-top:18px}
 .feat .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
@@ -410,17 +367,6 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
     box-shadow:8px 0 8px -8px rgba(0,0,0,.14)}
   .cmp thead th:nth-child(2){z-index:3}
 }
-/* the home-page teaser that sends people to the comparison */
-.banner{display:flex;align-items:center;gap:16px;margin:34px 0 0;padding:20px 22px;
-  border-radius:var(--r);background:var(--card);box-shadow:var(--shadow);
-  border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
-  color:var(--ink);transition:transform .17s,box-shadow .17s}
-.banner:hover{text-decoration:none;transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-.banner b{display:block;font-size:16px;font-weight:650;letter-spacing:-.014em;
-  margin-bottom:3px}
-.banner .txt>span{color:var(--muted);font-size:14px;line-height:1.55;display:block}
-.banner .go{margin-left:auto;color:var(--accent);font-size:22px;font-weight:600;
-  flex:0 0 auto}
 /* one rival, on the comparison page */
 .rival{border-top:1px solid var(--line);padding:22px 0 4px}
 .rival h3{font-size:19px;margin:0 0 8px;display:flex;align-items:baseline;gap:12px;
@@ -444,11 +390,6 @@ footer img{width:26px;height:26px;border-radius:7px;opacity:.75;margin-bottom:10
 .feats li::before{content:"";position:absolute;left:2px;top:7px;width:8px;height:8px;
   border-radius:50%;background:var(--accent);opacity:.55}
 .feats a{font-weight:600}
-.policy-meta{color:var(--muted);font-size:14px;margin:0 0 4px}
-@media(max-width:560px){
-  .hero.lead{padding:32px 22px}.hero.lead h1{font-size:32px}
-  .hero.lead .tag{font-size:17px}.hero.lead .hero-top img{width:66px;height:66px}
-}
 .scrollhint{color:var(--muted);font-size:13px;margin:16px 0 0;display:flex;align-items:center;gap:7px}
 .scrollhint::after{content:"→";color:var(--accent);font-weight:700}
 .tk{white-space:nowrap}
@@ -467,8 +408,7 @@ html[data-p=mac] [data-only=ios]{display:none}
 .poster.ipad img{width:min(420px,74vw)}
 .shot.ipadw img,.shot.wide img{border-radius:12px}
 @media(max-width:560px){
-  h1{font-size:27px}.hero{padding:28px 22px;border-radius:18px}
-  .hero h1{font-size:26px}.hero-top img{width:48px;height:48px}
+  h1{font-size:27px}
   /* Phones: drop the 94vw side margin and trim the gutter so the content
      (and the comparison table's Simple Finance column) uses the full width.
      🔴 `.wrap,.bar-in{max-width:100%}` is the load-bearing line — without it
@@ -523,22 +463,512 @@ html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45m
 /* reveals — added by script only to what starts below the fold */
 .rise{opacity:0;transform:translateY(22px)}
 .rise.rise-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
-/* the sub-page hero breathes: two slow lights drifting under the glass */
-.hero::before{content:"";position:absolute;inset:-40%;pointer-events:none;opacity:.55;
-  background:radial-gradient(28% 36% at 30% 40%,rgba(25,216,166,.32),transparent 70%),
-             radial-gradient(24% 30% at 70% 60%,rgba(125,227,255,.18),transparent 70%);
-  animation:heroDrift 18s ease-in-out infinite alternate}
-@keyframes heroDrift{0%{transform:translate(-4%,-2%) rotate(0deg)}100%{transform:translate(6%,4%) rotate(8deg)}}
-.hero h1{background:linear-gradient(100deg,#fff 30%,#BFF7E6 50%,#fff 70%);background-size:220% 100%;
-  -webkit-background-clip:text;background-clip:text;color:transparent;animation:heroShine 9s linear 1s infinite}
-@keyframes heroShine{to{background-position:-220% 0}}
-.tile,.feat .card,.ti,.banner{position:relative}
+.tile,.feat .card,.ti{position:relative}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
-  .hero::before,.hero h1{animation:none}
   .rise{opacity:1;transform:none}}
+/* ═════════════════════════════════════════════════════════════════════════
+   SUB-PAGES — every page except index.html (which is landing.css).
+
+   The same two tones as the home page, in the same order:
+     · DUSK  — the hero at the top and the ground under everything;
+     · LIGHT — the content, as one rounded sheet laid over the dusk.
+   So every page opens the way the home page does and ends on dusk, and a
+   rubber-band past either end shows the same colour as the edge you left.
+
+   Motion is the home page's vocabulary, used sparingly: words rise once, the
+   hero's lights drift, the bar changes tone where the sheet passes under it,
+   things below the fold rise as they arrive. Nothing is pinned or scroll-
+   jacked here — these are pages people read and come back to.
+
+   🔴 The phone-crash rules from landing.css hold here too: no CSS blur or
+   drop-shadow filters on big things, no blend modes, no permanent
+   will-change, hover-only effects only where there is hover.
+   ═════════════════════════════════════════════════════════════════════════ */
+body.sp{
+  --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --serif:"New York",ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --ease:cubic-bezier(.2,.8,.2,1); --ease2:cubic-bezier(.77,0,.18,1);
+  --gut:clamp(20px,4vw,64px); --dusk:#0C1F33; --mint:#19D8A6; --mint-ink:#4BE4B8;
+  --d-ink:#F4FAF8; --d-body:rgba(228,241,237,.84); --d-mute:rgba(214,232,227,.66);
+  background:#0C1F33;overflow-x:hidden;overflow-x:clip}
+html:has(body.sp){background:#0C1F33;scroll-padding-top:84px}
+body.sp ::selection{background:rgba(18,184,139,.25)}
+
+/* ── the bar: clear over the hero, dusk glass once scrolled, frosted white
+      where the light sheet passes under it (light appearance only) ──── */
+body.sp .bar{position:fixed;left:0;right:0;top:0;background:transparent;
+  border-bottom:1px solid transparent;backdrop-filter:none;-webkit-backdrop-filter:none;
+  transition:background .45s,border-color .45s}
+body.sp.scrolled .bar{background:rgba(12,31,51,.74);border-bottom-color:rgba(255,255,255,.08);
+  backdrop-filter:saturate(160%) blur(16px);-webkit-backdrop-filter:saturate(160%) blur(16px)}
+body.sp .brand{color:#fff}
+body.sp .brand img{box-shadow:0 4px 14px -4px rgba(25,216,166,.5)}
+body.sp .navlink{color:rgba(232,246,241,.7)}
+body.sp .navlink:hover,body.sp .navlink.active{color:#fff}
+body.sp .navlink.active::after{background:var(--mint)}
+body.sp .seg{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12);box-shadow:none}
+body.sp .seg button{color:rgba(232,246,241,.7)}
+body.sp .seg button:hover{color:#fff}
+html[data-p=mac] body.sp .seg button[data-p=mac],
+html[data-p=ios] body.sp .seg button[data-p=ios],
+html[data-p=ipad] body.sp .seg button[data-p=ipad]{background:var(--mint);color:#04241B}
+body.sp .menu-btn{color:#fff}
+@media (prefers-color-scheme:light){
+  body.sp.nav-l.scrolled .bar{background:rgba(246,250,249,.84);border-bottom-color:rgba(12,31,54,.08)}
+  body.sp.nav-l .brand{color:#0C1F36}
+  body.sp.nav-l .navlink{color:#5D707C}
+  body.sp.nav-l .navlink:hover,body.sp.nav-l .navlink.active{color:#0C1F36}
+  body.sp.nav-l .navlink.active::after{background:#12B88B}
+  body.sp.nav-l .seg{background:#fff;border-color:rgba(12,31,54,.1)}
+  body.sp.nav-l .seg button{color:#5D707C}
+  body.sp.nav-l .seg button:hover{color:#0C1F36}
+  body.sp.nav-l .menu-btn{color:#0C1F36}
+}
+/* the phone menu is dusk on every page, so the bar over it is always the
+   dusk bar — whatever it was showing before the menu opened */
+body.sp .sheet{background:rgba(12,31,51,.9)}
+body.sp .sheet a{color:#F4FAF8}
+body.sp .sheet a:hover{color:var(--mint-ink)}
+html.menu body.sp .bar{background:transparent;border-bottom-color:transparent;
+  backdrop-filter:none;-webkit-backdrop-filter:none}
+html.menu body.sp .brand,html.menu body.sp .menu-btn{color:#fff}
+html.menu body.sp .seg{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12)}
+html.menu body.sp .seg button{color:rgba(232,246,241,.7)}
+
+/* ── the hero ─────────────────────────────────────────────────────────── */
+/* It sits ABOVE the sheet (z 3 over 2) with no background of its own: the
+   lights live in .sp-aura, which stops 34px short of the bottom, so the
+   sheet's rounded corners show through the empty strip and a search panel
+   or a phone can hang over the sheet's edge. */
+/* --hpb is the hero's bottom padding (above the 34px the sheet overlaps). A
+   screen or chart hanging out of the hero subtracts exactly this, so the
+   overhang is the same on every screen size — it was not, on phones. */
+.sp-hero{--hpb:clamp(64px,11vh,128px);position:relative;z-index:3;isolation:isolate;color:var(--d-body);
+  padding:calc(64px + clamp(52px,11vh,132px)) var(--gut) calc(34px + var(--hpb))}
+.sp-hero.sm{--hpb:clamp(44px,7vh,76px);padding:calc(64px + clamp(30px,6vh,64px)) var(--gut) calc(34px + var(--hpb))}
+.sp-hero-in{position:relative;max-width:1180px;margin:0 auto}
+/* a help page's hero lines up with the text under it, not with the page */
+.sp-hero.sm{padding-left:0;padding-right:0}
+.sp-hero.sm .sp-hero-in{max-width:min(94vw,1600px);padding:0 var(--gutter)}
+/* reading pages keep a reading width; galleries and tables keep the room */
+body.sp-read .sp-hero.sm .sp-hero-in,body.sp-read .sp-main>.wrap{max-width:min(94vw,1080px)}
+@media (max-width:560px){body.sp-read .sp-hero.sm .sp-hero-in,body.sp-read .sp-main>.wrap{max-width:100%}}
+.sp-hero.center .sp-hero-in{text-align:center}
+.sp-aura{position:absolute;left:0;right:0;top:0;bottom:34px;z-index:-1;overflow:hidden;pointer-events:none;
+  background:radial-gradient(90% 80% at 50% 125%,#15505A 0%,transparent 60%),
+             radial-gradient(70% 60% at 8% 0%,#16395E 0%,transparent 70%),
+             radial-gradient(50% 50% at 94% 12%,#123F4D 0%,transparent 70%),#0C1F33}
+.sp-aura i{position:absolute;border-radius:50%;pointer-events:none}
+.sp-aura .a1{width:62vw;height:62vw;left:-14vw;top:-34vw;
+  background:radial-gradient(closest-side,rgba(46,221,176,.26),transparent);animation:spD1 24s ease-in-out infinite alternate}
+.sp-aura .a2{width:48vw;height:48vw;right:-14vw;top:-12vw;
+  background:radial-gradient(closest-side,rgba(125,190,255,.17),transparent);animation:spD2 28s ease-in-out infinite alternate}
+.sp-aura .a3{width:80vw;height:40vw;left:10vw;bottom:-24vw;
+  background:radial-gradient(closest-side,rgba(46,221,176,.2),transparent);animation:spD3 32s ease-in-out infinite alternate}
+/* fade the lights into plain dusk at the bottom, so the strip the sheet's
+   corners show through is the same colour as what is above it */
+.sp-aura::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;
+  background:linear-gradient(180deg,rgba(12,31,51,0),#0C1F33)}
+@keyframes spD1{to{transform:translate(14vw,10vw) scale(1.12)}}
+@keyframes spD2{to{transform:translate(-10vw,12vw) scale(.9)}}
+@keyframes spD3{to{transform:translate(-8vw,-6vw) scale(1.1)}}
+.sp-hero.purple .sp-aura .a1{background:radial-gradient(closest-side,rgba(125,122,255,.26),transparent)}
+.sp-hero.purple .sp-aura .a3{background:radial-gradient(closest-side,rgba(125,122,255,.18),transparent)}
+
+.sp-kick{font:650 12.5px/1.3 var(--display);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mint-ink);margin:0 0 20px}
+.sp-hero .sp-kick{opacity:0;animation:spUp .9s var(--ease) .05s forwards}
+.sp-hero.purple .sp-kick{color:#B7B5FF}
+.sp-crumb{font:500 13.5px/1.3 var(--display);color:rgba(214,232,227,.6);margin:0 0 22px;
+  opacity:0;animation:spUp .9s var(--ease) .02s forwards}
+.sp-crumb a{color:rgba(214,232,227,.78)}
+.sp-crumb a:hover{color:#fff;text-decoration:none}
+.sp-crumb span{margin:0 8px;opacity:.5}
+.sp-badge-row{display:flex;align-items:center;gap:14px;margin:0 0 20px;opacity:0;animation:spUp .9s var(--ease) .05s forwards}
+.sp-badge-row .sp-kick{margin:0;opacity:1;animation:none}
+.sp-hero .chip.tint{background:color-mix(in srgb,var(--c) 22%,#0C1F33);color:color-mix(in srgb,var(--c) 80%,#fff);
+  width:44px;height:44px;border-radius:13px}
+.sp-hero .chip.tint svg{width:23px;height:23px}
+
+.sp-h1{font:700 clamp(42px,6.2vw,96px)/.98 var(--display);letter-spacing:-.048em;color:var(--d-ink);
+  margin:0;text-wrap:balance}
+.sp-hero.center .sp-h1{margin:0 auto;max-width:15ch}
+.sp-hero.sm .sp-h1{font-size:clamp(36px,4.8vw,66px);letter-spacing:-.043em;max-width:22ch}
+.sp-h1 .w{display:inline-block}
+.sp-h1 em,.sp-final-h em{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.02em;
+  background:linear-gradient(100deg,#2EDDB0 0%,#A6F6DE 38%,#2EDDB0 60%,#8AD8FF 100%);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  padding:0 .06em 0 .04em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+/* an italic capital leans back into the space before it; the left padding
+   gives it room and keeps the gradient painted under the part that leans */
+.sp-hero.purple .sp-h1 em{background-image:linear-gradient(100deg,#9C9AFF 0%,#DAD9FF 38%,#9C9AFF 60%,#7FD0FF 100%)}
+html.js .sp-h1 .w{opacity:0;transform:translateY(.5em) rotate(2deg);
+  animation:spWord 1.05s var(--ease) forwards;animation-delay:calc(.1s + var(--wi) * 60ms)}
+html.js .sp-h1 em.w{animation:spWord 1.05s var(--ease) forwards,spShim 7s linear 2s infinite;
+  animation-delay:calc(.1s + var(--wi) * 60ms),2s}
+@keyframes spWord{to{opacity:1;transform:none}}
+@keyframes spShim{to{background-position:-220% 0}}
+@keyframes spUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+.sp-lede{font-size:clamp(17px,1.4vw,20.5px);line-height:1.56;color:var(--d-mute);max-width:54ch;
+  margin:24px 0 0;text-wrap:pretty;opacity:0;animation:spUp 1s var(--ease) .42s forwards}
+.sp-hero.center .sp-lede{margin-left:auto;margin-right:auto;text-wrap:balance}
+.sp-lede b{color:var(--d-ink);font-weight:600}
+.sp-cta{display:flex;gap:18px 20px;align-items:center;flex-wrap:wrap;margin-top:34px;
+  opacity:0;animation:spUp 1s var(--ease) .56s forwards}
+.sp-hero.center .sp-cta{justify-content:center}
+/* Apple's badge is shown exactly as supplied: no tilt, no shadow, no magnet. */
+.sp-badge{display:inline-block;line-height:0;transition:opacity .2s}
+.sp-badge:hover{opacity:.86;text-decoration:none}
+.sp-badge img{width:168px;height:auto;display:block}
+.sp-ghost{display:inline-flex;align-items:center;gap:8px;color:var(--d-ink);font:600 15.5px/1 var(--display);
+  padding:15px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.06);transition:background .3s,border-color .3s}
+.sp-ghost svg{width:17px;height:17px;color:var(--mint);transition:transform .4s var(--ease)}
+.sp-ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28);text-decoration:none}
+.sp-ghost:hover svg{transform:translateY(3px)}
+.sp-ghost.fwd:hover svg{transform:translateX(4px)}
+.sp-free{display:flex;align-items:center;gap:9px;margin:18px 0 0;font-size:13.5px;color:var(--d-mute);
+  opacity:0;animation:spUp 1s var(--ease) .68s forwards}
+.sp-hero.center .sp-free{justify-content:center}
+.sp-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint);flex:0 0 auto}
+.sp-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px;opacity:0;animation:spUp 1s var(--ease) .62s forwards}
+.sp-hero.center .sp-chips{justify-content:center}
+.sp-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:var(--d-body);
+  font:600 13.5px/1 var(--display);letter-spacing:-.005em}
+.sp-chip b{color:var(--mint-ink);font-variant-numeric:tabular-nums;font-weight:700}
+
+/* ── the help centre's search, in the hero ────────────────────────────── */
+/* z-index: the chips under it fade in too, and an element with a running (or
+   filled) opacity animation is its own layer — without this they paint over
+   the results panel */
+.sp-search{position:relative;z-index:5;max-width:700px;margin:36px auto 0;text-align:left;
+  opacity:0;animation:spUp 1s var(--ease) .5s forwards}
+.sp-search>svg{position:absolute;left:22px;top:32px;width:22px;height:22px;transform:translateY(-50%);
+  color:var(--mint-ink);pointer-events:none;z-index:1}
+.sp-search input[type=search]{height:64px;padding:0 64px 0 58px;border-radius:20px;
+  border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;
+  font:500 18px/1.2 var(--display);letter-spacing:-.01em;box-shadow:0 30px 60px -32px rgba(0,0,0,.7);
+  transition:background .3s,border-color .3s,box-shadow .3s}
+.sp-search input[type=search]::placeholder{color:rgba(214,232,227,.55)}
+.sp-search input[type=search]:focus{background:rgba(255,255,255,.12);border-color:rgba(46,221,176,.6);
+  box-shadow:0 0 0 4px rgba(46,221,176,.16),0 30px 60px -32px rgba(0,0,0,.7)}
+.sp-search input[type=search]::-webkit-search-cancel-button{filter:invert(1);opacity:.6}
+.sp-slash{position:absolute;right:18px;top:32px;transform:translateY(-50%);min-width:26px;height:26px;
+  display:grid;place-items:center;border-radius:7px;border:1px solid rgba(255,255,255,.2);
+  color:rgba(214,232,227,.66);font:600 13px/1 ui-monospace,SFMono-Regular,Menlo,monospace;pointer-events:none;
+  transition:opacity .2s}
+.sp-search:focus-within .sp-slash{opacity:0}
+@media (hover:none){.sp-slash{display:none}}
+.sp-search #results{position:absolute;left:0;right:0;top:calc(100% + 10px);margin:0;padding:6px;
+  background:var(--card);border:1px solid var(--line);border-radius:18px;max-height:min(58vh,520px);overflow:auto;
+  box-shadow:0 40px 80px -30px rgba(2,10,20,.55),0 2px 8px -2px rgba(2,10,20,.2);
+  overscroll-behavior:contain;animation:spPop .35s var(--ease)}
+.sp-search #results:empty,.sp-search.shut #results{display:none}
+.sp-search #results li{border:0}
+.sp-search #results a{padding:12px 14px;border-radius:12px;color:var(--ink)}
+.sp-search #results a:hover,.sp-search #results a:focus{background:var(--soft);text-decoration:none;outline:none}
+@keyframes spPop{from{opacity:0;transform:translateY(-6px) scale(.985)}to{opacity:1;transform:none}}
+
+/* ── hero visuals: a fan of screens, and the Monte Carlo ──────────────── */
+/* 🔴 The fan's variables are --tx/--ty/--rot/--sc, NOT --x/--r: theme.py has
+   --r (the card radius, 14px), which the centre screen inherited — rotate(14px)
+   is invalid, so its whole transform fell to none and it sat half its width
+   off centre.
+   The fan hangs out of the hero and over the top of the sheet; the sheet
+   gets the same amount of extra room at its top (body.sp-overlap). */
+body.sp{--hang:clamp(70px,10vw,170px)}
+.sp-fan{position:relative;max-width:1180px;margin:clamp(44px,7vh,76px) auto calc(-34px - var(--hpb) - var(--hang));
+  height:clamp(300px,40vw,600px);pointer-events:none;transform:translateY(var(--fy,0px))}
+.sp-fan-set{position:absolute;inset:0}
+.sp-fan .f{position:absolute;left:50%;bottom:0;opacity:0;
+  transform:translate(-50%,24%) rotate(var(--rot,0deg)) scale(var(--sc,1));
+  animation:spFan 1.3s var(--ease) forwards;animation-delay:calc(.35s + var(--k,0) * 90ms)}
+@keyframes spFan{to{opacity:1;transform:translate(calc(-50% + var(--tx,0%)),var(--ty,0%)) rotate(var(--rot,0deg)) scale(var(--sc,1))}}
+/* a phone: a bezel drawn in CSS around the raw capture */
+.sp-phone{width:clamp(150px,17vw,250px);aspect-ratio:620/1347;padding:2.4%;border-radius:15%/7%;
+  background:#0B1016;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 40px 70px -30px rgba(0,0,0,.75)}
+.sp-phone img{display:block;width:100%;height:100%;object-fit:cover;border-radius:12.6%/5.9%}
+.sp-tab{width:clamp(240px,34vw,500px);aspect-ratio:1400/1050;padding:2%;border-radius:5.2%/7%;
+  background:#0B1016;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 40px 70px -30px rgba(0,0,0,.75)}
+.sp-tab img{display:block;width:100%;height:100%;object-fit:cover;border-radius:3.4%/4.6%}
+.sp-win{width:clamp(300px,52vw,780px);aspect-ratio:1800/1066;filter:none}
+.sp-win img{display:block;width:100%;height:auto;border-radius:1.2%;box-shadow:0 40px 80px -34px rgba(0,0,0,.8)}
+.sp-fan .f1{--k:0;z-index:5}
+.sp-fan .f2{--k:1;--tx:-52%;--ty:6%;--rot:-7deg;--sc:.9;z-index:4}
+.sp-fan .f3{--k:1;--tx:52%;--ty:6%;--rot:7deg;--sc:.9;z-index:4}
+.sp-fan .f4{--k:2;--tx:-100%;--ty:14%;--rot:-13deg;--sc:.8;z-index:3}
+.sp-fan .f5{--k:2;--tx:100%;--ty:14%;--rot:13deg;--sc:.8;z-index:3}
+.sp-fan .sp-tab.f2{--tx:-44%;--ty:8%;--rot:-5deg;--sc:.82}
+.sp-fan .sp-tab.f3{--tx:44%;--ty:8%;--rot:5deg;--sc:.82}
+.sp-fan .sp-win.f2{--tx:-30%;--ty:-6%;--rot:0deg;--sc:.8}
+.sp-fan .sp-win.f3{--tx:30%;--ty:-6%;--rot:0deg;--sc:.8}
+.sp-fan.solo .f1{--tx:0%}
+.sp-fan.solo{margin-top:clamp(28px,4.5vh,52px)}
+body.sp-overlap .sp-main{padding-top:calc(var(--hang) + 34px + clamp(28px,5vh,56px))}
+@media (max-width:700px){
+  .sp-fan .f4,.sp-fan .f5{display:none}
+  .sp-phone{width:clamp(130px,36vw,190px)}
+  .sp-fan .sp-phone.f2{--tx:-58%}.sp-fan .sp-phone.f3{--tx:58%}
+  .sp-tab{width:min(66vw,340px)}
+  .sp-win{width:min(88vw,520px)}
+  .sp-fan{height:clamp(260px,78vw,420px)}
+}
+
+.sp-mc{position:relative;max-width:980px;margin:clamp(40px,6vh,64px) auto calc(-34px - var(--hpb) - var(--hang));
+  padding:22px 22px 16px;border-radius:28px;background:#12283E;border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 50px 100px -40px rgba(0,0,0,.8);text-align:left;opacity:0;animation:spUp 1.1s var(--ease) .6s forwards}
+.sp-mc-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 4px 12px}
+.sp-mc-t{font:650 14px/1.3 var(--display);color:var(--d-ink);margin:0}
+.sp-mc-t small{display:block;font-weight:500;font-size:12.5px;color:var(--d-mute);margin-top:3px}
+.sp-mc-n{font:700 clamp(30px,3.4vw,44px)/1 var(--display);letter-spacing:-.03em;color:#C9C7FF;margin:0;text-align:right}
+.sp-mc-n small{display:block;font:500 12.5px/1.3 var(--display);letter-spacing:0;color:var(--d-mute);margin-top:4px}
+.sp-mc-c{display:block;width:100%;height:clamp(200px,28vw,340px)}
+.sp-mc-key{display:flex;gap:18px;flex-wrap:wrap;margin:10px 4px 0;font:500 12.5px/1.2 var(--display);color:var(--d-mute)}
+.sp-mc-key i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:7px;vertical-align:middle}
+
+/* ── the sheet ────────────────────────────────────────────────────────── */
+.sp-main{position:relative;z-index:2;margin-top:-34px;border-radius:34px;background:var(--bg);
+  padding:clamp(44px,7vh,76px) 0 clamp(64px,10vh,112px)}
+.sp-main>.wrap{padding-bottom:0}
+.sp-main>.wrap>:first-child{margin-top:0}
+@media (prefers-color-scheme:dark){
+  .sp-main{box-shadow:0 -1px 0 rgba(255,255,255,.07),0 -40px 80px -40px rgba(0,0,0,.6)}
+}
+.sp-main h2{font:700 clamp(28px,3.3vw,46px)/1.07 var(--display);letter-spacing:-.036em;
+  margin:clamp(64px,10vh,112px) 0 14px;text-wrap:balance;color:var(--ink)}
+.sp-main h2 em{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.015em;
+  background:linear-gradient(100deg,#0A8F6C 0%,#15B98D 40%,#0A8F6C 62%,#1F7FC0 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .05em 0 .03em;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+@media (prefers-color-scheme:dark){.sp-main h2 em{background-image:linear-gradient(100deg,#2EDDB0,#A6F6DE 45%,#8AD8FF)}}
+.sp-main h2+.lede{margin-top:4px}
+.sp-main .sp-kick{color:var(--accent);margin:clamp(64px,10vh,112px) 0 12px}
+.sp-main .sp-kick+h2{margin-top:0}
+.sp-main .lede{font-size:clamp(16.5px,1.25vw,18.5px);color:var(--muted);max-width:62ch;text-wrap:pretty}
+.sp-main h3{font-family:var(--display)}
+
+/* cards and tiles: rounder, softer, and they lift */
+.sp-main .tile,.sp-main .feat .card,.sp-main .ti,.sp-main .banner{border-radius:18px;
+  box-shadow:0 1px 2px rgba(12,31,54,.04),0 12px 32px -20px rgba(12,31,54,.24);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .3s}
+.sp-main .tile:hover,.sp-main .banner:hover{transform:translateY(-4px);
+  box-shadow:0 2px 4px rgba(12,31,54,.05),0 28px 52px -26px rgba(12,31,54,.38);
+  border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.sp-main .grid{gap:14px}
+.sp-main .tile{padding:18px}
+.sp-main .feat{gap:14px}
+.sp-main .feat .card{padding:24px}
+.sp-main .feat h3{font-size:17.5px;letter-spacing:-.02em;margin:16px 0 6px}
+.sp-main .feat p{font-size:14.5px}
+/* a light that follows the pointer across a card — only where there is one */
+@media (hover:hover) and (pointer:fine){
+  .spot{position:relative}
+  .spot::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+    background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(18,184,139,.11),transparent 62%);
+    transition:opacity .35s}
+  .spot:hover::before{opacity:1}
+}
+
+/* the hub's four doors */
+.sp-doors{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0}
+.sp-door{position:relative;display:flex;flex-direction:column;gap:14px;min-height:172px;padding:22px;
+  border-radius:22px;background:var(--card);border:1px solid var(--line);color:var(--ink);
+  box-shadow:0 1px 2px rgba(12,31,54,.04),0 14px 36px -22px rgba(12,31,54,.26);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .3s}
+.sp-door:hover{text-decoration:none;transform:translateY(-5px);
+  box-shadow:0 2px 4px rgba(12,31,54,.05),0 30px 56px -28px rgba(12,31,54,.4);
+  border-color:color-mix(in srgb,var(--c,var(--accent)) 50%,var(--line))}
+.sp-door .chip{width:46px;height:46px;border-radius:14px}
+.sp-door .chip svg{width:24px;height:24px}
+.sp-door b{display:block;font:650 18px/1.2 var(--display);letter-spacing:-.022em;margin-top:auto}
+.sp-door .txt>span{display:block;color:var(--muted);font-size:13.5px;margin-top:4px}
+.sp-door .go{position:absolute;right:20px;top:22px;width:20px;height:20px;color:var(--muted);
+  transition:transform .45s var(--ease),color .3s}
+.sp-door:hover .go{transform:translate(3px,-3px);color:var(--c,var(--accent))}
+@media (max-width:1000px){.sp-doors{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.sp-doors{grid-template-columns:1fr}.sp-door{min-height:0;flex-direction:row;align-items:center}
+  .sp-door b{margin-top:0}.sp-door .go{top:50%;margin-top:-10px}}
+
+/* accordions: rounder, and they open with a glide (sub.js) */
+.sp-main details{border-radius:16px;margin:10px 0;box-shadow:0 1px 2px rgba(12,31,54,.04),0 8px 22px -16px rgba(12,31,54,.2);
+  transition:border-color .3s,box-shadow .4s var(--ease)}
+.sp-main details:hover{border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+.sp-main details[open]{box-shadow:0 2px 4px rgba(12,31,54,.05),0 22px 44px -28px rgba(12,31,54,.34)}
+.sp-main summary{padding:17px 20px;font-size:16px;transition:color .2s}
+.sp-main summary .caret{transition:transform .45s var(--ease)}
+.sp-main .ans{padding:2px 20px 20px}
+@media (max-width:560px){.sp-main summary,.sp-main .ans{padding-left:15px;padding-right:15px}}
+
+/* screenshots open full size */
+.sp-main .showcase img,.sp-main .shots img{cursor:zoom-in;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+@media (hover:hover) and (pointer:fine){
+  .sp-main .showcase figure:hover img,.sp-main .shot:hover img{transform:translateY(-4px)}
+}
+.sp-main .showcase figure:focus-visible,.sp-main .shot:focus-visible{outline:none}
+.sp-main .showcase figure:focus-visible img,.sp-main .shot:focus-visible img{outline:2.5px solid var(--accent);outline-offset:4px}
+
+/* numbered sections on the long gallery */
+.sp-sec-n{display:flex;align-items:center;gap:12px;margin:clamp(64px,10vh,112px) 0 12px;
+  font:650 12.5px/1 var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.sp-sec-n::after{content:"";height:1px;flex:1 1 auto;background:var(--line)}
+.sp-sec-n+h2{margin-top:0}
+
+/* the compare table */
+.sp-main .cmp-wrap{border-radius:22px;background:var(--card);border:1px solid var(--line);padding:6px 22px 4px;
+  box-shadow:0 1px 2px rgba(12,31,54,.04),0 18px 44px -28px rgba(12,31,54,.3)}
+.sp-main .cmp td:first-child,.sp-main .cmp th:first-child{background:var(--card)}
+.sp-main .cmp thead th{padding-top:18px}
+.sp-main .cmp .us{background:color-mix(in srgb,var(--accent) 9%,var(--card))}
+.sp-main .cmp thead .us{color:var(--accent-ink)}
+.sp-main .cmp thead .us img{width:18px;height:18px;border-radius:5px;vertical-align:-4px;margin-right:7px}
+html.js .sp-main .cmp-wrap tbody tr{opacity:0;transition:opacity .6s var(--ease);transition-delay:calc(var(--ri,0) * 55ms)}
+html.js .sp-main .cmp-wrap.in tbody tr{opacity:1}
+@media (max-width:767px){.sp-main .cmp-wrap{padding:4px 14px;border-radius:18px}}
+
+/* the rivals, as cards */
+.sp-rivals{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px}
+.sp-main .sp-rivals .rival{border:1px solid var(--line);border-radius:20px;background:var(--card);padding:22px 24px 12px;
+  box-shadow:0 1px 2px rgba(12,31,54,.04),0 12px 32px -22px rgba(12,31,54,.24)}
+@media (max-width:760px){.sp-rivals{grid-template-columns:1fr}}
+
+/* the dusk bands inside the sheet */
+.sp-main .band{border-radius:26px;padding:clamp(28px,4vw,48px);position:relative;overflow:hidden;
+  background:radial-gradient(80% 90% at 100% 0%,rgba(46,221,176,.16),transparent 60%),linear-gradient(150deg,#0C1F33,#0F3242)}
+.sp-main .band h2{font:700 clamp(24px,2.6vw,34px)/1.12 var(--display);letter-spacing:-.03em;margin:0 0 12px;color:#fff}
+.sp-main .note{border-radius:18px;padding:20px 22px}
+
+/* "still stuck?" at the foot of a help page */
+.sp-still{display:flex;align-items:center;gap:16px;margin:clamp(48px,8vh,80px) 0 0;padding:22px 24px;border-radius:20px;
+  background:var(--card);border:1px solid var(--line);color:var(--ink);
+  box-shadow:0 1px 2px rgba(12,31,54,.04),0 12px 32px -22px rgba(12,31,54,.24);transition:transform .5s var(--ease),border-color .3s}
+.sp-still:hover{text-decoration:none;transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.sp-still b{display:block;font:650 17px/1.25 var(--display);letter-spacing:-.02em}
+.sp-still .txt>span{display:block;color:var(--muted);font-size:14px;margin-top:3px}
+.sp-still .go{margin-left:auto;width:22px;height:22px;color:var(--accent);flex:0 0 auto;transition:transform .45s var(--ease)}
+.sp-still:hover .go{transform:translateX(4px)}
+
+/* the policy's table of contents */
+.sp-toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.sp-toc a{display:inline-flex;align-items:center;padding:8px 13px;border-radius:999px;background:var(--card);
+  border:1px solid var(--line);color:var(--body);font:600 13px/1 var(--display);transition:border-color .2s,color .2s}
+.sp-toc a:hover{text-decoration:none;color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+
+/* shortcut tables as cards */
+.sp-main table.keys{background:var(--card);border:1px solid var(--line);border-radius:18px;border-collapse:separate;
+  border-spacing:0;overflow:hidden;box-shadow:0 1px 2px rgba(12,31,54,.04),0 10px 28px -20px rgba(12,31,54,.22)}
+.sp-main table.keys td{padding:13px 18px}
+.sp-main table.keys tr:last-child td{border-bottom:0}
+
+/* feature cards on the app pages */
+.sp-feats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px}
+.sp-feat{display:flex;gap:14px;align-items:flex-start;padding:22px;border-radius:20px;background:var(--card);
+  border:1px solid var(--line);box-shadow:0 1px 2px rgba(12,31,54,.04),0 12px 32px -22px rgba(12,31,54,.24)}
+.sp-feat p{margin:2px 0 0;color:var(--body);font-size:15.5px;line-height:1.55}
+@media (max-width:700px){.sp-feats{grid-template-columns:1fr}}
+.sp-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.sp-links a{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;background:var(--card);
+  border:1px solid var(--line);color:var(--ink);font:600 14.5px/1 var(--display);transition:border-color .2s,transform .4s var(--ease)}
+.sp-links a svg{width:16px;height:16px;color:var(--accent);transition:transform .4s var(--ease)}
+.sp-links a:hover{text-decoration:none;border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.sp-links a:hover svg{transform:translateX(3px)}
+
+/* 404: the ways back sit in the hero */
+.sp-hero .sp-doors{margin-top:40px;text-align:left;opacity:0;animation:spUp 1s var(--ease) .6s forwards}
+.sp-hero .sp-door{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:var(--d-ink);box-shadow:none;min-height:150px}
+.sp-hero .sp-door:hover{background:rgba(255,255,255,.1);border-color:rgba(46,221,176,.45)}
+.sp-hero .sp-door .txt>span{color:var(--d-mute)}
+.sp-hero .sp-door .go{color:var(--d-mute)}
+.sp-hero .sp-doors.three{grid-template-columns:repeat(3,1fr);max-width:900px;margin-left:auto;margin-right:auto}
+@media (max-width:760px){.sp-hero .sp-doors.three{grid-template-columns:1fr}}
+
+/* ── the finale and the footer, on dusk ───────────────────────────────── */
+.sp-final{position:relative;overflow:hidden;text-align:center;color:var(--d-body);
+  padding:clamp(96px,15vh,170px) var(--gut) clamp(40px,6vh,64px)}
+.sp-rays{position:absolute;left:50%;top:clamp(110px,16vh,200px);width:min(1300px,180vw);aspect-ratio:1;
+  pointer-events:none;transform:translate(-50%,-50%);opacity:.85;
+  background:repeating-conic-gradient(from 0deg,rgba(46,221,176,.09) 0deg 4deg,transparent 4deg 16deg);
+  -webkit-mask:radial-gradient(closest-side,#000 8%,transparent 62%);mask:radial-gradient(closest-side,#000 8%,transparent 62%)}
+@media (hover:hover) and (pointer:fine){.sp-rays{animation:spRot 140s linear infinite}}
+@keyframes spRot{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.sp-final>*:not(.sp-rays){position:relative}
+.sp-icon{width:clamp(96px,11vw,140px);aspect-ratio:1;margin:0 auto 38px;border-radius:22.4%;overflow:hidden;
+  box-shadow:0 36px 70px -26px rgba(46,221,176,.45),0 0 0 1px rgba(255,255,255,.12);animation:spFloat 7s ease-in-out infinite}
+.sp-icon img{display:block;width:100%;height:100%}
+@keyframes spFloat{50%{translate:0 -10px}}
+.sp-final-h{font:700 clamp(38px,5.8vw,88px)/1.02 var(--display);letter-spacing:-.045em;color:var(--d-ink);
+  margin:0 auto;max-width:16ch;text-wrap:balance}
+.sp-final .sp-cta{justify-content:center;opacity:1;animation:none;margin-top:36px}
+.sp-final .sp-badge img{width:184px}
+.sp-final .sp-free{justify-content:center;opacity:1;animation:none}
+.sp-plats{display:flex;align-items:center;justify-content:center;gap:10px 8px;flex-wrap:wrap;color:var(--d-mute);font-size:14px;margin:24px 0 0}
+.sp-plats svg{width:18px;height:18px;color:var(--mint);margin-left:10px}
+.sp-plats svg:first-child{margin-left:0}
+body.sp footer.sp-foot{margin:0;border:0;padding:clamp(48px,8vh,72px) var(--gut) 40px;color:rgba(214,232,227,.55);
+  font-size:13.5px;text-align:center}
+body.sp footer.sp-foot a{color:rgba(214,232,227,.72)}
+body.sp footer.sp-foot a:hover{color:#fff;text-decoration:none}
+body.sp footer.sp-foot img{opacity:.9;box-shadow:0 4px 14px -4px rgba(25,216,166,.5)}
+.sp-mark{margin:0;padding-top:clamp(20px,4vh,40px);text-align:center;white-space:nowrap;pointer-events:none;user-select:none;
+  font:800 clamp(56px,13vw,210px)/.8 var(--display);letter-spacing:-.06em;overflow:hidden;
+  background:linear-gradient(180deg,rgba(114,240,204,.2),rgba(114,240,204,0) 86%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ── reveals in the sheet, staggered along a row ─────────────────────── */
+.sp-main .rise.rise-in{transition-delay:var(--rd,0s)}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ── lightbox ─────────────────────────────────────────────────────────── */
+.sp-lb{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:clamp(56px,7vh,90px) clamp(16px,6vw,110px);
+  background:rgba(8,22,34,.92);opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+.sp-lb.open{opacity:1;visibility:visible;transition:opacity .3s}
+html.lb-open{overflow:hidden}
+.sp-lb img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:14px;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.08);transform-origin:center}
+.sp-lb button{position:absolute;appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.09);
+  color:#fff;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  transition:background .2s,transform .3s var(--ease)}
+.sp-lb button:hover{background:rgba(255,255,255,.18)}
+.sp-lb button svg{width:22px;height:22px}
+.sp-lb-x{top:18px;right:18px}
+.sp-lb-p{left:clamp(10px,2vw,32px);top:50%;margin-top:-24px}
+.sp-lb-n{right:clamp(10px,2vw,32px);top:50%;margin-top:-24px}
+.sp-lb-c{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);margin:0;font:600 13px/1 var(--display);
+  color:rgba(214,232,227,.7);letter-spacing:.08em}
+.sp-lb.one .sp-lb-p,.sp-lb.one .sp-lb-n,.sp-lb.one .sp-lb-c{display:none}
+@media (max-width:700px){.sp-lb-p,.sp-lb-n{top:auto;bottom:14px;margin:0}.sp-lb-c{bottom:30px}}
+
+/* ── phones ───────────────────────────────────────────────────────────── */
+@media (max-width:700px){
+  .sp-hero{--hpb:56px;padding-top:calc(60px + 44px)}
+  .sp-hero.sm{--hpb:38px;padding-top:calc(60px + 26px)}
+  .sp-h1{font-size:clamp(38px,11vw,54px)}
+  .sp-hero.sm .sp-h1{font-size:clamp(32px,9vw,44px)}
+  .sp-aura .a1{width:120vw;height:120vw;top:-70vw}
+  .sp-aura .a2{display:none}
+  .sp-aura .a3{width:140vw;height:80vw;left:-20vw;bottom:-50vw}
+  .sp-search input[type=search]{height:58px;font-size:17px;border-radius:18px}
+  .sp-search>svg,.sp-slash{top:29px}
+  .sp-main{border-radius:28px;margin-top:-28px}
+  .sp-mc{padding:16px 12px 12px;border-radius:22px}
+  .sp-mc-c{height:220px}
+  .sp-mc-n{text-align:left}
+}
+
+/* ── still, under reduced motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  .sp-aura i,.sp-rays,.sp-icon{animation:none}
+  .sp-hero .sp-kick,.sp-crumb,.sp-badge-row,.sp-lede,.sp-cta,.sp-free,.sp-chips,.sp-search,.sp-mc,.sp-hero .sp-doors{opacity:1;animation:none}
+  html.js .sp-h1 .w,html.js .sp-h1 em.w{opacity:1;transform:none;animation:none}
+  .sp-fan .f{opacity:1;animation:none;transform:translate(calc(-50% + var(--tx,0%)),var(--ty,0%)) rotate(var(--rot,0deg)) scale(var(--sc,1))}
+  html.js .sp-main .cmp-wrap tbody tr{opacity:1}
+  .rv{opacity:1;transform:none}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I sync between my iPhone and Mac?", "acceptedAnswer": {"@type": "Answer", "text": "Sign both devices into the same Apple ID, then turn on iCloud Sync in Settings on EACH one — it is off until you turn it on, and it takes effect after the app restarts.\n\nAccounts, transactions, budgets, goals, investments and your plan all mirror through your own private iCloud. The first sync after switching it on is the slow one; after that changes usually land within seconds of the other device opening the app.\n\nOne thing that surprises people: nothing syncs to an app that isn't running. A device you haven't opened in a week shows last week's numbers until you open it."}}, {"@type": "Question", "name": "How do I back up my data?", "acceptedAnswer": {"@type": "Answer", "text": "Two ways, and they do different jobs.\n\nA JSON backup (Settings → Data & Backup) writes everything to a single file you own and can put anywhere — it is your escape hatch, and the thing to take before any big change. There is also a weekly automatic backup to your iCloud Drive if you turn it on.\n\niCloud Sync is NOT a backup. It mirrors your current state, so deleting something on one device deletes it everywhere. That is what sync is for; it is not what protects you from a mistake.\n\nRestores are additive — they add what's missing rather than wiping what's there — so restoring an old file will never empty your app."}}, {"@type": "Question", "name": "Will I lose data if I delete the app?", "acceptedAnswer": {"@type": "Answer", "text": "Your iCloud-synced copy and any JSON/iCloud-Drive backups survive a delete. Reinstall, sign into the same Apple ID, and your data flows back. Keep a JSON backup before big changes just in case."}}, {"@type": "Question", "name": "How do I restore from a backup?", "acceptedAnswer": {"@type": "Answer", "text": "Settings → Data & Backup → restore, then pick the file.\n\nAfterwards, run Settings → Data & Backup → Repair Duplicated Records. A restore on top of existing data is the single most common way to end up with the same record twice, and that screen is built for exactly this."}}, {"@type": "Question", "name": "Does it back up on its own?", "acceptedAnswer": {"@type": "Answer", "text": "It can — automatic backups to your own iCloud Drive, on a schedule, in a folder you can open in the Files app.\n\nThat is a different thing from iCloud Sync. Sync keeps your devices matching; a backup is a file you can restore from if something goes wrong on all of them at once. Having sync on is not a reason to skip backups."}}]}</script>
-</head><body>
+</head><body class="sp sp-read">
 <a class="skip" href="#content">Skip to content</a>
 <div class="bar"><div class="bar-in">
   <a class="brand" href="/">
@@ -565,12 +995,9 @@ html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45m
   <a href="../help/contact.html" style="--k:4">Contact</a>
   <a href="../privacy-policy.html" style="--k:5">Privacy</a>
   <a class="sheet-badge" style="--k:6" href="https://apps.apple.com/app/id6777039726" aria-label="Download Simple Finance on the App Store"><img
-    src="../help/img/appstore-badge-black.svg" alt="Download on the App Store" width="150" height="50"></a>
+    src="../help/img/appstore-badge-white.svg" alt="Download on the App Store" width="150" height="50"></a>
 </div></nav>
-<div class="wrap" id="content">
-<p class="crumb"><a href="../support.html">Help Center</a> › Sync &amp; Backup</p>
-<div class="sect"><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.726) scale(1.0588)"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 4v5h-5"/></g></svg></span><h1>Sync &amp; Backup</h1></div><p class="lede">iCloud sync, backups, and moving to a new device. 5 answers.</p><details id="how-do-i-sync-between-my-iphone-and-mac"><summary>How do I sync between my iPhone and Mac?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Sign both devices into the same Apple ID, then turn on iCloud Sync in Settings on EACH one — it is off until you turn it on, and it takes effect after the app restarts.</p><p>Accounts, transactions, budgets, goals, investments and your plan all mirror through your own private iCloud. The first sync after switching it on is the slow one; after that changes usually land within seconds of the other device opening the app.</p><p>One thing that surprises people: nothing syncs to an app that isn&#x27;t running. A device you haven&#x27;t opened in a week shows last week&#x27;s numbers until you open it.</p></div></details><details id="how-do-i-back-up-my-data"><summary>How do I back up my data?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Two ways, and they do different jobs.</p><p>A JSON backup (Settings → Data &amp; Backup) writes everything to a single file you own and can put anywhere — it is your escape hatch, and the thing to take before any big change. There is also a weekly automatic backup to your iCloud Drive if you turn it on.</p><p>iCloud Sync is NOT a backup. It mirrors your current state, so deleting something on one device deletes it everywhere. That is what sync is for; it is not what protects you from a mistake.</p><p>Restores are additive — they add what&#x27;s missing rather than wiping what&#x27;s there — so restoring an old file will never empty your app.</p></div></details><details id="will-i-lose-data-if-i-delete-the-app"><summary>Will I lose data if I delete the app?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Your iCloud-synced copy and any JSON/iCloud-Drive backups survive a delete. Reinstall, sign into the same Apple ID, and your data flows back. Keep a JSON backup before big changes just in case.</p></div></details><details id="how-do-i-restore-from-a-backup"><summary>How do I restore from a backup?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Settings → Data &amp; Backup → restore, then pick the file.</p><p>Afterwards, run Settings → Data &amp; Backup → Repair Duplicated Records. A restore on top of existing data is the single most common way to end up with the same record twice, and that screen is built for exactly this.</p></div></details><details id="does-it-back-up-on-its-own"><summary>Does it back up on its own?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>It can — automatic backups to your own iCloud Drive, on a schedule, in a folder you can open in the Files app.</p><p>That is a different thing from iCloud Sync. Sync keeps your devices matching; a backup is a file you can restore from if something goes wrong on all of them at once. Having sync on is not a reason to skip backups.</p></div></details>
-<footer>
+<main id="content"><div class="sp-hero sm"><div class="sp-aura" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div><div class="sp-hero-in"><p class="sp-crumb"><a href="../support.html">Help Center</a><span aria-hidden="true">›</span><span class="here">Sync &amp; Backup</span></p><div class="sp-badge-row"><span class="chip tint" style="--c:#00C896"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.726) scale(1.0588)"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 4v5h-5"/></g></svg></span><p class="sp-kick">5 answers</p></div><h1 class="sp-h1"><span class="w" style="--wi:0">Sync</span> <span class="w" style="--wi:1">&amp;</span> <span class="w" style="--wi:2">Backup</span></h1><p class="sp-lede">iCloud sync, backups, and moving to a new device.</p></div></div><div class="sp-main"><div class="wrap"><details id="how-do-i-sync-between-my-iphone-and-mac"><summary>How do I sync between my iPhone and Mac?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Sign both devices into the same Apple ID, then turn on iCloud Sync in Settings on EACH one — it is off until you turn it on, and it takes effect after the app restarts.</p><p>Accounts, transactions, budgets, goals, investments and your plan all mirror through your own private iCloud. The first sync after switching it on is the slow one; after that changes usually land within seconds of the other device opening the app.</p><p>One thing that surprises people: nothing syncs to an app that isn&#x27;t running. A device you haven&#x27;t opened in a week shows last week&#x27;s numbers until you open it.</p></div></details><details id="how-do-i-back-up-my-data"><summary>How do I back up my data?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Two ways, and they do different jobs.</p><p>A JSON backup (Settings → Data &amp; Backup) writes everything to a single file you own and can put anywhere — it is your escape hatch, and the thing to take before any big change. There is also a weekly automatic backup to your iCloud Drive if you turn it on.</p><p>iCloud Sync is NOT a backup. It mirrors your current state, so deleting something on one device deletes it everywhere. That is what sync is for; it is not what protects you from a mistake.</p><p>Restores are additive — they add what&#x27;s missing rather than wiping what&#x27;s there — so restoring an old file will never empty your app.</p></div></details><details id="will-i-lose-data-if-i-delete-the-app"><summary>Will I lose data if I delete the app?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Your iCloud-synced copy and any JSON/iCloud-Drive backups survive a delete. Reinstall, sign into the same Apple ID, and your data flows back. Keep a JSON backup before big changes just in case.</p></div></details><details id="how-do-i-restore-from-a-backup"><summary>How do I restore from a backup?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>Settings → Data &amp; Backup → restore, then pick the file.</p><p>Afterwards, run Settings → Data &amp; Backup → Repair Duplicated Records. A restore on top of existing data is the single most common way to end up with the same record twice, and that screen is built for exactly this.</p></div></details><details id="does-it-back-up-on-its-own"><summary>Does it back up on its own?<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="ans"><p>It can — automatic backups to your own iCloud Drive, on a schedule, in a folder you can open in the Files app.</p><p>That is a different thing from iCloud Sync. Sync keeps your devices matching; a backup is a file you can restore from if something goes wrong on all of them at once. Having sync on is not a reason to skip backups.</p></div></details><a class="sp-still" href="../help/contact.html"><span class="chip tint" style="--c:#0A84FF"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M21 3L10.5 13.5"/><path d="M21 3l-6.8 18-3.7-7.5L3 9.8z"/></g></svg></span><span class="txt"><b>Still stuck?</b><span>A person reads every message &mdash; ask us directly.</span></span><svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></main><footer class="sp-foot">
   <img src="../help/img/logo-96.png" alt="" width="26" height="26">
   <div class="fl">
     <a href="../gallery.html">Screenshots</a>
@@ -583,8 +1010,7 @@ html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45m
   </div>
   &copy; 2026 Simple Finance LLC &middot; Simple Finance is not a
   bank and does not give financial advice.
-</footer>
-</div>
+</footer><p class="sp-mark" aria-hidden="true">Simple Finance</p>
 <script>var SEARCH_URL="../help/search.json",LINK_BASE="../";
 
 (function(){
@@ -630,6 +1056,10 @@ html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45m
     if(strip.scrollWidth-strip.clientWidth<8) return; // fits, no arrows
     strip.dataset.armed='1';
     var wrap=document.createElement('div'); wrap.className='strip-wrap';
+    // 🔴 the wrapper carries the strip's platform, so switching Mac/iPhone/iPad
+    // hides its arrows WITH it — they used to stay behind, floating over the
+    // next section, after the toggle had hidden the strip they belonged to
+    if(strip.dataset.plat) wrap.dataset.plat=strip.dataset.plat;
     strip.parentNode.insertBefore(wrap,strip); wrap.appendChild(strip);
     var L=mkBtn('left',strip), R=mkBtn('right',strip);
     wrap.appendChild(L); wrap.appendChild(R);
@@ -683,7 +1113,7 @@ html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45m
     var rio=new IntersectionObserver(function(es){es.forEach(function(e){
       if(e.isIntersecting){e.target.classList.add('rise-in');rio.unobserve(e.target);}});},
       {rootMargin:'0px 0px -6% 0px'});
-    document.querySelectorAll('.wrap .tile,.wrap .card,.wrap details,.wrap .showcase figure,.wrap .gsec,.wrap .rival,.wrap .note,.wrap .ti,.wrap h2,.wrap .lede,.wrap .cmp-wrap,.wrap .band,.wrap .feats li').forEach(function(el){
+    document.querySelectorAll('.wrap .tile,.wrap .card,.wrap details,.wrap .showcase figure,.wrap .gsec,.wrap .rival,.wrap .note,.wrap .ti,.wrap h2,.wrap .lede,.wrap .cmp-wrap,.wrap .band,.wrap .feats li,.wrap .sp-door,.wrap .sp-feat,.wrap .sp-still,.wrap .sp-sec-n,.wrap .sp-kick,.wrap .shots .shot,.wrap table.keys,.wrap .sp-toc,.wrap .sp-links').forEach(function(el){
       if(el.getBoundingClientRect().top>innerHeight){el.classList.add('rise');rio.observe(el);}});
   }
 
@@ -714,6 +1144,331 @@ html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45m
       });},110);
   });
 
+})();
+</script><script>/* Sub-pages (every page but the home page). The home page is landing.js.
+   Everything here is either a one-time entrance or a response to the reader;
+   nothing is scroll-driven except the bar's tone and a small drift on the
+   hero's screens. Reduced motion gets the finished state of everything. */
+(function () {
+  var D = document, H = D.documentElement, B = D.body;
+  if (!B || !B.classList.contains('sp')) return;
+  var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  function $(s, r) { return (r || D).querySelector(s); }
+  function $$(s, r) { return [].slice.call((r || D).querySelectorAll(s)); }
+  var IO = 'IntersectionObserver' in window;
+
+  // ── the bar: dusk glass once scrolled, frosted white over the sheet ──
+  var sheet = $('.sp-main'), fan = $('.sp-fan'), tick = false;
+  function frame() {
+    tick = false;
+    var y = scrollY;
+    B.classList.toggle('scrolled', y > 6);
+    // white only while the light sheet is actually under the bar — not once it
+    // has scrolled away and the finale's dusk is there instead
+    if (sheet) { var sr = sheet.getBoundingClientRect(); B.classList.toggle('nav-l', sr.top <= 58 && sr.bottom > 58); }
+    // the hero's screens drift up a touch faster than the page — only while
+    // they are on screen, and written to their own transform
+    if (fan && !RM) {
+      var r = fan.getBoundingClientRect();
+      if (r.bottom > -40 && r.top < innerHeight) fan.style.transform = 'translate3d(0,' + (-y * .1).toFixed(1) + 'px,0)';
+    }
+  }
+  addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(frame); } }, { passive: true });
+  addEventListener('resize', frame);
+  frame();
+
+  // ── rows arrive in order: siblings in a grid get a small stagger ─────
+  $$('.sp-main .rise').forEach(function (el) {
+    var p = el.parentElement;
+    if (!p || !/\b(grid|feat|sp-doors|sp-rivals|sp-feats|trust|showcase|shots|feats)\b/.test(p.className)) return;
+    var i = [].indexOf.call(p.children, el);
+    el.style.setProperty('--rd', (Math.min(i, 5) * 70) + 'ms');
+  });
+
+  // ── the light that follows the pointer across a card ─────────────────
+  if (FINE) {
+    $$('.sp-main .tile,.sp-main .feat .card,.sp-main .ti,.sp-door,.sp-feat,.sp-rivals .rival,.sp-still')
+      .forEach(function (el) { el.classList.add('spot'); });
+    D.addEventListener('pointermove', function (e) {
+      var c = e.target.closest && e.target.closest('.spot');
+      if (!c) return;
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left).toFixed(0) + 'px');
+      c.style.setProperty('--my', (e.clientY - r.top).toFixed(0) + 'px');
+    }, { passive: true });
+  }
+
+  // ── counts in the hero run up once ───────────────────────────────────
+  function countUp(el) {
+    var to = +el.getAttribute('data-count');
+    if (RM || !to) { el.textContent = to; return; }
+    var t0 = 0;
+    (function f(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / 1100), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(to * e);
+      if (p < 1) requestAnimationFrame(f);
+    })(performance.now());
+  }
+  // they start at 0 while still invisible (the chips fade in at .6s), so the
+  // real figure never flashes up before the count
+  var counts = $$('[data-count]');
+  if (!RM) counts.forEach(function (el) { el.textContent = '0'; });
+  if (counts.length) setTimeout(function () { counts.forEach(countUp); }, RM ? 0 : 650);
+
+  // ── reveals for the finale, and the comparison table row by row ──────
+  var rvs = $$('.rv'), cmps = $$('.sp-main .cmp-wrap');
+  cmps.forEach(function (w) { $$('tbody tr', w).forEach(function (tr, i) { tr.style.setProperty('--ri', i); }); });
+  if (IO && !RM) {
+    var rio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    rvs.concat(cmps).forEach(function (el) { rio.observe(el); });
+  } else rvs.concat(cmps).forEach(function (el) { el.classList.add('in'); });
+
+  // ── accordions glide open and shut ───────────────────────────────────
+  $$('.sp-main details').forEach(function (d) {
+    var s = $('summary', d);
+    if (!s) return;
+    s.addEventListener('click', function (e) {
+      if (RM || !d.animate) return;
+      e.preventDefault();
+      if (d._a) d._a.cancel();
+      var open = !d.open, from = d.offsetHeight;
+      if (open) d.open = true;
+      var edge = d.offsetHeight - d.clientHeight;
+      var to = open ? d.offsetHeight : s.offsetHeight + edge;
+      var a = d.animate({ height: [from + 'px', to + 'px'] },
+        { duration: open ? 420 : 320, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      d._a = a;
+      a.onfinish = function () { d._a = null; if (!open) d.open = false; };
+      a.oncancel = function () { d._a = null; };
+    });
+  });
+  // A link to an answer (every search result is one) opens that answer.
+  function openTarget() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var el = id && D.getElementById(id);
+    if (el && el.tagName === 'DETAILS' && !el.open) el.open = true;
+  }
+  openTarget();
+  addEventListener('hashchange', openTarget);
+
+  // ── the help centre's search ─────────────────────────────────────────
+  var q = D.getElementById('q'), box = q && q.closest('.sp-search');
+  if (q && box) {
+    var base = q.getAttribute('placeholder'), ex = [];
+    try { ex = JSON.parse(q.getAttribute('data-examples') || '[]'); } catch (e) {}
+    var ei = 0, ci = 0, dir = 1, tmr = 0, live = !RM && ex.length > 0;
+    // Example questions type themselves into the empty field, until the
+    // reader starts one of their own.
+    function typeStep() {
+      if (!live) return;
+      var w = ex[ei];
+      if (dir > 0) {
+        ci++;
+        q.setAttribute('placeholder', w.slice(0, ci));
+        if (ci >= w.length) { dir = -1; tmr = setTimeout(typeStep, 1800); return; }
+        tmr = setTimeout(typeStep, 48 + Math.random() * 60);
+      } else {
+        ci--;
+        q.setAttribute('placeholder', ci ? w.slice(0, ci) : base);
+        if (ci <= 0) { dir = 1; ei = (ei + 1) % ex.length; tmr = setTimeout(typeStep, 900); return; }
+        tmr = setTimeout(typeStep, 22);
+      }
+    }
+    function stopTyping() { live = false; clearTimeout(tmr); q.setAttribute('placeholder', base); }
+    if (live) tmr = setTimeout(typeStep, 2200);
+    q.addEventListener('focus', function () { stopTyping(); box.classList.remove('shut'); });
+    q.addEventListener('input', function () { box.classList.remove('shut'); });
+    q.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { q.value = ''; q.dispatchEvent(new Event('input')); q.blur(); }
+      else if (e.key === 'ArrowDown') { var a = $('#results a'); if (a) { e.preventDefault(); a.focus(); } }
+    });
+    D.addEventListener('click', function (e) { if (!box.contains(e.target)) box.classList.add('shut'); });
+    // "/" jumps to the search box from anywhere on the page
+    D.addEventListener('keydown', function (e) {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      var t = D.activeElement && D.activeElement.tagName;
+      if (t === 'INPUT' || t === 'TEXTAREA' || (D.activeElement && D.activeElement.isContentEditable)) return;
+      e.preventDefault(); q.focus();
+    });
+  }
+
+  // ── lightbox: every screenshot opens full size, out of itself ────────
+  var lb = null, lbList = [], lbI = 0, lbImg = null, lbN = null, lbBack = null;
+  function noScroll(e) { e.preventDefault(); }
+  function lbBuild() {
+    lb = D.createElement('div'); lb.className = 'sp-lb';
+    lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Screenshot');
+    lb.innerHTML = '<button class="sp-lb-x" type="button" aria-label="Close">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+      '<button class="sp-lb-p" type="button" aria-label="Previous screenshot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>' +
+      '<img alt="">' +
+      '<button class="sp-lb-n" type="button" aria-label="Next screenshot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>' +
+      '<p class="sp-lb-c"></p>';
+    B.appendChild(lb);
+    lb.addEventListener('wheel', noScroll, { passive: false });
+    lb.addEventListener('touchmove', noScroll, { passive: false });
+    lbImg = $('img', lb); lbN = $('.sp-lb-c', lb);
+    $('.sp-lb-x', lb).addEventListener('click', lbClose);
+    $('.sp-lb-p', lb).addEventListener('click', function (e) { e.stopPropagation(); lbGo(-1); });
+    $('.sp-lb-n', lb).addEventListener('click', function (e) { e.stopPropagation(); lbGo(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) lbClose(); });
+    var sx = null;
+    lb.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      if (sx == null) return;
+      var d = e.changedTouches[0].clientX - sx; sx = null;
+      if (Math.abs(d) > 50) lbGo(d < 0 ? 1 : -1);
+    }, { passive: true });
+  }
+  function lbShow(i) {
+    lbI = (i + lbList.length) % lbList.length;
+    var src = lbList[lbI];
+    lbImg.src = src.currentSrc || src.src; lbImg.alt = src.alt || '';
+    lbN.textContent = (lbI + 1) + ' / ' + lbList.length;
+    lb.classList.toggle('one', lbList.length < 2);
+  }
+  function lbOpen(list, i, from) {
+    if (!lb) lbBuild();
+    lbList = list; lbBack = D.activeElement;
+    lbShow(i);
+    H.classList.add('lb-open'); lb.classList.add('open');
+    $('.sp-lb-x', lb).focus({ preventScroll: true });
+    if (RM || !from || !lbImg.animate) return;
+    // FLIP: the full-size picture starts exactly over the thumbnail
+    var go = function () {
+      var a = from.getBoundingClientRect(), b = lbImg.getBoundingClientRect();
+      if (!b.width) return;
+      var sc = a.width / b.width, dx = a.left + a.width / 2 - (b.left + b.width / 2),
+          dy = a.top + a.height / 2 - (b.top + b.height / 2);
+      lbImg.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + sc + ')' }, { transform: 'none' }],
+        { duration: 540, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    };
+    if (lbImg.complete) go(); else lbImg.addEventListener('load', go, { once: true });
+  }
+  function lbGo(k) {
+    if (!lb || !lb.classList.contains('open') || lbList.length < 2) return;
+    lbShow(lbI + k);
+    if (!RM && lbImg.animate) lbImg.animate([{ opacity: 0, transform: 'translateX(' + (k * 40) + 'px)' }, { opacity: 1, transform: 'none' }],
+      { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' });
+  }
+  function lbClose() {
+    if (!lb || !lb.classList.contains('open')) return;
+    lb.classList.remove('open'); H.classList.remove('lb-open');
+    if (lbBack && lbBack.focus) lbBack.focus({ preventScroll: true });
+  }
+  D.addEventListener('keydown', function (e) {
+    if (!lb || !lb.classList.contains('open')) return;
+    if (e.key === 'Escape') { e.preventDefault(); lbClose(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); lbGo(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); lbGo(-1); }
+    else if (e.key === 'Tab') {
+      e.preventDefault();
+      var bs = $$('button', lb).filter(function (b) { return b.offsetParent; }), k = bs.indexOf(D.activeElement);
+      bs[(k + (e.shiftKey ? -1 : 1) + bs.length) % bs.length].focus();
+    }
+  });
+  $$('.sp-main .showcase,.sp-main .shots').forEach(function (strip) {
+    var imgs = $$('img', strip);
+    imgs.forEach(function (im, i) {
+      var fig = im.closest('figure');
+      if (!fig) return;
+      fig.tabIndex = 0; fig.setAttribute('role', 'button');
+      fig.setAttribute('aria-label', 'Open screenshot ' + (i + 1) + ' of ' + imgs.length);
+      fig.addEventListener('click', function () { lbOpen(imgs, i, im); });
+      fig.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lbOpen(imgs, i, im); }
+      });
+    });
+  });
+
+  // ── the retirement hero: futures drawn left to right ─────────────────
+  // Seeded random walks: 13 years of saving, then a FIXED withdrawal, the
+  // shape that makes some futures run dry. The percentage is counted from
+  // the paths on screen, so the picture and the number cannot disagree.
+  var mc = $('.sp-mc');
+  if (mc) {
+    var cv = $('canvas', mc), ctx = cv.getContext('2d');
+    var N = 120, S = 64, RET = 26, paths = [], raf = 0, t0 = 0, done = false;
+    var seed = 7;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    function gauss() { return Math.sqrt(-2 * Math.log(rnd() + 1e-9)) * Math.cos(2 * Math.PI * rnd()); }
+    for (var i = 0; i < N; i++) {
+      var v = 1, pts = [v], wd = 0, plan = 1;
+      for (var s = 1; s < S; s++) {
+        var r = .026 + gauss() * .05;
+        if (s < RET) { v = v * (1 + r) + .08; plan = plan * 1.026 + .08; }
+        else { if (!wd) wd = plan * .027; v = Math.max(0, v * (1 + r) - wd); }
+        pts.push(v);
+      }
+      paths.push(pts);
+    }
+    var ends = paths.map(function (p) { return p[S - 1]; });
+    var lasted = Math.round(ends.filter(function (e) { return e > 0; }).length / N * 100);
+    $$('[data-mc]', mc).forEach(function (el) { el.textContent = lasted; });
+    var maxV = 0; paths.forEach(function (p) { p.forEach(function (x) { if (x > maxV) maxV = x; }); });
+    maxV *= 1.04;
+    function pct(q, s) {
+      var col = paths.map(function (p) { return p[s]; }).sort(function (a, b) { return a - b; });
+      return col[Math.floor(q * (N - 1))];
+    }
+    var P10 = [], P50 = [], P90 = [];
+    for (var s2 = 0; s2 < S; s2++) { P10.push(pct(.1, s2)); P50.push(pct(.5, s2)); P90.push(pct(.9, s2)); }
+    function eIO(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    function draw(now) {
+      var rc = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+      var W = Math.round(rc.width * dpr), Hh = Math.round(rc.height * dpr);
+      if (!W || !Hh) return;
+      if (cv.width !== W || cv.height !== Hh) { cv.width = W; cv.height = Hh; }
+      var pad = 8 * dpr, gw = W - pad * 2, gh = Hh - pad * 2 - 16 * dpr;
+      var X = function (s) { return pad + s / (S - 1) * gw; };
+      var Y = function (v) { return pad + gh - Math.min(v, maxV) / maxV * gh; };
+      var prog = (RM || done) ? 1 : Math.min(1, ((now || performance.now()) - t0) / 2800);
+      var upto = Math.max(1, Math.floor(eIO(prog) * (S - 1)));
+      ctx.clearRect(0, 0, W, Hh);
+      ctx.lineWidth = 1 * dpr;
+      for (var i = 0; i < N; i++) {
+        var p = paths[i], end = p[S - 1];
+        ctx.strokeStyle = end <= 0 ? 'rgba(255,120,110,.5)' : 'rgba(160,156,255,' + (.07 + .12 * Math.min(1, end / 4)).toFixed(3) + ')';
+        ctx.beginPath(); ctx.moveTo(X(0), Y(p[0]));
+        for (var s = 1; s <= upto; s++) ctx.lineTo(X(s), Y(p[s]));
+        ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(125,122,255,.16)';
+      ctx.beginPath(); ctx.moveTo(X(0), Y(P90[0]));
+      for (var a = 1; a <= upto; a++) ctx.lineTo(X(a), Y(P90[a]));
+      for (var b = upto; b >= 0; b--) ctx.lineTo(X(b), Y(P10[b]));
+      ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = '#C9C7FF'; ctx.lineWidth = 2.6 * dpr;
+      ctx.beginPath(); ctx.moveTo(X(0), Y(P50[0]));
+      for (var c = 1; c <= upto; c++) ctx.lineTo(X(c), Y(P50[c]));
+      ctx.stroke();
+      // the day you retire, and the axis
+      ctx.fillStyle = 'rgba(214,232,227,.55)'; ctx.font = '600 ' + (11.5 * dpr) + 'px -apple-system,BlinkMacSystemFont,sans-serif';
+      ctx.fillText('Today', X(0), Hh - 2 * dpr);
+      var lbl = 'Late in life', lw = ctx.measureText(lbl).width;
+      ctx.fillText(lbl, X(S - 1) - lw, Hh - 2 * dpr);
+      if (upto > RET) {
+        ctx.strokeStyle = 'rgba(255,255,255,.22)'; ctx.setLineDash([4 * dpr, 6 * dpr]); ctx.lineWidth = 1 * dpr;
+        ctx.beginPath(); ctx.moveTo(X(RET), pad); ctx.lineTo(X(RET), pad + gh); ctx.stroke(); ctx.setLineDash([]);
+        var rl = 'Retire', rw = ctx.measureText(rl).width;
+        ctx.fillText(rl, X(RET) - rw / 2, Hh - 2 * dpr);
+      }
+      if (prog < 1) raf = requestAnimationFrame(draw); else done = true;
+    }
+    function start() { cancelAnimationFrame(raf); t0 = performance.now(); done = false; draw(t0); }
+    if (IO && !RM) {
+      var mio = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { setTimeout(start, 700); mio.disconnect(); } });
+      });
+      mio.observe(mc);
+    } else { done = true; draw(); }
+    var rt = 0;
+    addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (done) draw(); }, 120); });
+  }
 })();
 </script>
 </body></html>
