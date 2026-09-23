@@ -13,7 +13,7 @@
 if(!p){var u=navigator.userAgent;p=/iPad/.test(u)?'ipad':(/iPhone|iPod/.test(u)?'ios':'mac')}
 d.setAttribute('data-p',p);d.classList.add('js');try{if(!sessionStorage.getItem('sf-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('lp-intro-on');sessionStorage.setItem('sf-intro','1')}}catch(e){}})();</script>
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#030D0B">
+<meta name="theme-color" content="#0C1F33">
 <title>Simple Finance — Private budgeting for Mac, iPhone and iPad</title>
 <meta name="description" content="Budgets, net worth, bills and retirement planning that never ask for your bank password. Your data stays on your device and in your own iCloud.">
 <link rel="canonical" href="https://getsimplefinance.com/index.html">
@@ -491,7 +491,7 @@ html[data-p=mac] [data-only=ios]{display:none}
 .skip:focus{top:12px;text-decoration:none}
 .bar-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
   background:linear-gradient(90deg,#19D8A6,#5DF0C4 60%,#7DE3FF);transform-origin:left;
-  transform:scaleX(var(--sp,0));opacity:.9}
+  transform:scaleX(0);opacity:.9}
 /* phone menu */
 .menu-btn{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
   border-radius:12px;position:relative;cursor:pointer;color:var(--ink);flex:0 0 auto}
@@ -537,71 +537,109 @@ html.menu .sheet a{opacity:1;transform:none;transition-delay:calc(var(--k) * 45m
   .hero::before,.hero h1{animation:none}
   .rise{opacity:1;transform:none}}
 /* ═════════════════════════════════════════════════════════════════════════
-   LANDING — index.html only. Always dark: it is the brand's ground (the store
-   slides, the In-App Events and the X cards all sit on the same deep green),
-   and the product shots are lit against it.
+   LANDING — index.html only.
+
+   Two tones, alternating like a product page:
+     · DUSK  (hero, privacy, finale) — the brand navy, lit teal. NOT black:
+       near-black with neon green, orange and purple read as Halloween
+       (Aaron, 2026-09-22 — "spooky and halloweenish").
+     · LIGHT (everything between) — the app's own light screens on a soft
+       mint-white, where they look their best.
+   Where the tone changes, the next section arrives as a sheet with rounded
+   top corners, sliding over the one before.
 
    Motion rules, same as the app's MOTION.md: one effect, one meaning.
      · scroll-linked  = the story advancing (hero deck, chapters, gallery)
      · entrance       = something arriving once (words, cards, odometers)
      · loop           = a live illustration of a feature, only while on screen
    Everything has a still, finished state under prefers-reduced-motion.
+
+   🔴 PHONES CRASHED ("A problem repeatedly occurred", 2026-09-22). Safari's
+   web process ran out of memory scrolling down the page. The rules since:
+     · no CSS blur / drop-shadow filters and no blend modes on big things;
+     · no permanent will-change — only the hero's layers, and only while
+       the hero is on screen (.live);
+     · hover effects (3D tilt, spotlight borders) only where there IS hover;
+     · pinned scenes stop rendering when far away (.far), sections below the
+       fold skip rendering until near (content-visibility);
+     · the finale's rays turn by transform, never by repainting a gradient.
    ═════════════════════════════════════════════════════════════════════════ */
 @property --acc{syntax:'<color>';inherits:true;initial-value:#19D8A6}
 @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
 @property --ir{syntax:'<length>';inherits:false;initial-value:0px}
 
+/* ── tones ───────────────────────────────────────────────────── */
+body.landing,.tone-d{
+  --bg:#0C1F33; --bg2:#0F3242; --ink:#F4FAF8; --body:rgba(228,241,237,.84); --mute:rgba(214,232,227,.66);
+  --line:rgba(255,255,255,.11); --card:rgba(255,255,255,.07); --card2:rgba(255,255,255,.1);
+  --track:rgba(255,255,255,.13); --accent:#3FE0B1; --acc-ink:#4BE4B8; --mint:#19D8A6; --mint2:#72F0CC;
+  --sheen:rgba(255,255,255,.1); --shadow:0 30px 60px -26px rgba(2,10,20,.6);
+  color-scheme:dark}
+.tone-l{
+  --bg:#F3F7F6; --bg2:#E9F2EF; --ink:#0C1F36; --body:#3A4C59; --mute:#5D707C;
+  --line:rgba(12,31,54,.1); --card:#FFFFFF; --card2:#F6FAF9;
+  --track:rgba(12,31,54,.09); --accent:#0A8A68; --acc-ink:#0A8A68; --mint:#12B88B; --mint2:#0A8A68;
+  --sheen:rgba(255,255,255,.55); --shadow:0 26px 50px -30px rgba(12,31,54,.32),0 2px 6px -3px rgba(12,31,54,.08);
+  color-scheme:light;background:var(--bg);color:var(--body)}
+.tone-l ::selection{background:rgba(18,184,139,.25);color:#0C1F36}
+
 body.landing{
-  --bg:#030D0B; --ink:#F3FBF8; --body:rgba(222,240,234,.74); --mute:rgba(206,230,222,.52);
-  --line:rgba(255,255,255,.085); --accent:#19D8A6; --mint:#19D8A6; --mint2:#5DF0C4; --sky:#7DE3FF;
-  --card:rgba(255,255,255,.045); --card2:rgba(255,255,255,.07);
   --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --serif:"New York",ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
   --round:ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --ease:cubic-bezier(.2,.8,.2,1); --ease2:cubic-bezier(.77,0,.18,1);
   --gut:clamp(20px,4vw,64px);
-  background:var(--bg);color:var(--body);color-scheme:dark;overflow-x:clip;
-  font-family:var(--display)}
+  background:var(--bg);color:var(--body);overflow-x:hidden;overflow-x:clip;font-family:var(--display)}
 body.landing ::selection{background:rgba(25,216,166,.35);color:#fff}
 .lp{display:block;overflow-x:clip}
 .lp h1,.lp h2,.lp h3{color:var(--ink)}
 .lp a{text-decoration:none}
 .lp em{font-style:italic}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* a section in a new tone slides over the one before as a sheet */
+.lp-sheet{position:relative;z-index:3;margin-top:-34px;border-radius:34px 34px 0 0}
 
-/* ── the bar, on the dark ground ─────────────────────────────── */
+/* ── the bar: dusk glass over dark sections, frosted white over light ─── */
 body.landing .bar{position:fixed;left:0;right:0;top:0;background:transparent;
   border-bottom:1px solid transparent;backdrop-filter:none;-webkit-backdrop-filter:none;
-  transition:background .5s,border-color .5s,backdrop-filter .5s,-webkit-backdrop-filter .5s}
-body.landing.scrolled .bar{background:rgba(3,13,11,.66);border-bottom-color:rgba(255,255,255,.07);
-  backdrop-filter:saturate(170%) blur(20px);-webkit-backdrop-filter:saturate(170%) blur(20px)}
+  transition:background .45s,border-color .45s}
+body.landing.scrolled .bar{background:rgba(12,31,51,.72);border-bottom-color:rgba(255,255,255,.08);
+  backdrop-filter:saturate(160%) blur(16px);-webkit-backdrop-filter:saturate(160%) blur(16px)}
 body.landing .brand{color:#fff}
-body.landing .brand img{box-shadow:0 4px 14px -4px rgba(25,216,166,.55)}
-body.landing .navlink{color:rgba(232,246,241,.62)}
-body.landing .navlink:hover{color:#fff}
-body.landing .navlink.active{color:#fff}
+body.landing .brand img{box-shadow:0 4px 14px -4px rgba(25,216,166,.5)}
+body.landing .navlink{color:rgba(232,246,241,.7)}
+body.landing .navlink:hover,body.landing .navlink.active{color:#fff}
 body.landing .navlink.active::after{background:var(--mint)}
-body.landing .seg{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);box-shadow:none}
-body.landing .seg button{color:rgba(232,246,241,.62)}
+body.landing .seg{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12);box-shadow:none}
+body.landing .seg button{color:rgba(232,246,241,.7)}
 body.landing .seg button:hover{color:#fff}
 html[data-p=mac] body.landing .seg button[data-p=mac],
 html[data-p=ios] body.landing .seg button[data-p=ios],
 html[data-p=ipad] body.landing .seg button[data-p=ipad]{background:var(--mint);color:#04241B}
+body.landing.nav-l.scrolled .bar{background:rgba(246,250,249,.82);border-bottom-color:rgba(12,31,54,.08)}
+body.landing.nav-l .brand{color:#0C1F36}
+body.landing.nav-l .navlink{color:#5D707C}
+body.landing.nav-l .navlink:hover,body.landing.nav-l .navlink.active{color:#0C1F36}
+body.landing.nav-l .seg{background:#fff;border-color:rgba(12,31,54,.1)}
+body.landing.nav-l .seg button{color:#5D707C}
+body.landing.nav-l .seg button:hover{color:#0C1F36}
+body.landing.nav-l .menu-btn{color:#0C1F36}
+body.landing .menu-btn{color:#fff}
 
 /* ── shared type ─────────────────────────────────────────────── */
 .lp-kicker{font:650 12.5px/1.2 var(--display);letter-spacing:.16em;text-transform:uppercase;
-  color:var(--mint);margin:0 0 18px}
+  color:var(--acc-ink);margin:0 0 18px}
 .lp-h2{font:700 clamp(36px,5.2vw,76px)/1.02 var(--display);letter-spacing:-.04em;margin:0;
   text-wrap:balance}
 .lp-h2 em,.lp-h1 em{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;
-  background:linear-gradient(100deg,#19D8A6 0%,#9AF7DA 38%,#19D8A6 60%,#7DE3FF 100%);
+  background:linear-gradient(100deg,#2EDDB0 0%,#A6F6DE 38%,#2EDDB0 60%,#8AD8FF 100%);
   background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
   padding-right:.06em}
+.tone-l .lp-h2 em{background-image:linear-gradient(100deg,#0A8F6C 0%,#15B98D 40%,#0A8F6C 62%,#1F7FC0 100%)}
 .lp-lede{font-size:clamp(17px,1.5vw,20px);line-height:1.6;color:var(--mute);max-width:58ch;margin:22px 0 0}
 .lp-lede b{color:var(--ink);font-weight:600}
 .lp-link{display:inline-flex;align-items:center;gap:8px;color:var(--mint2);font-weight:600;
-  font-size:15.5px;margin-top:28px}
-.lp-link{transition:transform .5s var(--ease)}
+  font-size:15.5px;margin-top:28px;transition:transform .5s var(--ease)}
 .lp-link svg{width:18px;height:18px;transition:transform .35s var(--ease)}
 .lp-link:hover svg{transform:translateX(4px)}
 .lp-sec{position:relative;padding:clamp(96px,14vh,168px) var(--gut)}
@@ -609,7 +647,7 @@ html[data-p=ipad] body.landing .seg button[data-p=ipad]{background:var(--mint);c
 .lp-head .lp-lede{margin-left:auto;margin-right:auto}
 
 /* ── intro: the icon, then an iris opens onto the page ────────── */
-#lp-intro{position:fixed;inset:0;z-index:200;background:#030D0B;display:grid;place-items:center;
+#lp-intro{position:fixed;inset:0;z-index:200;background:#0C1F33;display:grid;place-items:center;
   pointer-events:none;
   -webkit-mask:radial-gradient(circle at 50% 48%,transparent var(--ir),#000 calc(var(--ir) + 1px));
   mask:radial-gradient(circle at 50% 48%,transparent var(--ir),#000 calc(var(--ir) + 1px));
@@ -618,47 +656,48 @@ html:not(.lp-intro-on) #lp-intro{display:none}
 .lp-intro-in{display:grid;justify-items:center;gap:26px;
   animation:lpIntroIn .7s var(--ease) both,lpIntroOut .6s var(--ease2) .72s forwards}
 .lp-intro-in img{width:92px;height:92px;border-radius:22%;
-  box-shadow:0 24px 70px -10px rgba(25,216,166,.55),0 0 0 1px rgba(255,255,255,.08)}
-.lp-intro-bar{width:132px;height:2px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden}
+  box-shadow:0 24px 70px -10px rgba(25,216,166,.5),0 0 0 1px rgba(255,255,255,.1)}
+.lp-intro-bar{width:132px;height:2px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden}
 .lp-intro-bar i{display:block;height:100%;background:linear-gradient(90deg,#19D8A6,#7DE3FF);
   transform-origin:left;animation:lpBar .68s cubic-bezier(.6,0,.2,1) .06s both}
 @keyframes lpIris{to{--ir:160vmax}}
 @keyframes lpGone{to{visibility:hidden;opacity:0}}
 @keyframes lpIntroIn{from{opacity:0;transform:scale(.86)}}
-@keyframes lpIntroOut{to{opacity:0;transform:scale(1.35);filter:blur(6px)}}
+@keyframes lpIntroOut{to{opacity:0;transform:scale(1.3)}}
 @keyframes lpBar{from{transform:scaleX(0)}}
 
-/* ══ HERO ═══════════════════════════════════════════════════════ */
+/* ══ HERO (dusk) ════════════════════════════════════════════════ */
 .lp-scene{position:relative}
 .lp-pin{position:relative;height:100vh;overflow:hidden}
 html.js .lp-scene>.lp-pin{position:sticky;top:0}
-/* Every pinned scene is only as tall as its animation (landing.js rule 3):
-   the hero lifts and spreads over one screen of scrolling, not two. */
+/* a pinned scene that is far off screen stops rendering (landing.js) */
+.lp-scene.far>.lp-pin{visibility:hidden}
+/* Every pinned scene is only as tall as its animation (landing.js rule 3). */
 html.js .lp-hero{height:205vh}
+.lp-hero .lp-pin{background:#0C1F33}
 .lp-aurora{position:absolute;inset:0;width:100%;height:100%;display:block;
-  background:radial-gradient(90% 70% at 50% 110%,#0E4A3C 0%,transparent 60%),
-             radial-gradient(60% 50% at 15% 10%,#0B2A44 0%,transparent 70%),#030D0B}
+  background:radial-gradient(90% 70% at 50% 110%,#15505A 0%,transparent 62%),
+             radial-gradient(70% 55% at 12% 8%,#16395E 0%,transparent 70%),
+             radial-gradient(50% 45% at 90% 20%,#123F4D 0%,transparent 70%),#0C1F33}
 .lp-horizon{position:absolute;left:50%;bottom:-62vh;width:170vw;height:100vh;border-radius:50%;
   transform:translate(-50%,calc(var(--e1,0) * -26vh));pointer-events:none;
-  background:radial-gradient(closest-side,rgba(25,216,166,.30),rgba(25,216,166,.08) 55%,transparent);
+  background:radial-gradient(closest-side,rgba(46,221,176,.30),rgba(46,221,176,.08) 55%,transparent);
   opacity:calc(.55 + var(--e1,0) * .45)}
-.lp-hero .lp-pin::after{content:"";position:absolute;left:0;right:0;bottom:0;height:11vh;z-index:5;pointer-events:none;
-  background:linear-gradient(rgba(3,13,11,0),#030D0B)}
-.lp-grain{position:absolute;inset:-60%;pointer-events:none;opacity:.075;mix-blend-mode:overlay;
+.lp-grain{position:absolute;inset:-60%;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:lpGrain 1.2s steps(6) infinite}
 @keyframes lpGrain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}
   60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
 
 .lp-hero-copy{position:absolute;left:0;right:0;top:0;z-index:6;text-align:center;
-  padding:calc(58px + clamp(22px,6.5vh,80px)) var(--gut) 0;will-change:transform,opacity}
+  padding:calc(58px + clamp(22px,6.5vh,80px)) var(--gut) 0}
 .lp-eyebrow{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 12px;border-radius:999px;
-  background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);color:var(--mute);
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:var(--mute);
   font:600 13px/1 var(--display);letter-spacing:-.005em;margin-bottom:clamp(20px,3.4vh,34px);
   transition:background .3s,border-color .3s;opacity:0;animation:lpUp .9s var(--ease) var(--d0,.1s) forwards}
 .lp-eyebrow b{color:var(--ink);font-weight:600}
 .lp-eyebrow svg{width:15px;height:15px;color:var(--mint);transition:transform .3s var(--ease)}
-.lp-eyebrow:hover{background:rgba(25,216,166,.1);border-color:rgba(25,216,166,.35)}
+.lp-eyebrow:hover{background:rgba(46,221,176,.12);border-color:rgba(46,221,176,.4)}
 .lp-eyebrow:hover svg{transform:translateX(3px)}
 .lp-pulse{position:relative;width:7px;height:7px;border-radius:50%;background:var(--mint)}
 .lp-pulse::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--mint);
@@ -668,14 +707,14 @@ html.js .lp-hero{height:205vh}
 .lp-h1{font:700 clamp(44px,6.7vw,110px)/.96 var(--display);letter-spacing:-.05em;margin:0 auto;
   max-width:14.5ch;text-wrap:balance}
 .lp-h1 .ln{display:block}
-.lp-h1 .ln2{color:rgba(243,251,248,.5);font-size:.62em;letter-spacing:-.04em;margin-top:.18em}
-.lp-h1 .w,.lp-h2 .w{display:inline-block;will-change:transform}
-html.js .lp-h1 .w{opacity:0;transform:translateY(.55em) rotate(3deg);filter:blur(10px);
+.lp-h1 .ln2{color:rgba(243,251,248,.58);font-size:.62em;letter-spacing:-.04em;margin-top:.18em}
+.lp-h1 .w,.lp-h2 .w{display:inline-block}
+html.js .lp-h1 .w{opacity:0;transform:translateY(.55em) rotate(3deg);
   animation:lpWord 1.1s var(--ease) forwards;animation-delay:calc(var(--d0,.1s) + .08s + var(--wi) * 70ms)}
 html.js .lp-h1 .ln2 .w{animation-delay:calc(var(--d0,.1s) + .42s + var(--wi) * 60ms)}
 html.js .lp-h1 em.w{animation:lpWord 1.1s var(--ease) forwards,lpShim 7s linear 2s infinite;
   animation-delay:calc(var(--d0,.1s) + .42s + var(--wi) * 60ms),calc(var(--d0,.1s) + 1.4s)}
-@keyframes lpWord{to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes lpWord{to{opacity:1;transform:none}}
 @keyframes lpShim{to{background-position:-220% 0}}
 @keyframes lpUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 html.lp-intro-on body.landing{--d0:1.05s}
@@ -688,64 +727,65 @@ html.lp-intro-on body.landing{--d0:1.05s}
 .lp-badge img{width:168px;height:auto;display:block}
 .lp-badge:hover{opacity:.86}
 .lp-ghost{display:inline-flex;align-items:center;gap:8px;color:var(--ink);font:600 15.5px/1 var(--display);
-  padding:15px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.04);transition:background .3s,border-color .3s,transform .4s var(--ease)}
+  padding:15px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.06);transition:background .3s,border-color .3s,transform .4s var(--ease)}
 .lp-ghost svg{width:17px;height:17px;color:var(--mint);transition:transform .4s var(--ease)}
-.lp-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.24)}
+.lp-ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28)}
 .lp-ghost:hover svg{transform:translateY(3px)}
 .lp-free{display:flex;align-items:center;justify-content:center;gap:9px;margin:18px 0 0;
   font-size:13.5px;color:var(--mute);opacity:0;animation:lpUp 1s var(--ease) calc(var(--d0,.1s) + 1.02s) forwards}
 .lp-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint)}
 
-/* the deck: three dark windows, a phone, a watch and five live cards, all in
-   one 3D space. JS owns every transform; CSS only sizes and dresses them. */
+/* the deck: dark windows, a phone, a watch and live cards, in one 3D space.
+   JS owns every transform; CSS only sizes and dresses them. */
 .lp-stage{position:absolute;inset:0;z-index:4;perspective:1900px;perspective-origin:50% 22%;pointer-events:none}
 .lp-deck{--dw:min(1080px,82vw,118vh);position:absolute;left:50%;top:50%;width:var(--dw);
   aspect-ratio:2200/1245;transform-style:preserve-3d;
   transform:translate3d(-50%,-50%,0) translate3d(0,60vh,0) rotateX(28deg) scale(.76)}
-.lp-l{position:absolute;left:50%;top:50%;transform-style:preserve-3d;will-change:transform,opacity;
-  transform:translate3d(-50%,-50%,0)}
+.lp-l{position:absolute;left:50%;top:50%;transform-style:preserve-3d;transform:translate3d(-50%,-50%,0)}
+/* layers are promoted only while the hero is on screen */
+.lp-hero.live .lp-l{will-change:transform,opacity}
 .lp-l-in{position:relative}
 .lp-win{width:100%}
 .lp-win.w2,.lp-win.w3{width:74%}
-.lp-win img{display:block;width:100%;height:auto;
-  -webkit-mask:linear-gradient(#000 72%,transparent);mask:linear-gradient(#000 72%,transparent)}
-.lp-win .lp-l-in{filter:drop-shadow(0 40px 60px rgba(0,0,0,.55))}
-.lp-win.w1 .lp-l-in{filter:drop-shadow(0 50px 80px rgba(0,0,0,.7)) drop-shadow(0 0 1px rgba(255,255,255,.2))}
-.lp-win.w2 img,.lp-win.w3 img{opacity:.8}
+/* a box-shadow on the window's own rounded shape — NOT filter:drop-shadow,
+   which rasterises a blurred copy of a 2200px image into its own buffer */
+.lp-win .lp-l-in{border-radius:1.8% 1.8% 0 0/3.2% 3.2% 0 0;box-shadow:0 44px 70px -30px rgba(2,10,20,.75)}
+.lp-win img{display:block;width:100%;height:auto;border-radius:inherit}
+.lp-win.w1 img{-webkit-mask:linear-gradient(#000 74%,transparent);mask:linear-gradient(#000 74%,transparent)}
+.lp-win.w2 img,.lp-win.w3 img{opacity:.85}
 .lp-sheen{position:absolute;inset:0;pointer-events:none;border-radius:inherit;
-  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.09) 45%,transparent 60%);
-  background-size:260% 100%;background-position:130% 0;mix-blend-mode:screen;
-  -webkit-mask:linear-gradient(#000 60%,transparent);mask:linear-gradient(#000 60%,transparent)}
+  background:linear-gradient(115deg,transparent 30%,var(--sheen) 45%,transparent 60%);
+  background-size:260% 100%;background-position:130% 0}
 .lp-phone{width:19%}
 .lp-bezel{border-radius:15.5%/7.2%;background:#0A0C0D;padding:3.4%;
-  box-shadow:inset 0 0 0 1.5px #3B4147,inset 0 0 0 3px #111416,0 0 0 1px rgba(0,0,0,.6),
-    0 40px 80px -24px rgba(0,0,0,.8),0 0 60px -20px rgba(25,216,166,.25)}
+  box-shadow:inset 0 0 0 1.5px #3B4147,inset 0 0 0 3px #111416,0 0 0 1px rgba(0,0,0,.5),
+    0 40px 70px -26px rgba(2,10,20,.8)}
 .lp-bezel img{display:block;width:100%;height:auto;border-radius:12.6%/5.8%}
 .lp-watchd{width:10.5%}
 .lp-wbezel{position:relative;border-radius:30%/25%;background:#08090A;padding:9% 8.5%;
-  box-shadow:inset 0 0 0 1.5px #2E3338,inset 0 0 0 3px #101214,0 30px 60px -20px rgba(0,0,0,.85)}
+  box-shadow:inset 0 0 0 1.5px #2E3338,inset 0 0 0 3px #101214,0 26px 50px -20px rgba(2,10,20,.8)}
 .lp-wbezel::after{content:"";position:absolute;right:-5%;top:24%;width:5%;height:17%;border-radius:0 40% 40% 0;
   background:linear-gradient(90deg,#2B2F33,#5A6168)}
 .lp-wbezel img{display:block;width:100%;height:auto;border-radius:24%/20%}
 
 .lp-card{width:clamp(150px,22%,260px);font-size:clamp(9.5px,calc(var(--dw) * .0122),14px);opacity:0}
 .lp-glass{border-radius:1.35em;padding:1.1em 1.25em 1.2em;color:var(--ink);
-  background:linear-gradient(160deg,rgba(38,58,54,.92),rgba(12,28,25,.9));
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 30px 60px -18px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.12),0 0 0 .5px rgba(0,0,0,.4);
+  background:linear-gradient(160deg,rgba(40,70,92,.94),rgba(16,40,58,.93));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 26px 50px -20px rgba(2,10,20,.65),inset 0 1px 0 rgba(255,255,255,.14);
   animation:lpBob 6s ease-in-out infinite;animation-delay:calc(var(--k,0) * -1.3s)}
 @keyframes lpBob{50%{transform:translateY(-.5em)}}
 .lp-glass p{margin:0}
 .lp-glass .cap{display:flex;align-items:center;gap:.45em;font-weight:650;font-size:.82em;
-  letter-spacing:.06em;text-transform:uppercase;color:rgba(222,240,234,.6)}
+  letter-spacing:.06em;text-transform:uppercase;color:rgba(226,240,236,.66)}
 .lp-glass .cap svg{width:1.25em;height:1.25em;color:var(--mint)}
 .lp-glass .big{font:700 2.1em/1.1 var(--round);letter-spacing:-.02em;margin-top:.35em;
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .lp-glass .md{font-weight:600;font-size:1.02em;line-height:1.35;margin-top:.2em}
-.lp-glass .sm{font-size:.86em;color:rgba(222,240,234,.6);margin-top:.25em}
-.lp-glass .mint{color:var(--mint)}
-.lp-glass .bar{display:block;height:.45em;border-radius:1em;background:rgba(255,255,255,.1);margin-top:.9em;overflow:hidden}
+.lp-glass .sm{font-size:.86em;color:rgba(226,240,236,.66);margin-top:.25em}
+.lp-glass .mint{color:#3FE3B5}
+.lp-glass .bar{display:block;height:.45em;border-radius:1em;background:rgba(255,255,255,.12);margin-top:.9em;overflow:hidden}
 .lp-glass .bar i{display:block;height:100%;width:calc(var(--to) * 100%);border-radius:inherit;
   background:linear-gradient(90deg,#19D8A6,#5DF0C4);transform-origin:left;transform:scaleX(0);
   transition:transform 1.6s var(--ease) .2s}
@@ -759,7 +799,7 @@ html.lp-intro-on body.landing{--d0:1.05s}
 .c3 .lp-glass{display:flex;align-items:center;gap:1em}
 .ring{position:relative;width:4.6em;height:4.6em;flex:0 0 auto}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ring circle{fill:none;stroke:rgba(255,255,255,.1);stroke-width:8}
+.ring circle{fill:none;stroke:rgba(255,255,255,.12);stroke-width:8}
 .ring .arc{stroke:#19D8A6;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;
   transition:stroke-dashoffset 1.8s var(--ease) .15s}
 .lp-card.shown .ring .arc{stroke-dashoffset:calc(100 - var(--to))}
@@ -772,10 +812,10 @@ html.lp-intro-on body.landing{--d0:1.05s}
 .lp-notif .cap span{font-weight:500;opacity:.7}
 .lp-fin{display:flex;gap:.8em;align-items:flex-start}
 .lp-fin .bot{width:2.4em;height:2.4em;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
-  background:rgba(25,216,166,.16);color:var(--mint)}
+  background:rgba(46,221,176,.18);color:var(--mint)}
 .lp-fin .bot svg{width:1.3em;height:1.3em}
 .typing .dots{display:inline-flex;gap:.28em;padding:.35em 0}
-.typing .dots i{width:.42em;height:.42em;border-radius:50%;background:rgba(255,255,255,.55);
+.typing .dots i{width:.42em;height:.42em;border-radius:50%;background:rgba(255,255,255,.6);
   animation:lpDot 1.1s infinite}
 .typing .dots i:nth-child(2){animation-delay:.15s}.typing .dots i:nth-child(3){animation-delay:.3s}
 @keyframes lpDot{0%,60%,100%{transform:none;opacity:.4}30%{transform:translateY(-.3em);opacity:1}}
@@ -783,52 +823,44 @@ html.lp-intro-on body.landing{--d0:1.05s}
 .typing.said .dots{display:none}
 .typing.said .msg{display:inline;animation:lpUp .6s var(--ease)}
 
-.lp-cue{position:absolute;left:50%;bottom:22px;z-index:7;transform:translateX(-50%);display:grid;
-  justify-items:center;gap:8px;color:var(--mute);font:600 11px/1 var(--display);letter-spacing:.2em;
-  text-transform:uppercase;opacity:calc(1 - var(--e1,0) * 4);transition:color .3s}
-.lp-cue i{width:1.5px;height:34px;background:linear-gradient(var(--mint),transparent);border-radius:2px;
-  transform-origin:top;animation:lpCue 2s var(--ease) infinite}
-@keyframes lpCue{0%{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
-.lp-cue:hover{color:#fff}
-
-/* ══ MARQUEE ═══════════════════════════════════════════════════ */
-.lp-marquee{position:relative;z-index:2;padding:34px 0;background:#030D0B;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;
-  -webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-  mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+/* ══ MARQUEE (light, a sheet over the hero) ═══════════════════ */
+.lp-marquee{position:relative;padding:40px 0 30px;border-bottom:1px solid var(--line);overflow:hidden}
+.lp-mrows{-webkit-mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+  mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
 .lp-mrow{overflow:hidden}
 .lp-mrow+.lp-mrow{margin-top:14px}
-.lp-mtrack{display:flex;width:max-content;will-change:transform}
+.lp-mtrack{display:flex;width:max-content}
 .lp-mset{display:flex;gap:14px;padding-right:14px}
 .lp-pill{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;padding:12px 20px 12px 16px;
   border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);
-  font:600 15px/1 var(--display);letter-spacing:-.01em}
+  font:600 15px/1 var(--display);letter-spacing:-.01em;box-shadow:0 1px 2px rgba(12,31,54,.04)}
 .lp-pill svg{width:19px;height:19px;color:var(--mint)}
-.r2 .lp-pill{background:transparent;color:var(--mute)}
+.r2 .lp-pill{background:transparent;color:var(--mute);box-shadow:none}
 .r2 .lp-pill svg{color:var(--mute)}
 html:not(.js) .lp-mtrack{animation:lpMq 60s linear infinite}
 @keyframes lpMq{to{transform:translateX(-50%)}}
 
-/* ══ MANIFESTO — in the flow, lit as it scrolls through (not pinned) ═ */
-.lp-mani{position:relative;padding:clamp(120px,24vh,240px) 0;
-  background:radial-gradient(60% 40% at 50% 50%,rgba(14,74,60,.32),transparent 70%),#030D0B}
+/* ══ MANIFESTO (light) — in the flow, lit as it scrolls through ═ */
+.lp-mani{position:relative;padding:clamp(110px,22vh,220px) 0;
+  background:radial-gradient(60% 45% at 50% 50%,rgba(18,184,139,.08),transparent 72%),var(--bg)}
 .lp-mani-in{max-width:1180px;margin:0 auto;padding:0 var(--gut)}
 .lp-mani-t{font:650 clamp(30px,4.3vw,64px)/1.16 var(--display);letter-spacing:-.035em;color:var(--ink);
   margin:0;text-wrap:pretty}
-.lp-mani-t em{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;color:var(--mint2)}
-html.js .mw{opacity:.13;transition:opacity .45s var(--ease),filter .45s;filter:blur(1.5px)}
-html.js .mw.on{opacity:1;filter:none}
+.lp-mani-t em{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;color:var(--acc-ink)}
+html.js .mw{opacity:.16;transition:opacity .45s var(--ease)}
+html.js .mw.on{opacity:1}
 
-/* ══ CHAPTERS ═════════════════════════════════════════════════ */
+/* ══ CHAPTERS (light) ═════════════════════════════════════════ */
 .lp-chapters{--acc:#34C759;transition:--acc 1s var(--ease)}
 html.js .lp-chapters{height:calc(var(--n) * 55vh + 100vh)}
-.lp-chapters .lp-pin{background:#030D0B}
+.lp-chapters .lp-pin{background:var(--bg)}
+/* the chapter's colour, as soft light behind the device — a gradient, not a blur */
 .lp-ch-glow{position:absolute;right:-8vw;top:50%;width:min(90vw,1100px);aspect-ratio:1;border-radius:50%;
-  transform:translateY(-50%);pointer-events:none;opacity:.26;filter:blur(20px);
-  background:radial-gradient(closest-side,var(--acc),transparent 72%)}
+  transform:translateY(-50%);pointer-events:none;opacity:.2;
+  background:radial-gradient(closest-side,var(--acc),transparent 70%)}
 .lp-ch-num{position:absolute;right:1vw;bottom:-5vh;pointer-events:none;overflow:hidden;
   font:800 min(46vh,34vw)/.9 var(--display);letter-spacing:-.07em;color:transparent;
-  -webkit-text-stroke:1.5px rgba(255,255,255,.07)}
+  -webkit-text-stroke:1.5px rgba(12,31,54,.06)}
 .lp-roll{display:inline-block;transition:transform .7s var(--ease),opacity .5s}
 .lp-roll.out{transform:translateY(-30%);opacity:0;transition:none}
 .lp-ch-grid{position:relative;z-index:2;height:100%;max-width:1560px;margin:0 auto;
@@ -839,19 +871,19 @@ html.js .lp-chapters{height:calc(var(--n) * 55vh + 100vh)}
 .lp-ch-t{position:absolute;left:0;right:0;top:0;pointer-events:none}
 .lp-ch-t.on{pointer-events:auto}
 .lp-ch-lbl{display:flex;align-items:center;gap:10px;margin:0 0 18px;font:650 14px/1 var(--display);
-  color:color-mix(in srgb,var(--acc) 72%,#fff);letter-spacing:.01em}
+  color:color-mix(in srgb,var(--acc) 70%,#0C1F36);letter-spacing:.01em}
 .lp-ch-ico{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;
-  background:color-mix(in srgb,var(--acc) 18%,transparent);border:1px solid color-mix(in srgb,var(--acc) 30%,transparent)}
+  background:color-mix(in srgb,var(--acc) 14%,#fff);border:1px solid color-mix(in srgb,var(--acc) 30%,transparent)}
 .lp-ch-ico svg{width:18px;height:18px}
 .lp-ch-h{font:700 clamp(32px,3.8vw,62px)/1.0 var(--display);letter-spacing:-.045em;margin:0}
 .lp-ch-h .ln{display:block;overflow:hidden;padding:.04em 0 .1em;margin-bottom:-.1em}
 .lp-ch-h .ln>*{display:inline-block}
 .lp-ch-h em{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;
-  color:color-mix(in srgb,var(--acc) 62%,#fff)}
+  color:color-mix(in srgb,var(--acc) 72%,#0C1F36)}
 .lp-ch-b{font-size:clamp(16px,1.25vw,18.5px);line-height:1.62;color:var(--mute);margin:22px 0 0;max-width:44ch}
 .lp-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:24px 0 0;padding:0}
 .lp-tags li{font:600 13px/1 var(--display);color:var(--ink);padding:9px 13px;border-radius:999px;
-  background:rgba(255,255,255,.05);border:1px solid var(--line)}
+  background:#fff;border:1px solid var(--line)}
 /* Chapter text. The old chapter clears out FAST and the new one rises in
    AFTER it, so the two never share the screen long enough to read as a
    jumble — that overlap was the "weird" frame in the middle of every swap. */
@@ -871,62 +903,53 @@ html:not(.js) .lp-ch-t{position:static;margin-bottom:48px}
 html:not(.js) .lp-ch-texts{height:auto}
 .lp-rail{display:flex;gap:6px;margin-top:22px;max-width:420px}
 .lp-rail button{flex:1;appearance:none;background:none;border:0;padding:12px 0;cursor:pointer;position:relative}
-.lp-rail i{display:block;height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden;
-  transition:background .3s}
+.lp-rail i{display:block;height:3px;border-radius:3px;background:var(--track);overflow:hidden;transition:background .3s}
 .lp-rail b{display:block;height:100%;background:var(--acc);transform:scaleX(var(--f,0));transform-origin:left;border-radius:inherit}
-.lp-rail button:hover i{background:rgba(255,255,255,.25)}
+.lp-rail button:hover i{background:rgba(12,31,54,.2)}
 .lp-rail span{position:absolute;left:50%;bottom:100%;transform:translate(-50%,4px);white-space:nowrap;
-  font:600 12px/1 var(--display);color:#fff;background:rgba(20,34,31,.95);border:1px solid var(--line);
+  font:600 12px/1 var(--display);color:#fff;background:#0C1F36;
   padding:7px 9px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
 .lp-rail button:hover span,.lp-rail button:focus-visible span{opacity:1;transform:translate(-50%,-2px)}
 .lp-ch-stage{position:relative;height:100%;display:grid;place-items:center;perspective:1700px;min-width:0}
-.lp-dev{position:relative;transform-style:preserve-3d;will-change:transform}
-.lp-dev-scr{position:relative;overflow:hidden;background:#0B1512}
+.lp-dev{position:relative}
+.lp-dev-scr{position:relative;overflow:hidden;background:#EEF3F2}
 .lp-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;
-  clip-path:inset(100% 0 0 0);transform:scale(1.07);transition:none}
+  clip-path:inset(100% 0 0 0);transform:scale(1.07);transition:none;visibility:hidden}
 .lp-dev.up .lp-shot{clip-path:inset(0 0 100% 0)}
+.lp-shot.on,.lp-shot.was{visibility:visible}
 .lp-shot.on,.lp-dev.up .lp-shot.on{clip-path:inset(0 0 0 0);transform:none;z-index:2;
   transition:clip-path .85s cubic-bezier(.6,0,.2,1),transform 1.3s var(--ease)}
-.lp-shot.was,.lp-dev.up .lp-shot.was{clip-path:inset(0 0 0 0);z-index:1;transform:scale(.975);filter:brightness(.72) saturate(.9);
-  transition:transform 1s var(--ease2),filter 1s}
-.lp-dev .lp-sheen{z-index:3;border-radius:0;-webkit-mask:none;mask:none;opacity:0}
+.lp-shot.was,.lp-dev.up .lp-shot.was{clip-path:inset(0 0 0 0);z-index:1;transform:scale(.975);opacity:.7;
+  transition:transform 1s var(--ease2),opacity 1s}
+.lp-dev .lp-sheen{z-index:3;border-radius:0;opacity:0}
 .lp-dev .lp-sheen.sweep{animation:lpSweep 1.25s var(--ease2) .12s both}
 @keyframes lpSweep{0%{opacity:1;background-position:140% 0}100%{opacity:1;background-position:-40% 0}}
 .lp-dev.mac{width:min(100%,122vh)}
 .lp-dev.mac .lp-dev-scr{aspect-ratio:1800/1051;border-radius:2.28%/3.9%;background:transparent;
-  box-shadow:0 60px 120px -30px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.09),
-    0 0 90px -30px color-mix(in srgb,var(--acc) 60%,transparent)}
+  box-shadow:0 50px 90px -40px rgba(12,31,54,.42),0 0 0 1px rgba(12,31,54,.08)}
 .lp-dev.phone{height:min(78vh,780px);aspect-ratio:664/1391;border-radius:15.5%/7.4%;background:#0A0C0D;padding:3.3%;
-  box-shadow:inset 0 0 0 1.5px #3B4147,inset 0 0 0 3px #111416,0 60px 120px -30px rgba(0,0,0,.85),
-    0 0 90px -20px color-mix(in srgb,var(--acc) 50%,transparent)}
+  box-shadow:inset 0 0 0 1.5px #3B4147,inset 0 0 0 3px #111416,0 50px 90px -36px rgba(12,31,54,.5)}
 .lp-dev.phone::before,.lp-dev.phone::after{content:"";position:absolute;width:.9%;border-radius:2px;background:#2C3135}
 .lp-dev.phone::before{left:-.9%;top:21%;height:7%}
 .lp-dev.phone::after{right:-.9%;top:26%;height:11%}
 .lp-dev.phone .lp-dev-scr{width:100%;height:100%;border-radius:12.8%/6.1%}
 .lp-dev.ipad{width:min(100%,108vh);aspect-ratio:1484/1134;border-radius:4.6%/6%;background:#0A0C0D;padding:2.8%;
-  box-shadow:inset 0 0 0 1.5px #3B4147,inset 0 0 0 3px #111416,0 60px 120px -30px rgba(0,0,0,.85),
-    0 0 90px -20px color-mix(in srgb,var(--acc) 50%,transparent)}
+  box-shadow:inset 0 0 0 1.5px #3B4147,inset 0 0 0 3px #111416,0 50px 90px -36px rgba(12,31,54,.5)}
 .lp-dev.ipad .lp-dev-scr{width:100%;height:100%;border-radius:2.2%/2.9%}
 html:not(.js) .lp-shot.on{position:relative}
+/* a soft pool of the chapter's light under the device */
+.lp-ch-stage::after{content:"";position:absolute;left:50%;bottom:4%;width:74%;height:90px;transform:translateX(-50%);
+  border-radius:50%;pointer-events:none;z-index:-1;opacity:.45;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--acc) 60%,transparent),transparent)}
 
-/* ══ BENTO ════════════════════════════════════════════════════ */
-.lp-details{background:linear-gradient(#030D0B,#04120E 40%,#030D0B)}
+/* ══ DETAILS / BENTO (light) ═════════════════════════════════ */
+.lp-details{background:linear-gradient(var(--bg),var(--bg2) 50%,var(--bg))}
 .lp-bento{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
 .lp-cell{--mx:50%;--my:50%;position:relative;grid-column:span 2;border-radius:30px;
-  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
-  border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;
-  min-height:440px;transform:perspective(1200px) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));
-  transition:transform .6s var(--ease),border-color .4s,box-shadow .4s,
-    translate 1.1s var(--ease) var(--d,0s),opacity 1s var(--ease) var(--d,0s)}
+  background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;overflow:hidden;min-height:440px;
+  transition:translate 1.1s var(--ease) var(--d,0s),opacity 1s var(--ease) var(--d,0s),box-shadow .4s}
 .lp-cell.w3{grid-column:span 3}
-.lp-cell::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .45s;
-  background:radial-gradient(520px circle at var(--mx) var(--my),rgba(25,216,166,.11),transparent 60%)}
-.lp-cell::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
-  background:radial-gradient(340px circle at var(--mx) var(--my),rgba(93,240,196,.75),transparent 62%);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
-  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);opacity:0;transition:opacity .45s}
-.lp-cell:hover::before,.lp-cell:hover::after{opacity:1}
-.lp-cell:hover{box-shadow:0 40px 80px -40px rgba(0,0,0,.9)}
 .lp-cell-viz{position:relative;flex:1;display:grid;place-items:center;padding:34px 30px 6px;min-height:250px}
 .lp-cell-txt{padding:20px 30px 30px}
 .lp-cell-txt h3{font:650 21px/1.2 var(--display);letter-spacing:-.022em;margin:0 0 8px}
@@ -934,65 +957,78 @@ html:not(.js) .lp-shot.on{position:relative}
 .lp-cell-viz p{margin:0}
 html.js .lp-cell{opacity:0;translate:0 44px}
 html.js .lp-cell.seen{opacity:1;translate:0 0}
+/* the tilt and the light that follows the pointer exist only where there
+   is a pointer — on a phone they were two extra layers per cell, for nothing */
+@media (hover:hover) and (pointer:fine){
+  .lp-cell{isolation:isolate;transform:perspective(1200px) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));
+    transition:transform .6s var(--ease),translate 1.1s var(--ease) var(--d,0s),opacity 1s var(--ease) var(--d,0s),box-shadow .4s}
+  .lp-cell::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .45s;
+    background:radial-gradient(520px circle at var(--mx) var(--my),rgba(18,184,139,.08),transparent 60%)}
+  .lp-cell::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+    background:radial-gradient(340px circle at var(--mx) var(--my),rgba(18,184,139,.65),transparent 62%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);opacity:0;transition:opacity .45s}
+  .lp-cell:hover::before,.lp-cell:hover::after{opacity:1}
+  .lp-cell:hover{box-shadow:0 40px 70px -36px rgba(12,31,54,.4)}
+}
 
 /* payday */
-.pd{width:min(100%,440px);padding:22px 24px;border-radius:22px;background:rgba(25,216,166,.07);
-  border:1px solid rgba(25,216,166,.22);color:var(--ink)}
+.pd{width:min(100%,440px);padding:22px 24px;border-radius:22px;background:#EAF8F2;
+  border:1px solid #C3EBDD;color:var(--ink)}
 .pd p{margin:0}
 .pd-top{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px}
-.pd-top svg{width:18px;height:18px;color:var(--mint)}
+.pd-top svg{width:18px;height:18px;color:#0FA67C}
 .pd-top span{margin-left:auto;color:var(--mute);font-weight:500;font-size:13px}
 .pd-lbl{margin-top:16px!important;font:650 11.5px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
-.pd-amt{font:700 clamp(40px,4.4vw,58px)/1.05 var(--round);color:var(--mint);letter-spacing:-.02em;
+.pd-amt{font:700 clamp(40px,4.4vw,58px)/1.05 var(--round);color:#0A9A74;letter-spacing:-.02em;
   margin-top:6px!important;font-variant-numeric:tabular-nums}
-.pd-track{position:relative;height:10px;border-radius:10px;background:rgba(255,255,255,.08);margin:20px 14px 12px 0}
+.pd-track{position:relative;height:10px;border-radius:10px;background:rgba(12,31,54,.08);margin:20px 14px 12px 0}
 .pd-fill{position:absolute;left:0;top:0;bottom:0;width:13.3%;border-radius:inherit;transform:scaleX(0);transform-origin:left;
-  background:linear-gradient(90deg,#19D8A6,#5DF0C4);box-shadow:0 0 16px rgba(25,216,166,.6);
-  transition:transform 1.8s var(--ease) .3s}
+  background:linear-gradient(90deg,#12B88B,#3FE0B1);transition:transform 1.8s var(--ease) .3s}
 .lp-cell.on .pd-fill{transform:none}
 .pd-tick{position:absolute;top:50%;left:calc(var(--x) * 100%);width:4px;height:4px;border-radius:50%;
-  background:rgba(255,255,255,.28);transform:translate(-50%,-50%)}
+  background:rgba(12,31,54,.25);transform:translate(-50%,-50%)}
 .pd-pay{position:absolute;right:-15px;top:50%;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
-  transform:translateY(-50%);background:#0D2C24;border:1.5px solid var(--mint);color:var(--mint)}
+  transform:translateY(-50%);background:#fff;border:1.5px solid #12B88B;color:#0FA67C}
 .pd-pay svg{width:17px;height:17px}
 .lp-cell.on .pd-pay{animation:lpPay 2.4s var(--ease) 1.4s infinite}
-@keyframes lpPay{0%{box-shadow:0 0 0 0 rgba(25,216,166,.5)}70%,100%{box-shadow:0 0 0 14px rgba(25,216,166,0)}}
+@keyframes lpPay{0%{box-shadow:0 0 0 0 rgba(18,184,139,.4)}70%,100%{box-shadow:0 0 0 14px rgba(18,184,139,0)}}
 .pd-foot{font-size:12.5px;color:var(--mute);line-height:1.5}
 
 /* forecast */
 .fcw{width:100%;max-width:560px}
 .fc-top{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px;font:600 13.5px/1 var(--display);color:var(--mute)}
 .fc-lo{display:inline-flex;align-items:center;gap:8px;color:var(--ink)}
-.fc-lo i{width:8px;height:8px;border-radius:50%;background:#FF9F0A;box-shadow:0 0 10px #FF9F0A}
-.fc-lo b{color:#FFB340;font-family:var(--round)}
+.fc-lo i{width:8px;height:8px;border-radius:50%;background:#F28C00}
+.fc-lo b{color:#C46A00;font-family:var(--round)}
 .fc{display:block;width:100%;height:auto;overflow:visible}
-.fc .grid path{stroke:rgba(255,255,255,.06);stroke-width:1}
-.fc .line{fill:none;stroke:#FFA928;stroke-width:3;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.fc .grid path{stroke:rgba(12,31,54,.07);stroke-width:1}
+.fc .line{fill:none;stroke:#F28C00;stroke-width:3;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
 .fc .area{opacity:0}
-.fc .lo-line{stroke:rgba(255,159,10,.45);stroke-width:1.5;stroke-dasharray:4 6;opacity:0}
-.fc .lo-dot{fill:#FF9F0A;stroke:#1a1206;stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(0)}
-.fc .lo-ping{fill:none;stroke:#FF9F0A;stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center}
+.fc .lo-line{stroke:rgba(242,140,0,.45);stroke-width:1.5;stroke-dasharray:4 6;opacity:0}
+.fc .lo-dot{fill:#F28C00;stroke:#fff;stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(0)}
+.fc .lo-ping{fill:none;stroke:#F28C00;stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center}
 .lp-cell.on .fc .line{stroke-dashoffset:0;transition:stroke-dashoffset 2.6s cubic-bezier(.45,0,.2,1) .2s}
 .lp-cell.on .fc .area{opacity:1;transition:opacity 1.2s 1.8s}
 .lp-cell.on .fc .lo-line{opacity:1;transition:opacity .8s 2.4s}
 .lp-cell.on .fc .lo-dot{opacity:1;transform:scale(1);transition:transform .6s cubic-bezier(.3,1.6,.5,1) 1.3s,opacity .2s 1.3s}
 .lp-cell.on .fc .lo-ping{animation:lpRing 2s ease-out 1.9s infinite}
 @keyframes lpRing{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(4)}}
-.fc-x{display:flex;justify-content:space-between;margin:10px 0 0;font-size:11.5px;color:rgba(206,230,222,.4)}
+.fc-x{display:flex;justify-content:space-between;margin:10px 0 0;font-size:11.5px;color:rgba(12,31,54,.4)}
 
 /* search */
 .sx{width:100%;max-width:400px}
-.sx-f{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.12);color:var(--ink);font:500 15.5px/1.2 var(--display);
-  box-shadow:0 0 0 4px rgba(25,216,166,.0);transition:box-shadow .4s}
-.lp-cell.on .sx-f{box-shadow:0 0 0 4px rgba(25,216,166,.14);border-color:rgba(25,216,166,.5)}
+.sx-f{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:16px;background:#fff;
+  border:1px solid rgba(12,31,54,.14);color:var(--ink);font:500 15.5px/1.2 var(--display);
+  box-shadow:0 0 0 4px rgba(18,184,139,0);transition:box-shadow .4s,border-color .4s}
+.lp-cell.on .sx-f{box-shadow:0 0 0 4px rgba(18,184,139,.16);border-color:rgba(18,184,139,.6)}
 .sx-f svg{width:19px;height:19px;color:var(--mute);flex:0 0 auto}
 .sx-q{white-space:nowrap;overflow:hidden}
-.sx-caret{width:2px;height:19px;background:var(--mint);margin-left:-8px;animation:lpBlink 1s steps(2) infinite}
+.sx-caret{width:2px;height:19px;background:#12B88B;margin-left:-8px;animation:lpBlink 1s steps(2) infinite}
 @keyframes lpBlink{50%{opacity:0}}
 .sx-r{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
-.sx-r li{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.04);
-  font-size:13.5px;color:var(--ink);transition:opacity .45s,transform .55s var(--ease)}
+.sx-r li{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;background:var(--card2);
+  border:1px solid var(--line);font-size:13.5px;color:var(--ink);transition:opacity .45s,transform .55s var(--ease)}
 .sx-r li .d{color:var(--mute);font-size:12px;margin-left:auto}
 .sx-r li b{font-family:var(--round);font-weight:650;min-width:78px;text-align:right}
 .sx-r.hide li{opacity:0;transform:translateY(10px)}
@@ -1002,18 +1038,18 @@ html.js .lp-cell.seen{opacity:1;translate:0 0}
 .cv{display:grid;justify-items:center;gap:18px}
 .cv-ring{position:relative;width:170px;height:170px}
 .cv-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.cv-ring circle{fill:none;stroke:rgba(255,255,255,.08);stroke-width:13}
+.cv-ring circle{fill:none;stroke:rgba(12,31,54,.08);stroke-width:13}
 .cv-ring .a1,.cv-ring .a2{stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
-.cv-ring .a1{stroke:#FF6B5E}
-.cv-ring .a2{stroke:#19D8A6}
+.cv-ring .a1{stroke:#F2554A}
+.cv-ring .a2{stroke:#12B88B}
 .cv-c{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:3px}
 .cv-c>span{font-size:12.5px;color:var(--mute)}
 .cv-pct{position:relative;display:grid;font:700 30px/1 var(--round)}
 .cv-pct span{grid-area:1/1}
-.cv-pct .o{color:#FF7A6E}.cv-pct .n{color:var(--mint);opacity:0}
+.cv-pct .o{color:#E0463C}.cv-pct .n{color:#0A9A74;opacity:0}
 .cv-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:999px;
-  background:rgba(25,216,166,.12);border:1px solid rgba(25,216,166,.35);color:var(--ink);font:600 13.5px/1 var(--display);opacity:0}
-.cv-chip svg{width:16px;height:16px;color:var(--mint)}
+  background:#EAF8F2;border:1px solid #C3EBDD;color:var(--ink);font:600 13.5px/1 var(--display);opacity:0}
+.cv-chip svg{width:16px;height:16px;color:#0FA67C}
 .lp-cell.on .cv-ring .a1{animation:cvA1 6.5s var(--ease) infinite}
 .lp-cell.on .cv-ring .a2{animation:cvA2 6.5s var(--ease) infinite}
 .lp-cell.on .cv-pct .o{animation:cvO 6.5s infinite}
@@ -1030,15 +1066,14 @@ html.js .lp-cell.seen{opacity:1;translate:0 0}
 .tg{width:100%;max-width:380px}
 .tg ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .tg li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;
-  background:rgba(255,255,255,.045);border:1px solid var(--line);color:var(--ink);font-size:14px;font-weight:600;opacity:0}
+  background:var(--card2);border:1px solid var(--line);color:var(--ink);font-size:14px;font-weight:600;opacity:0}
 .tg .m{display:grid;gap:2px}
 .tg small{font-weight:500;color:var(--mute);font-size:12px}
-.tg em{font-style:normal;color:#FFB0D0;font-weight:650}
+.tg em{font-style:normal;color:#C2255C;font-weight:650}
 .tg li b{font-family:var(--round)}
 .tg-sum{display:flex;align-items:center;gap:10px;margin:12px 0 0;padding:13px 16px;border-radius:14px;
-  background:linear-gradient(90deg,rgba(255,100,160,.18),rgba(255,100,160,.06));border:1px solid rgba(255,120,170,.35);
-  color:var(--ink);font-size:14px;opacity:0}
-.tg-sum em{font-style:normal;font-weight:700;color:#FF9CC6}
+  background:#FDEEF3;border:1px solid #F6C7D7;color:var(--ink);font-size:14px;opacity:0}
+.tg-sum em{font-style:normal;font-weight:700;color:#C2255C}
 .tg-sum span{color:var(--mute);font-size:12.5px}
 .tg-sum b{margin-left:auto;font:700 17px/1 var(--round)}
 .lp-cell.on .tg li{animation:tgRow 7s var(--ease) infinite;animation-delay:calc(var(--k) * .22s)}
@@ -1050,39 +1085,40 @@ html.js .lp-cell.seen{opacity:1;translate:0 0}
 .mc{position:relative;width:100%;height:100%;min-height:250px}
 .mc-c{position:absolute;inset:0;width:100%;height:100%}
 .mc-lbl{position:absolute;right:6px;top:4px;margin:0;text-align:right;color:var(--mute);font-size:13px;line-height:1.4}
-.mc-lbl b{display:block;color:#A9A7FF;font:700 38px/1 var(--round)}
-.mc-lbl small{font-size:11px;opacity:.7}
+.mc-lbl b{display:block;color:#5452D8;font:700 38px/1 var(--round)}
+.mc-lbl small{font-size:11px;opacity:.75}
 
 /* currency */
 .fx{width:100%;max-width:440px}
 .fx ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .fx li{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-radius:14px;
-  background:rgba(255,255,255,.045);border:1px solid var(--line)}
+  background:var(--card2);border:1px solid var(--line)}
 .fx .n{color:var(--ink);font-weight:600;font-size:14px}
 .flip{display:inline-grid;perspective:500px;font:700 17px/1 var(--round);font-variant-numeric:tabular-nums}
 .flip .f{grid-area:1/1;text-align:right;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.flip .a{color:#9DD9FF}
-.flip .b{color:var(--mint);transform:rotateX(180deg)}
+.flip .a{color:#2474C7}
+.flip .b{color:#0A9A74;transform:rotateX(180deg)}
 .lp-cell.on .flip .a{animation:fxA 6s var(--ease2) infinite;animation-delay:calc(var(--k) * .18s + .4s)}
 .lp-cell.on .flip .b{animation:fxB 6s var(--ease2) infinite;animation-delay:calc(var(--k) * .18s + .4s)}
 @keyframes fxA{0%,18%{transform:none}28%,78%{transform:rotateX(-180deg)}88%,100%{transform:rotateX(-360deg)}}
 @keyframes fxB{0%,18%{transform:rotateX(180deg)}28%,78%{transform:rotateX(0)}88%,100%{transform:rotateX(-180deg)}}
 .fx-sum{display:flex;justify-content:space-between;align-items:baseline;margin:14px 2px 0;color:var(--mute);font-size:13px}
 .fx-sum b{color:var(--ink);font:700 24px/1 var(--round);font-variant-numeric:tabular-nums}
-.fx-note{margin:6px 2px 0!important;font-size:11px!important;color:rgba(206,230,222,.35)!important}
+.fx-note{margin:6px 2px 0!important;font-size:11px!important;color:rgba(12,31,54,.4)!important}
 
 /* import */
 .im{width:100%;max-width:380px;display:grid;gap:16px}
 .im-files{display:flex;justify-content:center;gap:8px;height:44px}
 .im-files span{display:grid;place-items:center;width:58px;height:40px;border-radius:10px;font:700 12px/1 var(--display);
-  letter-spacing:.06em;color:var(--ink);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);opacity:0}
-.im-files span:nth-child(5){color:#9DB8FF}
+  letter-spacing:.06em;color:var(--ink);background:#fff;border:1px solid rgba(12,31,54,.14);
+  box-shadow:0 6px 14px -8px rgba(12,31,54,.3);opacity:0}
+.im-files span:nth-child(5){color:#2F5BD3}
 .im-tray{position:relative;display:flex;align-items:center;gap:14px;padding:18px 18px;border-radius:18px;
-  border:1.5px dashed rgba(25,216,166,.4);background:rgba(25,216,166,.05)}
-.im-tray>svg{width:28px;height:28px;color:var(--mint);flex:0 0 auto}
+  border:1.5px dashed rgba(18,184,139,.5);background:#EFFAF5}
+.im-tray>svg{width:28px;height:28px;color:#0FA67C;flex:0 0 auto}
 .im-tray p{margin:0;display:grid;gap:3px;color:var(--ink);font-size:14.5px}
 .im-tray p span{color:var(--mute);font-size:12.5px}
-.im-ok{position:absolute;right:16px;top:50%;width:30px;height:30px;border-radius:50%;background:var(--mint);color:#03271D;
+.im-ok{position:absolute;right:16px;top:50%;width:30px;height:30px;border-radius:50%;background:#12B88B;color:#fff;
   display:grid;place-items:center;transform:translateY(-50%) scale(0)}
 .im-ok svg{width:17px;height:17px}
 .im-ok .ck{stroke-dasharray:24;stroke-dashoffset:24}
@@ -1096,19 +1132,18 @@ html.js .lp-cell.seen{opacity:1;translate:0 0}
 
 /* receipt */
 .rc{display:flex;align-items:center;gap:20px;width:100%;max-width:420px}
-.rc-paper{position:relative;flex:0 0 132px;padding:16px 14px 18px;border-radius:6px;background:#F4F1EA;color:#2B2B28;
-  box-shadow:0 20px 40px -14px rgba(0,0,0,.7);transform:rotate(-4deg);overflow:hidden;
+.rc-paper{position:relative;flex:0 0 132px;padding:16px 14px 18px;border-radius:6px;background:#FBFAF6;color:#2B2B28;
+  box-shadow:0 16px 30px -14px rgba(12,31,54,.35),0 0 0 1px rgba(12,31,54,.06);transform:rotate(-4deg);overflow:hidden;
   -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/10px 100%;
   mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/10px 100%}
 .rc-h{margin:0 0 10px;font:700 9px/1.2 ui-monospace,Menlo,monospace;text-align:center;letter-spacing:.05em}
-.rc-paper i{display:block;height:5px;border-radius:2px;background:#D8D3C7;margin:7px 0}
+.rc-paper i{display:block;height:5px;border-radius:2px;background:#E2DED3;margin:7px 0}
 .rc-paper i.s{width:60%}
 .rc-t{margin:12px 0 0;display:flex;justify-content:space-between;font:700 10px/1 ui-monospace,Menlo,monospace}
 .rc-beam{position:absolute;left:0;right:0;top:0;height:28px;opacity:0;
-  background:linear-gradient(rgba(25,216,166,0),rgba(25,216,166,.55) 50%,rgba(25,216,166,0));
-  box-shadow:0 0 18px rgba(25,216,166,.6)}
+  background:linear-gradient(rgba(18,184,139,0),rgba(18,184,139,.45) 50%,rgba(18,184,139,0))}
 .rc-f{list-style:none;margin:0;padding:0;display:grid;gap:8px;flex:1;min-width:0}
-.rc-f li{display:grid;gap:2px;padding:9px 12px;border-radius:11px;background:rgba(255,255,255,.045);border:1px solid var(--line);opacity:0}
+.rc-f li{display:grid;gap:2px;padding:9px 12px;border-radius:11px;background:var(--card2);border:1px solid var(--line);opacity:0}
 .rc-f span{font-size:11px;color:var(--mute);letter-spacing:.04em;text-transform:uppercase}
 .rc-f b{color:var(--ink);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lp-cell.on .rc-beam{animation:rcBeam 6s cubic-bezier(.5,0,.5,1) infinite}
@@ -1119,51 +1154,54 @@ html.js .lp-cell.seen{opacity:1;translate:0 0}
 /* watch */
 .wt{position:relative;display:grid;place-items:center}
 .wt-glow{position:absolute;width:240px;height:240px;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(25,216,166,.28),transparent);animation:wtG 4s ease-in-out infinite}
+  background:radial-gradient(closest-side,rgba(18,184,139,.22),transparent);animation:wtG 4s ease-in-out infinite}
 @keyframes wtG{50%{transform:scale(1.15);opacity:.7}}
 .lp-wbezel.big{width:150px;animation:lpBob 6s ease-in-out infinite}
 
-/* ══ PRIVACY ══════════════════════════════════════════════════ */
-.lp-privacy{background:radial-gradient(60% 60% at 75% 50%,rgba(14,74,60,.35),transparent 70%),#030D0B;
-  border-top:1px solid var(--line)}
+/* ══ PRIVACY (dusk, a sheet over the details) ════════════════ */
+.lp-privacy{background:radial-gradient(60% 60% at 75% 50%,rgba(46,221,176,.12),transparent 70%),
+  linear-gradient(160deg,#0C1F33 0%,#0F2E40 60%,#10363F 100%)}
 .lp-pv-grid{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,5vw,90px);align-items:center}
 .lp-checks{list-style:none;margin:34px 0 0;padding:0;display:grid;gap:16px}
 .lp-checks li{display:flex;gap:14px;align-items:flex-start}
 .lp-checks b{display:block;color:var(--ink);font-size:16px;font-weight:620;letter-spacing:-.01em}
 .lp-checks li>div>span{display:block;color:var(--mute);font-size:14px;line-height:1.5;margin-top:2px}
 .ckb{width:26px;height:26px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;margin-top:1px;
-  background:rgba(25,216,166,.14);color:var(--mint)}
+  background:rgba(46,221,176,.16);color:var(--mint)}
 .ckb svg{width:14px;height:14px}
 .ckb .ck{stroke-dasharray:24;stroke-dashoffset:0}
 html.js .lp-checks li.rv .ck{stroke-dashoffset:24;transition:stroke-dashoffset .6s var(--ease) calc(var(--k) * 90ms + .35s)}
 html.js .lp-checks li.rv.in .ck{stroke-dashoffset:0}
 .pv-svg{display:block;width:100%;height:auto;overflow:visible}
-.pv-svg text{fill:rgba(232,246,241,.8);font:600 21px var(--display);text-anchor:middle}
-.nd .disc{fill:#0A1E19;stroke:rgba(255,255,255,.14);stroke-width:1.5}
-.nd .halo{fill:none;stroke:rgba(25,216,166,.28);stroke-width:1.5;transform-box:fill-box;transform-origin:center;
+.pv-svg text{fill:rgba(236,246,243,.84);font:600 21px var(--display);text-anchor:middle}
+.nd .disc{fill:#123246;stroke:rgba(255,255,255,.16);stroke-width:1.5;transition:fill .3s,stroke .3s}
+.nd .halo{fill:none;stroke:rgba(46,221,176,.3);stroke-width:1.5;transform-box:fill-box;transform-origin:center;
   animation:pvHalo 3.2s ease-out infinite}
 .nd:nth-of-type(2) .halo{animation-delay:.8s}.nd:nth-of-type(3) .halo{animation-delay:1.6s}.nd:nth-of-type(4) .halo{animation-delay:2.4s}
 @keyframes pvHalo{0%{transform:scale(.8);opacity:0}30%{opacity:1}100%{transform:scale(1.35);opacity:0}}
-.nd .gl{color:#E2F8F0}
-.fl-base{fill:none;stroke:rgba(255,255,255,.08);stroke-width:2}
-.fl{fill:none;stroke:rgba(25,216,166,.75);stroke-width:2;stroke-dasharray:5 11;animation:pvDash 1.1s linear infinite}
+.nd .gl{color:#E6F8F2}
+.nd{cursor:default}
+.nd:hover .disc{fill:#16433F;stroke:#2EDDB0}
+.nd:hover .gl{color:#fff}
+.fl-base{fill:none;stroke:rgba(255,255,255,.09);stroke-width:2}
+.fl{fill:none;stroke:rgba(46,221,176,.75);stroke-width:2;stroke-dasharray:5 11;animation:pvDash 1.1s linear infinite}
 @keyframes pvDash{to{stroke-dashoffset:-16}}
-.pk{fill:#7DF5D2;filter:drop-shadow(0 0 5px #19D8A6)}
-.cloud .cl{fill:rgba(25,216,166,.1);stroke:#19D8A6;stroke-width:2}
-.cloud .lk{color:#6FF3CC}
+.pk{fill:#8AF7D8}
+.cloud .cl{fill:rgba(46,221,176,.12);stroke:#2EDDB0;stroke-width:2}
+.cloud .lk{color:#7FF4D0}
 .cloud text{font-size:22px;fill:#fff}
 .pv-bloom{animation:pvBloom 4s ease-in-out infinite;transform-origin:500px 275px}
 @keyframes pvBloom{50%{transform:scale(1.08);opacity:.75}}
-.blocked .bl{fill:none;stroke:rgba(255,120,110,.55);stroke-width:2;stroke-dasharray:4 7;animation:pvDash 1.4s linear infinite reverse}
-.blocked .x circle{fill:#2A0F0E;stroke:#FF6B5E;stroke-width:1.5}
-.blocked .x path{stroke:#FF7A6E;stroke-width:2.4;stroke-linecap:round;fill:none}
-.srv{fill:rgba(255,255,255,.02);stroke:rgba(255,255,255,.22);stroke-dasharray:5 6}
-.pv-svg .srv-t{fill:rgba(232,246,241,.55);font-size:19px}
-.pv-svg .srv-s{fill:#FF8F84;font-size:17px;font-weight:600}
-.nobank rect{fill:rgba(255,255,255,.03);stroke:rgba(255,255,255,.12)}
-.nobank>g{color:rgba(232,246,241,.55)}
-.pv-svg .nobank text{text-anchor:middle;font-size:18px;fill:rgba(232,246,241,.66)}
-.nobank .strike{stroke:#FF7A6E;stroke-width:1.6;stroke-dasharray:344;stroke-dashoffset:344;opacity:.8}
+.blocked .bl{fill:none;stroke:rgba(255,130,120,.6);stroke-width:2;stroke-dasharray:4 7;animation:pvDash 1.4s linear infinite reverse}
+.blocked .x circle{fill:#3A1A1C;stroke:#FF7A6E;stroke-width:1.5}
+.blocked .x path{stroke:#FF8A80;stroke-width:2.4;stroke-linecap:round;fill:none}
+.srv{fill:rgba(255,255,255,.03);stroke:rgba(255,255,255,.24);stroke-dasharray:5 6}
+.pv-svg .srv-t{fill:rgba(236,246,243,.6);font-size:19px}
+.pv-svg .srv-s{fill:#FF9A90;font-size:17px;font-weight:600}
+.nobank rect{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.14)}
+.nobank>g{color:rgba(236,246,243,.6)}
+.pv-svg .nobank text{text-anchor:middle;font-size:18px;fill:rgba(236,246,243,.7)}
+.nobank .strike{stroke:#FF8A80;stroke-width:1.6;stroke-dasharray:344;stroke-dashoffset:344;opacity:.85}
 html.js .lp-pv-viz.in .nobank .strike{stroke-dashoffset:0;transition:stroke-dashoffset 1.2s var(--ease) 1.2s}
 html.js .lp-pv-viz .nd,html.js .lp-pv-viz .cloud,html.js .lp-pv-viz .blocked,html.js .lp-pv-viz .nobank{opacity:0;transition:opacity .8s,transform 1s var(--ease)}
 html.js .lp-pv-viz.in .nd,html.js .lp-pv-viz.in .cloud,html.js .lp-pv-viz.in .blocked,html.js .lp-pv-viz.in .nobank{opacity:1}
@@ -1172,8 +1210,8 @@ html.js .lp-pv-viz.in .nd:nth-of-type(3){transition-delay:.55s}html.js .lp-pv-vi
 html.js .lp-pv-viz.in .blocked{transition-delay:.9s}html.js .lp-pv-viz.in .nobank{transition-delay:1.05s}
 html.js .lp-pv-viz.rv{transform:none;opacity:1}
 
-/* ══ STATS ════════════════════════════════════════════════════ */
-.lp-stats{padding-top:clamp(70px,10vh,120px);padding-bottom:clamp(70px,10vh,120px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* ══ STATS (light, a sheet over the privacy band) ════════════ */
+.lp-stats{padding-top:clamp(80px,11vh,130px);padding-bottom:clamp(70px,10vh,120px);border-bottom:1px solid var(--line)}
 .lp-stats-in{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
 .lp-stat{text-align:left;border-left:1px solid var(--line);padding-left:22px}
 .lp-stat p{margin:12px 0 0;color:var(--mute);font-size:14px;line-height:1.45;max-width:20ch}
@@ -1182,70 +1220,86 @@ html.js .lp-pv-viz.rv{transform:none;opacity:1}
 .od-c{display:inline-block;height:1em;overflow:hidden}
 .od-s{display:flex;flex-direction:column}
 .od-s i{display:block;height:1em;font-style:normal;text-align:center}
-.lp-stat:first-child .od,.lp-stat:nth-child(2) .od{background:linear-gradient(180deg,#fff,#7DF5D2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lp-stat:first-child .od,.lp-stat:nth-child(2) .od{color:#0A9A74}
 html.js .od-s{transform:translateY(0)}
 html.js .lp-stat.in .od-s{transform:translateY(calc((10 + var(--d)) * -1em));
   transition:transform 2.2s cubic-bezier(.16,1,.3,1) calc(var(--k) * 120ms + var(--j) * 90ms)}
 html:not(.js) .od-s{transform:translateY(calc((10 + var(--d)) * -1em))}
 .od-v{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-/* ══ POSTERS (horizontal) ═════════════════════════════════════ */
+/* ══ POSTERS (light, horizontal) ═════════════════════════════ */
 .lp-hs .lp-pin{display:flex;flex-direction:column;justify-content:center;gap:clamp(22px,4vh,44px);
-  background:radial-gradient(70% 60% at 50% 60%,rgba(14,74,60,.3),transparent 70%),#030D0B}
+  background:radial-gradient(70% 60% at 50% 60%,rgba(18,184,139,.08),transparent 70%),var(--bg)}
 .lp-hs-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;
   max-width:1520px;width:100%;margin:0 auto;padding:60px var(--gut) 0}
 .lp-hs-head .lp-kicker{flex-basis:100%;margin-bottom:0}
 .lp-hs-head .lp-h2{font-size:clamp(34px,4.4vw,64px)}
 .lp-hs-head .lp-link{margin:0 0 10px}
 .lp-hview{position:relative}
-.lp-htrack{display:flex;gap:clamp(16px,2vw,30px);width:max-content;padding:0 var(--gut);will-change:transform}
-.lp-post{margin:0;flex:0 0 auto;transform-origin:50% 50%;will-change:transform}
+.lp-htrack{display:flex;gap:clamp(16px,2vw,30px);width:max-content;padding:0 var(--gut)}
+.lp-hs:not(.native) .lp-htrack{will-change:transform}
+.lp-post{margin:0;flex:0 0 auto;transform-origin:50% 50%}
 .lp-post img{display:block;height:min(58vh,560px);width:auto;border-radius:22px;
-  box-shadow:0 40px 80px -30px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.06)}
+  box-shadow:0 34px 60px -30px rgba(12,31,54,.45),0 0 0 1px rgba(12,31,54,.06);transition:box-shadow .4s}
 .lp-post.mac img{height:min(44vh,450px);border-radius:14px}
 .lp-post.ipad img{height:min(52vh,520px);border-radius:18px}
-.lp-hbar{max-width:1520px;width:calc(100% - 2 * var(--gut));margin:0 auto;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
-.lp-hbar i{display:block;height:100%;background:linear-gradient(90deg,#19D8A6,#7DE3FF);transform-origin:left;transform:scaleX(var(--hp,0))}
+.lp-hbar{max-width:1520px;width:calc(100% - 2 * var(--gut));margin:0 auto;height:2px;background:var(--track);border-radius:2px;overflow:hidden}
+.lp-hbar i{display:block;height:100%;background:linear-gradient(90deg,#12B88B,#2F9BE0);transform-origin:left;transform:scaleX(var(--hp,0))}
 html:not(.js) .lp-hview,.lp-hs.native .lp-hview{overflow-x:auto;scroll-snap-type:x proximity}
 .lp-hs.native{height:auto!important}
 .lp-hs.native .lp-pin{position:relative;height:auto;padding-bottom:60px}
 .lp-hs.native .lp-hbar{display:none}
 
-/* ══ COMPARE ══════════════════════════════════════════════════ */
-.lp-cmp{padding-top:clamp(80px,12vh,140px);padding-bottom:0}
+/* ══ COMPARE (light) ═════════════════════════════════════════ */
+.lp-cmp{padding-top:clamp(80px,12vh,140px);padding-bottom:clamp(90px,14vh,150px)}
 .lp-cmp-card{position:relative;display:grid;gap:14px;max-width:1400px;margin:0 auto;border-radius:34px;overflow:hidden;
-  padding:clamp(34px,5.5vw,76px);color:var(--ink);isolation:isolate;
-  background:radial-gradient(80% 120% at 100% 0%,rgba(25,216,166,.16),transparent 60%),
-             radial-gradient(60% 100% at 0% 100%,rgba(125,227,255,.1),transparent 60%),rgba(255,255,255,.03);
-  border:1px solid var(--line);transition:transform .6s var(--ease)}
+  padding:clamp(34px,5.5vw,76px);color:var(--ink);
+  background:radial-gradient(80% 120% at 100% 0%,rgba(18,184,139,.14),transparent 60%),
+             radial-gradient(60% 100% at 0% 100%,rgba(47,155,224,.1),transparent 60%),#fff;
+  border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .6s var(--ease)}
 .lp-cmp-card:hover{transform:translateY(-4px)}
 .lp-cmp-bd{position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:1;
-  background:conic-gradient(from var(--ang),transparent 0 62%,#19D8A6 76%,#7DE3FF 84%,transparent 94%);
+  background:conic-gradient(from 210deg,transparent 0 62%,#12B88B 76%,#2F9BE0 84%,transparent 94%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
-  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:lpSpin 7s linear infinite}
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+@media (hover:hover) and (pointer:fine){
+  .lp-cmp-bd{background:conic-gradient(from var(--ang),transparent 0 62%,#12B88B 76%,#2F9BE0 84%,transparent 94%);
+    animation:lpSpin 7s linear infinite}
+}
 @keyframes lpSpin{to{--ang:360deg}}
 .lp-cmp-card .lp-kicker{margin:0}
 .lp-cmp-h{font:700 clamp(30px,3.8vw,56px)/1.06 var(--display);letter-spacing:-.04em;max-width:22ch}
 .lp-cmp-p{color:var(--mute);font-size:clamp(16px,1.3vw,19px);max-width:56ch;line-height:1.6}
-.lp-cmp-go{display:inline-flex;align-items:center;gap:10px;margin-top:10px;color:var(--mint2);font-weight:650;font-size:16px;
+.lp-cmp-go{display:inline-flex;align-items:center;gap:10px;margin-top:10px;color:var(--acc-ink);font-weight:650;font-size:16px;
   justify-self:start;transition:transform .5s var(--ease)}
 .lp-cmp-go svg{width:19px;height:19px;transition:transform .4s var(--ease)}
 .lp-cmp-card:hover .lp-cmp-go svg{transform:translateX(6px)}
 
-/* ══ FINALE ═══════════════════════════════════════════════════ */
-.lp-final{text-align:center;overflow:hidden;padding-bottom:40px}
-.lp-rays{position:absolute;left:50%;top:clamp(120px,18vh,220px);width:1600px;height:1600px;transform:translate(-50%,-50%);
-  pointer-events:none;opacity:.8;
-  background:repeating-conic-gradient(from var(--ang),rgba(25,216,166,.09) 0deg 4deg,transparent 4deg 16deg);
-  -webkit-mask:radial-gradient(closest-side,#000 8%,transparent 62%);mask:radial-gradient(closest-side,#000 8%,transparent 62%);
-  animation:lpSpin 90s linear infinite}
+/* ══ FINALE (dusk, a sheet over the comparison) ══════════════ */
+.lp-final{text-align:center;overflow:hidden;padding-bottom:40px;
+  background:radial-gradient(70% 50% at 50% 0%,rgba(46,221,176,.16),transparent 70%),
+  linear-gradient(180deg,#0F2E40,#0C1F33 60%)}
+/* The rays turn by TRANSFORM — the compositor spins a finished picture. It
+   used to animate the gradient's angle, which repainted a 1600px square every
+   frame; on a 3x phone that is a 4800px bitmap, redrawn sixty times a second. */
+.lp-rays{position:absolute;left:50%;top:clamp(120px,18vh,220px);width:min(1400px,190vw);aspect-ratio:1;
+  pointer-events:none;opacity:.9;transform:translate(-50%,-50%);
+  background:repeating-conic-gradient(from 0deg,rgba(46,221,176,.1) 0deg 4deg,transparent 4deg 16deg);
+  -webkit-mask:radial-gradient(closest-side,#000 8%,transparent 62%);mask:radial-gradient(closest-side,#000 8%,transparent 62%)}
+@media (hover:hover) and (pointer:fine){
+  .lp-rays{animation:lpRot 120s linear infinite}
+}
+@keyframes lpRot{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.lp-embers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.lp-final>*:not(.lp-embers):not(.lp-rays){position:relative;z-index:1}
 .lp-icon3d{position:relative;width:clamp(120px,15vw,188px);aspect-ratio:1;margin:0 auto 44px;border-radius:22.4%;
   transform:perspective(900px) rotateX(var(--irx,0deg)) rotateY(var(--iry,0deg));
-  box-shadow:0 50px 90px -24px rgba(25,216,166,.5),0 0 0 1px rgba(255,255,255,.1),0 0 120px rgba(25,216,166,.25);
+  box-shadow:0 40px 80px -26px rgba(46,221,176,.45),0 0 0 1px rgba(255,255,255,.12);
   animation:lpFloat 7s ease-in-out infinite;overflow:hidden}
 .lp-icon3d img{display:block;width:100%;height:100%}
-.lp-icon-sheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);
-  background-size:300% 100%;animation:lpSheen 5s ease-in-out 1s infinite;mix-blend-mode:overlay}
+.lp-icon-sheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);
+  background-size:300% 100%;background-position:120% 0}
+@media (hover:hover) and (pointer:fine){.lp-icon-sheen{animation:lpSheen 5s ease-in-out 1s infinite}}
 @keyframes lpSheen{0%,55%{background-position:120% 0}100%{background-position:-120% 0}}
 @keyframes lpFloat{50%{translate:0 -12px}}
 .lp-final-h{font-size:clamp(40px,6.6vw,104px);line-height:1;max-width:none}
@@ -1259,91 +1313,93 @@ html.js .lp-final .lp-free.rv.in{opacity:1}
 .lp-help{max-width:1100px;margin:clamp(70px,11vh,120px) auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left}
 .lp-tile{display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:20px;background:var(--card);
   border:1px solid var(--line);color:var(--ink);transition:transform .45s var(--ease),border-color .3s,background .3s}
-.lp-tile:hover{transform:translateY(-4px);border-color:rgba(25,216,166,.4);background:rgba(25,216,166,.06)}
+.lp-tile:hover{transform:translateY(-4px);border-color:rgba(46,221,176,.45);background:rgba(46,221,176,.08)}
 .lp-tile b{display:block;font-size:15.5px;font-weight:650}
 .lp-tile>span>span{display:block;font-size:13px;color:var(--mute);margin-top:3px}
-body.landing .chip.tint{background:color-mix(in srgb,var(--c) 22%,#030D0B);color:color-mix(in srgb,var(--c) 80%,#fff)}
-
+body.landing .chip.tint{background:color-mix(in srgb,var(--c) 22%,#0C1F33);color:color-mix(in srgb,var(--c) 80%,#fff)}
 /* the name, set huge and fading into the ground above the footer */
-.lp-wordmark{margin:clamp(40px,8vh,90px) 0 0;text-align:center;white-space:nowrap;pointer-events:none;user-select:none;
+.lp-wordmark{margin:0;padding-top:clamp(40px,8vh,90px);text-align:center;white-space:nowrap;pointer-events:none;user-select:none;
   font:800 clamp(64px,15.5vw,250px)/.8 var(--display);letter-spacing:-.06em;
-  background:linear-gradient(180deg,rgba(93,240,196,.22),rgba(93,240,196,0) 88%);
+  background:linear-gradient(180deg,rgba(114,240,204,.24),rgba(114,240,204,0) 88%);
   -webkit-background-clip:text;background-clip:text;color:transparent;overflow:hidden}
-/* ══ FOOTER ═══════════════════════════════════════════════════ */
+
+/* ══ FOOTER (dusk) ═══════════════════════════════════════════ */
 .lp-foot{max-width:1400px;margin:0 auto;padding:0 var(--gut) 60px}
-body.landing footer{border-top-color:var(--line);color:rgba(206,230,222,.42);margin-top:40px}
-body.landing footer a{color:rgba(206,230,222,.6)}
+body.landing footer{border-top-color:var(--line);color:rgba(214,232,227,.5);margin-top:40px}
+body.landing footer a{color:rgba(214,232,227,.68)}
 body.landing footer a:hover{color:#fff}
+
+/* ── offscreen sections skip rendering until they come near. The sizes are
+   each section's measured height, so the page's length barely changes as they
+   render; `auto` then remembers the real one. ── */
+.lp-details,.lp-privacy,.lp-stats,.lp-cmp,.lp-final{content-visibility:auto}
+.lp-details{contain-intrinsic-size:auto 2400px}
+.lp-privacy{contain-intrinsic-size:auto 1150px}
+.lp-stats{contain-intrinsic-size:auto 450px}
+.lp-cmp{contain-intrinsic-size:auto 700px}
+.lp-final{contain-intrinsic-size:auto 1150px}
+@media (max-width:1100px){.lp-details{contain-intrinsic-size:auto 3800px}.lp-privacy{contain-intrinsic-size:auto 1600px}}
+@media (max-width:700px){.lp-details{contain-intrinsic-size:auto 5600px}.lp-stats{contain-intrinsic-size:auto 700px}
+  .lp-final{contain-intrinsic-size:auto 1500px}}
 
 /* ── reveal ─────────────────────────────────────────────────── */
 html.js body.landing .rv{opacity:0;transform:translateY(30px);
   transition:opacity 1s var(--ease) calc(var(--k,0) * 90ms),transform 1.2s var(--ease) calc(var(--k,0) * 90ms)}
 html.js body.landing .rv.in{opacity:1;transform:none}
 html.js body.landing .lp-h2.rv{opacity:1;transform:none}
-html.js .lp-h2.rv .w{opacity:0;transform:translateY(.45em);filter:blur(8px);
-  transition:opacity .9s var(--ease),transform 1.1s var(--ease),filter .9s;transition-delay:calc(var(--wi) * 55ms)}
-html.js .lp-h2.rv.in .w{opacity:1;transform:none;filter:none}
+html.js .lp-h2.rv .w{opacity:0;transform:translateY(.45em);
+  transition:opacity .9s var(--ease),transform 1.1s var(--ease);transition-delay:calc(var(--wi) * 55ms)}
+html.js .lp-h2.rv.in .w{opacity:1;transform:none}
 html.js .lp-h2.rv.in em.w{animation:lpShim 7s linear 1.2s infinite}
 
-/* soft light that follows the pointer across the dark */
+/* soft light that follows the pointer — dusk sections only */
 .lp-glow{position:fixed;left:0;top:0;width:640px;height:640px;margin:-320px 0 0 -320px;border-radius:50%;
-  pointer-events:none;z-index:1;opacity:0;transition:opacity .6s;mix-blend-mode:screen;
-  background:radial-gradient(closest-side,rgba(25,216,166,.075),transparent)}
-body.landing.pointer .lp-glow{opacity:1}
-
+  pointer-events:none;z-index:1;opacity:0;transition:opacity .6s;
+  background:radial-gradient(closest-side,rgba(46,221,176,.07),transparent)}
+body.landing.pointer:not(.nav-l) .lp-glow{opacity:1}
 
 /* ══ SECTION INDEX — desktop: where you are, and a way to jump ═══ */
 .lp-index{position:fixed;right:clamp(14px,1.6vw,26px);top:50%;z-index:15;display:grid;gap:4px;
   transform:translate(12px,-50%);opacity:0;pointer-events:none;transition:opacity .5s,transform .6s var(--ease)}
 .lp-index.show{opacity:1;transform:translate(0,-50%);pointer-events:auto}
-.lp-index a{display:flex;align-items:center;justify-content:flex-end;gap:12px;height:26px;color:var(--mute)}
-.lp-index i{width:6px;height:6px;border-radius:6px;background:rgba(255,255,255,.28);
-  transition:height .45s var(--ease),background .3s,box-shadow .3s}
-.lp-index a.on i{height:22px;background:var(--mint);box-shadow:0 0 12px rgba(25,216,166,.6)}
+.lp-index a{display:flex;align-items:center;justify-content:flex-end;gap:12px;height:26px}
+.lp-index i{width:6px;height:6px;border-radius:6px;background:rgba(255,255,255,.35);
+  transition:height .45s var(--ease),background .3s}
+body.nav-l .lp-index i{background:rgba(12,31,54,.22)}
+.lp-index a.on i{height:22px;background:#12B88B}
 .lp-index span{font:600 12px/1 var(--display);letter-spacing:.02em;white-space:nowrap;padding:6px 9px;border-radius:8px;
-  background:rgba(8,22,18,.88);border:1px solid var(--line);color:#fff;
-  opacity:0;transform:translateX(6px);transition:opacity .25s,transform .35s var(--ease);pointer-events:none}
+  background:#0C1F36;color:#fff;opacity:0;transform:translateX(6px);transition:opacity .25s,transform .35s var(--ease);pointer-events:none}
 .lp-index:hover span,.lp-index a:focus-visible span{opacity:1;transform:none}
-.lp-index a.on span{color:var(--mint2)}
-.lp-index a:hover i{background:#fff}
+.lp-index a:hover i{background:#12B88B}
 @media (max-width:1100px){.lp-index{display:none}}
-/* ══ FINALE embers ══ */
-.lp-embers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
-.lp-final>*:not(.lp-embers):not(.lp-rays){position:relative;z-index:1}
-/* ══ PRIVACY: a device you point at lights up ══ */
-.nd{cursor:default}
-.nd .disc{transition:fill .3s,stroke .3s}
-.nd:hover .disc{fill:#0F3A30;stroke:#19D8A6}
-.nd:hover .gl{color:#fff}
 
 /* ══ LIGHTBOX ══ */
 .lp-lb{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:clamp(56px,7vh,90px) clamp(16px,6vw,110px);
-  background:rgba(2,9,7,.86);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
-  opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+  background:rgba(8,22,34,.9);opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
 .lp-lb.open{opacity:1;visibility:visible;transition:opacity .3s}
 .lp-lb img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:14px;
-  box-shadow:0 50px 120px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.08);transform-origin:center}
-.lp-lb button{position:absolute;appearance:none;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.08);transform-origin:center}
+.lp-lb button{position:absolute;appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.09);
   color:#fff;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
   transition:background .2s,transform .3s var(--ease)}
-.lp-lb button:hover{background:rgba(255,255,255,.16)}
+.lp-lb button:hover{background:rgba(255,255,255,.18)}
 .lp-lb button svg{width:22px;height:22px}
 .lp-lb-x{top:18px;right:18px}
 .lp-lb-p{left:clamp(10px,2vw,32px);top:50%;margin-top:-24px}
 .lp-lb-n{right:clamp(10px,2vw,32px);top:50%;margin-top:-24px}
 .lp-lb-p:hover{transform:translateX(-3px)}.lp-lb-n:hover{transform:translateX(3px)}
 .lp-lb-c{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);margin:0;font:600 13px/1 var(--display);
-  color:var(--mute);letter-spacing:.08em}
+  color:rgba(214,232,227,.7);letter-spacing:.08em}
 .lp-lb.one .lp-lb-p,.lp-lb.one .lp-lb-n,.lp-lb.one .lp-lb-c{display:none}
-@media (max-width:700px){.lp-lb-p,.lp-lb-n{top:auto;bottom:14px;margin:0}.lp-lb-c{bottom:30px}}
 .lp-post,.lp-dev{cursor:zoom-in}
-.lp-post:focus-visible,.lp-dev:focus-visible{outline:2px solid var(--mint);outline-offset:8px;border-radius:20px}
-.lp-post img{transition:box-shadow .4s,filter .4s}
-.lp-post:hover img{box-shadow:0 50px 90px -30px rgba(0,0,0,.9),0 0 0 1px rgba(93,240,196,.35);filter:brightness(1.05)}
-/* ══ CHAPTERS: a soft pool of the chapter's light under the device ══ */
-.lp-ch-stage::after{content:"";position:absolute;left:50%;bottom:6%;width:70%;height:60px;transform:translateX(-50%);
-  border-radius:50%;pointer-events:none;z-index:-1;filter:blur(24px);opacity:.55;
-  background:radial-gradient(closest-side,color-mix(in srgb,var(--acc) 70%,transparent),transparent)}
+.lp-post:focus-visible,.lp-dev:focus-visible{outline:2px solid #12B88B;outline-offset:8px;border-radius:20px}
+@media (hover:hover){.lp-post:hover img{box-shadow:0 44px 70px -30px rgba(12,31,54,.55),0 0 0 1px rgba(18,184,139,.4)}}
+
+/* ══ TOUCH SCREENS — no hover, so nothing that only hover pays for ═ */
+@media (hover:none){
+  .lp-grain,.lp-glow{display:none}
+}
+
 /* ══ RESPONSIVE ═══════════════════════════════════════════════ */
 @media (max-width:1100px){
   .lp-bento{grid-template-columns:repeat(2,1fr)}
@@ -1373,22 +1429,28 @@ body.landing.pointer .lp-glow{opacity:1}
   .lp-cell-viz{min-height:230px;padding:28px 20px 4px}
   .lp-cell-txt{padding:16px 22px 24px}
   .lp-stats-in{grid-template-columns:1fr 1fr}
+  .lp-stat:last-child{grid-column:span 2}
   .lp-help{grid-template-columns:1fr}
   .lp-h1 .ln2{font-size:.7em}
   .lp-cta{gap:14px}
   .lp-ghost{padding:13px 17px}
-  .lp-card.c4,.lp-watchd{display:none}
-  .lp-grain,.lp-glow{display:none}
-  /* the phone choreography (landing.js LAYM): a deck wider than the screen */
+  .lp-sheet{border-radius:26px 26px 0 0;margin-top:-26px}
+  /* ── the phone hero (landing.js LAYM): the iPhone front and centre, the
+     Mac window behind it, and four cards breaking out of its edges. Only
+     the layers that choreography uses exist at all. */
+  .lp-win.w2,.lp-win.w3,.lp-watchd,.lp-card.c4,.lp-horizon{display:none}
+  .lp-hero .lp-pin{background:radial-gradient(120% 60% at 50% 100%,#18505A,transparent 70%),#0C1F33}
+  .lp-stage{perspective-origin:50% 50%}
   .lp-deck{--dw:min(150vw,92vh)}
-  .lp-phone{width:29%}
-  .lp-card{width:40%;font-size:11.5px}
-  .lp-card.c3{width:44%}
-  .lp-card.c5{width:50%}
-  .lp-stat:last-child{grid-column:span 2}
+  .lp-win.w1 img{opacity:.55}
+  .lp-phone{width:31%}
+  .lp-card{width:30%;font-size:10.5px}
+  .lp-card.c3{width:33%}
+  .lp-card.c5{width:37%}
   .rc{flex-direction:column;align-items:stretch}
   .rc-paper{flex-basis:auto;width:150px;margin:0 auto}
   .lp-hs-head .lp-link{margin-bottom:0}
+  .lp-lb-p,.lp-lb-n{top:auto;bottom:14px;margin:0}.lp-lb-c{bottom:30px}
 }
 /* short laptop windows: the headline block tightens so the resting deck can
    peek below the button without touching the line under it */
@@ -1408,9 +1470,9 @@ body.landing.pointer .lp-glow{opacity:1}
 /* ══ REDUCED MOTION — every scene has a finished, still state ═══ */
 @media (prefers-reduced-motion:reduce){
   #lp-intro{display:none}
-  .lp-grain,.lp-glass,.lp-icon3d,.lp-wbezel.big,.wt-glow,.pv-bloom,.nd .halo,.lp-rays,.lp-cmp-bd,.lp-pulse::after,.lp-cue i{animation:none!important}
-  html.js .lp-h1 .w,.lp-eyebrow,.lp-sub,.lp-cta,.lp-free{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}
-  html.js .lp-h2.rv .w,html.js body.landing .rv{opacity:1;transform:none;filter:none;transition:none}
+  .lp-grain,.lp-glass,.lp-icon3d,.lp-wbezel.big,.wt-glow,.pv-bloom,.nd .halo,.lp-rays,.lp-cmp-bd,.lp-pulse::after,.lp-icon-sheen{animation:none!important}
+  html.js .lp-h1 .w,.lp-eyebrow,.lp-sub,.lp-cta,.lp-free{animation:none!important;opacity:1!important;transform:none!important}
+  html.js .lp-h2.rv .w,html.js body.landing .rv{opacity:1;transform:none;transition:none}
   html.js .lp-cell{opacity:1;translate:none;transition:none}
   .fl,.blocked .bl{animation:none}
   .lp-shot.on,.lp-shot.was{transition:opacity .3s!important}
@@ -1454,7 +1516,7 @@ body.landing.pointer .lp-glow{opacity:1}
 </div></nav>
 <div id="lp-intro" aria-hidden="true"><div class="lp-intro-in">
 <img src="help/img/logo-180.png" alt="" width="92" height="92">
-<span class="lp-intro-bar"><i></i></span></div></div><nav class="lp-index" aria-label="Sections of this page"><a href="#top"><span>Intro</span><i></i></a><a href="#chapters"><span>Every part</span><i></i></a><a href="#details"><span>The details</span><i></i></a><a href="#privacy"><span>Privacy</span><i></i></a><a href="#gallery"><span>Screenshots</span><i></i></a><a href="#download"><span>Download</span><i></i></a></nav><main class="lp" id="main"><section class="lp-scene lp-hero" id="top" data-scene="hero">
+<span class="lp-intro-bar"><i></i></span></div></div><nav class="lp-index" aria-label="Sections of this page"><a href="#top"><span>Intro</span><i></i></a><a href="#chapters"><span>Every part</span><i></i></a><a href="#details"><span>The details</span><i></i></a><a href="#privacy"><span>Privacy</span><i></i></a><a href="#gallery"><span>Screenshots</span><i></i></a><a href="#download"><span>Download</span><i></i></a></nav><main class="lp" id="main"><section class="lp-scene lp-hero" id="top" data-scene="hero" data-tone="d">
 <div class="lp-pin">
   <canvas class="lp-aurora" aria-hidden="true"></canvas>
   <div class="lp-horizon" aria-hidden="true"></div>
@@ -1512,11 +1574,11 @@ body.landing.pointer .lp-glow{opacity:1}
   </div></div>
 
 </div>
-</section><section class="lp-marquee" aria-label="What Simple Finance covers"><div class="lp-mrow r1"><div class="lp-mtrack"><div class="lp-mset"><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg>Budgets</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg>Net worth</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h11a4 4 0 0 1 4 4"/><path d="M7 5L4 8l3 3"/><path d="M20 16H9a4 4 0 0 1-4-4"/><path d="M17 19l3-3-3-3"/></g></svg>Bills &amp; subscriptions</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></svg>Cash-flow forecast</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></g></svg>Retirement, stress-tested</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></g></svg>Goals</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 -0.250) scale(1.0000)"><path d="M3.5 9.5L12 4l8.5 5.5"/><path d="M5.5 9.5v9M10 9.5v9M14 9.5v9M18.5 9.5v9"/><path d="M3 20.5h18"/></g></svg>Loans &amp; mortgages</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.587" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.857 -1.286) scale(1.0714)"><path d="M4 10.5L12 4l8 6.5V19a1.8 1.8 0 0 1-1.8 1.8H5.8A1.8 1.8 0 0 1 4 19z"/><path d="M9.5 20.8v-6h5v6"/></g></svg>Rental property</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.848" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.960 0.960) scale(0.9200)"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></svg>Stocks &amp; crypto</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg>Other currencies</span></div><div class="lp-mset" aria-hidden="true"><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg>Budgets</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg>Net worth</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h11a4 4 0 0 1 4 4"/><path d="M7 5L4 8l3 3"/><path d="M20 16H9a4 4 0 0 1-4-4"/><path d="M17 19l3-3-3-3"/></g></svg>Bills &amp; subscriptions</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></svg>Cash-flow forecast</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></g></svg>Retirement, stress-tested</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></g></svg>Goals</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 -0.250) scale(1.0000)"><path d="M3.5 9.5L12 4l8.5 5.5"/><path d="M5.5 9.5v9M10 9.5v9M14 9.5v9M18.5 9.5v9"/><path d="M3 20.5h18"/></g></svg>Loans &amp; mortgages</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.587" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.857 -1.286) scale(1.0714)"><path d="M4 10.5L12 4l8 6.5V19a1.8 1.8 0 0 1-1.8 1.8H5.8A1.8 1.8 0 0 1 4 19z"/><path d="M9.5 20.8v-6h5v6"/></g></svg>Rental property</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.848" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.960 0.960) scale(0.9200)"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></svg>Stocks &amp; crypto</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg>Other currencies</span></div></div></div><div class="lp-mrow r2"><div class="lp-mtrack"><div class="lp-mset"><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.750 0.000) scale(1.0000)"><path d="M12 3l1.7 4.6L18 9.3l-4.3 1.7L12 15.6l-1.7-4.6L6 9.3l4.3-1.7z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></g></svg>Fin, on device</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.182) scale(1.0588)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M16.5 6a3.2 3.2 0 0 1 0 6.4"/><path d="M17.5 14.6a6.2 6.2 0 0 1 3 4.9"/></g></svg>Household sharing</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="7.5" width="18" height="12.5" rx="2.2"/><path d="M8.5 7.5V5.8A1.8 1.8 0 0 1 10.3 4h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"/><path d="M3 12.5h18"/></g></svg>Invoices &amp; estimates</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.702" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.027 -0.384) scale(0.9987)"><path d="M4 9.5V19a1.8 1.8 0 0 0 1.8 1.8h12.4A1.8 1.8 0 0 0 20 19V9.5"/><path d="M3 9.5L4.8 4h14.4L21 9.5a2.6 2.6 0 0 1-4.2.7 2.6 2.6 0 0 1-4.3 0 2.6 2.6 0 0 1-4.3 0A2.6 2.6 0 0 1 3 9.5z"/></g></svg>Mileage &amp; clients</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg>CSV &middot; OFX &middot; QFX &middot; Excel</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="7" y="6.5" width="10" height="11" rx="3"/><path d="M9 6.5L9.5 3h5l.5 3.5M9 17.5l.5 3.5h5l.5-3.5"/></g></svg>Apple Watch</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></g></svg>Widgets</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.558" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.909 -1.909) scale(1.0909)"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L21 21"/></g></svg>Search in plain words</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 17v-3M12 17v-5M15 17v-2"/></g></svg>PDF reports</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg>Face ID lock</span></div><div class="lp-mset" aria-hidden="true"><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.750 0.000) scale(1.0000)"><path d="M12 3l1.7 4.6L18 9.3l-4.3 1.7L12 15.6l-1.7-4.6L6 9.3l4.3-1.7z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></g></svg>Fin, on device</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.182) scale(1.0588)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M16.5 6a3.2 3.2 0 0 1 0 6.4"/><path d="M17.5 14.6a6.2 6.2 0 0 1 3 4.9"/></g></svg>Household sharing</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="7.5" width="18" height="12.5" rx="2.2"/><path d="M8.5 7.5V5.8A1.8 1.8 0 0 1 10.3 4h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"/><path d="M3 12.5h18"/></g></svg>Invoices &amp; estimates</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.702" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.027 -0.384) scale(0.9987)"><path d="M4 9.5V19a1.8 1.8 0 0 0 1.8 1.8h12.4A1.8 1.8 0 0 0 20 19V9.5"/><path d="M3 9.5L4.8 4h14.4L21 9.5a2.6 2.6 0 0 1-4.2.7 2.6 2.6 0 0 1-4.3 0 2.6 2.6 0 0 1-4.3 0A2.6 2.6 0 0 1 3 9.5z"/></g></svg>Mileage &amp; clients</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg>CSV &middot; OFX &middot; QFX &middot; Excel</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="7" y="6.5" width="10" height="11" rx="3"/><path d="M9 6.5L9.5 3h5l.5 3.5M9 17.5l.5 3.5h5l.5-3.5"/></g></svg>Apple Watch</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></g></svg>Widgets</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.558" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.909 -1.909) scale(1.0909)"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L21 21"/></g></svg>Search in plain words</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 17v-3M12 17v-5M15 17v-2"/></g></svg>PDF reports</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg>Face ID lock</span></div></div></div></section><section class="lp-mani" id="why">
+</section><section class="lp-marquee tone-l lp-sheet" data-tone="l" aria-label="What Simple Finance covers"><div class="lp-mrows"><div class="lp-mrow r1"><div class="lp-mtrack"><div class="lp-mset"><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg>Budgets</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg>Net worth</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h11a4 4 0 0 1 4 4"/><path d="M7 5L4 8l3 3"/><path d="M20 16H9a4 4 0 0 1-4-4"/><path d="M17 19l3-3-3-3"/></g></svg>Bills &amp; subscriptions</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></svg>Cash-flow forecast</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></g></svg>Retirement, stress-tested</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></g></svg>Goals</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 -0.250) scale(1.0000)"><path d="M3.5 9.5L12 4l8.5 5.5"/><path d="M5.5 9.5v9M10 9.5v9M14 9.5v9M18.5 9.5v9"/><path d="M3 20.5h18"/></g></svg>Loans &amp; mortgages</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.587" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.857 -1.286) scale(1.0714)"><path d="M4 10.5L12 4l8 6.5V19a1.8 1.8 0 0 1-1.8 1.8H5.8A1.8 1.8 0 0 1 4 19z"/><path d="M9.5 20.8v-6h5v6"/></g></svg>Rental property</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.848" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.960 0.960) scale(0.9200)"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></svg>Stocks &amp; crypto</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg>Other currencies</span></div><div class="lp-mset" aria-hidden="true"><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.8A9 9 0 0 1 20.2 8.5L15.5 10z"/></g></svg>Budgets</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 0.500) scale(1.0000)"><path d="M3 17l5.5-5.5 3.5 3.5L21 6"/><path d="M15 6h6v6"/></g></svg>Net worth</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.545" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.200 -1.200) scale(1.1000)"><path d="M4 8h11a4 4 0 0 1 4 4"/><path d="M7 5L4 8l3 3"/><path d="M20 16H9a4 4 0 0 1-4-4"/><path d="M17 19l3-3-3-3"/></g></svg>Bills &amp; subscriptions</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></svg>Cash-flow forecast</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></g></svg>Retirement, stress-tested</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></g></svg>Goals</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.000 -0.250) scale(1.0000)"><path d="M3.5 9.5L12 4l8.5 5.5"/><path d="M5.5 9.5v9M10 9.5v9M14 9.5v9M18.5 9.5v9"/><path d="M3 20.5h18"/></g></svg>Loans &amp; mortgages</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.587" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.857 -1.286) scale(1.0714)"><path d="M4 10.5L12 4l8 6.5V19a1.8 1.8 0 0 1-1.8 1.8H5.8A1.8 1.8 0 0 1 4 19z"/><path d="M9.5 20.8v-6h5v6"/></g></svg>Rental property</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.848" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.960 0.960) scale(0.9200)"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></svg>Stocks &amp; crypto</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><circle cx="12" cy="12" r="8.5"/><path d="M14.4 9.4a2.6 2.6 0 0 0-2.4-1.3c-1.5 0-2.5.8-2.5 1.9 0 2.7 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.7 2a2.8 2.8 0 0 1-2.6-1.4"/><path d="M12 6.5v11"/></g></svg>Other currencies</span></div></div></div><div class="lp-mrow r2"><div class="lp-mtrack"><div class="lp-mset"><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.750 0.000) scale(1.0000)"><path d="M12 3l1.7 4.6L18 9.3l-4.3 1.7L12 15.6l-1.7-4.6L6 9.3l4.3-1.7z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></g></svg>Fin, on device</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.182) scale(1.0588)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M16.5 6a3.2 3.2 0 0 1 0 6.4"/><path d="M17.5 14.6a6.2 6.2 0 0 1 3 4.9"/></g></svg>Household sharing</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="7.5" width="18" height="12.5" rx="2.2"/><path d="M8.5 7.5V5.8A1.8 1.8 0 0 1 10.3 4h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"/><path d="M3 12.5h18"/></g></svg>Invoices &amp; estimates</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.702" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.027 -0.384) scale(0.9987)"><path d="M4 9.5V19a1.8 1.8 0 0 0 1.8 1.8h12.4A1.8 1.8 0 0 0 20 19V9.5"/><path d="M3 9.5L4.8 4h14.4L21 9.5a2.6 2.6 0 0 1-4.2.7 2.6 2.6 0 0 1-4.3 0 2.6 2.6 0 0 1-4.3 0A2.6 2.6 0 0 1 3 9.5z"/></g></svg>Mileage &amp; clients</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg>CSV &middot; OFX &middot; QFX &middot; Excel</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="7" y="6.5" width="10" height="11" rx="3"/><path d="M9 6.5L9.5 3h5l.5 3.5M9 17.5l.5 3.5h5l.5-3.5"/></g></svg>Apple Watch</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></g></svg>Widgets</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.558" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.909 -1.909) scale(1.0909)"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L21 21"/></g></svg>Search in plain words</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 17v-3M12 17v-5M15 17v-2"/></g></svg>PDF reports</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg>Face ID lock</span></div><div class="lp-mset" aria-hidden="true"><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.750 0.000) scale(1.0000)"><path d="M12 3l1.7 4.6L18 9.3l-4.3 1.7L12 15.6l-1.7-4.6L6 9.3l4.3-1.7z"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></g></svg>Fin, on device</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -1.182) scale(1.0588)"><circle cx="9.5" cy="8.5" r="3.2"/><path d="M3.5 19.6a6.2 6.2 0 0 1 12 0"/><path d="M16.5 6a3.2 3.2 0 0 1 0 6.4"/><path d="M17.5 14.6a6.2 6.2 0 0 1 3 4.9"/></g></svg>Household sharing</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="3" y="7.5" width="18" height="12.5" rx="2.2"/><path d="M8.5 7.5V5.8A1.8 1.8 0 0 1 10.3 4h3.4a1.8 1.8 0 0 1 1.8 1.8v1.7"/><path d="M3 12.5h18"/></g></svg>Invoices &amp; estimates</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.702" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.027 -0.384) scale(0.9987)"><path d="M4 9.5V19a1.8 1.8 0 0 0 1.8 1.8h12.4A1.8 1.8 0 0 0 20 19V9.5"/><path d="M3 9.5L4.8 4h14.4L21 9.5a2.6 2.6 0 0 1-4.2.7 2.6 2.6 0 0 1-4.3 0 2.6 2.6 0 0 1-4.3 0A2.6 2.6 0 0 1 3 9.5z"/></g></svg>Mileage &amp; clients</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></g></svg>CSV &middot; OFX &middot; QFX &middot; Excel</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><rect x="7" y="6.5" width="10" height="11" rx="3"/><path d="M9 6.5L9.5 3h5l.5 3.5M9 17.5l.5 3.5h5l.5-3.5"/></g></svg>Apple Watch</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.606" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-0.706 -0.706) scale(1.0588)"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></g></svg>Widgets</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.558" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-1.909 -1.909) scale(1.0909)"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L21 21"/></g></svg>Search in plain words</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><g><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 17v-3M12 17v-5M15 17v-2"/></g></svg>PDF reports</span><span class="lp-pill"><svg class="ic" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.794" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0.632 0.632) scale(0.9474)"><path d="M12 2.5l7.5 3v6c0 4.7-3.1 8.4-7.5 10-4.4-1.6-7.5-5.3-7.5-10v-6z"/><rect x="9.3" y="10.5" width="5.4" height="4.5" rx="1"/><path d="M10.5 10.5V9.3a1.5 1.5 0 0 1 3 0v1.2"/></g></svg>Face ID lock</span></div></div></div></div></section><section class="lp-mani tone-l" id="why" data-tone="l">
 <div class="lp-mani-in">
 <p class="lp-kicker">Why it exists</p>
 <p class="lp-mani-t"><span class="mw">Most</span> <span class="mw">money</span> <span class="mw">apps</span> <span class="mw">ask</span> <span class="mw">for</span> <span class="mw">your</span> <span class="mw">bank</span> <span class="mw">login</span> <span class="mw">and</span> <span class="mw">keep</span> <span class="mw">every</span> <span class="mw">transaction</span> <span class="mw">on</span> <span class="mw">their</span> <span class="mw">servers.</span> <span class="mw">Simple</span> <span class="mw">Finance</span> <span class="mw">has</span> <em class="mw">no</em> <em class="mw">servers</em> <span class="mw">to</span> <span class="mw">keep</span> <span class="mw">them</span> <span class="mw">on.</span> <span class="mw">Your</span> <span class="mw">money</span> <span class="mw">lives</span> <span class="mw">on</span> <span class="mw">your</span> <span class="mw">devices</span> <span class="mw">—</span> <span class="mw">and</span> <span class="mw">in</span> <em class="mw">your</em> <em class="mw">own</em> <em class="mw">private</em> <em class="mw">iCloud,</em> <span class="mw">right</span> <span class="mw">beside</span> <span class="mw">your</span> <span class="mw">photos.</span> <span class="mw">We</span> <span class="mw">can’t</span> <span class="mw">see</span> <span class="mw">it.</span> <span class="mw">Nobody</span> <span class="mw">can</span> <span class="mw">sell</span> <span class="mw">it.</span></p>
-</div></section><section class="lp-scene lp-chapters" id="chapters" data-scene="chapters"
+</div></section><section class="lp-scene lp-chapters tone-l" id="chapters" data-scene="chapters" data-tone="l"
   style="--n:8" data-colors='["#34C759", "#19D8A6", "#FF9F0A", "#7D7AFF", "#FF6482", "#FF7AA8", "#40A9FF", "#BF5AF2"]'>
 <div class="lp-pin">
   <div class="lp-ch-glow" aria-hidden="true"></div>
@@ -1530,7 +1592,7 @@ body.landing.pointer .lp-glow{opacity:1}
     <div class="lp-ch-stage"><div class="lp-dev mac" data-plat="mac"><div class="lp-dev-scr"><img data-i="0" class="lp-shot on" src="help/img/l/ch-budgets-mac.webp" alt="Budgets in Simple Finance on Mac" width="1800" height="1051" loading="lazy" decoding="async"><img data-i="1" class="lp-shot" src="help/img/l/ch-networth-mac.webp" alt="Net worth in Simple Finance on Mac" width="1800" height="1066" loading="lazy" decoding="async"><img data-i="2" class="lp-shot" src="help/img/l/ch-bills-mac.webp" alt="Bills and forecast in Simple Finance on Mac" width="1800" height="1045" loading="lazy" decoding="async"><img data-i="3" class="lp-shot" src="help/img/l/ch-retire-mac.webp" alt="Retirement in Simple Finance on Mac" width="1800" height="1051" loading="lazy" decoding="async"><img data-i="4" class="lp-shot" src="help/img/l/ch-goals-mac.webp" alt="Goals in Simple Finance on Mac" width="1800" height="1051" loading="lazy" decoding="async"><img data-i="5" class="lp-shot" src="help/img/l/ch-sharing-mac.webp" alt="Sharing in Simple Finance on Mac" width="1800" height="1153" loading="lazy" decoding="async"><img data-i="6" class="lp-shot" src="help/img/l/ch-fin-mac.webp" alt="Fin in Simple Finance on Mac" width="1800" height="1472" loading="lazy" decoding="async"><img data-i="7" class="lp-shot" src="help/img/l/ch-business-mac.webp" alt="Business in Simple Finance on Mac" width="1800" height="1051" loading="lazy" decoding="async"><i class="lp-sheen"></i></div></div><div class="lp-dev phone" data-plat="ios"><div class="lp-dev-scr"><img data-i="0" class="lp-shot on" src="help/img/l/ch-budgets-ios.webp" alt="Budgets in Simple Finance on iPhone" width="620" height="1347" loading="lazy" decoding="async"><img data-i="1" class="lp-shot" src="help/img/l/ch-networth-ios.webp" alt="Net worth in Simple Finance on iPhone" width="620" height="1347" loading="lazy" decoding="async"><img data-i="2" class="lp-shot" src="help/img/l/ch-bills-ios.webp" alt="Bills and forecast in Simple Finance on iPhone" width="620" height="1347" loading="lazy" decoding="async"><img data-i="3" class="lp-shot" src="help/img/l/ch-retire-ios.webp" alt="Retirement in Simple Finance on iPhone" width="620" height="1347" loading="lazy" decoding="async"><img data-i="4" class="lp-shot" src="help/img/l/ch-goals-ios.webp" alt="Goals in Simple Finance on iPhone" width="620" height="1347" loading="lazy" decoding="async"><img data-i="5" class="lp-shot" src="help/img/l/ch-sharing-ios.webp" alt="Sharing in Simple Finance on iPhone" width="620" height="1347" loading="lazy" decoding="async"><img data-i="6" class="lp-shot" src="help/img/l/ch-fin-ios.webp" alt="Fin in Simple Finance on iPhone" width="620" height="1348" loading="lazy" decoding="async"><img data-i="7" class="lp-shot" src="help/img/l/ch-business-ios.webp" alt="Business in Simple Finance on iPhone" width="620" height="1348" loading="lazy" decoding="async"><i class="lp-sheen"></i></div></div><div class="lp-dev ipad" data-plat="ipad"><div class="lp-dev-scr"><img data-i="0" class="lp-shot on" src="help/img/l/ch-budgets-ipad.webp" alt="Budgets in Simple Finance on iPad" width="1400" height="1050" loading="lazy" decoding="async"><img data-i="1" class="lp-shot" src="help/img/l/ch-networth-ipad.webp" alt="Net worth in Simple Finance on iPad" width="1400" height="1050" loading="lazy" decoding="async"><img data-i="2" class="lp-shot" src="help/img/l/ch-bills-ipad.webp" alt="Bills and forecast in Simple Finance on iPad" width="1400" height="1050" loading="lazy" decoding="async"><img data-i="3" class="lp-shot" src="help/img/l/ch-retire-ipad.webp" alt="Retirement in Simple Finance on iPad" width="1400" height="1050" loading="lazy" decoding="async"><img data-i="4" class="lp-shot" src="help/img/l/ch-goals-ipad.webp" alt="Goals in Simple Finance on iPad" width="1400" height="1050" loading="lazy" decoding="async"><img data-i="5" class="lp-shot" src="help/img/l/ch-sharing-ipad.webp" alt="Sharing in Simple Finance on iPad" width="1400" height="1050" loading="lazy" decoding="async"><img data-i="6" class="lp-shot" src="help/img/l/ch-fin-ipad.webp" alt="Fin in Simple Finance on iPad" width="1400" height="1050" loading="lazy" decoding="async"><img data-i="7" class="lp-shot" src="help/img/l/ch-business-ipad.webp" alt="Business in Simple Finance on iPad" width="1400" height="1050" loading="lazy" decoding="async"><i class="lp-sheen"></i></div></div></div>
   </div>
 </div>
-</section><section class="lp-sec lp-details" id="details">
+</section><section class="lp-sec lp-details tone-l" id="details" data-tone="l">
 <div class="lp-head"><p class="lp-kicker">The details</p>
 <h2 class="lp-h2 rv"><span class="w" style="--wi:0">The</span> <span class="w" style="--wi:1">math</span> <span class="w" style="--wi:2">you’d</span> <span class="w" style="--wi:3">do</span> <span class="w" style="--wi:4">yourself,</span> <em class="w" style="--wi:5">done</em> <em class="w" style="--wi:6">for</em> <em class="w" style="--wi:7">you.</em></h2>
 <p class="lp-lede rv">The small questions money actually raises &mdash; answered on the screen
@@ -1567,7 +1629,7 @@ you&rsquo;re already looking at.</p></div>
 <p class="rc-t">TOTAL <b>$18.40</b></p><span class="rc-beam"></span></div>
 <ul class="rc-f"><li style="--k:0"><span>Merchant</span><b>Blue Bottle Coffee</b></li>
 <li style="--k:1"><span>Total</span><b>$18.40</b></li><li style="--k:2"><span>Date</span><b>Sep 22</b></li></ul></div></div><div class="lp-cell-txt"><h3>Receipts that fill themselves in</h3><p>Snap the receipt. Merchant, total and date are read on your device — and the photo stays with the transaction.</p></div></article><article class="lp-cell w2" data-anim="watch"><div class="lp-cell-viz"><div class="wt"><div class="wt-glow"></div><div class="lp-wbezel big"><picture><source srcset="help/img/tour_watch_home.webp" type="image/webp"><img src="help/img/tour_watch_home.jpg" alt="Simple Finance on Apple Watch" width="422" height="514" loading="lazy" decoding="async"></picture></div></div></div><div class="lp-cell-txt"><h3>What’s left, on your wrist</h3><p>Glance at the month from Apple Watch, and add an expense at the till before you forget it.</p></div></article></div>
-</section><section class="lp-sec lp-privacy" id="privacy">
+</section><section class="lp-sec lp-privacy tone-d lp-sheet" id="privacy" data-tone="d">
 <div class="lp-pv-grid">
   <div class="lp-pv-copy">
     <p class="lp-kicker">Where your money lives</p>
@@ -1600,19 +1662,19 @@ aria-label="Your Mac, iPhone, iPad and Apple Watch sync with your own private iC
 <text x="16" y="7">Bank login &mdash; never asked for</text><path class="strike" d="M-172 0 H172"/></g>
 </svg></div>
 </div>
-</section><section class="lp-sec lp-stats" aria-label="Simple Finance by the numbers"><div class="lp-stats-in"><div class="lp-stat rv" style="--k:0"><span class="od"><span class="od-c" style="--d:0;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">0</span></span><p>bank passwords asked for</p></div><div class="lp-stat rv" style="--k:1"><span class="od"><span class="od-c" style="--d:0;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">0</span></span><p>servers of ours with your data on them</p></div><div class="lp-stat rv" style="--k:2"><span class="od"><span class="od-c" style="--d:5;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:0;--j:1" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:0;--j:2" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">500</span></span><p>market futures in every retirement plan</p></div><div class="lp-stat rv" style="--k:3"><span class="od"><span class="od-c" style="--d:1;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:9;--j:1" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:2;--j:2" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:8;--j:3" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">1928</span></span><p>the year its real-market history starts</p></div><div class="lp-stat rv" style="--k:4"><span class="od"><span class="od-c" style="--d:4;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">4</span></span><p>Apple platforms, one app</p></div></div></section><section class="lp-scene lp-hs" id="gallery" data-scene="hs">
+</section><section class="lp-sec lp-stats tone-l lp-sheet" data-tone="l" aria-label="Simple Finance by the numbers"><div class="lp-stats-in"><div class="lp-stat rv" style="--k:0"><span class="od"><span class="od-c" style="--d:0;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">0</span></span><p>bank passwords asked for</p></div><div class="lp-stat rv" style="--k:1"><span class="od"><span class="od-c" style="--d:0;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">0</span></span><p>servers of ours with your data on them</p></div><div class="lp-stat rv" style="--k:2"><span class="od"><span class="od-c" style="--d:5;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:0;--j:1" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:0;--j:2" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">500</span></span><p>market futures in every retirement plan</p></div><div class="lp-stat rv" style="--k:3"><span class="od"><span class="od-c" style="--d:1;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:9;--j:1" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:2;--j:2" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-c" style="--d:8;--j:3" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">1928</span></span><p>the year its real-market history starts</p></div><div class="lp-stat rv" style="--k:4"><span class="od"><span class="od-c" style="--d:4;--j:0" aria-hidden="true"><span class="od-s"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></span></span><span class="od-v">4</span></span><p>Apple platforms, one app</p></div></div></section><section class="lp-scene lp-hs tone-l" id="gallery" data-scene="hs" data-tone="l">
 <div class="lp-pin"><div class="lp-hs-head"><p class="lp-kicker">In the App Store</p>
 <h2 class="lp-h2"><span class="w" style="--wi:0">Ten</span> <span class="w" style="--wi:1">screens.</span> <em class="w" style="--wi:2">One</em> <em class="w" style="--wi:3">app.</em></h2>
 <a class="lp-link" href="gallery.html">Every screenshot <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
 <div class="lp-hview"><div class="lp-htrack" data-plat="mac"><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_0.webp" type="image/webp"><img src="help/img/poster_mac_0.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_1.webp" type="image/webp"><img src="help/img/poster_mac_1.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_2.webp" type="image/webp"><img src="help/img/poster_mac_2.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_3.webp" type="image/webp"><img src="help/img/poster_mac_3.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_4.webp" type="image/webp"><img src="help/img/poster_mac_4.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_5.webp" type="image/webp"><img src="help/img/poster_mac_5.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_6.webp" type="image/webp"><img src="help/img/poster_mac_6.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_7.webp" type="image/webp"><img src="help/img/poster_mac_7.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_8.webp" type="image/webp"><img src="help/img/poster_mac_8.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure><figure class="lp-post mac"><picture><source srcset="help/img/poster_mac_9.webp" type="image/webp"><img src="help/img/poster_mac_9.jpg" alt="Simple Finance App Store screenshot" width="1600" height="1000" loading="lazy" decoding="async"></picture></figure></div><div class="lp-htrack" data-plat="ios"><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_0.webp" type="image/webp"><img src="help/img/poster_ios_0.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_1.webp" type="image/webp"><img src="help/img/poster_ios_1.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_2.webp" type="image/webp"><img src="help/img/poster_ios_2.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_3.webp" type="image/webp"><img src="help/img/poster_ios_3.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_4.webp" type="image/webp"><img src="help/img/poster_ios_4.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_5.webp" type="image/webp"><img src="help/img/poster_ios_5.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_6.webp" type="image/webp"><img src="help/img/poster_ios_6.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_7.webp" type="image/webp"><img src="help/img/poster_ios_7.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_8.webp" type="image/webp"><img src="help/img/poster_ios_8.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ios"><picture><source srcset="help/img/poster_ios_9.webp" type="image/webp"><img src="help/img/poster_ios_9.jpg" alt="Simple Finance App Store screenshot" width="700" height="1521" loading="lazy" decoding="async"></picture></figure></div><div class="lp-htrack" data-plat="ipad"><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_0.webp" type="image/webp"><img src="help/img/poster_ipad_0.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_1.webp" type="image/webp"><img src="help/img/poster_ipad_1.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_2.webp" type="image/webp"><img src="help/img/poster_ipad_2.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_3.webp" type="image/webp"><img src="help/img/poster_ipad_3.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_4.webp" type="image/webp"><img src="help/img/poster_ipad_4.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_5.webp" type="image/webp"><img src="help/img/poster_ipad_5.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_6.webp" type="image/webp"><img src="help/img/poster_ipad_6.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_7.webp" type="image/webp"><img src="help/img/poster_ipad_7.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_8.webp" type="image/webp"><img src="help/img/poster_ipad_8.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure><figure class="lp-post ipad"><picture><source srcset="help/img/poster_ipad_9.webp" type="image/webp"><img src="help/img/poster_ipad_9.jpg" alt="Simple Finance App Store screenshot" width="700" height="933" loading="lazy" decoding="async"></picture></figure></div></div>
 <div class="lp-hbar" aria-hidden="true"><i></i></div></div>
-</section><section class="lp-sec lp-cmp"><a class="lp-cmp-card rv" href="compare.html">
+</section><section class="lp-sec lp-cmp tone-l" data-tone="l"><a class="lp-cmp-card rv" href="compare.html">
 <span class="lp-cmp-bd" aria-hidden="true"></span>
 <span class="lp-kicker">The honest comparison</span>
 <span class="lp-cmp-h">Why Simple Finance instead of YNAB, Monarch or&nbsp;Copilot?</span>
 <span class="lp-cmp-p">Feature by feature and price by price &mdash; and the places where
 they&rsquo;re the better app for you.</span>
-<span class="lp-cmp-go">Read the comparison <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></section><section class="lp-sec lp-final" id="download">
+<span class="lp-cmp-go">Read the comparison <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></section><section class="lp-sec lp-final tone-d lp-sheet" id="download" data-tone="d">
 <div class="lp-rays" aria-hidden="true"></div>
 <canvas class="lp-embers" aria-hidden="true"></canvas>
 <div class="lp-icon3d" aria-hidden="true"><img src="help/img/logo-512.png" alt="" width="512" height="512" loading="lazy">
@@ -1729,10 +1791,12 @@ they&rsquo;re the better app for you.</span>
     document.querySelectorAll('.sheet a').forEach(function(a){a.addEventListener('click',function(){menu(false);});});
     window.addEventListener('resize',function(){if(innerWidth>700)menu(false);});}
 
-  // Reading progress along the bottom edge of the bar.
-  var tick=false;
-  function prog(){tick=false;var h=document.documentElement.scrollHeight-innerHeight;
-    d.style.setProperty('--sp',h>0?Math.min(1,scrollY/h).toFixed(4):0);}
+  // Reading progress along the bottom edge of the bar. Written to the line's
+  // OWN transform: a custom property on <html> changed every scroll frame
+  // made the browser re-resolve the styles of every element on the page.
+  var tick=false,bp=document.querySelector('.bar-prog');
+  function prog(){tick=false;if(!bp)return;var h=document.documentElement.scrollHeight-innerHeight;
+    bp.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0).toFixed(4)+')';}
   window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});
   prog();
 
@@ -1885,22 +1949,18 @@ they&rsquo;re the better app for you.</span>
     { s: '.c3', a: [-.32, .4, 210, 6], b: [-.29, .5, 250, 8], on: [.18, .4] },
     { s: '.c5', a: [.2, .44, 240, -4], b: [.17, .55, 260, -6], on: [.3, .52] }
   ];
-  // Phones get their own choreography. A landscape Mac window shrunk into a
-  // portrait screen left the hero mostly empty, so on a phone the deck is
-  // wider than the screen (it bleeds off both sides), the iPhone is bigger,
-  // and the cards stack ABOVE and BELOW the window instead of beside it.
+  // Phones get their own choreography. On a portrait screen the iPhone is
+  // the hero: it rises front and centre, the Mac window sits behind it as
+  // depth, and the four cards break out of its edges — two with the lift,
+  // two with the spread. (The first phone version fanned three windows and
+  // five cards over each other; Aaron: "looks a little weird on phone".)
   var LAYM = [
-    { s: '.w3', a: [0, -.075, -250, 0], b: [.2, -.2, -300, -8] },
-    { s: '.w2', a: [0, -.04, -140, 0], b: [-.2, -.14, -200, 8] },
-    { s: '.w1', a: [0, 0, 0, 0], b: [0, 0, 30, 0] },
-    { s: '.lp-phone', a: [.2, .3, 170, -6], b: [.19, .36, 230, -10], bob: 1 },
-    // At rest a phone shows only the headline, the button and the deck's
-    // edge — the cards wait for the first scroll instead of covering the
-    // line under the button.
-    { s: '.c1', a: [-.13, -.3, 120, 5], b: [-.12, -.39, 170, 6], lift: [.35, .75] },
-    { s: '.c2', a: [.12, -.55, 150, -5], b: [.11, -.67, 200, -6], lift: [.5, .95] },
-    { s: '.c3', a: [-.13, .56, 210, 5], b: [-.12, .68, 250, 6], on: [.18, .4] },
-    { s: '.c5', a: [.07, .84, 240, -3], b: [.06, .95, 260, -4], on: [.3, .52] }
+    { s: '.w1', a: [0, -.1, -120, 0], b: [0, -.44, -160, 0] },
+    { s: '.lp-phone', a: [0, .3, 40, 0], b: [0, -.02, 60, 0], bob: 1 },
+    { s: '.c1', a: [-.18, -.18, 80, 5], b: [-.19, -.3, 100, 6], lift: [.35, .75] },
+    { s: '.c2', a: [.18, -.5, 90, -5], b: [.18, -.74, 110, -6], lift: [.5, .95] },
+    { s: '.c3', a: [-.18, .3, 90, 4], b: [-.19, .36, 110, 5], on: [.18, .4] },
+    { s: '.c5', a: [.14, .52, 100, -3], b: [.13, .64, 120, -4], on: [.3, .52] }
   ];
   function bind(list) { list.forEach(function (l) { l.el = deck && $(l.s, deck); }); return list; }
   bind(LAY); bind(LAYM);
@@ -1927,7 +1987,7 @@ they&rsquo;re the better app for you.</span>
     // In px of the VISIBLE height: on a phone, CSS vh is the height with the
     // toolbar gone, and the peek has to clear the toolbar that is still there.
     var rest = vw < 700 ? .44 : vh < 780 ? .62 : .57;
-    var lift = RM ? 0 : ((1 - e1) * rest + .03 - e2 * .05) * vh;
+    var lift = RM ? 0 : ((1 - e1) * rest + .03 - e2 * (phone ? -.02 : .05)) * vh;
     // With no pointer to follow, the deck breathes on its own.
     var sway = RM ? 0 : Math.sin(t * .31) * 1.4, nod = RM ? 0 : Math.cos(t * .23) * .8;
     deck.style.transform = 'translate3d(-50%,-50%,0) translate3d(0,' + lift.toFixed(1) + 'px,0) rotateX(' +
@@ -1975,15 +2035,15 @@ they&rsquo;re the better app for you.</span>
       ' vec2 q=vec2(fbm(p*1.2+vec2(0.,t)),fbm(p*1.2+vec2(5.2,1.3)-t*.8));',
       ' float f=fbm(p*1.5+q*1.9+vec2(t*.5,-t*.25));',
       ' float rib=smoothstep(.42,.95,f)*(.5+.5*sin(p.x*2.6+t*1.6+q.y*5.));',
-      ' vec3 col=vec3(.010,.046,.040);',
-      ' col=mix(col,vec3(.035,.13,.26),smoothstep(.25,.85,q.x)*.55*(uv.y*.8+.2));',
-      ' col=mix(col,vec3(.03,.36,.36),smoothstep(.5,.92,f)*.55);',
-      ' col+=vec3(.10,.85,.65)*rib*.24*(1.-uv.y*.5);',
+      ' vec3 col=vec3(.047,.122,.2);',
+      ' col=mix(col,vec3(.09,.23,.42),smoothstep(.25,.85,q.x)*.6*(uv.y*.8+.2));',
+      ' col=mix(col,vec3(.07,.36,.4),smoothstep(.5,.92,f)*.55);',
+      ' col+=mix(vec3(.18,.86,.68),vec3(.45,.76,.98),uv.x)*rib*.2*(1.-uv.y*.45);',
       ' vec2 m=vec2(M.x*R.x/R.y*.5,-M.y*.5);',
       ' col+=vec3(.10,.85,.65)*.085*exp(-3.*length(p-m));',
       ' float hy=-.62+S*.42;',
       ' col+=vec3(.10,.85,.65)*.26*exp(-7.*abs(p.y-hy))*exp(-1.1*abs(p.x));',
-      ' col*=1.-.6*pow(length((uv-.5)*vec2(1.,1.15))*1.3,2.4);',
+      ' col*=1.-.42*pow(length((uv-.5)*vec2(1.,1.15))*1.3,2.4);',
       ' gl_FragColor=vec4(col,1.);}'
     ].join('\n');
     function sh(type, src) {
@@ -2112,7 +2172,7 @@ they&rsquo;re the better app for you.</span>
     var bar = chRail[i]; if (bar) bar.style.setProperty('--f', clamp(f - i, 0, 1).toFixed(3));
     // The device sways with the scroll — sin(πf) is zero on every boundary,
     // so the sway is continuous across chapters and never snaps back.
-    if (!RM) devList.forEach(function (d) {
+    if (!RM && !phone) devList.forEach(function (d) {
       var s = Math.sin(f * Math.PI);
       d.style.transform = 'rotateY(' + (s * 2.6 + mx * 5).toFixed(2) + 'deg) rotateX(' +
         (-my * 3.5 + s * .8).toFixed(2) + 'deg) translateZ(0)';
@@ -2197,6 +2257,11 @@ they&rsquo;re the better app for you.</span>
   // they end; the median and a 10–90 band drawn over them.
   $$('.mc').forEach(function (mc) {
     var cell = mc.closest('.lp-cell'), cv = $('.mc-c', mc), ctx = cv.getContext('2d');
+    var light = !!mc.closest('.tone-l');
+    var C = light ? { path: '94,92,230', fail: 'rgba(229,72,77,.55)', band: 'rgba(94,92,230,.12)', mid: '#5452D8',
+                      mark: 'rgba(12,31,54,.18)', text: 'rgba(12,31,54,.5)', a0: .07, a1: .11 }
+                  : { path: '150,146,255', fail: 'rgba(255,107,94,.55)', band: 'rgba(125,122,255,.14)', mid: '#B7B5FF',
+                      mark: 'rgba(255,255,255,.18)', text: 'rgba(232,246,241,.5)', a0: .08, a1: .12 };
     // Half-year steps: 13 years of saving, then 19 years drawing a FIXED
     // amount (5% a year of what was there at retirement) — the shape that
     // makes some futures run dry, which is the point of running 500 of them.
@@ -2235,25 +2300,25 @@ they&rsquo;re the better app for you.</span>
       ctx.lineWidth = 1 * dpr;
       for (var i = 0; i < N; i++) {
         var p = paths[i], end = p[S - 1];
-        ctx.strokeStyle = end <= 0 ? 'rgba(255,107,94,.55)' : 'rgba(150,146,255,' + (.08 + .12 * Math.min(1, end / 4)).toFixed(3) + ')';
+        ctx.strokeStyle = end <= 0 ? C.fail : 'rgba(' + C.path + ',' + (C.a0 + C.a1 * Math.min(1, end / 4)).toFixed(3) + ')';
         ctx.beginPath(); ctx.moveTo(X(0), Y(p[0]));
         for (var s = 1; s <= upto; s++) ctx.lineTo(X(s), Y(p[s]));
         ctx.stroke();
       }
       // band
-      ctx.fillStyle = 'rgba(125,122,255,.14)';
+      ctx.fillStyle = C.band;
       ctx.beginPath(); ctx.moveTo(X(0), Y(P90[0]));
       for (var a = 1; a <= upto; a++) ctx.lineTo(X(a), Y(P90[a]));
       for (var b = upto; b >= 0; b--) ctx.lineTo(X(b), Y(P10[b]));
       ctx.closePath(); ctx.fill();
-      ctx.strokeStyle = '#B7B5FF'; ctx.lineWidth = 2.4 * dpr; ctx.beginPath(); ctx.moveTo(X(0), Y(P50[0]));
+      ctx.strokeStyle = C.mid; ctx.lineWidth = 2.4 * dpr; ctx.beginPath(); ctx.moveTo(X(0), Y(P50[0]));
       for (var c = 1; c <= upto; c++) ctx.lineTo(X(c), Y(P50[c]));
       ctx.stroke();
       // retirement marker
       if (upto > RET) {
-        ctx.strokeStyle = 'rgba(255,255,255,.18)'; ctx.setLineDash([4 * dpr, 6 * dpr]); ctx.lineWidth = 1 * dpr;
+        ctx.strokeStyle = C.mark; ctx.setLineDash([4 * dpr, 6 * dpr]); ctx.lineWidth = 1 * dpr;
         ctx.beginPath(); ctx.moveTo(X(RET), pad); ctx.lineTo(X(RET), Hh - pad); ctx.stroke(); ctx.setLineDash([]);
-        ctx.fillStyle = 'rgba(232,246,241,.5)'; ctx.font = (11 * dpr) + 'px -apple-system,sans-serif';
+        ctx.fillStyle = C.text; ctx.font = (11 * dpr) + 'px -apple-system,sans-serif';
         ctx.fillText('Retire', X(RET) + 6 * dpr, Hh - pad - 4 * dpr);
       }
       if (prog < 1) raf = requestAnimationFrame(draw);
@@ -2431,6 +2496,26 @@ they&rsquo;re the better app for you.</span>
     d.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
   });
 
+  // ══ IN-PAGE JUMPS — sections below the fold render only as they come near
+  // (content-visibility), so one can change height on the way and move the
+  // target. A far jump goes instantly (scrolling smoothly through every pinned
+  // scene is a slideshow nobody asked for), and every jump re-aims once the
+  // page has settled.
+  D.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var id = a.getAttribute('href').slice(1), t = id && D.getElementById(id);
+    if (!t) return;
+    e.preventDefault();
+    var far = Math.abs(t.getBoundingClientRect().top) > vh * 3;
+    var go = function (beh) { scrollTo({ top: Math.max(0, scrollY + t.getBoundingClientRect().top), behavior: beh }); };
+    go(RM || far ? 'instant' : 'smooth');
+    [far ? 120 : 900, far ? 450 : 1500].forEach(function (ms) {
+      setTimeout(function () { if (Math.abs(t.getBoundingClientRect().top) > 3) go('instant'); }, ms);
+    });
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+  });
+
   // ══ MAGNETIC secondary buttons (never the App Store badge — Apple's
   // artwork is shown exactly as supplied) ════════════════════════════════
   if (FINE && !RM) $$('.lp-ghost, .lp-cmp-go, .lp-link:not(.rv)').forEach(function (b) {
@@ -2464,6 +2549,7 @@ they&rsquo;re the better app for you.</span>
     return {
       size: size,
       draw: function (t, dt) {
+        if (cv.clientWidth !== W || cv.clientHeight !== Hh) { size(); P.forEach(function (p) { spawn(p, true); }); }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.clearRect(0, 0, W, Hh);
         ctx.fillStyle = '#5DF0C4';
@@ -2480,8 +2566,16 @@ they&rsquo;re the better app for you.</span>
     };
   }
 
-  // ══ NAV state ════════════════════════════════════════════════════════
-  var scrolled = null;
+  // ══ NAV state — which tone is under the bar, and whether we've scrolled
+  var scrolled = null, navTone = null;
+  var toneSecs = $$('[data-tone]');
+  // ══ SCENE state — the hero's layers are promoted only while it is on
+  // screen, and a pinned scene far off screen stops rendering entirely
+  var heroLive = null, farState = {};
+  function setFar(key, el, far) {
+    if (farState[key] === far) return;
+    farState[key] = far; el.classList.toggle('far', far);
+  }
 
   // ══ the loop ═════════════════════════════════════════════════════════
   var last = now();
@@ -2496,7 +2590,19 @@ they&rsquo;re the better app for you.</span>
     var rHs = hs && hs.getBoundingClientRect();
     var rIcon = icon && icon.getBoundingClientRect(), rFin = fin && fin.getBoundingClientRect();
     var tops = idx ? idxSecs.map(function (sec) { return sec ? sec.getBoundingClientRect().top : 1e9; }) : null;
+    var tone = null;
+    for (var ti = 0; ti < toneSecs.length; ti++) {
+      var tr = toneSecs[ti].getBoundingClientRect();
+      if (tr.top <= 32 && tr.bottom > 32) { tone = toneSecs[ti].dataset.tone; break; }
+    }
     // ── WRITE
+    if (tone && tone !== navTone) { navTone = tone; B.classList.toggle('nav-l', tone === 'l'); }
+    if (hero) {
+      var hl = near(rHero, .1); if (hl !== heroLive) { heroLive = hl; hero.classList.toggle('live', hl); }
+      setFar('hero', hero, !near(rHero, 1));
+    }
+    if (chap) setFar('chap', chap, !near(rChap, 1));
+    if (hs && !hsNative) setFar('hs', hs, !near(rHs, 1));
     vel = lerp(vel, (y - lastY) / Math.max(dt, .001) / 60, .12); lastY = y;
     var km = 1 - Math.pow(.94, dt * 60);
     mx = lerp(mx, tmx, km); my = lerp(my, tmy, km);

@@ -491,7 +491,7 @@ html[data-p=mac] [data-only=ios]{display:none}
 .skip:focus{top:12px;text-decoration:none}
 .bar-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
   background:linear-gradient(90deg,#19D8A6,#5DF0C4 60%,#7DE3FF);transform-origin:left;
-  transform:scaleX(var(--sp,0));opacity:.9}
+  transform:scaleX(0);opacity:.9}
 /* phone menu */
 .menu-btn{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
   border-radius:12px;position:relative;cursor:pointer;color:var(--ink);flex:0 0 auto}
@@ -780,10 +780,12 @@ is no account to create.</p>
     document.querySelectorAll('.sheet a').forEach(function(a){a.addEventListener('click',function(){menu(false);});});
     window.addEventListener('resize',function(){if(innerWidth>700)menu(false);});}
 
-  // Reading progress along the bottom edge of the bar.
-  var tick=false;
-  function prog(){tick=false;var h=document.documentElement.scrollHeight-innerHeight;
-    d.style.setProperty('--sp',h>0?Math.min(1,scrollY/h).toFixed(4):0);}
+  // Reading progress along the bottom edge of the bar. Written to the line's
+  // OWN transform: a custom property on <html> changed every scroll frame
+  // made the browser re-resolve the styles of every element on the page.
+  var tick=false,bp=document.querySelector('.bar-prog');
+  function prog(){tick=false;if(!bp)return;var h=document.documentElement.scrollHeight-innerHeight;
+    bp.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0).toFixed(4)+')';}
   window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});
   prog();
 
