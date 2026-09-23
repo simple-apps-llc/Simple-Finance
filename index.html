@@ -852,7 +852,20 @@ html.js .mw.on{opacity:1}
 
 /* ══ CHAPTERS (light) ═════════════════════════════════════════ */
 .lp-chapters{--acc:#34C759;transition:--acc 1s var(--ease)}
-html.js .lp-chapters{height:calc(var(--n) * 55vh + 100vh)}
+html.js .lp-chapters{--chs:55vh;height:calc(var(--n) * var(--chs) + 100vh)}
+/* Chapter snaps. Each chapter gets --chs of scroll, so a hard fling on a phone
+   used to fly past two of them. One marker per chapter sits where that chapter
+   is fully on screen (the middle of its --chs, same as a rail click), and
+   `scroll-snap-stop:always` makes a fling stop at the next one. Proximity, not
+   mandatory: the rest of the page has no snap points and scrolls freely.
+   🔴 Touch screens only. With a mouse wheel, one or two notches end a scroll
+   inside the snap range and get pulled BACK to the chapter you were on
+   (measured in Chromium: 2 notches → no movement, twice). */
+@media (hover:none) and (pointer:coarse){html.js{scroll-snap-type:y proximity}}
+.lp-ch-snaps{position:absolute;top:0;left:0;width:1px;height:100%;pointer-events:none}
+.lp-ch-snaps i{position:absolute;left:0;width:1px;height:1px;top:calc((var(--k) + .5) * var(--chs));
+  scroll-snap-align:start;scroll-snap-stop:always}
+html:not(.js) .lp-ch-snaps{display:none}
 .lp-chapters .lp-pin{background:var(--bg)}
 /* the chapter's colour, as soft light behind the device — a gradient, not a blur */
 .lp-ch-glow{position:absolute;right:-8vw;top:50%;width:min(90vw,1100px);aspect-ratio:1;border-radius:50%;
@@ -1580,6 +1593,7 @@ body.nav-l .lp-index i{background:rgba(12,31,54,.22)}
 <p class="lp-mani-t"><span class="mw">Most</span> <span class="mw">money</span> <span class="mw">apps</span> <span class="mw">ask</span> <span class="mw">for</span> <span class="mw">your</span> <span class="mw">bank</span> <span class="mw">login</span> <span class="mw">and</span> <span class="mw">keep</span> <span class="mw">every</span> <span class="mw">transaction</span> <span class="mw">on</span> <span class="mw">their</span> <span class="mw">servers.</span> <span class="mw">Simple</span> <span class="mw">Finance</span> <span class="mw">has</span> <em class="mw">no</em> <em class="mw">servers</em> <span class="mw">to</span> <span class="mw">keep</span> <span class="mw">them</span> <span class="mw">on.</span> <span class="mw">Your</span> <span class="mw">money</span> <span class="mw">lives</span> <span class="mw">on</span> <span class="mw">your</span> <span class="mw">devices</span> <span class="mw">—</span> <span class="mw">and</span> <span class="mw">in</span> <em class="mw">your</em> <em class="mw">own</em> <em class="mw">private</em> <em class="mw">iCloud,</em> <span class="mw">right</span> <span class="mw">beside</span> <span class="mw">your</span> <span class="mw">photos.</span> <span class="mw">We</span> <span class="mw">can’t</span> <span class="mw">see</span> <span class="mw">it.</span> <span class="mw">Nobody</span> <span class="mw">can</span> <span class="mw">sell</span> <span class="mw">it.</span></p>
 </div></section><section class="lp-scene lp-chapters tone-l" id="chapters" data-scene="chapters" data-tone="l"
   style="--n:8" data-colors='["#34C759", "#19D8A6", "#FF9F0A", "#7D7AFF", "#FF6482", "#FF7AA8", "#40A9FF", "#BF5AF2"]'>
+<div class="lp-ch-snaps" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i></div>
 <div class="lp-pin">
   <div class="lp-ch-glow" aria-hidden="true"></div>
   <div class="lp-ch-num" aria-hidden="true"><span class="lp-roll" data-roll="01">01</span></div>
