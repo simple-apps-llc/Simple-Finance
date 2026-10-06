@@ -339,18 +339,26 @@
     vids.forEach(function (v) { v.src = v.dataset.src; v.controls = true; });
     return;
   }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      var v = e.target;
-      if (e.isIntersecting) {
+  // At most two play at once — the two most on screen — so a phone never
+  // decodes four streams while it scrolls.
+  var ratio = new Map();
+  function settle() {
+    var live = Array.from(ratio.entries()).filter(function (e) { return e[1] >= 0.35; })
+      .sort(function (a, b) { return b[1] - a[1]; }).slice(0, 2).map(function (e) { return e[0]; });
+    vids.forEach(function (v) {
+      if (live.indexOf(v) >= 0) {
         if (!v.src) v.src = v.dataset.src;
         if (reduce) { v.controls = true; return; }
-        var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; });
+        if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); }
       } else if (!v.paused) {
         v.pause();
       }
     });
-  }, { rootMargin: '120px 0px', threshold: 0.35 });
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
+    settle();
+  }, { threshold: [0, 0.35, 0.6, 0.9] });
   vids.forEach(function (v) { io.observe(v); });
 })();
 </script>
