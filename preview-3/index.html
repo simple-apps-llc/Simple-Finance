@@ -98,6 +98,13 @@
     text-transform: uppercase; color: #fff; background: rgba(0, 0, 0, .45); padding: 4px 8px; border-radius: 999px;
     backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   }
+  .vbar { display: flex; gap: 8px; margin-top: 10px; }
+  .vbtn {
+    font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink); background: var(--card); border: 1px solid var(--edge);
+    padding: 8px 12px; border-radius: 999px; cursor: pointer;
+  }
+  .vbtn:hover { border-color: var(--teal); }
   figcaption { margin-top: 12px; }
   figcaption b { display: block; font-size: 16px; line-height: 1.3; }
   figcaption span { display: block; color: var(--muted); font-size: 14px; line-height: 1.45; margin-top: 3px; }
@@ -312,33 +319,52 @@
 
   document.querySelectorAll('[data-phones]').forEach(function (g) {
     g.innerHTML = JSON.parse(g.dataset.phones).map(function (p) {
-      return '<figure><div class="phone"><img src="img/' + p[0] + '.webp" alt="' + esc(p[1] + ': ' + p[2]) +
+      return '<figure><div class="phone"><img src="img/' + p[0] + '.webp?v=5" alt="' + esc(p[1] + ': ' + p[2]) +
         '" loading="lazy" decoding="async" width="600" height="1304"></div>' + cap(p[1], p[2]) + '</figure>';
     }).join('');
   });
 
   document.querySelectorAll('[data-mac]').forEach(function (g) {
     g.innerHTML = JSON.parse(g.dataset.mac).map(function (p) {
-      return '<figure><div class="screen"><img src="img/' + p[0] + '.webp" alt="' + esc(p[1] + ': ' + p[2]) +
+      return '<figure><div class="screen"><img src="img/' + p[0] + '.webp?v=5" alt="' + esc(p[1] + ': ' + p[2]) +
         '" loading="lazy" decoding="async" width="1600" height="' + p[3] + '"></div>' + cap(p[1], p[2]) + '</figure>';
     }).join('');
   });
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var V = '?v=5';
   document.querySelectorAll('[data-videos]').forEach(function (g) {
     g.innerHTML = JSON.parse(g.dataset.videos).map(function (v) {
-      return '<figure><div class="phone"><span class="badge">Video</span><video muted loop playsinline preload="none" ' +
-        'poster="img/poster-' + v[0] + '.webp" data-src="vid/' + v[0] + '.mp4" aria-label="' + esc(v[1]) + '"></video></div>' +
+      return '<figure><div class="phone"><span class="badge">Video</span><video muted loop playsinline controls ' +
+        'controlslist="nodownload noremoteplayback" disablepictureinpicture preload="none" ' +
+        'poster="img/poster-' + v[0] + '.webp' + V + '" data-src="vid/' + v[0] + '.mp4' + V + '" aria-label="' + esc(v[1]) + '"></video></div>' +
+        '<div class="vbar"><button type="button" class="vbtn" data-act="toggle">Pause</button>' +
+        '<button type="button" class="vbtn" data-act="restart">Restart</button></div>' +
         cap(v[1], v[2]) + '</figure>';
     }).join('');
   });
 
-  // Only the videos on screen load and play; the rest stay posters.
   var vids = document.querySelectorAll('video[data-src]');
-  if (!('IntersectionObserver' in window)) {
-    vids.forEach(function (v) { v.src = v.dataset.src; v.controls = true; });
-    return;
-  }
+  // A video someone paused stays paused; autoplay never overrides a person.
+  vids.forEach(function (v) {
+    v._auto = false; v._userPaused = false;
+    var bar = v.closest('figure').querySelector('.vbar');
+    var tog = bar.querySelector('[data-act="toggle"]');
+    function label() { tog.textContent = v.paused ? 'Play' : 'Pause'; }
+    v.addEventListener('play', function () { if (!v._auto) v._userPaused = false; v._auto = false; label(); });
+    v.addEventListener('pause', function () { if (!v._auto) v._userPaused = true; v._auto = false; label(); });
+    bar.addEventListener('click', function (e) {
+      var act = e.target.dataset && e.target.dataset.act; if (!act) return;
+      if (!v.src) v.src = v.dataset.src;
+      if (act === 'restart') { v.currentTime = 0; v._userPaused = false; v.play(); }
+      else if (v.paused) { v._userPaused = false; v.play(); } else { v.pause(); }
+    });
+    label();
+  });
+  function autoPlay(v) { if (!v.src) v.src = v.dataset.src; if (v._userPaused || !v.paused) return; v._auto = true; var p = v.play(); if (p && p.catch) p.catch(function () { v._auto = false; }); }
+  function autoPause(v) { if (v.paused) return; v._auto = true; v.pause(); }
+
+  if (!('IntersectionObserver' in window)) { vids.forEach(function (v) { v.src = v.dataset.src; }); return; }
   // At most two play at once — the two most on screen — so a phone never
   // decodes four streams while it scrolls.
   var ratio = new Map();
@@ -346,13 +372,8 @@
     var live = Array.from(ratio.entries()).filter(function (e) { return e[1] >= 0.35; })
       .sort(function (a, b) { return b[1] - a[1]; }).slice(0, 2).map(function (e) { return e[0]; });
     vids.forEach(function (v) {
-      if (live.indexOf(v) >= 0) {
-        if (!v.src) v.src = v.dataset.src;
-        if (reduce) { v.controls = true; return; }
-        if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); }
-      } else if (!v.paused) {
-        v.pause();
-      }
+      if (live.indexOf(v) >= 0) { if (!v.src) v.src = v.dataset.src; if (!reduce) autoPlay(v); }
+      else autoPause(v);
     });
   }
   var io = new IntersectionObserver(function (entries) {
