@@ -122,6 +122,14 @@
     border-radius: 14px; overflow: hidden; border: 1px solid var(--edge); box-shadow: var(--shadow); background: var(--bg2);
   }
   .screen img { display: block; width: 100%; height: auto; }
+  .grid.watches { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  @media (max-width: 980px) { .grid.watches { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 760px) { .grid.watches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .watch {
+    border-radius: 30%/26%; overflow: hidden; border: 8px solid #1b1d1f; background: #000;
+    box-shadow: var(--shadow); aspect-ratio: 416 / 496;
+  }
+  .watch img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
   .points { display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
   @media (max-width: 800px) { .points { grid-template-columns: minmax(0, 1fr); } }
@@ -149,7 +157,7 @@
   <nav class="jump" aria-label="Sections">
     <a href="#move">See it move</a><a href="#everyday">Everyday money</a><a href="#insights">Insights</a>
     <a href="#wealth">Net worth</a><a href="#retirement">Retirement &amp; FIRE</a><a href="#together">Together</a>
-    <a href="#more">Fin &amp; tools</a><a href="#mac">Mac</a>
+    <a href="#more">Fin &amp; tools</a><a href="#mac">Mac</a><a href="#watch">Watch</a>
   </nav>
 </header>
 
@@ -282,7 +290,25 @@
       ["mac-goals","Goals","Savings goals and debt payoff, with pictures.",945],
       ["mac-trends","Trends","A spending heatmap, savings rate and two years of income against expenses.",945],
       ["mac-together","A partner, in their own window","Your shared month, household chat, and what’s kept private.",1085],
-      ["mac-friend","A friend’s scorecard","Only the numbers each of you chose to share.",1085]
+      ["mac-friend","A friend’s scorecard","Only the numbers each of you chose to share.",1085],
+      ["mac-transactions","Transactions","Day cards, inline categories and every keyboard shortcut.",945],
+      ["mac-plan","Retirement plan","The chance it lasts, with every lever beside the chart.",945],
+      ["mac-sharing","Sharing","Everyone you share with, the household ring and the chats.",945],
+      ["mac-forecast","Cash flow forecast","Your balance 90 days out, with the next bills and paydays.",945],
+      ["mac-allocation","Allocation","Current mix against your target, and a map of every holding.",945],
+      ["mac-bills","Recurring","What’s due in the next two weeks, bills and income side by side.",945]
+    ]'></div>
+  </section>
+
+  <section id="watch">
+    <h2 class="serif">On Apple Watch</h2>
+    <p class="sub">The same sky and glass on the wrist: the month at a glance, recent spending, net worth, and logging an expense with the phone’s category tiles.</p>
+    <div class="grid watches" data-watch='[
+      ["watch-home","This month","Cash flow and what’s left to spend, at a glance."],
+      ["watch-log","Log an expense","Pick a category from the same round tiles as the phone."],
+      ["watch-recent","Recent","This month’s transactions, day by day."],
+      ["watch-networth","Net worth","Assets, debts and your accounts."],
+      ["watch-more","More","Goals, accounts and complications."]
     ]'></div>
   </section>
 
@@ -294,6 +320,7 @@
       <div class="point"><b>Metal</b><span>The FIRE flame is drawn by a shader on the GPU.</span></div>
       <div class="point"><b>CloudKit sharing</b><span>Households and family summaries sync through each person’s own iCloud.</span></div>
       <div class="point"><b>App Intents and Shortcuts</b><span>Log an expense with Siri, or automatically after an Apple Pay purchase.</span></div>
+      <div class="point"><b>watchOS</b><span>Liquid Glass on the wrist, complications for the budget ring, and logging from the Watch.</span></div>
       <div class="point"><b>Accessibility</b><span>Dynamic Type, VoiceOver and Reduce Motion throughout, and fully localized in Spanish.</span></div>
     </div>
   </section>
@@ -321,6 +348,13 @@
     g.innerHTML = JSON.parse(g.dataset.phones).map(function (p) {
       return '<figure><div class="phone"><img src="img/' + p[0] + '.webp?v=5" alt="' + esc(p[1] + ': ' + p[2]) +
         '" loading="lazy" decoding="async" width="600" height="1304"></div>' + cap(p[1], p[2]) + '</figure>';
+    }).join('');
+  });
+
+  document.querySelectorAll('[data-watch]').forEach(function (g) {
+    g.innerHTML = JSON.parse(g.dataset.watch).map(function (p) {
+      return '<figure><div class="watch"><img src="img/' + p[0] + '.webp?v=5" alt="' + esc(p[1] + ': ' + p[2]) +
+        '" loading="lazy" decoding="async" width="416" height="496"></div>' + cap(p[1], p[2]) + '</figure>';
     }).join('');
   });
 
