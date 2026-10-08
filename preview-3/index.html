@@ -255,7 +255,7 @@
       <h2 class="serif">Together</h2>
       <p class="sub">Sharing rebuilt around how people really run money. Couples share one household. Family see a summary, both ways. Friends compare only the numbers they choose. Anything can be kept private.</p>
       <div class="grid" data-phones='[
-        ["sharing","Sharing","Everyone you share with, and the household’s month as one ring."],
+        ["sharing","Sharing","Everyone you share with, and the month as two rings: where it went, and who paid."],
         ["family-4","Side by side","You and Dad: spent, income, left over and net worth."],
         ["viewer","Open their app","Dad’s whole app, view only, when he chooses to open his books."],
         ["people-3","What they see of you","Share or hide anything in one tap."],
@@ -283,7 +283,7 @@
     <h2 class="serif">On Mac</h2>
     <p class="sub">The same design built for a big window: a sidebar for every section, wide dashboards, and detail screens that open in windows of their own.</p>
     <div class="mac" data-mac='[
-      ["mac-home","Home","Cash flow, net worth and the budget side by side.",945],
+      ["mac-home","Home","Cash flow, net worth and the budget side by side.",946],
       ["mac-budget","Budget","Every category ring, the month at a glance and a spending curve.",945],
       ["mac-networth","Net worth","Trajectory, allocation, accounts and the next milestone.",866],
       ["mac-fire","FIRE","Lean, Fat and Coast FIRE with your assumptions beside the chart.",945],
@@ -291,9 +291,12 @@
       ["mac-trends","Trends","A spending heatmap, savings rate and two years of income against expenses.",945],
       ["mac-together","A partner, in their own window","Your shared month, household chat, and what’s kept private.",1085],
       ["mac-friend","A friend’s scorecard","Only the numbers each of you chose to share.",1085],
-      ["mac-transactions","Transactions","Day cards, inline categories and every keyboard shortcut.",945],
+      ["mac-transactions","Transactions","The ledger on the left, the transaction you pick on the right: its category, account, and that merchant over time.",948],
+      ["mac-calendar","Click any day","The day as a card: what came in, what went out, and the biggest spend.",946],
+      ["mac-category","Choose a category","Search, what this merchant was filed under before, and every category as a tile.",1062],
       ["mac-plan","Retirement plan","The chance it lasts, with every lever beside the chart.",945],
-      ["mac-sharing","Sharing","Everyone you share with, the household ring and the chats.",945],
+      ["mac-sharing","Sharing","People on the left, your shared month in the middle, the conversation beside it.",946],
+      ["mac-investments","Investments","Portfolio value, return and a holdings mix you can read at a glance.",946],
       ["mac-forecast","Cash flow forecast","Your balance 90 days out, with the next bills and paydays.",945],
       ["mac-allocation","Allocation","Current mix against your target, and a map of every holding.",945],
       ["mac-bills","Recurring","What’s due in the next two weeks, bills and income side by side.",945]
@@ -346,27 +349,27 @@
 
   document.querySelectorAll('[data-phones]').forEach(function (g) {
     g.innerHTML = JSON.parse(g.dataset.phones).map(function (p) {
-      return '<figure><div class="phone"><img src="img/' + p[0] + '.webp?v=5" alt="' + esc(p[1] + ': ' + p[2]) +
+      return '<figure><div class="phone"><img src="img/' + p[0] + '.webp?v=6" alt="' + esc(p[1] + ': ' + p[2]) +
         '" loading="lazy" decoding="async" width="600" height="1304"></div>' + cap(p[1], p[2]) + '</figure>';
     }).join('');
   });
 
   document.querySelectorAll('[data-watch]').forEach(function (g) {
     g.innerHTML = JSON.parse(g.dataset.watch).map(function (p) {
-      return '<figure><div class="watch"><img src="img/' + p[0] + '.webp?v=5" alt="' + esc(p[1] + ': ' + p[2]) +
+      return '<figure><div class="watch"><img src="img/' + p[0] + '.webp?v=6" alt="' + esc(p[1] + ': ' + p[2]) +
         '" loading="lazy" decoding="async" width="416" height="496"></div>' + cap(p[1], p[2]) + '</figure>';
     }).join('');
   });
 
   document.querySelectorAll('[data-mac]').forEach(function (g) {
     g.innerHTML = JSON.parse(g.dataset.mac).map(function (p) {
-      return '<figure><div class="screen"><img src="img/' + p[0] + '.webp?v=5" alt="' + esc(p[1] + ': ' + p[2]) +
+      return '<figure><div class="screen"><img src="img/' + p[0] + '.webp?v=6" alt="' + esc(p[1] + ': ' + p[2]) +
         '" loading="lazy" decoding="async" width="1600" height="' + p[3] + '"></div>' + cap(p[1], p[2]) + '</figure>';
     }).join('');
   });
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var V = '?v=5';
+  var V = '?v=6';
   document.querySelectorAll('[data-videos]').forEach(function (g) {
     g.innerHTML = JSON.parse(g.dataset.videos).map(function (v) {
       return '<figure><div class="phone"><span class="badge">Video</span><video muted loop playsinline controls ' +
