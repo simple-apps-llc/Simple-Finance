@@ -137,6 +137,9 @@
   .point b { display: block; margin-bottom: 4px; }
   .point span { color: var(--muted); font-size: 15px; }
 
+  .newlist { max-width: 760px; margin: 0; padding-left: 22px; color: var(--muted); }
+  .newlist li { margin: 10px 0; }
+  .newlist b { color: var(--ink); }
   .try { margin-top: 80px; text-align: center; background: linear-gradient(160deg, var(--sky1), var(--sky2)); border-radius: 28px; padding: 44px 20px; }
   .try ol { text-align: left; max-width: 560px; margin: 18px auto 0; color: var(--muted); padding-left: 22px; }
   .try li { margin: 6px 0; overflow-wrap: anywhere; }
@@ -148,7 +151,7 @@
 <header>
   <span class="kicker">Preview</span>
   <h1 class="serif">Simple Finance 3.0</h1>
-  <p class="lede">A ground-up redesign of a private, all-in-one money app: budgets, spending, net worth, investments, retirement, FIRE and household sharing. No bank logins, no ads. Your data stays on your device and in your own iCloud.</p>
+  <p class="lede">A ground-up redesign of a private, all-in-one money app: budgets, spending, net worth, investments, retirement, FIRE and household sharing, with Fin, an on-device assistant who answers, explains and does things for you. No bank logins, no ads. Your data stays on your device and in your own iCloud.</p>
   <div class="cta">
     <a class="btn primary" href="https://testflight.apple.com/join/p1U6WyvF">Try it on TestFlight</a>
     <a class="btn ghost" href="https://apps.apple.com/app/id6777039726">Simple Finance on the App Store</a>
@@ -157,11 +160,26 @@
   <nav class="jump" aria-label="Sections">
     <a href="#move">See it move</a><a href="#everyday">Everyday money</a><a href="#insights">Insights</a>
     <a href="#wealth">Net worth</a><a href="#retirement">Retirement &amp; FIRE</a><a href="#together">Together</a>
-    <a href="#more">Fin &amp; tools</a><a href="#mac">Mac</a><a href="#watch">Watch</a>
+    <a href="#new">New</a><a href="#fin">Fin</a><a href="#more">Tools</a><a href="#mac">Mac</a><a href="#watch">Watch</a>
   </nav>
 </header>
 
 <main>
+  <section id="new">
+    <h2 class="serif">New since the first preview</h2>
+    <p class="sub">What has landed in the 3.0 build since this page first went up.</p>
+    <ul class="newlist">
+      <li><b>A 3D Fin who does things.</b> He logs expenses, makes bills, budgets, categories and rules, and opens any screen, always with a chip you tap to confirm.</li>
+      <li><b>What Fin can do.</b> Over a hundred tappable examples in sixteen groups, each showing his real answer, plus a guided demo that plays on sample data in its own window.</li>
+      <li><b>Fin knows your household.</b> Ask what your partner spent on dining, or start a no-spend week together, from the numbers they choose to share.</li>
+      <li><b>Set up by chat.</b> Tell Fin your pay, bills, accounts and a goal in plain words; he shows the setup before anything is saved.</li>
+      <li><b>Every loan gets a dashboard.</b> Car, student, personal and business loans now get the same payoff view and payment day as a mortgage.</li>
+      <li><b>Ask me first.</b> Any recurring bill or paycheck can wait for your OK before it is logged.</li>
+      <li><b>Say it or type it.</b> &ldquo;Coffee four fifty yesterday&rdquo; becomes a transaction, dates and spoken amounts included.</li>
+      <li><b>Widgets restyled</b> in the new look, and Quick Log works from the first day.</li>
+    </ul>
+  </section>
+
   <section id="move">
     <h2 class="serif">See it move</h2>
     <p class="sub">Screen recordings from the 3.0 build on sample data. Every number on screen comes from the app's real calculations.</p>
@@ -266,11 +284,23 @@
     </div>
   </section>
 
+  <section id="fin">
+    <div class="band warm">
+      <h2 class="serif">Fin</h2>
+      <p class="sub">A money assistant that lives on your phone. He answers from your own numbers, explains how anything in the app works, runs the math, and does the busywork, always asking you to confirm first.</p>
+      <div class="grid" data-phones='[
+        ["fin-hello","Meet Fin","Your private, on-device money assistant, with one tap to everything he can do."],
+        ["fin-preview","What Fin can do","Tap any example to see his real answer before you ask."],
+        ["fin-partner","Your household, too","What your partner spent, from what they share with you."],
+        ["fin-challenge","He does it for you","Start a no-spend week together; review and tap to confirm."]
+      ]'></div>
+    </div>
+  </section>
+
   <section id="more">
-    <h2 class="serif">Fin, tools and more</h2>
-    <p class="sub">An assistant that runs on your phone, the calculators people actually use, and a business mode for side income.</p>
+    <h2 class="serif">Tools and more</h2>
+    <p class="sub">The calculators people actually use, a business mode for side income, and a setup made for you.</p>
     <div class="grid" data-phones='[
-      ["fin","Fin","Ask about your money. Runs on-device with Apple Intelligence."],
       ["tools","Calculators","Mortgages, affordability, refinancing, rent vs buy and debt payoff."],
       ["business","Business","Profit, invoices, clients and crew for a side business."],
       ["welcome","Welcome","One question first, then a setup made for what you came for."],
@@ -319,7 +349,7 @@
     <h2 class="serif">Built with Apple technologies</h2>
     <div class="points">
       <div class="point"><b>Live Activities</b><span>A budget heads-up on the Lock Screen and in the Dynamic Island when a category passes 90%.</span></div>
-      <div class="point"><b>Apple Intelligence</b><span>Fin, the built-in assistant, runs on-device.</span></div>
+      <div class="point"><b>Apple Intelligence</b><span>Fin, the built-in assistant, runs on-device and can act for you with a tap to confirm.</span></div>
       <div class="point"><b>Metal</b><span>The FIRE flame is drawn by a shader on the GPU.</span></div>
       <div class="point"><b>CloudKit sharing</b><span>Households and family summaries sync through each person’s own iCloud.</span></div>
       <div class="point"><b>App Intents and Shortcuts</b><span>Log an expense with Siri, or automatically after an Apple Pay purchase.</span></div>
