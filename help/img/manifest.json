@@ -17,7 +17,7 @@
 },
 "bguide_clients": {
 "w": 620,
-"h": 1347
+"h": 1348
 },
 "bguide_clients_ipad": {
 "w": 1280,
@@ -25,7 +25,7 @@
 },
 "bguide_crew": {
 "w": 620,
-"h": 1347
+"h": 1348
 },
 "bguide_crew_ipad": {
 "w": 1280,
@@ -33,7 +33,7 @@
 },
 "bguide_dashboard": {
 "w": 620,
-"h": 1347
+"h": 1348
 },
 "bguide_dashboard_ipad": {
 "w": 1280,
@@ -57,7 +57,7 @@
 },
 "bguide_invoices": {
 "w": 620,
-"h": 1347
+"h": 1348
 },
 "bguide_invoices_ipad": {
 "w": 1280,
@@ -89,7 +89,7 @@
 },
 "bguide_schedule": {
 "w": 620,
-"h": 1347
+"h": 1348
 },
 "bguide_schedule_ipad": {
 "w": 1280,
@@ -127,9 +127,29 @@
 "w": 1280,
 "h": 960
 },
+"tour_accounts_mac": {
+"w": 1280,
+"h": 756
+},
 "tour_allocation_mac": {
 "w": 1280,
 "h": 741
+},
+"tour_annualrings": {
+"w": 620,
+"h": 1348
+},
+"tour_bizjobprofit_mac": {
+"w": 1280,
+"h": 758
+},
+"tour_budgetannual_mac": {
+"w": 1280,
+"h": 756
+},
+"tour_budgetcats_mac": {
+"w": 1280,
+"h": 756
 },
 "tour_budgets": {
 "w": 620,
@@ -167,6 +187,14 @@
 "w": 1280,
 "h": 741
 },
+"tour_calc_rentbuy": {
+"w": 620,
+"h": 1348
+},
+"tour_calcs_mac": {
+"w": 1280,
+"h": 758
+},
 "tour_cover": {
 "w": 620,
 "h": 1348
@@ -185,7 +213,7 @@
 },
 "tour_cover_mac": {
 "w": 1280,
-"h": 747
+"h": 756
 },
 "tour_dashboard": {
 "w": 620,
@@ -251,6 +279,22 @@
 "w": 1280,
 "h": 980
 },
+"tour_finask": {
+"w": 620,
+"h": 1348
+},
+"tour_finhome": {
+"w": 620,
+"h": 1348
+},
+"tour_finspend": {
+"w": 620,
+"h": 1348
+},
+"tour_finyoy": {
+"w": 620,
+"h": 1348
+},
 "tour_forecast_mac": {
 "w": 1280,
 "h": 741
@@ -279,6 +323,26 @@
 "w": 1280,
 "h": 741
 },
+"tour_healthscore": {
+"w": 620,
+"h": 1348
+},
+"tour_home": {
+"w": 620,
+"h": 1348
+},
+"tour_home2_mac": {
+"w": 1280,
+"h": 756
+},
+"tour_home_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_home_mac": {
+"w": 1280,
+"h": 756
+},
 "tour_import": {
 "w": 620,
 "h": 1348
@@ -287,6 +351,10 @@
 "w": 620,
 "h": 1348
 },
+"tour_import_2_ipad": {
+"w": 900,
+"h": 1306
+},
 "tour_import_ipad": {
 "w": 900,
 "h": 1306
@@ -294,6 +362,18 @@
 "tour_import_mac": {
 "w": 1280,
 "h": 741
+},
+"tour_insights": {
+"w": 620,
+"h": 1348
+},
+"tour_insights_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_insightsfull_mac": {
+"w": 1280,
+"h": 758
 },
 "tour_investments": {
 "w": 620,
@@ -351,11 +431,27 @@
 "w": 620,
 "h": 1348
 },
+"tour_mortgage": {
+"w": 620,
+"h": 1348
+},
+"tour_networth_mac": {
+"w": 1280,
+"h": 756
+},
 "tour_notifications": {
 "w": 620,
 "h": 1348
 },
 "tour_notifications_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_nwoverview_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_nwproj_ipad": {
 "w": 900,
 "h": 1306
 },
@@ -447,6 +543,10 @@
 "w": 620,
 "h": 1348
 },
+"tour_reports_2_ipad": {
+"w": 900,
+"h": 1306
+},
 "tour_reports_ipad": {
 "w": 900,
 "h": 1306
@@ -454,6 +554,70 @@
 "tour_reports_mac": {
 "w": 1280,
 "h": 741
+},
+"tour_ret_chart": {
+"w": 620,
+"h": 1348
+},
+"tour_ret_journey": {
+"w": 620,
+"h": 1348
+},
+"tour_ret_paths": {
+"w": 620,
+"h": 1348
+},
+"tour_ret_scenario": {
+"w": 620,
+"h": 1348
+},
+"tour_retanalysis": {
+"w": 620,
+"h": 1348
+},
+"tour_retanalysis_mac": {
+"w": 1280,
+"h": 758
+},
+"tour_retcash_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_retcashflow": {
+"w": 620,
+"h": 1348
+},
+"tour_retcashflow_mac": {
+"w": 1280,
+"h": 756
+},
+"tour_retgoal": {
+"w": 620,
+"h": 1348
+},
+"tour_retinsights_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_retire": {
+"w": 620,
+"h": 1348
+},
+"tour_retjourney_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_retlab_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_retreport_mac": {
+"w": 1280,
+"h": 758
+},
+"tour_retsetup_mac": {
+"w": 1280,
+"h": 756
 },
 "tour_rules_mac": {
 "w": 1280,
@@ -470,6 +634,22 @@
 "tour_search_mac": {
 "w": 1280,
 "h": 741
+},
+"tour_sharing2_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_spendcurve_mac": {
+"w": 1280,
+"h": 756
+},
+"tour_spending_mac": {
+"w": 1280,
+"h": 756
+},
+"tour_studio": {
+"w": 620,
+"h": 1348
 },
 "tour_subscriptions_mac": {
 "w": 1280,
@@ -535,8 +715,40 @@
 "w": 1280,
 "h": 741
 },
+"tour_txcal": {
+"w": 620,
+"h": 1348
+},
+"tour_txcal_mac": {
+"w": 1280,
+"h": 756
+},
+"tour_watch_home": {
+"w": 416,
+"h": 496
+},
+"tour_watch_log": {
+"w": 416,
+"h": 496
+},
+"tour_watch_networth": {
+"w": 416,
+"h": 496
+},
+"tour_watch_recent": {
+"w": 416,
+"h": 496
+},
+"tour_weekly": {
+"w": 620,
+"h": 1348
+},
 "tour_yearinreview_mac": {
 "w": 1280,
 "h": 741
+},
+"tour_yoytrends": {
+"w": 620,
+"h": 1348
 }
 }
