@@ -1,0 +1,542 @@
+{
+"bguide_accounts": {
+"w": 620,
+"h": 1347
+},
+"bguide_accounts_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_books": {
+"w": 620,
+"h": 1347
+},
+"bguide_books_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_clients": {
+"w": 620,
+"h": 1347
+},
+"bguide_clients_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_crew": {
+"w": 620,
+"h": 1347
+},
+"bguide_crew_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_dashboard": {
+"w": 620,
+"h": 1347
+},
+"bguide_dashboard_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_estimates": {
+"w": 620,
+"h": 1347
+},
+"bguide_estimates_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_invoicebuild": {
+"w": 620,
+"h": 1347
+},
+"bguide_invoicebuild_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_invoices": {
+"w": 620,
+"h": 1347
+},
+"bguide_invoices_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_mileage": {
+"w": 620,
+"h": 1347
+},
+"bguide_mileage_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_profit": {
+"w": 620,
+"h": 1347
+},
+"bguide_profit_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_receipt": {
+"w": 620,
+"h": 1347
+},
+"bguide_receipt_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_schedule": {
+"w": 620,
+"h": 1347
+},
+"bguide_schedule_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_sharing": {
+"w": 620,
+"h": 1347
+},
+"bguide_sharing_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_tagging": {
+"w": 620,
+"h": 1347
+},
+"bguide_tagging_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_tasks": {
+"w": 620,
+"h": 1347
+},
+"bguide_tasks_ipad": {
+"w": 1280,
+"h": 960
+},
+"bguide_worklog": {
+"w": 620,
+"h": 1347
+},
+"bguide_worklog_ipad": {
+"w": 1280,
+"h": 960
+},
+"tour_allocation_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_budgets": {
+"w": 620,
+"h": 1348
+},
+"tour_budgets_2": {
+"w": 620,
+"h": 1348
+},
+"tour_budgets_3": {
+"w": 620,
+"h": 1348
+},
+"tour_budgets_4": {
+"w": 620,
+"h": 1348
+},
+"tour_budgets_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_budgets_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_business": {
+"w": 620,
+"h": 1348
+},
+"tour_business_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_business_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_cover": {
+"w": 620,
+"h": 1348
+},
+"tour_cover_2": {
+"w": 620,
+"h": 1348
+},
+"tour_cover_3": {
+"w": 620,
+"h": 1348
+},
+"tour_cover_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_cover_mac": {
+"w": 1280,
+"h": 747
+},
+"tour_dashboard": {
+"w": 620,
+"h": 1348
+},
+"tour_dashboard_2": {
+"w": 620,
+"h": 1348
+},
+"tour_dashboard_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_family": {
+"w": 620,
+"h": 1348
+},
+"tour_family_2": {
+"w": 620,
+"h": 1348
+},
+"tour_family_3": {
+"w": 620,
+"h": 1348
+},
+"tour_family_4": {
+"w": 620,
+"h": 1348
+},
+"tour_family_5": {
+"w": 620,
+"h": 1348
+},
+"tour_family_6": {
+"w": 620,
+"h": 1348
+},
+"tour_family_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_feature": {
+"w": 620,
+"h": 1348
+},
+"tour_feature_ipad": {
+"w": 1280,
+"h": 960
+},
+"tour_feature_mac": {
+"w": 1280,
+"h": 756
+},
+"tour_fin": {
+"w": 620,
+"h": 1348
+},
+"tour_fin_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_fin_mac": {
+"w": 1280,
+"h": 980
+},
+"tour_forecast_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_friends_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_goals": {
+"w": 620,
+"h": 1348
+},
+"tour_goals_2": {
+"w": 620,
+"h": 1348
+},
+"tour_goals_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_goals_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_health_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_import": {
+"w": 620,
+"h": 1348
+},
+"tour_import_2": {
+"w": 620,
+"h": 1348
+},
+"tour_import_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_import_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_investments": {
+"w": 620,
+"h": 1348
+},
+"tour_investments_2": {
+"w": 620,
+"h": 1348
+},
+"tour_investments_3": {
+"w": 620,
+"h": 1348
+},
+"tour_investments_4": {
+"w": 620,
+"h": 1348
+},
+"tour_investments_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_investments_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_loans": {
+"w": 620,
+"h": 1348
+},
+"tour_loans_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_loans_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_merchants_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_moneyflow": {
+"w": 620,
+"h": 1348
+},
+"tour_moneyflow_2": {
+"w": 620,
+"h": 1348
+},
+"tour_moneyflow_3": {
+"w": 620,
+"h": 1348
+},
+"tour_moneyflow_4": {
+"w": 620,
+"h": 1348
+},
+"tour_notifications": {
+"w": 620,
+"h": 1348
+},
+"tour_notifications_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_overview": {
+"w": 620,
+"h": 1348
+},
+"tour_overview_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_overview_mac": {
+"w": 1280,
+"h": 743
+},
+"tour_people": {
+"w": 620,
+"h": 1348
+},
+"tour_people_2": {
+"w": 620,
+"h": 1348
+},
+"tour_people_3": {
+"w": 620,
+"h": 1348
+},
+"tour_personalize": {
+"w": 620,
+"h": 1348
+},
+"tour_personalize_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_planner_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_privacy": {
+"w": 620,
+"h": 1348
+},
+"tour_privacy_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_projection_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_quickstart": {
+"w": 620,
+"h": 766
+},
+"tour_reconcile_mac": {
+"w": 620,
+"h": 898
+},
+"tour_recurring": {
+"w": 620,
+"h": 1348
+},
+"tour_recurring_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_recurring_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_rentals": {
+"w": 620,
+"h": 1348
+},
+"tour_rentals_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_rentals_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_reports": {
+"w": 620,
+"h": 1348
+},
+"tour_reports_2": {
+"w": 620,
+"h": 1348
+},
+"tour_reports_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_reports_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_rules_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_search": {
+"w": 620,
+"h": 1348
+},
+"tour_search_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_search_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_subscriptions_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_sync": {
+"w": 620,
+"h": 1348
+},
+"tour_sync_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_taxes_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_tools": {
+"w": 620,
+"h": 1348
+},
+"tour_tools_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_tools_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_transactions": {
+"w": 620,
+"h": 1348
+},
+"tour_transactions_2": {
+"w": 620,
+"h": 1348
+},
+"tour_transactions_3": {
+"w": 620,
+"h": 1348
+},
+"tour_transactions_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_transactions_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_trends": {
+"w": 620,
+"h": 1348
+},
+"tour_trends_2": {
+"w": 620,
+"h": 1348
+},
+"tour_trends_ipad": {
+"w": 900,
+"h": 1306
+},
+"tour_trends_mac": {
+"w": 1280,
+"h": 741
+},
+"tour_yearinreview_mac": {
+"w": 1280,
+"h": 741
+}
+}
