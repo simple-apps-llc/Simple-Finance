@@ -1059,6 +1059,37 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
   html.js .sp-main .cmp-wrap.in tbody td.us{animation:none}
   html.js .sp-h1 .w{filter:none}
 }
+
+/* Screenshots and What's new: each shot in its device. Apple's MacBook Pro
+   frame (screen opening measured on its alpha: 3456 x 2234 at 382,56 of the
+   4220 x 2577 crop); the iPhone 17 Pro and iPad Pro bezels as in the hero. */
+.sp-main .showcase figure.fr-mac,.sp-main .showcase figure.fr-phone,.sp-main .showcase figure.fr-tab{
+  transition:transform .5s var(--ease)}
+.sp-main .showcase .fr-mac{position:relative;width:min(760px,86vw);aspect-ratio:4220/2577;margin-bottom:14px}
+.sp-main .showcase .fr-mac::after{content:"";position:absolute;left:6%;right:6%;bottom:-4%;height:8%;z-index:-1;
+  border-radius:50%;background:radial-gradient(closest-side,rgba(8,24,40,.32),rgba(8,24,40,0))}
+.sp-main .showcase .fr-scr{position:absolute;left:9.052%;top:2.173%;width:81.896%;height:86.69%;
+  background:#0E1419;overflow:hidden}
+.sp-main .showcase .fr-mac .fr-scr img{width:100%;height:100%;object-fit:contain;border:0;border-radius:0;box-shadow:none}
+.sp-main .showcase .fr-mbp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;
+  border:0;border-radius:0;box-shadow:none;background:none;z-index:1}
+.sp-main .showcase .fr-phone{--pw:min(250px,52vw);box-sizing:border-box;width:var(--pw);aspect-ratio:1000/2104;
+  border:calc(var(--pw)*.011) solid transparent;padding:calc(var(--pw)*.019);border-radius:calc(var(--pw)*.172);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-phone img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--pw)*.146);box-shadow:none}
+.sp-main .showcase .fr-tab{--tw:min(330px,62vw);box-sizing:border-box;width:var(--tw);aspect-ratio:2155/2816;
+  border:calc(var(--tw)*.0036) solid transparent;padding:calc(var(--tw)*.0262);border-radius:calc(var(--tw)*.0468);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-tab img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--tw)*.0169);box-shadow:none}
+.sp-main .showcase .fr-mac picture,.sp-main .showcase .fr-phone picture,.sp-main .showcase .fr-tab picture{display:block;width:100%;height:100%}
+@media (hover:hover){
+  .sp-main .showcase figure.fr-mac:hover,.sp-main .showcase figure.fr-phone:hover,.sp-main .showcase figure.fr-tab:hover{transform:translateY(-5px)}
+  .sp-main .showcase .fr-mac:hover img,.sp-main .showcase .fr-phone:hover img,.sp-main .showcase .fr-tab:hover img{transform:none}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How are budgets and spending calculated?", "acceptedAnswer": {"@type": "Answer", "text": "Spending is summed from your own transactions, by category, for the period on screen — nothing is estimated or modeled.\n\nA few rules decide what counts. A SPLIT transaction contributes only its share to each category. A TRANSFER between your own accounts is neither income nor spending, so paying a card off doesn't look like a purchase. If business mode is on, business money is excluded from personal figures entirely.\n\nYour limit can be monthly or yearly, and a single month can be overridden — a bigger December — without touching the default that returns in January."}}, {"@type": "Question", "name": "Can one month have a different budget than usual?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — open the category and set a limit for that month specifically. December's gift budget can be four times November's, and January returns to the default on its own.\n\nThe override belongs to that one month. It does not change the category's normal limit, it is not a permanent edit you have to remember to undo, and the reports know which figure applied when.\n\nFor something that is not really a month at all — a wedding, a car, a new roof — use a one-time expense instead. It sits in the annual plan and stays out of every monthly budget, so one big purchase doesn't make twelve months look broken."}}, {"@type": "Question", "name": "What does Safe-to-Spend mean?", "acceptedAnswer": {"@type": "Answer", "text": "It is the answer to \"can I spend this?\" rather than \"what have I spent?\"\n\nIt starts from what you actually have available, subtracts the bills still to come before your next income, subtracts what your budgets have already committed, and keeps back any reserve you asked for. What's left is the number.\n\nIt moves as the month goes on, which is the point — a figure that only updated once a month would tell you nothing on the 20th. Adding your recurring bills is what makes it accurate; without them it can't know what's coming."}}, {"@type": "Question", "name": "How are my subscriptions detected?", "acceptedAnswer": {"@type": "Answer", "text": "The Subscriptions tab scans your transaction history for charges from the same merchant that repeat on a regular rhythm, infers the cadence, predicts the next charge, and flags price increases — all on your device. Click Track to turn any into a recurring bill."}}, {"@type": "Question", "name": "What's the difference between rings and bars?", "acceptedAnswer": {"@type": "Answer", "text": "Only the drawing. Rings show each category as a dial, bars as a horizontal meter — same numbers, same limits. Switch with the toggle above the categories and pick whichever you read faster."}}, {"@type": "Question", "name": "What is rollover?", "acceptedAnswer": {"@type": "Answer", "text": "Turn it on for a category and whatever you didn't spend this month is added to next month's allowance. Overspend carries the other way, and a carried overspend can never push the allowance below zero."}}, {"@type": "Question", "name": "I went over on one category. Can I cover it from another?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — that's the Cover button on an over-budget category. Pick where the money comes from and the app moves the allowance across for that month only. Your defaults are unchanged."}}, {"@type": "Question", "name": "How do I budget for a wedding, a ring, or a car?", "acceptedAnswer": {"@type": "Answer", "text": "Add it as a one-time expense rather than a monthly category. It sits in the annual plan and deliberately stays out of every monthly budget, so a single big purchase doesn't make twelve months look broken."}}, {"@type": "Question", "name": "Can I budget yearly instead of monthly?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. A category can carry a yearly limit instead of a monthly one — useful for things like insurance or gifts that don't arrive evenly. The Budget screen switches between the monthly and annual view."}}, {"@type": "Question", "name": "What are subcategories for?", "acceptedAnswer": {"@type": "Answer", "text": "Splitting one budget into named parts — \"Personal Care\" into \"Therapy\" and \"Prescriptions\", for example. They roll up into the parent's limit, so the budget still reads as one number."}}, {"@type": "Question", "name": "How does the Cash Flow Forecast work?", "acceptedAnswer": {"@type": "Answer", "text": "It projects your liquid balance (checking + cash) forward 30–90 days using your active recurring bills and income, then shows the lowest point it'll hit and how much you can safely spend today without dipping below your buffer. Add recurring items in Transactions ▸ Recurring to make it accurate."}}]}</script>
 </head><body class="sp sp-read">
@@ -1470,7 +1501,7 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
     }
   });
   $$('.sp-main .showcase,.sp-main .shots').forEach(function (strip) {
-    var imgs = $$('img', strip);
+    var imgs = $$('picture img', strip);
     imgs.forEach(function (im, i) {
       var fig = im.closest('figure');
       if (!fig) return;

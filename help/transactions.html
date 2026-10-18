@@ -1059,6 +1059,37 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
   html.js .sp-main .cmp-wrap.in tbody td.us{animation:none}
   html.js .sp-h1 .w{filter:none}
 }
+
+/* Screenshots and What's new: each shot in its device. Apple's MacBook Pro
+   frame (screen opening measured on its alpha: 3456 x 2234 at 382,56 of the
+   4220 x 2577 crop); the iPhone 17 Pro and iPad Pro bezels as in the hero. */
+.sp-main .showcase figure.fr-mac,.sp-main .showcase figure.fr-phone,.sp-main .showcase figure.fr-tab{
+  transition:transform .5s var(--ease)}
+.sp-main .showcase .fr-mac{position:relative;width:min(760px,86vw);aspect-ratio:4220/2577;margin-bottom:14px}
+.sp-main .showcase .fr-mac::after{content:"";position:absolute;left:6%;right:6%;bottom:-4%;height:8%;z-index:-1;
+  border-radius:50%;background:radial-gradient(closest-side,rgba(8,24,40,.32),rgba(8,24,40,0))}
+.sp-main .showcase .fr-scr{position:absolute;left:9.052%;top:2.173%;width:81.896%;height:86.69%;
+  background:#0E1419;overflow:hidden}
+.sp-main .showcase .fr-mac .fr-scr img{width:100%;height:100%;object-fit:contain;border:0;border-radius:0;box-shadow:none}
+.sp-main .showcase .fr-mbp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;
+  border:0;border-radius:0;box-shadow:none;background:none;z-index:1}
+.sp-main .showcase .fr-phone{--pw:min(250px,52vw);box-sizing:border-box;width:var(--pw);aspect-ratio:1000/2104;
+  border:calc(var(--pw)*.011) solid transparent;padding:calc(var(--pw)*.019);border-radius:calc(var(--pw)*.172);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-phone img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--pw)*.146);box-shadow:none}
+.sp-main .showcase .fr-tab{--tw:min(330px,62vw);box-sizing:border-box;width:var(--tw);aspect-ratio:2155/2816;
+  border:calc(var(--tw)*.0036) solid transparent;padding:calc(var(--tw)*.0262);border-radius:calc(var(--tw)*.0468);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-tab img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--tw)*.0169);box-shadow:none}
+.sp-main .showcase .fr-mac picture,.sp-main .showcase .fr-phone picture,.sp-main .showcase .fr-tab picture{display:block;width:100%;height:100%}
+@media (hover:hover){
+  .sp-main .showcase figure.fr-mac:hover,.sp-main .showcase figure.fr-phone:hover,.sp-main .showcase figure.fr-tab:hover{transform:translateY(-5px)}
+  .sp-main .showcase .fr-mac:hover img,.sp-main .showcase .fr-phone:hover img,.sp-main .showcase .fr-tab:hover img{transform:none}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I split one transaction across categories?", "acceptedAnswer": {"@type": "Answer", "text": "Open the transaction and use Split. A grocery run can be part Groceries and part Household, and each part counts toward its own budget — the totals still add up to what you actually paid."}}, {"@type": "Question", "name": "Can I scan a receipt?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Add a transaction and scan the receipt — the amount and merchant are read on your device, and you confirm before anything is saved. The image can be kept with the transaction."}}, {"@type": "Question", "name": "What are Rules?", "acceptedAnswer": {"@type": "Answer", "text": "Rules categorize transactions for you: match a merchant, and every future transaction from them lands in the category you chose. They run on your device as transactions arrive or import.\n\nA new rule can catch up, too: “Apply to Uncategorized” runs every enabled rule over transactions that have no category yet — which is what you want straight after an import. It deliberately leaves anything you have already filed alone, because a rule should never overwrite a decision you made by hand."}}, {"@type": "Question", "name": "How do I record moving money between my own accounts?", "acceptedAnswer": {"@type": "Answer", "text": "Mark it as a transfer. Transfers move the balance between accounts without counting as income or spending, so paying off a card or moving to savings doesn't distort your budget."}}, {"@type": "Question", "name": "How do I find an old transaction?", "acceptedAnswer": {"@type": "Answer", "text": "The Transactions tab has search and filters — text, category, account, amount range, date range, and in a household whether it was yours, theirs or joint. They stack, so “groceries over $100 last autumn” is three filters rather than a long scroll.\n\nOn the Mac, ⌘F searches everything from anywhere in the app.\n\nIf you cannot remember the merchant, search the AMOUNT instead. People remember what a thing cost far more reliably than what the card statement called the shop."}}, {"@type": "Question", "name": "I deleted something by accident. Can I undo it?", "acceptedAnswer": {"@type": "Answer", "text": "There's no undo, so a delete is final — that's why anything destructive asks first. Keep a JSON backup (Settings → Data & Backup) before a big clear-out, and a restore will bring the rows back."}}, {"@type": "Question", "name": "How do I split a bill with other people?", "acceptedAnswer": {"@type": "Answer", "text": "Turn on “Split this bill” on the transaction and say how many people are in on it.\n\n🔴 Enter the FULL total, not your share. The app records your share and keeps the whole figure for context — which is what you want when the receipt says $120 and your budget should only feel $40."}}, {"@type": "Question", "name": "Can I edit or categorize a lot of transactions at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. On the Transactions tab, select the rows and use “Categorize selected”. This is the fast way to clean up after an import, or after deleting a category.\n\nIf the same fix keeps coming up, make it a Rule instead and it happens on its own from then on."}}, {"@type": "Question", "name": "How do I mark something as reimbursable?", "acceptedAnswer": {"@type": "Answer", "text": "Mark it on the transaction. It stays in your spending — it really did leave your account — but it is flagged so you can see what is owed back, and on the business side it can be billed on to a client as an invoice line.\n\nReimbursable is a claim you make deliberately. Nothing sets it for you."}}, {"@type": "Question", "name": "How do I find and remove duplicate transactions?", "acceptedAnswer": {"@type": "Answer", "text": "Settings → Data & Backup → Repair Duplicated Records. It scans for the same record present as several rows — which is what a re-import or a restore produces — and shows you what it found before removing anything.\n\nIt is deliberately conservative. Two coffees on the same day at the same shop are two coffees; it is looking for the same RECORD twice, not two similar ones."}}]}</script>
 </head><body class="sp sp-read">
@@ -1470,7 +1501,7 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
     }
   });
   $$('.sp-main .showcase,.sp-main .shots').forEach(function (strip) {
-    var imgs = $$('img', strip);
+    var imgs = $$('picture img', strip);
     imgs.forEach(function (im, i) {
       var fig = im.closest('figure');
       if (!fig) return;

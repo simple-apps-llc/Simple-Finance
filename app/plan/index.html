@@ -1059,6 +1059,37 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
   html.js .sp-main .cmp-wrap.in tbody td.us{animation:none}
   html.js .sp-h1 .w{filter:none}
 }
+
+/* Screenshots and What's new: each shot in its device. Apple's MacBook Pro
+   frame (screen opening measured on its alpha: 3456 x 2234 at 382,56 of the
+   4220 x 2577 crop); the iPhone 17 Pro and iPad Pro bezels as in the hero. */
+.sp-main .showcase figure.fr-mac,.sp-main .showcase figure.fr-phone,.sp-main .showcase figure.fr-tab{
+  transition:transform .5s var(--ease)}
+.sp-main .showcase .fr-mac{position:relative;width:min(760px,86vw);aspect-ratio:4220/2577;margin-bottom:14px}
+.sp-main .showcase .fr-mac::after{content:"";position:absolute;left:6%;right:6%;bottom:-4%;height:8%;z-index:-1;
+  border-radius:50%;background:radial-gradient(closest-side,rgba(8,24,40,.32),rgba(8,24,40,0))}
+.sp-main .showcase .fr-scr{position:absolute;left:9.052%;top:2.173%;width:81.896%;height:86.69%;
+  background:#0E1419;overflow:hidden}
+.sp-main .showcase .fr-mac .fr-scr img{width:100%;height:100%;object-fit:contain;border:0;border-radius:0;box-shadow:none}
+.sp-main .showcase .fr-mbp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;
+  border:0;border-radius:0;box-shadow:none;background:none;z-index:1}
+.sp-main .showcase .fr-phone{--pw:min(250px,52vw);box-sizing:border-box;width:var(--pw);aspect-ratio:1000/2104;
+  border:calc(var(--pw)*.011) solid transparent;padding:calc(var(--pw)*.019);border-radius:calc(var(--pw)*.172);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-phone img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--pw)*.146);box-shadow:none}
+.sp-main .showcase .fr-tab{--tw:min(330px,62vw);box-sizing:border-box;width:var(--tw);aspect-ratio:2155/2816;
+  border:calc(var(--tw)*.0036) solid transparent;padding:calc(var(--tw)*.0262);border-radius:calc(var(--tw)*.0468);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-tab img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--tw)*.0169);box-shadow:none}
+.sp-main .showcase .fr-mac picture,.sp-main .showcase .fr-phone picture,.sp-main .showcase .fr-tab picture{display:block;width:100%;height:100%}
+@media (hover:hover){
+  .sp-main .showcase figure.fr-mac:hover,.sp-main .showcase figure.fr-phone:hover,.sp-main .showcase figure.fr-tab:hover{transform:translateY(-5px)}
+  .sp-main .showcase .fr-mac:hover img,.sp-main .showcase .fr-phone:hover img,.sp-main .showcase .fr-tab:hover img{transform:none}
+}
 </style>
 
 </head><body class="sp sp-overlap">
@@ -1470,7 +1501,7 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
     }
   });
   $$('.sp-main .showcase,.sp-main .shots').forEach(function (strip) {
-    var imgs = $$('img', strip);
+    var imgs = $$('picture img', strip);
     imgs.forEach(function (im, i) {
       var fig = im.closest('figure');
       if (!fig) return;

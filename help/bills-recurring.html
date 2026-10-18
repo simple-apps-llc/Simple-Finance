@@ -1059,6 +1059,37 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
   html.js .sp-main .cmp-wrap.in tbody td.us{animation:none}
   html.js .sp-h1 .w{filter:none}
 }
+
+/* Screenshots and What's new: each shot in its device. Apple's MacBook Pro
+   frame (screen opening measured on its alpha: 3456 x 2234 at 382,56 of the
+   4220 x 2577 crop); the iPhone 17 Pro and iPad Pro bezels as in the hero. */
+.sp-main .showcase figure.fr-mac,.sp-main .showcase figure.fr-phone,.sp-main .showcase figure.fr-tab{
+  transition:transform .5s var(--ease)}
+.sp-main .showcase .fr-mac{position:relative;width:min(760px,86vw);aspect-ratio:4220/2577;margin-bottom:14px}
+.sp-main .showcase .fr-mac::after{content:"";position:absolute;left:6%;right:6%;bottom:-4%;height:8%;z-index:-1;
+  border-radius:50%;background:radial-gradient(closest-side,rgba(8,24,40,.32),rgba(8,24,40,0))}
+.sp-main .showcase .fr-scr{position:absolute;left:9.052%;top:2.173%;width:81.896%;height:86.69%;
+  background:#0E1419;overflow:hidden}
+.sp-main .showcase .fr-mac .fr-scr img{width:100%;height:100%;object-fit:contain;border:0;border-radius:0;box-shadow:none}
+.sp-main .showcase .fr-mbp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;
+  border:0;border-radius:0;box-shadow:none;background:none;z-index:1}
+.sp-main .showcase .fr-phone{--pw:min(250px,52vw);box-sizing:border-box;width:var(--pw);aspect-ratio:1000/2104;
+  border:calc(var(--pw)*.011) solid transparent;padding:calc(var(--pw)*.019);border-radius:calc(var(--pw)*.172);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-phone img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--pw)*.146);box-shadow:none}
+.sp-main .showcase .fr-tab{--tw:min(330px,62vw);box-sizing:border-box;width:var(--tw);aspect-ratio:2155/2816;
+  border:calc(var(--tw)*.0036) solid transparent;padding:calc(var(--tw)*.0262);border-radius:calc(var(--tw)*.0468);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-tab img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--tw)*.0169);box-shadow:none}
+.sp-main .showcase .fr-mac picture,.sp-main .showcase .fr-phone picture,.sp-main .showcase .fr-tab picture{display:block;width:100%;height:100%}
+@media (hover:hover){
+  .sp-main .showcase figure.fr-mac:hover,.sp-main .showcase figure.fr-phone:hover,.sp-main .showcase figure.fr-tab:hover{transform:translateY(-5px)}
+  .sp-main .showcase .fr-mac:hover img,.sp-main .showcase .fr-phone:hover img,.sp-main .showcase .fr-tab:hover img{transform:none}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does the ring on Bills & Subscriptions mean?", "acceptedAnswer": {"@type": "Answer", "text": "It's this month's bills: what you've logged as paid, and what's still left. The middle shows how many of them are done. It fills as bills are logged, and closes when the month is finished."}}, {"@type": "Question", "name": "Why does the ring say nothing is paid?", "acceptedAnswer": {"@type": "Answer", "text": "The app can only count a bill as paid once there's a transaction for it. If you don't log bills, it has nothing to point at. Turn on Auto-Post Recurring and they post themselves on their due day, or log one yourself: right-click a bill in Recurring and choose Log Now."}}, {"@type": "Question", "name": "What is Auto-Post Recurring?", "acceptedAnswer": {"@type": "Answer", "text": "With it on, each recurring bill or paycheque creates its transaction automatically on its due day, so your ledger stays current without you typing. With it off, nothing posts until you log it yourself — right-click the bill and choose Log Now."}}, {"@type": "Question", "name": "Will a recurring bill ever post twice?", "acceptedAnswer": {"@type": "Answer", "text": "No. Each recurring item records the periods it has already posted, so opening the app twice in a day, on two devices, or after a long gap cannot produce a second copy of the same month.\n\nIf you really are looking at two rows for one bill, it is almost always one of these:\n• the bill exists TWICE as a recurring item — check the list for a near-duplicate;\n• it posted automatically AND was also entered by hand;\n• an import brought in the same charge the app had already posted.\n\nSettings → Data & Backup → Repair Duplicated Records finds the third. The first two are a quick look down the recurring list."}}, {"@type": "Question", "name": "How do I stop a bill without deleting its history?", "acceptedAnswer": {"@type": "Answer", "text": "Set it to inactive rather than deleting it. It stops posting and stops reminding, and every payment it has already made stays exactly where it is — in your spending, in the reports, in the category totals.\n\nDeleting is a different thing: it removes the recurring RULE, and what happens to the payments already recorded depends on what you choose at the time. There is no undo afterwards.\n\nIf a subscription might come back, inactive is almost always the right answer. Reactivating is one click and the history is unbroken."}}, {"@type": "Question", "name": "Can I get reminded before a bill is due?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Settings → Notifications turns bill reminders on and sets how many days ahead they arrive, and an individual bill can carry its own lead time — rent three days out and a streaming charge on the day is a perfectly sensible setup.\n\nA reminder is tied to the bill's due date, so changing the date moves the reminder with it. Marking a bill paid early cancels that month's reminder rather than firing it anyway."}}]}</script>
 </head><body class="sp sp-read">
@@ -1470,7 +1501,7 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
     }
   });
   $$('.sp-main .showcase,.sp-main .shots').forEach(function (strip) {
-    var imgs = $$('img', strip);
+    var imgs = $$('picture img', strip);
     imgs.forEach(function (im, i) {
       var fig = im.closest('figure');
       if (!fig) return;

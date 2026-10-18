@@ -1059,6 +1059,37 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
   html.js .sp-main .cmp-wrap.in tbody td.us{animation:none}
   html.js .sp-h1 .w{filter:none}
 }
+
+/* Screenshots and What's new: each shot in its device. Apple's MacBook Pro
+   frame (screen opening measured on its alpha: 3456 x 2234 at 382,56 of the
+   4220 x 2577 crop); the iPhone 17 Pro and iPad Pro bezels as in the hero. */
+.sp-main .showcase figure.fr-mac,.sp-main .showcase figure.fr-phone,.sp-main .showcase figure.fr-tab{
+  transition:transform .5s var(--ease)}
+.sp-main .showcase .fr-mac{position:relative;width:min(760px,86vw);aspect-ratio:4220/2577;margin-bottom:14px}
+.sp-main .showcase .fr-mac::after{content:"";position:absolute;left:6%;right:6%;bottom:-4%;height:8%;z-index:-1;
+  border-radius:50%;background:radial-gradient(closest-side,rgba(8,24,40,.32),rgba(8,24,40,0))}
+.sp-main .showcase .fr-scr{position:absolute;left:9.052%;top:2.173%;width:81.896%;height:86.69%;
+  background:#0E1419;overflow:hidden}
+.sp-main .showcase .fr-mac .fr-scr img{width:100%;height:100%;object-fit:contain;border:0;border-radius:0;box-shadow:none}
+.sp-main .showcase .fr-mbp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;
+  border:0;border-radius:0;box-shadow:none;background:none;z-index:1}
+.sp-main .showcase .fr-phone{--pw:min(250px,52vw);box-sizing:border-box;width:var(--pw);aspect-ratio:1000/2104;
+  border:calc(var(--pw)*.011) solid transparent;padding:calc(var(--pw)*.019);border-radius:calc(var(--pw)*.172);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-phone img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--pw)*.146);box-shadow:none}
+.sp-main .showcase .fr-tab{--tw:min(330px,62vw);box-sizing:border-box;width:var(--tw);aspect-ratio:2155/2816;
+  border:calc(var(--tw)*.0036) solid transparent;padding:calc(var(--tw)*.0262);border-radius:calc(var(--tw)*.0468);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 30px 50px -30px rgba(8,24,40,.55)}
+.sp-main .showcase .fr-tab img{width:100%;height:100%;object-fit:cover;border:0;border-radius:calc(var(--tw)*.0169);box-shadow:none}
+.sp-main .showcase .fr-mac picture,.sp-main .showcase .fr-phone picture,.sp-main .showcase .fr-tab picture{display:block;width:100%;height:100%}
+@media (hover:hover){
+  .sp-main .showcase figure.fr-mac:hover,.sp-main .showcase figure.fr-phone:hover,.sp-main .showcase figure.fr-tab:hover{transform:translateY(-5px)}
+  .sp-main .showcase .fr-mac:hover img,.sp-main .showcase .fr-phone:hover img,.sp-main .showcase .fr-tab:hover img{transform:none}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is business money mixed in with my personal budget?", "acceptedAnswer": {"@type": "Answer", "text": "No. Business and personal are separate throughout, with one switch to change which you're looking at. A transaction can be split between them by percentage when something is genuinely both."}}, {"@type": "Question", "name": "What does the business side include?", "acceptedAnswer": {"@type": "Answer", "text": "Enough to run a small trade or a side business without a second app:\n\n• CLIENTS AND JOBS — who you work for, what you are working on, and what each job made.\n• ESTIMATES AND INVOICES — built from a price list, sent as a PDF, tracked through to paid, with a month-end run that invoices everything outstanding in one pass.\n• A WORK TIMER AND WORK LOG — hours against a job, which become an invoice line or a cost.\n• MILEAGE — logged per business and deducted at the rate you set.\n• EXPENSES — deductible by default, attributable to a client, and markable reimbursable so they can be billed on.\n• CREW — employee hours, an approvals queue, and per-person seats with roles.\n• RECEIVABLES — what is owed and how late it is.\n• A SCHEDULE C SUMMARY at tax time, with the home-office cap and a set-aside figure.\n\nIt is off until you turn it on, and it stays completely out of the way when you don't."}}, {"@type": "Question", "name": "How do I turn the business side on — and off again?", "acceptedAnswer": {"@type": "Answer", "text": "Settings → Business. Add a business, and a switch appears for moving between Personal and Business.\n\nUntil you do that, none of it exists: no extra tabs, no business rows in your ledger, nothing added to any screen. Turning it off later hides it again — it does not delete anything you entered, and a business you archive keeps its history rather than losing it.\n\nYou can run more than one business, and they do not see each other's money."}}, {"@type": "Question", "name": "How do I invoice a customer?", "acceptedAnswer": {"@type": "Answer", "text": "Build the invoice from your price list, or from the hours and costs already logged against the job — that is the point of logging them there.\n\n• An ESTIMATE can become an invoice without retyping it.\n• A work-log entry becomes a line, at the rate you set.\n• A cost marked REIMBURSABLE can be billed on as its own line.\n\nSend it as a PDF and track it through to paid. Receivables shows what is outstanding and how late it is, and the month-end run invoices everything outstanding in one pass rather than one customer at a time."}}, {"@type": "Question", "name": "Can employees log their own hours?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Each crew member gets their own seat with a role, logs hours against jobs from their own device, and what they submit lands in an approvals queue rather than straight into your books. You approve it, and only then does it become cost and invoice lines.\n\nA seat sees its own work. One employee cannot see another's hours, your customers' details or your money."}}, {"@type": "Question", "name": "How does mileage and the Schedule C summary work?", "acceptedAnswer": {"@type": "Answer", "text": "Log a trip against a business and it is deducted at the rate YOU set — the rate is not baked in, because it changes and because your situation may differ.\n\nThe Schedule C summary pulls the year together: gross receipts (money in only), expenses by line, mileage, the home-office cap, net profit, and a set-aside figure so a profitable year doesn't arrive as a surprise in April. A loss sets aside nothing rather than a negative number.\n\nIt is a preparation pack, not a filing tool, and it is not tax advice."}}, {"@type": "Question", "name": "Something is half business and half personal. What do I do?", "acceptedAnswer": {"@type": "Answer", "text": "Split it by percentage on the transaction. A phone bill at 40% business puts 40% into the Schedule C figure and leaves 60% in your personal budget — and the two never double-count.\n\nThis matters more than it sounds. Reading the whole amount instead of the scoped share is how a half-personal purchase becomes a whole deduction, and it is checked by the app's own tests for exactly that reason."}}]}</script>
 </head><body class="sp sp-read">
@@ -1470,7 +1501,7 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
     }
   });
   $$('.sp-main .showcase,.sp-main .shots').forEach(function (strip) {
-    var imgs = $$('img', strip);
+    var imgs = $$('picture img', strip);
     imgs.forEach(function (im, i) {
       var fig = im.closest('figure');
       if (!fig) return;
