@@ -423,8 +423,11 @@ html[data-p=mac] [data-only=ios]{display:none}
 /* Pages cross-fade into each other instead of flashing white; the bar is
    named so it holds still while the page under it changes. */
 @view-transition{navigation:auto}
-::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;
-  animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-old(root){animation:vtOut .3s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vtIn .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes vtOut{to{opacity:0;transform:scale(.985);filter:blur(6px)}}
+@keyframes vtIn{from{opacity:0;transform:translateY(18px)}}
+@media (prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}
 .bar{view-transition-name:bar}
 .skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--accent);color:#fff;
   padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}

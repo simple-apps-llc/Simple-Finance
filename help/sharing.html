@@ -423,8 +423,11 @@ html[data-p=mac] [data-only=ios]{display:none}
 /* Pages cross-fade into each other instead of flashing white; the bar is
    named so it holds still while the page under it changes. */
 @view-transition{navigation:auto}
-::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;
-  animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-old(root){animation:vtOut .3s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vtIn .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes vtOut{to{opacity:0;transform:scale(.985);filter:blur(6px)}}
+@keyframes vtIn{from{opacity:0;transform:translateY(18px)}}
+@media (prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}
 .bar{view-transition-name:bar}
 .skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--accent);color:#fff;
   padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}
@@ -603,11 +606,11 @@ body.sp-read .sp-hero.sm .sp-hero-in,body.sp-read .sp-main>.wrap{max-width:min(9
 /* an italic capital leans back into the space before it; the left padding
    gives it room and keeps the gradient painted under the part that leans */
 .sp-hero.purple .sp-h1 em{background-image:linear-gradient(100deg,#9C9AFF 0%,#DAD9FF 38%,#9C9AFF 60%,#7FD0FF 100%)}
-html.js .sp-h1 .w{opacity:0;transform:translateY(.5em) rotate(2deg);
+html.js .sp-h1 .w{opacity:0;transform:translateY(.5em) rotate(2deg);filter:blur(10px);
   animation:spWord 1.05s var(--ease) forwards;animation-delay:calc(.1s + var(--wi) * 60ms)}
 html.js .sp-h1 em.w{animation:spWord 1.05s var(--ease) forwards,spShim 7s linear 2s infinite;
   animation-delay:calc(.1s + var(--wi) * 60ms),2s}
-@keyframes spWord{to{opacity:1;transform:none}}
+@keyframes spWord{to{opacity:1;transform:none;filter:none}}
 @keyframes spShim{to{background-position:-220% 0}}
 @keyframes spUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
@@ -975,6 +978,88 @@ html.lb-open{overflow:hidden}
   .sp-fan .f{opacity:1;animation:none;transform:translate(calc(-50% + var(--tx,0%)),var(--ty,0%)) rotate(var(--rot,0deg)) scale(var(--sc,1))}
   html.js .sp-main .cmp-wrap tbody tr{opacity:1}
   .rv{opacity:1;transform:none}
+}
+
+/* ══ premium layer (2026-10-18) ═══════════════════════════════════════════ */
+/* the hero's WebGL aurora (sub.js) fades in over the CSS lights, which stay
+   underneath as the fallback and soften once it is running */
+.sp-aurora{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.4s var(--ease)}
+.sp-aurora.on{opacity:1}
+.sp-aura i{transition:opacity 1.4s}
+.sp-aura:has(.sp-aurora.on) i{opacity:.35}
+.sp-fan-set{will-change:transform}
+
+/* Screenshots: rows the page is drifting must not snap back under it */
+.sp-main .showcase.drift{scroll-snap-type:none;scroll-behavior:auto}
+
+/* What's new: the reading line down the left of the page */
+.sp-timeline .sp-main .wrap{position:relative}
+.sp-tl{position:absolute;left:clamp(6px,1vw,14px);width:2px;border-radius:2px;
+  background:var(--line);pointer-events:none;display:none}
+.sp-tl-fill{position:absolute;inset:0;border-radius:2px;transform-origin:50% 0;transform:scaleY(0);
+  background:linear-gradient(180deg,#19D8A6,#2EDDB0 60%,#8AD8FF)}
+.sp-tl-dot{position:absolute;left:-6px;width:14px;height:14px;border-radius:50%;box-sizing:border-box;
+  background:var(--bg,#fff);border:2px solid var(--line);transition:border-color .4s,background .4s,box-shadow .6s,transform .5s var(--ease)}
+.sp-tl-dot.lit{border-color:#19D8A6;background:#19D8A6;transform:scale(1.15);
+  box-shadow:0 0 0 6px rgba(25,216,166,.16),0 0 22px rgba(25,216,166,.55)}
+@media (min-width:1100px){.sp-tl{display:block}.sp-timeline .sp-main .wrap{padding-left:clamp(56px,5.5vw,84px)}}
+.sp-main .dm-strip{margin:30px 0 8px}
+
+/* Compare: our column lights up row by row as the table arrives */
+html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
+  animation-delay:calc(var(--ri,0) * 55ms + 250ms)}
+@keyframes spUs{0%{box-shadow:inset 0 0 0 0 rgba(25,216,166,0)}
+  35%{background:color-mix(in srgb,var(--accent) 24%,var(--card));box-shadow:inset 3px 0 0 0 #19D8A6}
+  100%{box-shadow:inset 0 0 0 0 rgba(25,216,166,0)}}
+
+/* Compare: where your data goes */
+.sp-flow{display:grid;gap:14px;margin:24px 0 clamp(48px,8vh,84px)}
+.sp-flow .lane{border:1px solid var(--line);border-radius:22px;background:var(--card);padding:20px 26px 18px;
+  box-shadow:0 1px 2px rgba(12,31,54,.04),0 18px 44px -30px rgba(12,31,54,.28)}
+.sp-flow .lane.us{background:color-mix(in srgb,var(--accent) 7%,var(--card));border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+.sp-flow .lane-k{font:650 12px/1.3 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 16px}
+.sp-flow .us .lane-k{color:var(--accent-ink)}
+.sp-flow .row{display:flex;align-items:flex-start}
+.sp-flow .nd{flex:0 0 auto;width:136px;display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;
+  font:600 13.5px/1.25 var(--display);color:var(--ink);
+  opacity:0;transform:translateY(12px) scale(.94);transition:opacity .6s var(--ease),transform .7s var(--ease);
+  transition-delay:calc(var(--n) * 280ms)}
+.sp-flow .nd i{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(160deg,#6B7787,#465160);box-shadow:0 10px 22px -12px rgba(12,31,54,.6)}
+.sp-flow .us .nd i{background:linear-gradient(160deg,#2EDDB0,#12A27E);box-shadow:0 10px 24px -10px rgba(25,180,140,.65)}
+.sp-flow .nd svg{width:26px;height:26px}
+.sp-flow .pipe{flex:1 1 auto;position:relative;height:2px;margin:26px 4px 0;border-radius:2px;
+  background:rgba(110,124,140,.28);transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .55s var(--ease);transition-delay:calc(var(--n) * 280ms + 200ms)}
+.sp-flow .us .pipe{background:color-mix(in srgb,var(--accent) 40%,transparent)}
+.sp-flow .pipe b{position:absolute;top:-3px;left:0;width:8px;height:8px;border-radius:50%;background:#8A96A6;opacity:0;
+  animation:spDot 2.7s linear infinite paused;animation-delay:calc(var(--n) * .35s)}
+.sp-flow .pipe b:nth-child(2){animation-delay:calc(var(--n) * .35s + .9s)}
+.sp-flow .pipe b:nth-child(3){animation-delay:calc(var(--n) * .35s + 1.8s)}
+.sp-flow .us .pipe b{background:#19D8A6;box-shadow:0 0 10px rgba(25,216,166,.8)}
+.sp-flow .pipe.two b:nth-child(2){animation-direction:reverse}
+@keyframes spDot{0%{left:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:calc(100% - 8px);opacity:0}}
+.sp-flow.go .nd{opacity:1;transform:none}
+.sp-flow.go .pipe{transform:scaleX(1)}
+.sp-flow.go .pipe b{animation-play-state:running}
+.sp-flow .cap{margin:16px 0 0;font-size:14.5px;line-height:1.45;color:var(--mute)}
+.sp-flow .us .cap{color:var(--body)}
+@media (max-width:700px){
+  .sp-flow .lane{padding:18px 18px 16px}
+  .sp-flow .row{flex-direction:column;align-items:stretch}
+  .sp-flow .nd{width:auto;flex-direction:row;text-align:left;gap:14px}
+  .sp-flow .nd i{width:44px;height:44px;border-radius:14px}
+  .sp-flow .nd svg{width:22px;height:22px}
+  .sp-flow .pipe{flex:0 0 22px;width:2px;height:22px;margin:4px 0 4px 21px;transform:scaleY(0);transform-origin:50% 0}
+  .sp-flow.go .pipe{transform:scaleY(1)}
+  .sp-flow .pipe b{left:-3px;animation-name:spDotV}
+  @keyframes spDotV{0%{top:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:calc(100% - 8px);opacity:0}}
+}
+@media (prefers-reduced-motion:reduce){
+  .sp-flow .nd,.sp-flow .pipe{opacity:1;transform:none;transition:none}
+  .sp-flow .pipe b{display:none}
+  html.js .sp-main .cmp-wrap.in tbody td.us{animation:none}
+  html.js .sp-h1 .w{filter:none}
 }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I share finances with a partner or family?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, in three different shapes depending on who it is.\n\nA PARTNER shares fully and both ways: you both see and edit the same accounts, transactions, budgets and goals, and every shared transaction records who added it.\n\nFAMILY gets a read-only summary you control — net worth, income, goals, bills, trends, or only the categories you choose.\n\nFRIENDS see only the specific numbers you put in a scorecard, and nothing else.\n\nAll three run through your own iCloud, so nothing passes through us. Open the sidebar → Family & Sharing to start. Anything you keep private is removed from their device on the next sync rather than simply going stale, and business money is never shared at all."}}, {"@type": "Question", "name": "What's the difference between sharing with a partner, family and friends?", "acceptedAnswer": {"@type": "Answer", "text": "A partner gets full two-way access: you both see and edit the same accounts, transactions, budgets and goals. Family gets a read-only summary you control. Friends see only the specific numbers you choose to put in a scorecard. They're separate, and joining one doesn't join you to the others."}}, {"@type": "Question", "name": "How do I start sharing with my partner?", "acceptedAnswer": {"@type": "Answer", "text": "Open the sidebar → Family & Sharing, and send an invitation. They accept on their device and the two of you are joined through your own iCloud — there is no account on our side and nothing passes through our servers."}}, {"@type": "Question", "name": "Can I keep some things private from my partner?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Any category, account, bill, investment account, mortgage, retirement plan, goal or single transaction can be kept private. Making something private also removes the copy already on their device on the next sync — it doesn't merely stop updating it."}}, {"@type": "Question", "name": "Does my partner see the years I tracked before we shared?", "acceptedAnswer": {"@type": "Answer", "text": "Only if you hand it over. Your earlier history stays yours by default, and there's a switch to share it — useful when one of you is new to the app and the other has years of it. A month they already have is never counted twice."}}, {"@type": "Question", "name": "How do we combine two sets of finances?", "acceptedAnswer": {"@type": "Answer", "text": "Combine Finances walks it once: choose which accounts belong to the household, and for any category you both tracked, choose which budget to keep. It's a single pass rather than a merge that guesses."}}, {"@type": "Question", "name": "Can we see who spent what?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every shared transaction shows who added it, and the month's spending splits into a column for each of you plus one for shared household spending — rather than one lump you have to untangle."}}, {"@type": "Question", "name": "Which categories count as household?", "acceptedAnswer": {"@type": "Answer", "text": "Rent, utilities, groceries, insurance and the like start out as shared, because they usually are. Everything else starts personal, and any category or single transaction can be changed at any time."}}, {"@type": "Question", "name": "Can we tell each other apart at a glance?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — each of you gets a color and a picture, and they follow you onto every screen: the split bar, the activity feed and the notes board. Colors and pictures are set on your own device."}}, {"@type": "Question", "name": "What happens if we stop sharing?", "acceptedAnswer": {"@type": "Answer", "text": "The shared copy is removed from their device. Anything you entered stays yours, and anything they entered stays theirs — neither of you is left holding half of the other's ledger."}}, {"@type": "Question", "name": "Is business money shared with my household?", "acceptedAnswer": {"@type": "Answer", "text": "No, and it is enforced rather than assumed. Business transactions, business accounts and business clients are excluded from everything a household partner receives — not sent and then hidden, never sent.\n\nThat holds the other way too: a partner's household view cannot reveal what a client paid you or what a job cost.\n\nIf something is genuinely both — a phone bill that is half work — split it by percentage. Only the personal share reaches the household side, and only the business share reaches the Schedule C figure."}}]}</script>
@@ -1483,6 +1568,159 @@ html.lb-open{overflow:hidden}
     } else { done = true; draw(); }
     var rt = 0;
     addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (done) draw(); }, 120); });
+  }
+
+  // ══ PREMIUM LAYER (2026-10-18) ═══════════════════════════════════════
+  // ── the hero's aurora: the home page's WebGL sky behind every page's
+  // headline. The CSS lights stay underneath as the fallback (no WebGL,
+  // reduced motion still gets one still frame). It only draws while the
+  // hero is on screen and the tab is visible, at half resolution.
+  var heroEl = $('.sp-hero'), aura = heroEl && $('.sp-aura', heroEl);
+  if (aura) (function () {
+    var cv = D.createElement('canvas'); cv.className = 'sp-aurora'; cv.setAttribute('aria-hidden', 'true');
+    var gl = cv.getContext('webgl', { antialias: false, alpha: false, depth: false, powerPreference: 'low-power' });
+    if (!gl) return;
+    var purple = heroEl.classList.contains('purple') ? 1 : 0;
+    var FS = [
+      'precision mediump float;uniform vec2 R;uniform float T;uniform vec2 M;uniform float P;',
+      'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
+      'float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);',
+      ' return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}',
+      'float fbm(vec2 p){float v=0.,a=.5;mat2 r=mat2(.8,.6,-.6,.8);for(int i=0;i<5;i++){v+=a*n(p);p=r*p*2.03;a*=.5;}return v;}',
+      'void main(){vec2 uv=gl_FragCoord.xy/R;vec2 p=(gl_FragCoord.xy-.5*R)/R.y;float t=T*.05;',
+      ' vec2 q=vec2(fbm(p*1.2+vec2(0.,t)),fbm(p*1.2+vec2(5.2,1.3)-t*.8));',
+      ' float f=fbm(p*1.5+q*1.9+vec2(t*.5,-t*.25));',
+      ' float rib=smoothstep(.42,.95,f)*(.5+.5*sin(p.x*2.6+t*1.6+q.y*5.));',
+      ' vec3 g1=mix(vec3(.18,.86,.68),vec3(.49,.48,1.),P),g2=mix(vec3(.45,.76,.98),vec3(.55,.80,1.),P);',
+      ' vec3 col=vec3(.047,.122,.2);',
+      ' col=mix(col,vec3(.09,.23,.42),smoothstep(.25,.85,q.x)*.6*(uv.y*.8+.2));',
+      ' col=mix(col,mix(vec3(.07,.36,.4),vec3(.2,.2,.45),P),smoothstep(.5,.92,f)*.5);',
+      ' col+=mix(g1,g2,uv.x)*rib*.2*(.55+uv.y*.45);',
+      ' vec2 m=vec2(M.x*R.x/R.y*.5,-M.y*.5);',
+      ' col+=g1*.07*exp(-3.*length(p-m));',
+      ' col*=1.-.38*pow(length((uv-.5)*vec2(1.,1.15))*1.3,2.4);',
+      ' col=mix(col,vec3(.047,.122,.2),smoothstep(.22,0.,uv.y));',
+      ' gl_FragColor=vec4(col,1.);}'
+    ].join('\n');
+    function sh(type, src) { var x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x);
+      return gl.getShaderParameter(x, gl.COMPILE_STATUS) ? x : null; }
+    var vs = sh(gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'), fs = sh(gl.FRAGMENT_SHADER, FS);
+    if (!vs || !fs) return;
+    var pr = gl.createProgram(); gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var uR = gl.getUniformLocation(pr, 'R'), uT = gl.getUniformLocation(pr, 'T'),
+        uM = gl.getUniformLocation(pr, 'M'), uP = gl.getUniformLocation(pr, 'P');
+    aura.insertBefore(cv, aura.firstChild);
+    var scale = innerWidth < 700 ? .38 : .5, mx = 0, my = 0, tx = 0, ty = 0, on = true, raf = 0, T0 = performance.now(), last = T0;
+    function size() {
+      var w = Math.max(2, Math.round(cv.clientWidth * scale)), h = Math.max(2, Math.round(cv.clientHeight * scale));
+      if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; gl.viewport(0, 0, w, h); }
+    }
+    function draw(t) {
+      raf = 0; var dt = Math.min(.1, (t - last) / 1000); last = t;
+      mx += (tx - mx) * Math.min(1, dt * 3); my += (ty - my) * Math.min(1, dt * 3);
+      size();
+      gl.uniform2f(uR, cv.width, cv.height); gl.uniform1f(uT, RM ? 12 : (t - T0) / 1000);
+      gl.uniform2f(uM, mx, my); gl.uniform1f(uP, purple);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (!RM && on && !D.hidden) raf = requestAnimationFrame(draw);
+    }
+    function go() { if (!raf) raf = requestAnimationFrame(draw); }
+    if (FINE) heroEl.addEventListener('pointermove', function (e) {
+      var r = heroEl.getBoundingClientRect();
+      tx = (e.clientX - r.left) / r.width * 2 - 1; ty = (e.clientY - r.top) / r.height * 2 - 1;
+    }, { passive: true });
+    if (IO) new IntersectionObserver(function (es) { on = es[0].isIntersecting; if (on) go(); }).observe(heroEl);
+    D.addEventListener('visibilitychange', function () { if (!D.hidden) go(); });
+    addEventListener('resize', go);
+    requestAnimationFrame(function () { cv.classList.add('on'); go(); });
+  })();
+
+  // ── the hero's screens lean toward the pointer ─────────────────────────
+  if (fan && FINE && !RM) (function () {
+    var sets = $$('.sp-fan-set', fan), rx = 0, ry = 0, ax = 0, ay = 0, raf = 0;
+    function step() {
+      raf = 0; ax += (rx - ax) * .08; ay += (ry - ay) * .08;
+      var tf = 'perspective(1400px) rotateX(' + ax.toFixed(2) + 'deg) rotateY(' + ay.toFixed(2) + 'deg)';
+      sets.forEach(function (s) { s.style.transform = tf; });
+      if (Math.abs(rx - ax) + Math.abs(ry - ay) > .01) raf = requestAnimationFrame(step);
+    }
+    addEventListener('pointermove', function (e) {
+      ry = (e.clientX / innerWidth - .5) * 9; rx = -(e.clientY / innerHeight - .5) * 6;
+      if (!raf) raf = requestAnimationFrame(step);
+    }, { passive: true });
+  })();
+
+  // ── Screenshots: each row drifts sideways as the page scrolls past it,
+  // until the reader takes it over (drag, wheel, touch, keys). Fine
+  // pointers only: on a phone the thumb owns the row.
+  var drifts = B.classList.contains('sp-gallery') && FINE && !RM ? $$('.sp-main .showcase') : [];
+  if (drifts.length) (function () {
+    var rows = drifts.map(function (el, i) {
+      var r = { el: el, dir: i % 2 ? -1 : 1, mine: false };
+      el.classList.add('drift');
+      ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+        el.addEventListener(ev, function (e) { if (ev !== 'wheel' || Math.abs(e.deltaX) > Math.abs(e.deltaY)) { r.mine = true; el.classList.remove('drift'); } }, { passive: true });
+      });
+      return r;
+    });
+    var tk = false;
+    function f() {
+      tk = false; var vh = innerHeight;
+      rows.forEach(function (r) {
+        if (r.mine || r.el.offsetParent === null) return;
+        var max = r.el.scrollWidth - r.el.clientWidth; if (max < 8) return;
+        var b = r.el.getBoundingClientRect(); if (b.bottom < 0 || b.top > vh) return;
+        var p = Math.min(1, Math.max(0, (vh - b.top) / (vh + b.height)));
+        r.el.scrollLeft = (r.dir > 0 ? p : 1 - p) * max;
+      });
+    }
+    addEventListener('scroll', function () { if (!tk) { tk = true; requestAnimationFrame(f); } }, { passive: true });
+    f();
+  })();
+
+  // ── What's new: a line runs down the side of the page as you read, and
+  // each numbered section's dot lights as the line reaches it ──────────────
+  var tl = B.classList.contains('sp-timeline') && $('.sp-main .wrap');
+  if (tl) (function () {
+    var rail = D.createElement('div'); rail.className = 'sp-tl'; rail.setAttribute('aria-hidden', 'true');
+    rail.innerHTML = '<i class="sp-tl-fill"></i>';
+    tl.appendChild(rail);
+    var fill = $('.sp-tl-fill', rail), nums = $$('.sp-sec-n', tl), dots = [];
+    nums.forEach(function (n) { var d = D.createElement('b'); d.className = 'sp-tl-dot'; rail.appendChild(d); dots.push(d); });
+    var top0 = 0, h = 0, tk = false;
+    function lay() {
+      var wr = tl.getBoundingClientRect(), first = nums[0] ? nums[0].getBoundingClientRect().top - wr.top : 0;
+      top0 = first; h = Math.max(1, wr.height - first - 40);
+      rail.style.top = first + 'px'; rail.style.height = h + 'px';
+      nums.forEach(function (n, i) { dots[i].style.top = (n.getBoundingClientRect().top - wr.top - first + 8) + 'px'; });
+      f();
+    }
+    function f() {
+      tk = false;
+      var wr = tl.getBoundingClientRect(), y = innerHeight * .55 - wr.top - top0;
+      var p = RM ? 1 : Math.min(1, Math.max(0, y / h));
+      fill.style.transform = 'scaleY(' + p.toFixed(4) + ')';
+      dots.forEach(function (d) { d.classList.toggle('lit', RM || parseFloat(d.style.top) <= y); });
+    }
+    addEventListener('scroll', function () { if (!tk) { tk = true; requestAnimationFrame(f); } }, { passive: true });
+    addEventListener('resize', lay); addEventListener('load', lay);
+    lay(); setTimeout(lay, 1200);
+  })();
+
+  // ── Compare: the "where your data goes" picture plays once it is seen ──
+  var flow = $('.sp-flow');
+  if (flow) {
+    if (IO && !RM) {
+      var fio = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { flow.classList.add('go'); fio.disconnect(); }
+      }, { rootMargin: '0px 0px -20% 0px' });
+      fio.observe(flow);
+    } else flow.classList.add('go');
   }
 })();
 </script>
