@@ -187,6 +187,134 @@
 "w": 1280,
 "h": 741
 },
+"tour_c30_affordability": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_affordability_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_auto": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_auto_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_biweekly": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_biweekly_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_creditcard": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_creditcard_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_debtpayoff": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_debtpayoff_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_emergency": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_emergency_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_fire": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_fire_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_mortgage": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_mortgage_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_paycheck": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_paycheck_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_refinance": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_refinance_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_rentvsbuy": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_rentvsbuy_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_retirement": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_retirement_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_rothvstrad": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_rothvstrad_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_savingsgoal": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_savingsgoal_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_studentloan": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_studentloan_ipad": {
+"w": 900,
+"h": 1200
+},
+"tour_c30_tax": {
+"w": 620,
+"h": 1348
+},
+"tour_c30_tax_ipad": {
+"w": 900,
+"h": 1200
+},
 "tour_calc_rentbuy": {
 "w": 620,
 "h": 1348
