@@ -1210,6 +1210,23 @@ html.js .sp-main .cmp-wrap.in tbody td.us{animation:spUs 1.6s var(--ease) both;
 .dm-duo-k b{color:var(--ink);font-weight:650}
 .dm-duo .dm-card.ipad .dm-dev{max-width:none}
 @media (max-width:820px){.dm-duo{grid-template-columns:1fr;max-width:560px}.dm-duo .dm-card.ipad .dm-dev{max-width:330px}}
+/* home: Set up in minutes (light) */
+.lp-setup{padding:clamp(80px,12vh,140px) 0 clamp(70px,10vh,120px);content-visibility:auto;contain-intrinsic-size:auto 1500px}
+.lp-setup .lp-head{text-align:center}
+.su-row{grid-template-columns:repeat(3,minmax(0,1fr));max-width:1000px}
+.su-row .dm-dev{max-width:270px}
+.su-n{display:inline-grid;place-items:center;width:26px;height:26px;margin:0 auto 10px;border-radius:50%;
+  font:700 13px/1 var(--display,inherit);font-style:normal;color:#fff;background:linear-gradient(135deg,#19D8A6,#0A8F6C);
+  box-shadow:0 6px 14px -6px rgba(10,143,108,.6)}
+.su-row figcaption{text-align:center;max-width:280px}
+.su-mac{margin:clamp(64px,10vh,110px) auto 0;padding:0 var(--gut,24px);max-width:900px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.su-mac-dev{position:relative;width:100%;aspect-ratio:4220/2577}
+.su-mac .dm-scr img{display:block;width:100%;height:100%;object-fit:cover}
+.su-mac .dm-mbp{z-index:1}
+.su-mac figcaption{text-align:center}
+.su-mac figcaption b{display:block;font:650 17px/1.25 var(--display,inherit);color:var(--ink);letter-spacing:-.01em}
+.su-mac figcaption span{display:block;margin-top:5px;font-size:14.5px;line-height:1.45;color:var(--mute)}
+@media (max-width:820px){.su-row{display:flex}.lp-setup{contain-intrinsic-size:auto 1400px}}
 /* hero: portrait iPads and Apple-framed MacBooks in the fan */
 .sp-tab.dm-tabp{--tw:clamp(190px,22vw,330px);aspect-ratio:2155/2816}
 .sp-mbp{width:clamp(300px,52vw,780px);aspect-ratio:4220/2577}
