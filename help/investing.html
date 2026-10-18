@@ -688,16 +688,21 @@ body.sp{--hang:clamp(70px,10vw,170px)}
   animation:spFan 1.3s var(--ease) forwards;animation-delay:calc(.35s + var(--k,0) * 90ms)}
 @keyframes spFan{to{opacity:1;transform:translate(calc(-50% + var(--tx,0%)),var(--ty,0%)) rotate(var(--rot,0deg)) scale(var(--sc,1))}}
 /* a phone: a bezel drawn in CSS around the raw capture */
-.sp-phone{--pw:clamp(150px,17vw,250px);box-sizing:border-box;width:var(--pw);aspect-ratio:1350/2760;
-  /* iPhone 17 Pro proportions (Apple bezel art 1350x2760, screen 1206x2622) */
-  border:calc(var(--pw)*.012) solid transparent;padding:calc(var(--pw)*.041);border-radius:calc(var(--pw)*.176);
+.sp-phone{--pw:clamp(150px,17vw,250px);box-sizing:border-box;width:var(--pw);aspect-ratio:1000/2104;
+  /* iPhone 17 Pro, measured: 1.15 mm black bezel inside a thin metal rim */
+  border:calc(var(--pw)*.011) solid transparent;padding:calc(var(--pw)*.019);border-radius:calc(var(--pw)*.172);
   background:linear-gradient(#050607,#050607) padding-box,
     linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 40px 70px -30px rgba(0,0,0,.75)}
-.sp-phone img{display:block;width:100%;height:100%;object-fit:cover;border-radius:calc(var(--pw)*.122)}
-.sp-tab{width:clamp(240px,34vw,500px);aspect-ratio:1400/1050;padding:2%;border-radius:5.2%/7%;
-  background:#0B1016;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 40px 70px -30px rgba(0,0,0,.75)}
-.sp-tab img{display:block;width:100%;height:100%;object-fit:cover;border-radius:3.4%/4.6%}
+.sp-phone img{display:block;width:100%;height:100%;object-fit:cover;border-radius:calc(var(--pw)*.146)}
+.sp-tab{--tw:clamp(240px,34vw,500px);width:var(--tw);box-sizing:border-box;aspect-ratio:2816/2155;
+  /* iPad Pro 13", measured: 281.6 x 215.5 mm body, 264.8 x 198.6 mm screen — an even
+     8.4 mm border (thin metal rim + black bezel), screen corners ~4.8 mm. */
+  border:calc(var(--tw)*.0036) solid transparent;padding:calc(var(--tw)*.0262);border-radius:calc(var(--tw)*.0468);
+  background:linear-gradient(#050607,#050607) padding-box,
+    linear-gradient(150deg,#A3A9B0 0%,#3D4248 16%,#26292D 38%,#646A71 52%,#26292D 68%,#454A50 86%,#9DA3AA 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 40px 70px -30px rgba(0,0,0,.75)}
+.sp-tab img{display:block;width:100%;height:100%;object-fit:cover;border-radius:calc(var(--tw)*.0169)}
 .sp-win{width:clamp(300px,52vw,780px);aspect-ratio:1800/1066;filter:none}
 .sp-win img{display:block;width:100%;height:auto;border-radius:1.2%;box-shadow:0 40px 80px -34px rgba(0,0,0,.8)}
 .sp-fan .f1{--k:0;z-index:5}
@@ -716,7 +721,7 @@ body.sp-overlap .sp-main{padding-top:calc(var(--hang) + 34px + clamp(28px,5vh,56
   .sp-fan .f4,.sp-fan .f5{display:none}
   .sp-phone{--pw:clamp(130px,36vw,190px)}
   .sp-fan .sp-phone.f2{--tx:-58%}.sp-fan .sp-phone.f3{--tx:58%}
-  .sp-tab{width:min(66vw,340px)}
+  .sp-tab{--tw:min(66vw,340px)}
   .sp-win{width:min(88vw,520px)}
   .sp-fan{height:clamp(260px,78vw,420px)}
 }
