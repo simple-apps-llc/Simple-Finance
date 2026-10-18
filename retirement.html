@@ -989,8 +989,6 @@ html.lb-open{overflow:hidden}
 .sp-aura:has(.sp-aurora.on) i{opacity:.35}
 .sp-fan-set{will-change:transform}
 
-/* Screenshots: rows the page is drifting must not snap back under it */
-.sp-main .showcase.drift{scroll-snap-type:none;scroll-behavior:auto}
 
 /* What's new: the reading line down the left of the page */
 .sp-timeline .sp-main .wrap{position:relative}
@@ -1702,34 +1700,6 @@ compare the scenarios on one chart.</p>
       ry = (e.clientX / innerWidth - .5) * 9; rx = -(e.clientY / innerHeight - .5) * 6;
       if (!raf) raf = requestAnimationFrame(step);
     }, { passive: true });
-  })();
-
-  // ── Screenshots: each row drifts sideways as the page scrolls past it,
-  // until the reader takes it over (drag, wheel, touch, keys). Fine
-  // pointers only: on a phone the thumb owns the row.
-  var drifts = B.classList.contains('sp-gallery') && FINE && !RM ? $$('.sp-main .showcase') : [];
-  if (drifts.length) (function () {
-    var rows = drifts.map(function (el, i) {
-      var r = { el: el, dir: i % 2 ? -1 : 1, mine: false };
-      el.classList.add('drift');
-      ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(function (ev) {
-        el.addEventListener(ev, function (e) { if (ev !== 'wheel' || Math.abs(e.deltaX) > Math.abs(e.deltaY)) { r.mine = true; el.classList.remove('drift'); } }, { passive: true });
-      });
-      return r;
-    });
-    var tk = false;
-    function f() {
-      tk = false; var vh = innerHeight;
-      rows.forEach(function (r) {
-        if (r.mine || r.el.offsetParent === null) return;
-        var max = r.el.scrollWidth - r.el.clientWidth; if (max < 8) return;
-        var b = r.el.getBoundingClientRect(); if (b.bottom < 0 || b.top > vh) return;
-        var p = Math.min(1, Math.max(0, (vh - b.top) / (vh + b.height)));
-        r.el.scrollLeft = (r.dir > 0 ? p : 1 - p) * max;
-      });
-    }
-    addEventListener('scroll', function () { if (!tk) { tk = true; requestAnimationFrame(f); } }, { passive: true });
-    f();
   })();
 
   // ── What's new: a line runs down the side of the page as you read, and

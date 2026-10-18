@@ -2312,6 +2312,35 @@ they&rsquo;re the better app for you.</span>
       scrollTo({ top: y, behavior: RM ? 'auto' : 'smooth' });
     });
   });
+  // Trackpads and wheels: one gesture, one chapter. Phones stop at each
+  // chapter through CSS snaps (landing.css), but a wheel can't use them, and
+  // a hard trackpad flick used to run through two or three chapters at once.
+  // While the scene is pinned, a flick or a burst of wheel notches moves to
+  // the next chapter and the rest of that gesture is held; at the first or
+  // last chapter the page scrolls on as normal. Aaron, 2026-10-18.
+  if (chap && !RM && matchMedia('(hover: hover) and (pointer: fine)').matches) (function () {
+    var lastAt = 0, lastAbs = 0, stepAt = 0, used = false;
+    addEventListener('wheel', function (e) {
+      if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      var r = chap.getBoundingClientRect(), span = r.height - vh, n = chT.length;
+      if (!n || span <= 0 || r.top > 1 || r.bottom < vh - 1) return;
+      var now = performance.now(), abs = Math.abs(e.deltaY);
+      // a new gesture: a pause in the stream, or a fresh swipe on top of a
+      // dying momentum tail
+      var fresh = now - lastAt > 180 || (abs > lastAbs * 1.8 && abs > 14 && now - stepAt > 380);
+      lastAt = now; lastAbs = abs;
+      var f = clamp(-r.top / span, 0, 1) * n, i = clamp(Math.floor(f), 0, n - 1), dir = e.deltaY > 0 ? 1 : -1;
+      if (dir > 0 && f >= n - .52) return;
+      if (dir < 0 && f <= .52) return;
+      e.preventDefault();
+      if (fresh) used = false;
+      if (used || abs < 2) return;
+      used = true; stepAt = now;
+      var t = dir > 0 ? (f < i + .45 ? i : i + 1) : (f > i + .55 ? i : i - 1);
+      t = clamp(t, 0, n - 1);
+      scrollTo({ top: scrollY + r.top + span * ((t + .5) / n), behavior: 'smooth' });
+    }, { passive: false });
+  })();
   // Arrow keys step through the chapters while focus is on the rail — the
   // same as clicking the next segment.
   if (chap) chap.addEventListener('keydown', function (e) {
